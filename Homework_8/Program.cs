@@ -24,6 +24,7 @@ namespace Homework_8
             com.EditDepName(1, "ДЕПАРТАМЕНТ");
             com.EditDepDate(1, "1.1.1000");
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
+
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_1", 15, com.deps[0].depName, 20000, 1));
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_2", 15, com.deps[0].depName, 20000, 1));
@@ -45,7 +46,7 @@ namespace Homework_8
             com.PrintCompanyStaff();
 
             com.deps[1].ChangeDep(0, com.deps[0]);
-
+            com.deps[1].ChangeStaffName(0, "asdasdsd");
             com.deps[0].PrintDepContent();
             com.deps[1].PrintDepContent();
 

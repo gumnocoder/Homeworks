@@ -144,7 +144,7 @@ namespace Homework_8
         /// <returns></returns>
         public bool CheckPos(int pos)
         {
-            if (pos > 0 & pos < this.staff.Count) return true;
+            if (pos > -1 & pos < this.staff.Count) return true;
             else return false;
         }
 
