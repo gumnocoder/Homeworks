@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Homework_8
 {
-    class Depatments
+    struct Depatments
     {
+
     }
 }
