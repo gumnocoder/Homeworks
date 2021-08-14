@@ -79,6 +79,36 @@ namespace Homework_8
             else Errors(1);
         }
 
+        public void ChangeDep(int pos, Depatments otherDep)
+        {
+            if (otherDep.checkCapacity())
+            {
+                Staff s = this.staff[pos];
+                s.Department = otherDep.DepName;
+                this.staff[pos] = s;
+                otherDep.AddStaff(this.staff[pos]);
+                this.RemoveStaff(pos);
+            }
+            else Errors(3);
+        }
+
+        public void AllChangeDep(Depatments otherDep)
+        {
+            if (otherDep.checkCapacity())
+            {
+                int a = this.staff.Count;
+                for (int i = 0; i < a; i++)
+                {
+                    Staff s = this.staff[0];
+                    s.Department = otherDep.DepName;
+                    this.staff[0] = s;
+                    otherDep.AddStaff(this.staff[0]);
+                    this.RemoveStaff(0);
+                }
+            }
+            else Errors(3);
+        }
+
         /// <summary>
         /// вывод ошибок на консоль
         /// </summary>
@@ -95,6 +125,9 @@ namespace Homework_8
                     break;
                 case 2:
                     Console.WriteLine("\nВ департаменте нет работников!\n");
+                    break;
+                case 3:
+                    Console.WriteLine("\nНет места для перевода в данный департамент, выберите другой.\n");
                     break;
             }
         }

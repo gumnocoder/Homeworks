@@ -6,6 +6,7 @@ namespace Homework_8
 {
     struct Company
     {
+
         #region ПОЛЯ и СВОЙСТВА
 
         /// <summary>
@@ -80,6 +81,22 @@ namespace Homework_8
         {
             this.deps.Add(newDep);
         }
+
+        public void Error()
+        {
+            Console.WriteLine("Невозможно удалить департамент, пока в нём числятся сотрудники!" +
+                "\nпереведите их в другой отдел перед удалением.");
+        }
+
+        public void RemoveDep(int pos)
+        {
+            if (this.deps[pos].staff.Count == 0)
+            {
+                this.deps.RemoveAt(pos);
+            }
+            else Error();
+        }
+
 
         #endregion
 

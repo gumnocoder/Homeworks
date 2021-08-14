@@ -79,7 +79,7 @@ namespace Homework_8
         /// <summary>
         /// уникальный номер
         /// </summary>
-        private int Number 
+        public int Number 
         { 
             get { return this.number; } 
             // set { this.number = value; } 
@@ -142,6 +142,11 @@ namespace Homework_8
                 $"{this.projectsCount,10}";
         }
 
+        public void ChangeDep()
+        {
+            Department = "111111";
+        }
+
         public bool CheckNumFile()
         {
             
@@ -173,14 +178,20 @@ namespace Homework_8
             File.WriteAllText(source, nextNum.ToString());
         }
 
+        public int CheckNumber(int input)
+        {
+            int a = Count();
+            if (input > a) return input;
+            else return a + 1;
+        }
+
         #endregion
 
         #region КОНСТРУКТОР
 
         /// <summary>
-        /// конструктов 7 атрибутов
+        /// конструктов 6 атрибутов
         /// </summary>
-        /// <param name="Number">уникальный номер</param>
         /// <param name="FirstName">имя</param>
         /// <param name="LastName">фамилия</param>
         /// <param name="Age">возраст</param>
