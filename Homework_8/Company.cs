@@ -118,6 +118,17 @@ namespace Homework_8
         }
 
         /// <summary>
+        /// проверяет валидность ввода даты
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public bool CheckDate(string date)
+        {
+            if (DateTime.TryParse(date, out DateTime tmp)) return true;
+            else return false;
+        }
+
+        /// <summary>
         /// ползволяет отредактировать название департамента
         /// </summary>
         /// <param name="pos">индекс</param>
@@ -126,8 +137,27 @@ namespace Homework_8
         {
             if (CheckPos(pos))
             {
+                /// создаём переменную для хранения экземпляра
+                /// так как в коллекции находится только копия
+                /// и её свойствам не удастся присвоить новые значения
                 Depatments d = this.deps[pos];
-                d.depName = newName;
+                /// меняем имя
+                d.DepName = newName;
+                this.deps[pos] = d;
+            }
+        }
+
+        /// <summary>
+        /// позволяет оредактировать дату создания департамента
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="newDate"></param>
+        public void EditDepDate(int pos, string newDate)
+        {
+            if (CheckPos(pos) & CheckDate(newDate))
+            {
+                Depatments d = this.deps[pos];
+                d.CreationDate = DateTime.Parse(newDate);
                 this.deps[pos] = d;
             }
         }

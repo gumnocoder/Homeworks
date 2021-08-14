@@ -22,6 +22,7 @@ namespace Homework_8
 
             com.AddDep(dep);
             com.EditDepName(1, "ДЕПАРТАМЕНТ");
+            com.EditDepDate(1, "1.1.1000");
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_1", 15, com.deps[0].depName, 20000, 1));
