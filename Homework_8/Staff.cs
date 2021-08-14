@@ -142,11 +142,10 @@ namespace Homework_8
                 $"{this.projectsCount,10}";
         }
 
-        public void ChangeDep()
-        {
-            Department = "111111";
-        }
-
+        /// <summary>
+        /// проверяет наличие файла содержащего текущий номер-идентификатор
+        /// </summary>
+        /// <returns></returns>
         public bool CheckNumFile()
         {
             
@@ -154,35 +153,45 @@ namespace Homework_8
             else return false;
         }
 
+        /// <summary>
+        /// парсит файл с номером-идентификатором
+        /// </summary>
+        /// <returns></returns>
         public int ParseFile()
         {
             string tmp = File.ReadAllText(source);
             return int.Parse(tmp);
         }
+
+        /// <summary>
+        /// запускает цепочку для возврата нового номера идентификатора
+        /// </summary>
+        /// <returns></returns>
         public int Count() 
         {
+            /// если файла нет
             if (CheckNumFile())
             {
+                /// создает
                 createNumFile();
+                ///записывает туда 1
                 numFileFillFirst();
                 return 1;
-            }  
+            }
+            ///если файл есть
             else
             {
                 return ParseFile();
             }
         }
 
+        /// <summary>
+        /// записывает новые данные в файл
+        /// </summary>
+        /// <param name="nextNum"></param>
         public void WriteNewNum(int nextNum)
         {
             File.WriteAllText(source, nextNum.ToString());
-        }
-
-        public int CheckNumber(int input)
-        {
-            int a = Count();
-            if (input > a) return input;
-            else return a + 1;
         }
 
         #endregion

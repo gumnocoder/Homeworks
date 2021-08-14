@@ -82,16 +82,25 @@ namespace Homework_8
             this.deps.Add(newDep);
         }
 
+        /// <summary>
+        /// вывод ошибки при удалении непустого департамента
+        /// </summary>
         public void Error()
         {
             Console.WriteLine("Невозможно удалить департамент, пока в нём числятся сотрудники!" +
                 "\nпереведите их в другой отдел перед удалением.");
         }
 
+        /// <summary>
+        ///  метод удаления департамента
+        /// </summary>
+        /// <param name="pos"></param>
         public void RemoveDep(int pos)
         {
+            /// если департамент пуст
             if (this.deps[pos].staff.Count == 0)
             {
+                /// удаляем
                 this.deps.RemoveAt(pos);
             }
             else Error();

@@ -22,7 +22,6 @@ namespace Homework_8
 
             com.AddDep(dep);
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
-            com.deps[0].staff[0].ChangeDep();
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_1", 15, com.deps[0].depName, 20000, 1));
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_2", 15, com.deps[0].depName, 20000, 1));

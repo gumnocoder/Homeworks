@@ -69,31 +69,59 @@ namespace Homework_8
             else Errors(0);
         }
 
+        /// <summary>
+        /// удаляет сотрудника
+        /// </summary>
+        /// <param name="pos">по указанному индексу</param>
         public void RemoveStaff(int pos)
         {
+            /// если индекс доступен
             if (pos > -1 & pos < this.staff.Count + 1)
             {
+                /// если список не пуст - удаляет сотрудника из коллекции
                 if (this.staff.Count != 0) this.staff.RemoveAt(pos);
                 else Errors(2);
             }
             else Errors(1);
         }
 
+        /// <summary>
+        /// смена департамента одним сотрудником
+        /// </summary>
+        /// <param name="pos">индекс сотрудника в коллекции</param>
+        /// <param name="otherDep">конечный департамент</param>
         public void ChangeDep(int pos, Depatments otherDep)
         {
-            if (otherDep.checkCapacity())
+            /// если индекс доступен
+            if (pos > -1 & pos < this.staff.Count)
             {
-                Staff s = this.staff[pos];
-                s.Department = otherDep.DepName;
-                this.staff[pos] = s;
-                otherDep.AddStaff(this.staff[pos]);
-                this.RemoveStaff(pos);
+                /// если есть место в конечном департаменте
+                if (otherDep.checkCapacity())
+                {
+                    /// создаём переменную для хранения экземпляра
+                    /// так как в колеекции находится только копия
+                    /// и её свойствам не удастся присвоить новые значения
+                    Staff s = this.staff[pos];
+                    /// меняем принадлежность к департаменту
+                    s.Department = otherDep.DepName;
+                    /// меняем элемент коллекции -> добавляем в 
+                    /// кол. другого деп. -> удаляем ненужное
+                    this.staff[pos] = s;
+                    otherDep.AddStaff(this.staff[pos]);
+                    this.RemoveStaff(pos);
+                }
+                else Errors(3);
             }
-            else Errors(3);
+            else Errors(1);
         }
 
+        /// <summary>
+        /// перемещение всех сотрудников в другой департамент
+        /// </summary>
+        /// <param name="otherDep">конечный департамент</param>
         public void AllChangeDep(Depatments otherDep)
         {
+            /// по аналогии с методом ChangeDep()
             if (otherDep.checkCapacity())
             {
                 int a = this.staff.Count;
