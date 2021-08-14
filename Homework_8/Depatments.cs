@@ -8,7 +8,6 @@ namespace Homework_8
     {
         public string depName;
         public DateTime creationDate;
-        public int staffCount;
 
         public string DepName { get { return this.depName; } set {this.depName = value; } }
         public DateTime CreationDate { get {return this.creationDate ; } set {this.creationDate = value; } }
@@ -20,17 +19,27 @@ namespace Homework_8
             this.staff = new List<Staff>();
             this.depName = DepName;
             this.creationDate = CreationDate;
-            this.staffCount = 0;
         }
 
         public void AddStaff(Staff newStaff)
         {
             this.staff.Add(newStaff);
-            this.staffCount++;
         }
         public string Print()
         {
-            return $"{this.depName,10} {this.creationDate,10} {this.staffCount,5}";
+            return $"{this.depName,10} {this.creationDate,10} {this.staff.Count, 5}";
+        }
+
+        public void PrintDepContent()
+        {
+            Console.WriteLine($"{"ID", 10} " +
+                $"{"Имя", 15} " +
+                $"{"Фамилия", 15} " +
+                $"{"Возраст",10} " +
+                $"{"Отдел", 15} " +
+                $"{"Зарплата",15} " +
+                $"{"Проекты", 10}");
+            foreach (var staff in this.staff) Console.WriteLine(staff.Print());
         }
     }
 }

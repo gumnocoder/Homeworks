@@ -133,13 +133,13 @@ namespace Homework_8
         public string Print()
         {
             return $"" +
-                $"{this.number, 5} " +
-                $"{this.firstName, 10} " +
-                $"{this.lastName, 10} " +
-                $"{this.age, 5} " +
+                $"{this.number,10} " +
+                $"{this.firstName, 15} " +
+                $"{this.lastName, 15} " +
+                $"{this.age,10} " +
                 $"{this.department, 15} " +
-                $"{this.salary, 10} " +
-                $"{this.projectsCount, 5}";
+                $"{this.salary, 15} " +
+                $"{this.projectsCount,10}";
         }
 
         public bool CheckNumFile()
