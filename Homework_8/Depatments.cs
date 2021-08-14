@@ -69,6 +69,16 @@ namespace Homework_8
             else Errors(0);
         }
 
+        public void RemoveStaff(int pos)
+        {
+            if (pos > -1 & pos < this.staff.Count + 1)
+            {
+                if (this.staff.Count != 0) this.staff.RemoveAt(pos);
+                else Errors(2);
+            }
+            else Errors(1);
+        }
+
         /// <summary>
         /// вывод ошибок на консоль
         /// </summary>
@@ -79,6 +89,12 @@ namespace Homework_8
             {
                 case 0:
                     Console.WriteLine("\nШтат департамента максимально раздут!\n");
+                    break;
+                case 1:
+                    Console.WriteLine("\nИндекс находится за пределами размера данного департамента!\n");
+                    break;
+                case 2:
+                    Console.WriteLine("\nВ департаменте нет работников!\n");
                     break;
             }
         }

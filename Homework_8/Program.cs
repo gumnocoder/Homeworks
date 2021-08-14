@@ -16,23 +16,24 @@ namespace Homework_8
 
             com.AddDep(dep);
 
-            for (int i = 0; i < 1000; i++)
-            {
-                
-                com.deps[0].AddStaff(new Staff("Неуважаемый_{i}", "Гражданин_{i+1}", 15, com.deps[0].depName, 2000+i, 1));
-                if (i % 100 == 0)
-                {
-                    Console.WriteLine($"добавлен сотрудник {i}");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
-            }
+
+            //com.deps[0].Print();
             Console.WriteLine($"press anykey");
             Console.ReadKey();
-            //com.deps[0].Print();
             com.deps[0].AddStaff(new Staff("Неуважаемый_1", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
             Console.WriteLine(com.deps[0].Print());
+            com.deps[0].RemoveStaff(0);
+            Console.WriteLine($"press anykey");
             Console.ReadKey();
+            Console.WriteLine(com.deps[0].Print());
+            com.deps[0].RemoveStaff(0);
+            Console.WriteLine($"press anykey");
+            Console.ReadKey();
+            Console.WriteLine(com.deps[0].Print());
+            Console.ReadKey();
+
+
+
             com.deps[0].AddStaff(new Staff("Неуважаемый_2", "Гражданин_1", 15, com.deps[0].depName, 22222, 2));
             Console.WriteLine(com.deps[0].Print());
             Console.ReadKey();
