@@ -21,6 +21,7 @@ namespace Homework_8
             Staff worker = new Staff("Уважаемый", "Гражданин", 15, dep.depName, 10000, 3);
 
             com.AddDep(dep);
+            com.EditDepName(1, "ДЕПАРТАМЕНТ");
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
             com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_1", 15, com.deps[0].depName, 20000, 1));

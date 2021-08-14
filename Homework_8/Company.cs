@@ -106,6 +106,31 @@ namespace Homework_8
             else Error();
         }
 
+        /// <summary>
+        /// проверяет находится ли в допустимом диапазоне
+        /// </summary>
+        /// <param name="pos">указанный индекс </param>
+        /// <returns></returns>
+        public bool CheckPos(int pos)
+        {
+            if (pos > 0 & pos < this.deps.Count) return true;
+            else return false;
+        }
+
+        /// <summary>
+        /// ползволяет отредактировать название департамента
+        /// </summary>
+        /// <param name="pos">индекс</param>
+        /// <param name="newName">новое название</param>
+        public void EditDepName(int pos, string newName)
+        {
+            if (CheckPos(pos))
+            {
+                Depatments d = this.deps[pos];
+                d.depName = newName;
+                this.deps[pos] = d;
+            }
+        }
 
         #endregion
 
