@@ -138,6 +138,108 @@ namespace Homework_8
         }
 
         /// <summary>
+        /// проверяет находится ли в допустимом диапазоне
+        /// </summary>
+        /// <param name="pos">указанный индекс </param>
+        /// <returns></returns>
+        public bool CheckPos(int pos)
+        {
+            if (pos > 0 & pos < this.staff.Count) return true;
+            else return false;
+        }
+
+        /// <summary>
+        /// меняет имя
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="newName"></param>
+        public void ChangeStaffName(int pos, string newName)
+        {
+            if (CheckPos(pos))
+            {
+                Staff s = this.staff[pos];
+                s.FirstName = newName; 
+                this.staff[pos] = s;
+            }
+            else Errors(1);
+        }
+
+        /// <summary>
+        /// меняет фамилию
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="newLastName"></param>
+        public void ChangeStaffLastName(int pos, string newLastName)
+        {
+            if (CheckPos(pos))
+            {
+                Staff s = this.staff[pos];
+                s.LastName = newLastName;
+                this.staff[pos] = s;
+            }
+            else Errors(1);
+        }
+
+        /// <summary>
+        /// изменение возраста
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="newAge"></param>
+        public void ChangeAge(int pos, string newAge)
+        {
+            if (CheckPos(pos))
+            {
+                if (int.TryParse(newAge, out int tmp) & tmp > 0)
+                {
+                    Staff s = this.staff[pos];
+                    s.Age = tmp;
+                    this.staff[pos] = s;
+                }
+                else Errors(4);
+            }
+            else Errors(1);
+        }
+        /// <summary>
+        /// изменение зп
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="newSalary"></param>
+        public void ChangeSalary(int pos, string newSalary)
+        {
+            if (CheckPos(pos))
+            {
+                if (int.TryParse(newSalary, out int tmp) & tmp > 0)
+                {
+                    Staff s = this.staff[pos];
+                    s.Salary = tmp;
+                    this.staff[pos] = s;
+                }
+                else Errors(4);
+            }
+            else Errors(1);
+        }
+
+        /// <summary>
+        /// изменение текущих проектов
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="newProjects"></param>
+        public void ChangeProjects(int pos, string newProjects)
+        {
+            if (CheckPos(pos))
+            {
+                if (int.TryParse(newProjects, out int tmp) & tmp > 0)
+                {
+                    Staff s = this.staff[pos];
+                    s.ProjectsCount = tmp;
+                    this.staff[pos] = s;
+                }
+                else Errors(4);
+            }
+            else Errors(1);
+        }
+
+        /// <summary>
         /// вывод ошибок на консоль
         /// </summary>
         /// <param name="code"></param>
@@ -156,6 +258,9 @@ namespace Homework_8
                     break;
                 case 3:
                     Console.WriteLine("\nНет места для перевода в данный департамент, выберите другой.\n");
+                    break;
+                case 4:
+                    Console.WriteLine("\nНужно ввести целое положительное число\n");
                     break;
             }
         }
