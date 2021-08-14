@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Homework_8
 {
     struct Staff
     {
-        #region ПОЛЯ
+        static string source = "number.ini";
 
+        #region ПОЛЯ
         /// <summary>
         /// имя
         /// </summary>
@@ -42,6 +44,7 @@ namespace Homework_8
         /// количество открытых проектов
         /// </summary>
         public int projectsCount;
+
         #endregion
 
         #region СВОЙСТВА
@@ -76,7 +79,7 @@ namespace Homework_8
         /// <summary>
         /// уникальный номер
         /// </summary>
-        public int Number 
+        private int Number 
         { 
             get { return this.number; } 
             // set { this.number = value; } 
@@ -112,6 +115,17 @@ namespace Homework_8
 
         #region МЕТОДЫ
 
+        public void createNumFile()
+        {
+            using FileStream fs = File.Create(source);
+        }
+
+        public void numFileFillFirst()
+        {
+            string firstNum = "1";
+            File.AppendAllText(source, firstNum);
+        }
+
         /// <summary>
         /// возвращает строку содержащую все данные текущей еденицы
         /// </summary>
@@ -127,6 +141,38 @@ namespace Homework_8
                 $"{this.salary, 10} " +
                 $"{this.projectsCount, 5}";
         }
+
+        public bool CheckNumFile()
+        {
+            
+            if (!File.Exists(source)) return true;
+            else return false;
+        }
+
+        public int ParseFile()
+        {
+            string tmp = File.ReadAllText(source);
+            return int.Parse(tmp);
+        }
+        public int Count() 
+        {
+            if (CheckNumFile())
+            {
+                createNumFile();
+                numFileFillFirst();
+                return 1;
+            }  
+            else
+            {
+                return ParseFile();
+            }
+        }
+
+        public void WriteNewNum(int nextNum)
+        {
+            File.WriteAllText(source, nextNum.ToString());
+        }
+
         #endregion
 
         #region КОНСТРУКТОР
@@ -141,15 +187,16 @@ namespace Homework_8
         /// <param name="Department">департамент</param>
         /// <param name="Salary">зарплата</param>
         /// <param name="ProjectsCount">проекты</param>
-        public Staff(int Number, string FirstName, string LastName, int Age, string Department, int Salary, int ProjectsCount)
+        public Staff(string FirstName, string LastName, int Age, string Department, int Salary, int ProjectsCount) : this()
         {
             this.firstName = FirstName;
             this.lastName = LastName;
             this.department = Department;
-            this.number = Number;
+            this.number = Count();
             this.age = Age;
             this.salary = Salary;
             this.projectsCount = ProjectsCount;
+            this.WriteNewNum(this.number + 1);
         }
         #endregion
     }

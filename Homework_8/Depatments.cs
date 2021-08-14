@@ -22,6 +22,12 @@ namespace Homework_8
             this.creationDate = CreationDate;
             this.staffCount = 0;
         }
+
+        public void AddStaff(Staff newStaff)
+        {
+            this.staff.Add(newStaff);
+            this.staffCount++;
+        }
         public string Print()
         {
             return $"{this.depName,10} {this.creationDate,10} {this.staffCount,5}";
