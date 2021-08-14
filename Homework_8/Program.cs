@@ -16,10 +16,30 @@ namespace Homework_8
 
             com.AddDep(dep);
 
+            for (int i = 0; i < 1000; i++)
+            {
+                
+                com.deps[0].AddStaff(new Staff("Неуважаемый_{i}", "Гражданин_{i+1}", 15, com.deps[0].depName, 2000+i, 1));
+                if (i % 100 == 0)
+                {
+                    Console.WriteLine($"добавлен сотрудник {i}");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
+            Console.WriteLine($"press anykey");
+            Console.ReadKey();
             //com.deps[0].Print();
             com.deps[0].AddStaff(new Staff("Неуважаемый_1", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
+            Console.WriteLine(com.deps[0].Print());
+            Console.ReadKey();
             com.deps[0].AddStaff(new Staff("Неуважаемый_2", "Гражданин_1", 15, com.deps[0].depName, 22222, 2));
+            Console.WriteLine(com.deps[0].Print());
+            Console.ReadKey();
             com.deps[1].AddStaff(new Staff("Неуважаемый_3", "Гражданин_2", 15, com.deps[1].depName, 25000, 3));
+            Console.ReadKey();
+
+
             //com.deps[0].PrintDepContent();
             //Console.WriteLine(com.deps[0].staff[0].Print());
             //Console.WriteLine(com.deps[0].staff.Count);
@@ -29,7 +49,7 @@ namespace Homework_8
             //Console.WriteLine(dep.Print());
             //Console.ReadKey();
             /// string FirstName, string LastName, int Age, string Department, int Salary, int ProjectsCount
-            
+
             dep.AddStaff(new Staff("Уважаемый", "Гражданин", 15, dep.depName, 10000, 3));
             dep.AddStaff(new Staff("Уважаемый_2", "Гражданин_2", 15, dep.depName, 20000, 1));
             dep.AddStaff(worker);
