@@ -6,7 +6,10 @@ namespace Homework_8
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Depatments dep = new Depatments("отдел_0", DateTime.Now);
+            string a = dep.Print();
+            Console.WriteLine(a);
+            Console.ReadKey();
         }
     }
 }
