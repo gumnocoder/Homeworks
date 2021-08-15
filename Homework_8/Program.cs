@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using Newtonsoft.Json;
 
 namespace Homework_8
 {
@@ -10,6 +11,8 @@ namespace Homework_8
         public static string DepsXml = "deps_list.xml";
         public static string StaffXml = "staff_list.xml";
         public static string AllStaffXml = "all_staff_list.xml";
+        public static string jsonDepsData = "deps_list.json";
+        public static string jsonStaffData = "staff_list.json";
         public static void delay()
         {
             Console.WriteLine($"press anykey");
@@ -50,6 +53,77 @@ namespace Homework_8
                 xmlSerializer.Serialize(fstream, allStaff);
             }
         }
+
+        static void DeSerialDepsXML()
+        {
+            Company tmpComp = new Company("tmp");
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Departments>));
+            using (Stream fStream = new FileStream(DepsXml, FileMode.Open, FileAccess.Read))
+            {
+                tmpComp.deps = xmlSerializer.Deserialize(fStream) as List<Departments>;
+            }
+            tmpComp.PrintCompanyDeps();
+        }
+
+        static void DeSerialAllStaffXML()
+        {
+            Departments tmpDep = new Departments();
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Staff>));
+            using (Stream fStream = new FileStream(AllStaffXml, FileMode.Open, FileAccess.Read))
+            {
+                tmpDep.staff = xmlSerializer.Deserialize(fStream) as List<Staff>;
+            }
+            tmpDep.PrintDepContent();
+        }
+
+        public static void AllStaffJsonSerial(Company comp)
+        {
+            List<Staff> allStaff = new List<Staff>();
+            foreach (var dep in comp.deps)
+            {
+                foreach (var staff in dep.staff)
+                {
+                    allStaff.Add(staff);
+                }
+            }
+            var json = JsonConvert.SerializeObject(allStaff);
+            File.WriteAllText("all_staff_list.json", json);
+        }
+        public static void DepsJsonSerial(List<Departments> thisDepsList)
+        {
+            var json = JsonConvert.SerializeObject(thisDepsList);
+            File.WriteAllText("deps_list.json", json);
+        }
+
+        public static void DepsJsonDeSerial()
+        {
+            string json = File.ReadAllText("deps_list.json");
+            List<Departments> list = JsonConvert.DeserializeObject<List<Departments>>(json);
+
+            Console.WriteLine();
+            foreach (var item in list)
+            {
+                Console.WriteLine($"{item.Print()}");
+            }
+        }
+
+        public static void StaffJsonDeSerial()
+        {
+            string json = File.ReadAllText("all_staff_list.json");
+            List<Staff> list = JsonConvert.DeserializeObject<List<Staff>>(json);
+
+            Console.WriteLine();
+            foreach (var item in list)
+            {
+                Console.WriteLine($"{item.Print()}");
+            }
+        }
+
+        public static void CurDepJsonSerial(Departments thisDep)
+        {
+            var json = JsonConvert.SerializeObject(thisDep);
+            File.WriteAllText("cur_deps_list.json", json);
+        }
         static void Main(string[] args)
         {
             Company com = new Company("Horns&Hooves");
@@ -83,6 +157,18 @@ namespace Homework_8
 
             StaffXmlSerial(com.deps[0].staff);
             AllStaffXmlSerial(com);
+            DepsJsonSerial(com.deps);
+            CurDepJsonSerial(com.deps[0]);
+            AllStaffJsonSerial(com);
+
+            delay();
+            DepsJsonDeSerial();
+            Console.WriteLine();
+            StaffJsonDeSerial();
+            Console.WriteLine();
+            DeSerialDepsXML();
+            Console.WriteLine();
+            DeSerialAllStaffXML();
             delay();
 
             com.PrintCompanyDeps();

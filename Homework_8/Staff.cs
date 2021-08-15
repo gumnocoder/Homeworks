@@ -82,7 +82,7 @@ namespace Homework_8
         public int Number 
         { 
             get { return this.number; } 
-            // set { this.number = value; } 
+            set { this.number = value; } 
         }
 
         /// <summary>

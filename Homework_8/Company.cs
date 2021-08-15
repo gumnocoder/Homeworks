@@ -144,6 +144,13 @@ namespace Homework_8
                 /// меняем имя
                 d.DepName = newName;
                 this.deps[pos] = d;
+                if (d.staff.Count > 0)
+                {
+                    for (int i = 0; i < d.staff.Count; i++)
+                    {
+                        d.ChangeDep(i, d);
+                    }
+                }
             }
         }
 
