@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Homework_8
 {
-    struct Company
+    public struct Company
     {
 
         #region ПОЛЯ и СВОЙСТВА
@@ -23,7 +23,7 @@ namespace Homework_8
         /// <summary>
         /// Коллекция департаментов компании
         /// </summary>
-        public List<Depatments> deps { get; set; }
+        public List<Departments> deps { get; set; }
 
         #endregion
 
@@ -77,7 +77,7 @@ namespace Homework_8
         /// метод добавления департамента
         /// </summary>
         /// <param name="newDep"></param>
-        public void AddDep(Depatments newDep)
+        public void AddDep(Departments newDep)
         {
             this.deps.Add(newDep);
         }
@@ -140,7 +140,7 @@ namespace Homework_8
                 /// создаём переменную для хранения экземпляра
                 /// так как в коллекции находится только копия
                 /// и её свойствам не удастся присвоить новые значения
-                Depatments d = this.deps[pos];
+                Departments d = this.deps[pos];
                 /// меняем имя
                 d.DepName = newName;
                 this.deps[pos] = d;
@@ -156,7 +156,7 @@ namespace Homework_8
         {
             if (CheckPos(pos) & CheckDate(newDate))
             {
-                Depatments d = this.deps[pos];
+                Departments d = this.deps[pos];
                 d.CreationDate = DateTime.Parse(newDate);
                 this.deps[pos] = d;
             }
@@ -170,7 +170,7 @@ namespace Homework_8
         /// <param name="CompanyName"></param>
         public Company(string CompanyName) : this()
         {
-            this.deps = new List<Depatments>();
+            this.deps = new List<Departments>();
             this.companyName = CompanyName;
         }
     }

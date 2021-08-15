@@ -1,38 +1,88 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Homework_8
 {
     class Program
     {
+        public static string DepsXml = "deps_list.xml";
+        public static string StaffXml = "staff_list.xml";
+        public static string AllStaffXml = "all_staff_list.xml";
         public static void delay()
         {
             Console.WriteLine($"press anykey");
             Console.ReadKey();
             Console.Clear();
         }
+
+        public static void DepsXmlSerial(List<Departments> thisDepsList)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Departments>));
+            using (Stream fstream = new FileStream(DepsXml, FileMode.Create, FileAccess.Write))
+            {
+                xmlSerializer.Serialize(fstream, thisDepsList);
+            }
+        }
+        public static void StaffXmlSerial(List<Staff> StaffList)
+        {
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Staff>));
+            using (Stream fstream = new FileStream(StaffXml, FileMode.Create, FileAccess.Write))
+            {
+                xmlSerializer.Serialize(fstream, StaffList);
+            }
+        }
+
+        public static void AllStaffXmlSerial(Company comp)
+        {
+            List<Staff> allStaff = new List<Staff>();
+            foreach (var dep in comp.deps)
+            {
+                foreach (var staff in dep.staff)
+                {
+                    allStaff.Add(staff);
+                }
+            }
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Staff>));
+            using (Stream fstream = new FileStream(AllStaffXml, FileMode.Create, FileAccess.Write))
+            {
+                xmlSerializer.Serialize(fstream, allStaff);
+            }
+        }
         static void Main(string[] args)
         {
             Company com = new Company("Horns&Hooves");
             
-            Depatments dep = new Depatments("отдел_1", DateTime.Now);
+            Departments dep = new Departments("отдел_1", DateTime.Now);
             
-            com.AddDep(new Depatments("отдел_0", DateTime.Now));
+            com.AddDep(new Departments("отдел_0", DateTime.Now));
 
-            Staff worker = new Staff("Уважаемый", "Гражданин", 15, dep.depName, 10000, 3);
-
+            Staff worker = new Staff("Уважаемый", "Гражданин", 15, dep.DepName, 10000, 3);
+            dep.AddStaff(worker);
             com.AddDep(dep);
+            
+
+
+            DepsXmlSerial(com.deps);
+            ///StaffXmlSerial(com.deps);
+
+            delay();
+
             com.EditDepName(1, "ДЕПАРТАМЕНТ");
             com.EditDepDate(1, "1.1.1000");
-            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
+            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].DepName, 20000, 1));
+            com.deps[0].ChangeAge (0, "11111");
+            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].DepName, 20000, 1));
+            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_1", 15, com.deps[0].DepName, 20000, 1));
+            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_2", 15, com.deps[0].DepName, 20000, 1));
+            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_3", 15, com.deps[0].DepName, 20000, 1));
+            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_4", 15, com.deps[0].DepName, 20000, 1));
+            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_5", 15, com.deps[0].DepName, 20000, 1));
+            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_6", 15, com.deps[0].DepName, 20000, 1));
 
-            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_0", 15, com.deps[0].depName, 20000, 1));
-            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_1", 15, com.deps[0].depName, 20000, 1));
-            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_2", 15, com.deps[0].depName, 20000, 1));
-            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_3", 15, com.deps[0].depName, 20000, 1));
-            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_4", 15, com.deps[0].depName, 20000, 1));
-            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_5", 15, com.deps[0].depName, 20000, 1));
-            com.deps[0].AddStaff(new Staff("уважаемый", "Гражданин_6", 15, com.deps[0].depName, 20000, 1));
-
+            StaffXmlSerial(com.deps[0].staff);
+            AllStaffXmlSerial(com);
             delay();
 
             com.PrintCompanyDeps();

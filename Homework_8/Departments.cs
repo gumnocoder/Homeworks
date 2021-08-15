@@ -4,17 +4,17 @@ using System.Text;
 
 namespace Homework_8
 {
-    struct Depatments
+    public struct Departments
     {
         #region ПОЛЯ
         /// <summary>
         /// название отдела
         /// </summary>
-        public string depName;
+        string depName;
         /// <summary>
         /// дата создания отдела
         /// </summary>
-        public DateTime creationDate;
+        DateTime creationDate;
 
         #endregion
 
@@ -90,7 +90,7 @@ namespace Homework_8
         /// </summary>
         /// <param name="pos">индекс сотрудника в коллекции</param>
         /// <param name="otherDep">конечный департамент</param>
-        public void ChangeDep(int pos, Depatments otherDep)
+        public void ChangeDep(int pos, Departments otherDep)
         {
             /// если индекс доступен
             if (pos > -1 & pos < this.staff.Count)
@@ -119,7 +119,7 @@ namespace Homework_8
         /// перемещение всех сотрудников в другой департамент
         /// </summary>
         /// <param name="otherDep">конечный департамент</param>
-        public void AllChangeDep(Depatments otherDep)
+        public void AllChangeDep(Departments otherDep)
         {
             /// по аналогии с методом ChangeDep()
             if (otherDep.checkCapacity())
@@ -297,7 +297,7 @@ namespace Homework_8
         /// </summary>
         /// <param name="DepName">Название отдела</param>
         /// <param name="CreationDate">Дата создания</param>
-        public Depatments(string DepName, DateTime CreationDate)
+        public Departments(string DepName, DateTime CreationDate)
         {
             this.staff = new List<Staff>();
             this.depName = DepName;

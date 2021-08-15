@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Homework_8
 {
-    struct Staff
+    public struct Staff
     {
         static string source = "number.ini";
 
@@ -13,37 +13,37 @@ namespace Homework_8
         /// <summary>
         /// имя
         /// </summary>
-        public string firstName;
+        string firstName;
 
         /// <summary>
         /// фамилия
         /// </summary>
-        public string lastName;
+        string lastName;
 
         /// <summary>
         /// департамент
         /// </summary>
-        public string department;
+        string department;
 
         /// <summary>
         /// уникальный номер
         /// </summary>
-        public int number;
+        int number;
 
         /// <summary>
         /// возраст
         /// </summary>
-        public int age;
+        int age;
 
         /// <summary>
         /// зарплата
         /// </summary>
-        public int salary;
+        int salary;
 
         /// <summary>
         /// количество открытых проектов
         /// </summary>
-        public int projectsCount;
+        int projectsCount;
 
         #endregion
 
