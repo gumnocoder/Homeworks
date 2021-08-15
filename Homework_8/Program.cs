@@ -199,14 +199,166 @@ namespace Homework_8
 
         public static void ShowStartMenu()
         {
+            Console.Clear();
             Console.WriteLine($"\nКомпания {com.Print()}" +
                 $"\nГЛАВНОЕ МЕНЮ" +
                 $"\nвведите пункт меню и нажмите enter\n" +
-                $"\n1. ");
+                $"\n1. Работа с департаментами" +
+                $"\n2. Работа с сотрудниками" +
+                $"\n3. Вывод на экран" +
+                $"\n4. Сохранение в файл" +
+                $"\n5. Загрузка из файла\n");
+        }
+
+        public static void ShowMenu_1()
+        {
+            Console.Clear();
+            Console.WriteLine($"\nРабота с департаментами\n" +
+                $"\n1. Создание одного или нескольких департаментов" +
+                $"\n2. Редактирование департамента" +
+                $"\n3. Удаление департамента" +
+                $"\n4. Вывод списка сотрудников департамента" +
+                $"\n\n5. Главное меню\n");
+        }
+
+        public static void ShowMenu_2()
+        {
+            Console.Clear();
+            Console.WriteLine($"\nРабота с сотрудниками\n" +
+                $"\n1. Создание одного или нескольких сотрудников" +
+                $"\n2. Редактирование сотрудника" +
+                $"\n3. Удаление сотрудника или сотрудников" +
+                $"\n\n4. Главное меню\n");
+        }
+
+        public static void ShowMenu_3()
+        {
+            Console.Clear();
+            Console.WriteLine($"\nВывод на экран\n" +
+                $"\n1. Вывод структуры организации" +
+                $"\n2. Вывод полного списка сотрудников" +
+                $"\n3. Вывод списка сотрудников одного департамента" +
+                $"\n4. Сортировка списка сотрудников" +
+                $"\n\n5. Главное меню\n");
+        }
+
+        public static void ShowMenu_4()
+        {
+            Console.Clear();
+            Console.WriteLine($"\nСохранение в файл\n" +
+                $"\n1. Сохранение департаментов в XML" +
+                $"\n2. Сохранение департаментов в Json" +
+                $"\n3. Сохранение сотрудников в XML" +
+                $"\n4. Сохранение сотрудников в Json" +
+                $"\n\n5. Главное меню\n");
+        }
+
+        public static void ShowMenu_5()
+        {
+            Console.Clear();
+            Console.WriteLine($"\nВывод на экран\n" +
+                $"\n1. Загрузка департаментов из XML" +
+                $"\n2. Загрузка департаментов из Json" +
+                $"\n3. Загрузка сотрудников из XML" +
+                $"\n4. Загрузка сотрудников из Json" +
+                $"\n\n5. Главное меню\n");
+        }
+
+        public static bool checkIntInput(string input, int a, int b)
+        {
+            if (int.TryParse(input, out int tmp) & tmp >= a & tmp <= b) return true;
+            else return false;
         }
 
         static void Main(string[] args)
         {
+            while (true)
+            {
+                Console.Clear();
+                ShowStartMenu();
+                bool flag = true;
+                while (flag == true)
+                {
+                    string text = Console.ReadLine();
+                    if (checkIntInput(text, 1, 5))
+                    {
+                        int input = int.Parse(text);
+                        switch (input)
+                        {
+                            case 1:
+                                ShowMenu_1();
+                                text = Console.ReadLine();
+                                if (checkIntInput(text, 1, 5))
+                                {
+                                    input = int.Parse(text);
+                                    switch (input)
+                                    {
+                                        case 5:
+                                            flag = false;
+                                            break;
+                                    }
+                                }
+                                break;
+                            case 2:
+                                ShowMenu_2();
+                                text = Console.ReadLine();
+                                if (checkIntInput(text, 1, 4))
+                                {
+                                    input = int.Parse(text);
+                                    switch (input)
+                                    {
+                                        case 4:
+                                            flag = false;
+                                            break;
+                                    }
+                                }
+                                break;
+                            case 3:
+                                ShowMenu_3();
+                                text = Console.ReadLine();
+                                if (checkIntInput(text, 1, 5))
+                                {
+                                    input = int.Parse(text);
+                                    switch (input)
+                                    {
+                                        case 5:
+                                            flag = false;
+                                            break;
+                                    }
+                                }
+                                break;
+                            case 4:
+                                ShowMenu_4();
+                                text = Console.ReadLine();
+                                if (checkIntInput(text, 1, 5))
+                                {
+                                    input = int.Parse(text);
+                                    switch (input)
+                                    {
+                                        case 5:
+                                            flag = false;
+                                            break;
+                                    }
+                                }
+                                break;
+                            case 5:
+                                ShowMenu_5();
+                                text = Console.ReadLine();
+                                if (checkIntInput(text, 1, 5))
+                                {
+                                    input = int.Parse(text);
+                                    switch (input)
+                                    {
+                                        case 5:
+                                            flag = false;
+                                            break;
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
             for (int i = 0; i < 9; i++)
             {
                 com.AddDep(new Departments($"отдел_{i}", Convert.ToDateTime($"1.01.200{i}")));
