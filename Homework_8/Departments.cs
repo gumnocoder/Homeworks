@@ -185,17 +185,13 @@ namespace Homework_8
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="newAge"></param>
-        public void ChangeAge(int pos, string newAge)
+        public void ChangeAge(int pos, int newAge)
         {
             if (CheckPos(pos))
             {
-                if (int.TryParse(newAge, out int tmp) & tmp > 0)
-                {
-                    Staff s = this.staff[pos];
-                    s.Age = tmp;
-                    this.staff[pos] = s;
-                }
-                else Errors(4);
+                Staff s = this.staff[pos];
+                s.Age = newAge;
+                this.staff[pos] = s;
             }
             else Errors(1);
         }
@@ -204,17 +200,13 @@ namespace Homework_8
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="newSalary"></param>
-        public void ChangeSalary(int pos, string newSalary)
+        public void ChangeSalary(int pos, int newSalary)
         {
             if (CheckPos(pos))
             {
-                if (int.TryParse(newSalary, out int tmp) & tmp > 0)
-                {
-                    Staff s = this.staff[pos];
-                    s.Salary = tmp;
-                    this.staff[pos] = s;
-                }
-                else Errors(4);
+                Staff s = this.staff[pos];
+                s.Salary = newSalary;
+                this.staff[pos] = s;
             }
             else Errors(1);
         }
@@ -224,17 +216,13 @@ namespace Homework_8
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="newProjects"></param>
-        public void ChangeProjects(int pos, string newProjects)
+        public void ChangeProjects(int pos, int newProjects)
         {
             if (CheckPos(pos))
             {
-                if (int.TryParse(newProjects, out int tmp) & tmp > 0)
-                {
-                    Staff s = this.staff[pos];
-                    s.ProjectsCount = tmp;
-                    this.staff[pos] = s;
-                }
-                else Errors(4);
+                Staff s = this.staff[pos];
+                s.ProjectsCount = newProjects;
+                this.staff[pos] = s;
             }
             else Errors(1);
         }
@@ -270,6 +258,9 @@ namespace Homework_8
                     break;
                 case 7:
                     Console.WriteLine("В департаменте нет сотрудников!");
+                    break;
+                case 8:
+                    Console.WriteLine("Файл отсутствует!");
                     break;
             }
         }

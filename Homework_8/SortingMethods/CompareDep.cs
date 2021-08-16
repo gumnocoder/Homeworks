@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Homework_8.SortingMethods
+namespace Homework_8
 {
     class CompareDep : IComparer<Staff>
     {
