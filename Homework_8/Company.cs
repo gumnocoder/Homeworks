@@ -113,7 +113,7 @@ namespace Homework_8
         /// <returns></returns>
         public bool CheckPos(int pos)
         {
-            if (pos > 0 & pos < this.deps.Count) return true;
+            if (pos >= 0 & pos < this.deps.Count) return true;
             else return false;
         }
 
@@ -144,13 +144,8 @@ namespace Homework_8
                 /// меняем имя
                 d.DepName = newName;
                 this.deps[pos] = d;
-                if (d.staff.Count > 0)
-                {
-                    for (int i = 0; i < d.staff.Count; i++)
-                    {
-                        d.ChangeDep(i, d);
-                    }
-                }
+                /// если в департаменте есть сотрудники их поле отдел изменится автоматом
+                if (this.deps.Count != 0) d.AllChangeDep(d);
             }
         }
 
@@ -159,12 +154,12 @@ namespace Homework_8
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="newDate"></param>
-        public void EditDepDate(int pos, string newDate)
+        public void EditDepDate(int pos, DateTime newDate)
         {
-            if (CheckPos(pos) & CheckDate(newDate))
+            if (CheckPos(pos))
             {
                 Departments d = this.deps[pos];
-                d.CreationDate = DateTime.Parse(newDate);
+                d.CreationDate = newDate;
                 this.deps[pos] = d;
             }
         }

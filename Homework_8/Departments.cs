@@ -243,7 +243,7 @@ namespace Homework_8
         /// вывод ошибок на консоль
         /// </summary>
         /// <param name="code"></param>
-        public void Errors(int code)
+        public static void Errors(int code)
         {
             switch (code)
             {
@@ -261,6 +261,15 @@ namespace Homework_8
                     break;
                 case 4:
                     Console.WriteLine("\nНужно ввести целое положительное число\n");
+                    break;
+                case 5:
+                    Console.WriteLine("Введено недопустимое значение, попробуйте снова!");
+                    break;
+                case 6:
+                    Console.WriteLine("В организации нет департаментов!");
+                    break;
+                case 7:
+                    Console.WriteLine("В департаменте нет сотрудников!");
                     break;
             }
         }
