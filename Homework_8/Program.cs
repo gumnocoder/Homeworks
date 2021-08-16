@@ -15,18 +15,26 @@ namespace Homework_8
 
         public static Company com = new Company("Horns&Hooves");
 
+        /// <summary>
+        /// словарь для сортировщика в алфавитном порядке
+        /// </summary>
         public static Dictionary<string, int> dict = new Dictionary<string, int>();
         public static string nums = " 0123456789";
         public static string liters = "аАбБвВгГдДеЕёЁжЖзЗ" +
             "иИкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩъЪьЬэЭыЫюЮяЯ" +
             "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ-_=+/*";
 
+        /// <summary>
+        /// заполнение словаря для сортировщика
+        /// </summary>
         public static void fillDict()
         {
+            /// цифры имеют меньший вес
             for (int i = 0; i < 11; i++)
             {
                 dict.Add(nums[i].ToString(), i);
             }
+            /// строчные и прописные буквы одинаковый, сначала русский алфавит затем английский
             for (int i = 1; i < liters.Length + 1; i++)
             {
                 if (i % 2 != 0 | i == 0) dict.Add(liters[i - 1].ToString(), i + 10);
@@ -224,7 +232,11 @@ namespace Homework_8
 
         #endregion
 
+        #region МЕНЮ
 
+        /// <summary>
+        /// главное меню
+        /// </summary>
         public static void ShowStartMenu()
         {
             Console.Clear();
@@ -239,6 +251,9 @@ namespace Homework_8
                 $"\n\n0. Завершить работу приложения\n");
         }
 
+        /// <summary>
+        /// работа с департаментами
+        /// </summary>
         public static void ShowMenu_1()
         {
             Console.Clear();
@@ -250,6 +265,9 @@ namespace Homework_8
                 $"\n\n5. Главное меню\n");
         }
 
+        /// <summary>
+        /// работа с сотрудниками
+        /// </summary>
         public static void ShowMenu_2()
         {
             Console.Clear();
@@ -260,6 +278,9 @@ namespace Homework_8
                 $"\n\n4. Главное меню\n");
         }
 
+        /// <summary>
+        /// вывод на экран
+        /// </summary>
         public static void ShowMenu_3()
         {
             Console.Clear();
@@ -271,6 +292,9 @@ namespace Homework_8
                 $"\n\n5. Главное меню\n");
         }
 
+        /// <summary>
+        /// вывод в файл
+        /// </summary>
         public static void ShowMenu_4()
         {
             Console.Clear();
@@ -282,10 +306,13 @@ namespace Homework_8
                 $"\n\n5. Главное меню\n");
         }
 
+        /// <summary>
+        /// загрузка из файла
+        /// </summary>
         public static void ShowMenu_5()
         {
             Console.Clear();
-            Console.WriteLine($"\nВывод на экран\n" +
+            Console.WriteLine($"\nЗагрузка из файла\n" +
                 $"\n1. Загрузка департаментов из XML" +
                 $"\n2. Загрузка департаментов из Json" +
                 $"\n3. Загрузка сотрудников из XML" +
@@ -293,12 +320,29 @@ namespace Homework_8
                 $"\n\n5. Главное меню\n");
         }
 
+        #endregion
+
+        #region МЕТОДЫ ВВОДА-ВЫВОДА
+
+        /// <summary>
+        /// проверяет является ли пользовательский ввод int
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
         public static bool checkIntInput(string input, int a, int b)
         {
             if (int.TryParse(input, out int tmp) & tmp >= a & tmp <= b) return true;
             else return false;
         }
 
+        /// <summary>
+        /// парсит пользовательский ввод в указанном диапазоне
+        /// </summary>
+        /// <param name="minNum"></param>
+        /// <param name="maxNum"></param>
+        /// <returns></returns>
         public static int TakeMenuInput(int minNum, int maxNum)
         {
             while (true)
@@ -309,6 +353,10 @@ namespace Homework_8
             }
         }
 
+        /// <summary>
+        /// парсит ввод даты
+        /// </summary>
+        /// <returns></returns>
         public static DateTime TakeDateInput()
         {
             while (true)
@@ -319,9 +367,14 @@ namespace Homework_8
             }
         }
 
+        #endregion
         static void Main(string[] args)
         {
+
             Random rnd = new Random();
+            fillDict();
+
+            #region МЕНЮ
 
             while (true)
             {
@@ -340,6 +393,7 @@ namespace Homework_8
                             input = TakeMenuInput(1, 5);
                             switch (input)
                             {
+                                /// создание отделов
                                 case 1:
                                     Console.WriteLine("Введите необходимое количество департаментов" +
                                         "\n(отделы будут созданы со значениями по умолчанию, " +
@@ -350,6 +404,7 @@ namespace Homework_8
                                     delay();
                                     flag = false;
                                     break;
+                                /// редактирование отдела
                                 case 2:
                                     Console.Clear();
                                     if (com.deps.Count > 0)
@@ -368,10 +423,12 @@ namespace Homework_8
                                             int localInput = TakeMenuInput(0, 2);
                                             switch (localInput)
                                             {
+                                                /// выход из текущего меню
                                                 case 0:
                                                     localFlag = false;
                                                     flag = false;
                                                     break;
+                                                /// изменение названия отдела
                                                 case 1:
                                                     Console.WriteLine("Введите новое название");
                                                     string newName = Console.ReadLine();
@@ -379,6 +436,7 @@ namespace Homework_8
                                                     Console.WriteLine("Готово");
                                                     delay();
                                                     break;
+                                                /// изменение даты создания отдела
                                                 case 2:
                                                     Console.WriteLine("Введите новую дату");
                                                     DateTime newDate = TakeDateInput();
@@ -392,6 +450,7 @@ namespace Homework_8
                                     else Departments.Errors(6);
                                     delay();
                                     break;
+                                /// удаление отдела
                                 case 3:
                                     Console.Clear();
                                     if (com.deps.Count > 0)
@@ -406,6 +465,7 @@ namespace Homework_8
                                     else Departments.Errors(6);
                                     delay();
                                     break;
+                                /// вывод списка сотрудников на экран
                                 case 4:
                                     Console.Clear();
                                     if (com.deps.Count > 0)
@@ -435,17 +495,21 @@ namespace Homework_8
                                     flag = false;
                                     delay();
                                     break;
+                                /// выход в главное меню
                                 case 5:
                                     flag = false;
                                     break;
                             }
                             break;
+                        /// работа с сотрудниками
                         case 2:
                             ShowMenu_2();
                             input = TakeMenuInput(1, 4);
                             switch (input)
                             {
+                                /// добавление сотрудников
                                 case 1:
+                                    /// проверка наличия департаментов в компании
                                     if (com.deps.Count == 0)
                                     {
                                         Console.WriteLine("Сначала добавьте департамент!");
@@ -476,7 +540,9 @@ namespace Homework_8
                                         delay();
                                     }
                                     break;
+                                /// редактирование сотрудников
                                 case 2:
+                                    /// если нет департаментов
                                     if (com.deps.Count == 0)
                                     {
                                         Console.Clear();
@@ -490,6 +556,7 @@ namespace Homework_8
                                         com.PrintCompanyDeps();
                                         Console.WriteLine("\nвыберите департамент с сотрудниками\n");
                                         input = TakeMenuInput(0, com.deps.Count);
+                                        /// если департамент пуст
                                         if (com.deps[input].staff.Count == 0)
                                         {
                                             Console.Clear();
@@ -497,6 +564,7 @@ namespace Homework_8
                                             delay();
                                             flag = false;
                                         }
+                                        /// если не пуст
                                         else
                                         {
                                             bool localFlag = true;
@@ -583,7 +651,9 @@ namespace Homework_8
                                         }
                                     }
                                     break;
+                                /// удаление сотрудника
                                 case 3:
+                                    /// если нет департаментов
                                     if (com.deps.Count == 0)
                                     {
                                         Console.Clear();
@@ -591,12 +661,14 @@ namespace Homework_8
                                         delay();
                                         flag = false;
                                     }
+                                    /// если департаменты есть
                                     else
                                     {
                                         Console.Clear();
                                         com.PrintCompanyDeps();
                                         Console.WriteLine("\nвыберите департамент с сотрудниками\n");
                                         input = TakeMenuInput(0, com.deps.Count);
+                                        /// если нет сотрудников в департаменте
                                         if (com.deps[input].staff.Count == 0)
                                         {
                                             Console.Clear();
@@ -604,6 +676,7 @@ namespace Homework_8
                                             delay();
                                             flag = false;
                                         }
+                                        /// если сотрудники есть
                                         else
                                         {
                                             Console.WriteLine("\nВведите номер сотрудника согласно индексу\n");
@@ -616,28 +689,33 @@ namespace Homework_8
                                         }
                                     }
                                     break;
+                                /// выход в главное меню
                                 case 4:
                                     flag = false;
                                     break;
                             }
                             break;
+                        /// вывод на экран
                         case 3:
                             ShowMenu_3();
                             input = TakeMenuInput(1, 5);
                             switch (input)
                             {
+                                /// вывод структуры организации
                                 case 1:
                                     Console.Clear();
                                     com.PrintCompanyDeps();
                                     delay();
                                     flag = false;
                                     break;
+                                /// вывод всех сотрудников
                                 case 2:
                                     Console.Clear();
                                     com.PrintCompanyStaff();
                                     delay();
                                     flag = false;
                                     break;
+                                /// вывод сотрудников определенного отдела
                                 case 3:
                                     Console.Clear();
                                     if (com.deps.Count !=0)
@@ -663,20 +741,33 @@ namespace Homework_8
                                         flag = false;
                                     }
                                     break;
+                                /// сортировка
                                 case 4:
+
+                                    /// создаём сортировщики
+                                    /// сортировка по полю ИД
                                     CompareNumber cnu = new CompareNumber();
+                                    /// по полю имя
                                     CompareName cn = new CompareName();
+                                    /// по полю фамилия
                                     CompareLastName cln = new CompareLastName();
+                                    /// по полю возраст
                                     CompareAge ca = new CompareAge();
+                                    /// по департаменту
                                     CompareDep cp = new CompareDep();
+                                    /// по количеству проектов
                                     CompareProjects cpr = new CompareProjects();
+                                    /// по зарплате
                                     CompareSalary cs = new CompareSalary(); 
+
                                     Console.Clear();
+                                    /// если департаменты есть
                                     if (com.deps.Count != 0)
                                     {
                                         com.PrintCompanyDeps();
                                         Console.WriteLine("Выберите отдел с сотрудниками");
                                         input = TakeMenuInput(0, com.deps.Count);
+                                        /// если выбранный департамент пуст
                                         if (com.deps[input].staff.Count == 0)
                                         {
                                             Console.Clear();
@@ -684,6 +775,7 @@ namespace Homework_8
                                             delay();
                                             flag = false;
                                         }
+                                        /// если не пуст запускается сортировка
                                         else
                                         {
                                             Console.WriteLine("Выберите поле сортировки " +
@@ -698,14 +790,16 @@ namespace Homework_8
                                             int localInput = TakeMenuInput(1, 7);
                                             switch (localInput)
                                             {
+                                                /// ИД
                                                 case 1:
                                                     Console.WriteLine("\nСписок до сортировки:\n");
                                                     com.deps[input].PrintDepContent();
                                                     com.deps[input].staff.Sort(cnu);
                                                     Console.WriteLine("\nСписок после сортировки:\n");
                                                     com.deps[input].PrintDepContent();
-
+                                                    delay();
                                                     break;
+                                                /// имя
                                                 case 2:
                                                     Console.WriteLine("\nСписок до сортировки:\n");
                                                     com.deps[input].PrintDepContent();
@@ -715,6 +809,7 @@ namespace Homework_8
                                                     flag = false;
                                                     delay();
                                                     break;
+                                                /// фамилия
                                                 case 3:
                                                     Console.WriteLine("\nСписок до сортировки:\n");
                                                     com.deps[input].PrintDepContent();
@@ -724,6 +819,7 @@ namespace Homework_8
                                                     flag = false;
                                                     delay();
                                                     break;
+                                                /// возраст
                                                 case 4:
                                                     Console.WriteLine("\nСписок до сортировки:\n");
                                                     com.deps[input].PrintDepContent();
@@ -733,6 +829,7 @@ namespace Homework_8
                                                     flag = false;
                                                     delay();
                                                     break;
+                                                /// департамент
                                                 case 5:
                                                     Console.WriteLine("\nСписок до сортировки:\n");
                                                     com.deps[input].PrintDepContent();
@@ -742,6 +839,7 @@ namespace Homework_8
                                                     flag = false;
                                                     delay();
                                                     break;
+                                                /// проекты
                                                 case 6:
                                                     Console.WriteLine("\nСписок до сортировки:\n");
                                                     com.deps[input].PrintDepContent();
@@ -751,6 +849,7 @@ namespace Homework_8
                                                     flag = false;
                                                     delay();
                                                     break;
+                                                /// зарплата
                                                 case 7:
                                                     Console.WriteLine("\nСписок до сортировки:\n");
                                                     com.deps[input].PrintDepContent();
@@ -763,6 +862,7 @@ namespace Homework_8
                                             }
                                         }
                                     }
+                                    /// если департаментов нет выводим ошибку
                                     else
                                     {
                                         Console.Clear();
@@ -771,119 +871,96 @@ namespace Homework_8
                                         flag = false;
                                     }
                                     break;
+                                /// в главное меню
                                 case 5:
                                     flag = false;
                                     break;
                             }
                             break;
+                        /// сохранение в файл
                         case 4:
-
                             ShowMenu_4();
                             input = TakeMenuInput(1, 5);
                             switch (input)
                             {
+                                /// департаменты в XML
                                 case 1:
                                     DepsXmlSerial(com);
                                     Console.WriteLine($"\nФайл {DepsXml} сохранен\n");
                                     flag = false;
                                     delay();
                                     break;
+                                /// департаменты в json
                                 case 2:
                                     DepsJsonSerial(com.deps);
                                     Console.WriteLine($"\nФайл {jsonDepsData} сохранен\n");
                                     flag = false;
                                     delay();
                                     break;
+                                /// работники в XML
                                 case 3:
                                     AllStaffXmlSerial(com);
                                     Console.WriteLine($"\nФайл {AllStaffXml} сохранен\n");
                                     flag = false;
                                     delay();
                                     break;
+                                /// работники в JSON
                                 case 4:
                                     AllStaffJsonSerial(com);
                                     Console.WriteLine($"\nФайл {jsonStaffData} сохранен\n");
                                     flag = false;
                                     delay();
                                     break;
+                                /// в главное меню
                                 case 5:
                                     flag = false;
                                     break;
                             }
                             break;
+                        /// загрузка из файла
                         case 5:
                             ShowMenu_5();
                             input = TakeMenuInput(1, 5);
                             switch (input)
                             {
+                                /// департаменты из xml
                                 case 1:
                                     DeSerialDepsXML();
                                     Console.WriteLine($"\nФайл {DepsXml} загружен\n");
                                     flag = false;
                                     delay();
                                     break;
+                                /// из json
                                 case 2:
                                     DepsJsonDeSerial();
                                     Console.WriteLine($"\nФайл {jsonDepsData} загружен\n");
                                     flag = false;
                                     delay();
                                     break;
+                                /// сотрудники их xml
                                 case 3:
                                     DeSerialAllStaffXML();
                                     Console.WriteLine($"\nФайл {AllStaffXml} загружен\n");
                                     flag = false;
                                     delay();
                                     break;
+                                /// из json
                                 case 4:
                                     StaffJsonDeSerial();
                                     Console.WriteLine($"\nФайл {jsonStaffData} загружен\n");
                                     flag = false;
                                     delay();
                                     break;
+                                /// в главное меню
                                 case 5:
                                     flag = false;
                                     break;
                             }
                             break;
-
                         }
-                    }
                 }
-
-                //for (int i = 0; i < 9; i++)
-                //{
-                //    com.AddDep(new Departments($"отдел_{i}", Convert.ToDateTime($"1.01.200{i}")));
-                //}
-                //com.PrintCompanyDeps();
-                //delay();
-                //Random rnd = new Random();
-                //for (int i = 0; i < 9; i++)
-                //{
-                //    for (int j = 0; j < 20; j++)
-                //    {
-                //        com.deps[i].AddStaff(new Staff($"Сотрудник_{rnd.Next(1, 20)}", $"номер_{j}", 10 + j, com.deps[i].DepName, rnd.Next(10_000, 20_000), i));
-                //    }
-                //}
-                //com.PrintCompanyStaff();
-                //delay();
-                //com.deps[8].PrintDepContent();
-                //Console.WriteLine();
-                //CompareName cn = new CompareName();
-                //CompareAge ca = new CompareAge();
-                //CompareNumber cnu = new CompareNumber();
-
-                ////com.deps[8].staff.Sort(ca);
-                ////com.deps[8].PrintDepContent();
-                //com.deps[8].staff.Sort(cn);
-                //com.deps[8].PrintDepContent();
-                ////com.deps[8].staff.Sort(cnu);
-                ////com.deps[8].PrintDepContent();
-                //delay();
-
-                //foreach (Departments dep in com.deps) dep.staff.Sort(cn);
-                //com.PrintCompanyStaff();
-
-                //delay();
+            }
         }
+        #endregion
     }
 }
