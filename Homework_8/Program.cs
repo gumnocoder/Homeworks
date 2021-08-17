@@ -81,20 +81,28 @@ namespace Homework_8
         /// <returns></returns>
         public static Company CompanyFromXml()
         {
+            /// проверка наличия файла
             if (File.Exists(xmlData))
             {
+                /// создаём поток
                 FileStream fs = new FileStream(xmlData, FileMode.Open);
+                /// создаём парсер
                 XmlReader xmlReader = XmlReader.Create(fs);
+                /// создаём сериализатор
                 XmlSerializer xmlSerializer = new XmlSerializer(typeof(Company));
                 Company tmpComp;
+                /// парсим данные во временную переменную
                 tmpComp = (Company)xmlSerializer.Deserialize(xmlReader);
+                /// закрываем поток
                 fs.Close();
+                /// возвращаем данные
                 return tmpComp;
             }
             else
             {
                 fileError = true;
-                return new Company();
+                /// в случае отсутствия файла возвращаем текущую компанию
+                return com;
             }
         }
 
@@ -130,7 +138,7 @@ namespace Homework_8
             else
             {
                 fileError = true;
-                return new Company();
+                return com;
             }
         }
 
@@ -153,72 +161,6 @@ namespace Homework_8
                 $"\n4. Сохранение в файл" +
                 $"\n5. Загрузка из файла" +
                 $"\n\n0. Завершить работу приложения\n");
-        }
-
-        /// <summary>
-        /// работа с департаментами
-        /// </summary>
-        public static void ShowMenu_1()
-        {
-            Console.Clear();
-            Console.WriteLine($"\nРабота с департаментами\n" +
-                $"\n1. Создание одного или нескольких департаментов" +
-                $"\n2. Редактирование департамента" +
-                $"\n3. Удаление департамента" +
-                $"\n4. Вывод списка сотрудников департамента" +
-                $"\n\n5. Главное меню\n");
-        }
-
-        /// <summary>
-        /// работа с сотрудниками
-        /// </summary>
-        public static void ShowMenu_2()
-        {
-            Console.Clear();
-            Console.WriteLine($"\nРабота с сотрудниками\n" +
-                $"\n1. Создание одного или нескольких сотрудников" +
-                $"\n2. Редактирование сотрудника" +
-                $"\n3. Удаление сотрудника" +
-                $"\n4. Перемещение всех в другой департамент" +
-                $"\n\n5. Главное меню\n");
-        }
-
-        /// <summary>
-        /// вывод на экран
-        /// </summary>
-        public static void ShowMenu_3()
-        {
-            Console.Clear();
-            Console.WriteLine($"\nВывод на экран\n" +
-                $"\n1. Вывод структуры организации" +
-                $"\n2. Вывод полного списка сотрудников" +
-                $"\n3. Вывод списка сотрудников одного департамента" +
-                $"\n4. Сортировка списка сотрудников" +
-                $"\n\n5. Главное меню\n");
-        }
-
-        /// <summary>
-        /// вывод в файл
-        /// </summary>
-        public static void ShowMenu_4()
-        {
-            Console.Clear();
-            Console.WriteLine($"\nСохранение в файл\n" +
-                $"\n1. Сохранение в XML" +
-                $"\n2. Сохранение в Json" +
-                $"\n3. Главное меню\n");
-        }
-
-        /// <summary>
-        /// загрузка из файла
-        /// </summary>
-        public static void ShowMenu_5()
-        {
-            Console.Clear();
-            Console.WriteLine($"\nЗагрузка из файла\n" +
-                $"\n1. Загрузка из XML" +
-                $"\n2. Загрузка из Json" +
-                $"\n3. Главное меню\n");
         }
 
         #endregion
@@ -344,6 +286,7 @@ namespace Homework_8
 
         #endregion
 
+        
         static void Main(string[] args)
         {
 
@@ -358,543 +301,33 @@ namespace Homework_8
                 bool flag = true;
                 while (flag == true)
                 {
+                    
                     int input = TakeMenuInput(0, 5);
+
                     switch (input)
                     {
                         case 0:
                             System.Environment.Exit(1);
                             break;
+                        /// работа с департаментами
                         case 1:
-                            ShowMenu_1();
-                            input = TakeMenuInput(1, 5);
-                            switch (input)
-                            {
-                                /// создание отделов
-                                case 1:
-                                    Console.WriteLine("Введите необходимое количество департаментов" +
-                                        "\n(отделы будут созданы со значениями по умолчанию, " +
-                                        "после создания Вы сможете их отредактировать)\n");
-                                    input = TakeMenuInput(1, 100);
-                                    for (int i = 0; i < input; i++) com.AddDep(new Departments($"Отдел_{com.deps.Count}", DateTime.Now));
-                                    Console.WriteLine("Готово");
-                                    delay();
-                                    flag = false;
-                                    break;
-                                /// редактирование отдела
-                                case 2:
-                                    Console.Clear();
-                                    if (com.deps.Count > 0)
-                                    {
-                                        com.PrintCompanyDeps();
-                                        Console.WriteLine("\nВведите номер департамента согласно индексу\n");
-                                        input = TakeMenuInput(0, com.deps.Count);
-                                        bool localFlag = true;
-                                        while (localFlag == true)
-                                        {
-                                            Console.Clear();
-                                            Console.WriteLine($"\nРедактируем отдел: {com.deps[input].Print()}\n");
-                                            Console.WriteLine("\n1 для изменения названия " +
-                                                "\n2 для изменения даты создания " +
-                                                "\n0 для выхода из редактора\n");
-                                            int localInput = TakeMenuInput(0, 2);
-                                            switch (localInput)
-                                            {
-                                                /// выход из текущего меню
-                                                case 0:
-                                                    localFlag = false;
-                                                    flag = false;
-                                                    break;
-                                                /// изменение названия отдела
-                                                case 1:
-                                                    Console.WriteLine("Введите новое название");
-                                                    string newName = Console.ReadLine();
-                                                    com.EditDepName(input, newName);
-                                                    Console.WriteLine("Готово");
-                                                    delay();
-                                                    break;
-                                                /// изменение даты создания отдела
-                                                case 2:
-                                                    Console.WriteLine("Введите новую дату");
-                                                    DateTime newDate = TakeDateInput();
-                                                    com.EditDepDate(input, newDate);
-                                                    Console.WriteLine("Готово");
-                                                    delay();
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                    else Departments.Errors(6);
-                                    delay();
-                                    break;
-                                /// удаление отдела
-                                case 3:
-                                    Console.Clear();
-                                    if (com.deps.Count > 0)
-                                    {
-                                        com.PrintCompanyDeps();
-                                        Console.WriteLine("\nВведите номер департамента согласно индексу\n");
-                                        input = TakeMenuInput(0, com.deps.Count);
-                                        com.RemoveDep(input);
-                                        Console.WriteLine("Удаление завершено");
-                                        flag = false;
-                                    }
-                                    else Departments.Errors(6);
-                                    delay();
-                                    break;
-                                /// вывод списка сотрудников на экран
-                                case 4:
-                                    Console.Clear();
-                                    if (com.deps.Count > 0)
-                                    {
-                                        bool localFlag = true;
-                                        while(localFlag == true)
-                                        {
-                                            com.PrintCompanyDeps();
-                                            Console.WriteLine("\nВведите номер департамента согласно индексу\n");
-                                            input = TakeMenuInput(0, com.deps.Count);
-                                            if (com.deps[input].staff.Count == 0)
-                                            {
-                                                Console.Clear();
-                                                Departments.Errors(7);
-                                                delay();
-                                            }
-                                            else
-                                            {
-                                                Console.Clear();
-                                                com.deps[input].PrintDepContent();
-                                                localFlag = false;
-                                                delay();
-                                            }
-                                        }
-                                    }
-                                    else Departments.Errors(6);
-                                    flag = false;
-                                    delay();
-                                    break;
-                                /// выход в главное меню
-                                case 5:
-                                    flag = false;
-                                    break;
-                            }
+                            flag = menu_1.menu();
                             break;
                         /// работа с сотрудниками
                         case 2:
-                            ShowMenu_2();
-                            input = TakeMenuInput(1, 5);
-                            switch (input)
-                            {
-                                /// добавление сотрудников
-                                case 1:
-                                    /// проверка наличия департаментов в компании
-                                    if (com.deps.Count == 0)
-                                    {
-                                        Console.WriteLine("Сначала добавьте департамент!");
-                                        flag = false;
-                                        delay();
-                                    }
-                                    else
-                                    {
-                                        Console.Clear();
-                                        com.PrintCompanyDeps();
-                                        Console.WriteLine("\nвыберите департамент\n");
-                                        input = TakeMenuInput(0, com.deps.Count);
-                                        Console.Clear();
-                                        Console.WriteLine("Сколько хотите добавить работников? " +
-                                            "\n(отредактировать поля можно после создания");
-                                        int localInput = TakeMenuInput(1, 1000000);
-                                        for (int i = 0; i < localInput; i++)
-                                        {
-                                            com.deps[input].AddStaff(new Staff
-                                                ($"Сотрудник_{rnd.Next(1, 30)}",
-                                                $"номер_{rnd.Next(1, 30)}",
-                                                rnd.Next(18, 45),
-                                                com.deps[input].DepName,
-                                                rnd.Next(10_000, 45_000),
-                                                rnd.Next(0, 5)));
-                                        }
-                                        flag = false;
-                                        delay();
-                                    }
-                                    break;
-                                /// редактирование сотрудников
-                                case 2:
-                                    /// если нет департаментов
-                                    if (com.deps.Count == 0)
-                                    {
-                                        Console.Clear();
-                                        Departments.Errors(6);
-                                        delay();
-                                        flag = false;
-                                    }
-                                    else
-                                    {
-                                        Console.Clear();
-                                        com.PrintCompanyDeps();
-                                        Console.WriteLine("\nвыберите департамент с сотрудниками\n");
-                                        input = TakeMenuInput(0, com.deps.Count);
-                                        /// если департамент пуст
-                                        if (com.deps[input].staff.Count == 0)
-                                        {
-                                            Console.Clear();
-                                            Departments.Errors(7);
-                                            delay();
-                                            flag = false;
-                                        }
-                                        /// если не пуст
-                                        else
-                                        {
-                                            bool localFlag = true;
-                                            while (localFlag == true)
-                                            {
-                                                Console.WriteLine("\n1 для продолжения 2 для выхода\n");
-                                                int staffEditMenu = TakeMenuInput(1, 2);
-                                                if (staffEditMenu == 2)
-                                                {
-                                                    flag = false;
-                                                    break;
-                                                }
-                                                com.deps[input].PrintDepContent();
-                                                Console.WriteLine("\nВведите номер сотрудника согласно индексу\n");
-                                                int localInput = TakeMenuInput(0, com.deps[input].staff.Count);
-                                                Console.Clear();
-                                                Console.WriteLine($"будем редактировать сотрудника " +
-                                                    $"{com.deps[input].staff[localInput].Print()}");
-                                                Console.WriteLine("для изменения поля введите:" +
-                                                    "\n1 Имя" +
-                                                    "\n2 Фамилия" +
-                                                    "\n3 Возраст" +
-                                                    "\n4 Зарплата" +
-                                                    "\n5 Количество открытых проектов" +
-                                                    "\n6 Сменить департамент" +
-                                                    "\n\n7 Завершить редактирование");
-
-                                                int editInput = TakeMenuInput(1, 7);
-                                                bool editResult = false;
-                                                Departments curDep = com.deps[input];
-                                                if (editInput > 0 & editInput < 7)
-                                                {
-                                                    Console.WriteLine("\nВведите новое значение\n");
-                                                    switch (editInput)
-                                                    {
-                                                        case 1:
-                                                            string newName = Console.ReadLine();
-                                                            editResult = curDep.ChangeStaffName(localInput, newName);
-                                                            break;
-                                                        case 2:
-                                                            newName = Console.ReadLine();
-                                                            editResult = curDep.ChangeStaffLastName(localInput, newName);
-                                                            break;
-                                                        case 3:
-                                                            Console.WriteLine("\n(от 18 до 75 лет)\n");
-                                                            int newAge = TakeMenuInput(18, 75);
-                                                            editResult = curDep.ChangeAge(localInput, newAge);
-                                                            break;
-                                                        case 4:
-                                                            Console.WriteLine("\n(не более 1 000 000)\n");
-                                                            int newSalary = TakeMenuInput(0, 1000000);
-                                                            editResult = curDep.ChangeSalary(localInput, newSalary);
-                                                            break;
-                                                        case 5:
-                                                            int newProjects = TakeMenuInput(0, 1000);
-                                                            editResult = curDep.ChangeProjects(localInput, newProjects);
-                                                            break;
-                                                        case 6:
-                                                            com.PrintCompanyDeps();
-                                                            int depIndex = TakeMenuInput(0, com.deps.Count);
-                                                            editResult = curDep.ChangeDep(localInput, com.deps[depIndex]);
-                                                            break;
-                                                    }
-                                                    delay();
-                                                }
-                                                else
-                                                {
-                                                    localFlag = false;
-                                                    flag = false;
-                                                }
-                                            }
-                                        }
-                                    }
-                                    break;
-                                /// удаление сотрудника
-                                case 3:
-                                    /// если нет департаментов
-                                    if (com.deps.Count == 0)
-                                    {
-                                        Console.Clear();
-                                        Departments.Errors(6);
-                                        delay();
-                                        flag = false;
-                                    }
-                                    /// если департаменты есть
-                                    else
-                                    {
-                                        Console.Clear();
-                                        com.PrintCompanyDeps();
-                                        Console.WriteLine("\nвыберите департамент с сотрудниками\n");
-                                        input = TakeMenuInput(0, com.deps.Count);
-                                        /// если нет сотрудников в департаменте
-                                        if (com.deps[input].staff.Count == 0)
-                                        {
-                                            Console.Clear();
-                                            Departments.Errors(7);
-                                            delay();
-                                            flag = false;
-                                        }
-                                        /// если сотрудники есть
-                                        else
-                                        {
-                                            Console.WriteLine("\nВведите номер сотрудника согласно индексу\n");
-                                            int localInput = TakeMenuInput(0, com.deps[input].staff.Count);
-                                            com.deps[input].RemoveStaff(localInput);
-                                            Console.WriteLine("\nСотрудник удалён\n");
-                                            flag = false;
-                                            delay();
-                                            break;
-                                        }
-                                    }
-                                    break;
-                                case 4:
-                                    /// если нет департаментов
-                                    if (com.deps.Count == 0)
-                                    {
-                                        Console.Clear();
-                                        Departments.Errors(6);
-                                        delay();
-                                        flag = false;
-                                    }
-                                    /// если департаменты есть
-                                    else
-                                    {
-                                        Console.Clear();
-                                        com.PrintCompanyDeps();
-                                        Console.WriteLine("\nвыберите департамент с сотрудниками\n");
-                                        input = TakeMenuInput(0, com.deps.Count);
-                                        /// если нет сотрудников в департаменте
-                                        if (com.deps[input].staff.Count == 0)
-                                        {
-                                            Console.Clear();
-                                            Departments.Errors(7);
-                                            delay();
-                                            flag = false;
-                                        }
-                                        /// если сотрудники есть
-                                        else
-                                        {
-                                            Console.Clear();
-                                            com.PrintCompanyDeps();
-                                            Console.WriteLine("\nвыберите департамент для перевода\n");
-                                            int localInput = TakeMenuInput(0, com.deps.Count);
-                                            com.deps[input].AllChangeDep(com.deps[localInput]);
-                                            Console.WriteLine("\nГотово\n");
-                                            flag = false;
-                                            delay();
-                                        }
-                                    }
-                                    break;
-                                /// выход в главное меню
-                                case 5:
-                                    flag = false;
-                                    break;
-                            }
+                            flag = menu_2.menu();
                             break;
                         /// вывод на экран
                         case 3:
-                            ShowMenu_3();
-                            input = TakeMenuInput(1, 5);
-                            switch (input)
-                            {
-                                /// вывод структуры организации
-                                case 1:
-                                    Console.Clear();
-                                    com.PrintCompanyDeps();
-                                    delay();
-                                    flag = false;
-                                    break;
-                                /// вывод всех сотрудников
-                                case 2:
-                                    Console.Clear();
-                                    com.PrintCompanyStaff();
-                                    delay();
-                                    flag = false;
-                                    break;
-                                /// вывод сотрудников определенного отдела
-                                case 3:
-                                    Console.Clear();
-                                    if (com.deps.Count !=0)
-                                    {
-                                        com.PrintCompanyDeps();
-                                        input = TakeMenuInput(0, com.deps.Count);
-                                        if (com.deps[input].staff.Count == 0)
-                                        {
-                                            Console.Clear();
-                                            Departments.Errors(7);
-                                            delay();
-                                            flag = false;
-                                        }
-                                        else com.deps[input].PrintDepContent();
-                                        delay();
-                                        flag = false;
-                                    }
-                                    else
-                                    {
-                                        Console.Clear();
-                                        Departments.Errors(6);
-                                        delay();
-                                        flag = false;
-                                    }
-                                    break;
-                                /// сортировка
-                                case 4:
-                                    Console.Clear();
-                                    /// если департаменты есть
-                                    if (com.deps.Count != 0)
-                                    {
-                                        com.PrintCompanyDeps();
-                                        Console.WriteLine("Выберите отдел с сотрудниками");
-                                        input = TakeMenuInput(0, com.deps.Count);
-                                        /// если выбранный департамент пуст
-                                        if (com.deps[input].staff.Count == 0)
-                                        {
-                                            Console.Clear();
-                                            Departments.Errors(7);
-                                            delay();
-                                            flag = false;
-                                        }
-                                        /// если не пуст запускается сортировка
-                                        else
-                                        {
-                                            Console.WriteLine("Выберите поле сортировки " +
-                                                "\n{0} - ID " +
-                                                "\n{1} - имя " +
-                                                "\n{2} - фамилия " +
-                                                "\n{3} - возраст " +
-                                                "\n{4} - департамент " +
-                                                "\n{5} - проекты " +
-                                                "\n{6} - зарплата",
-                                                1, 2, 3, 4, 5, 6, 7);
-
-                                            int localInput = TakeMenuInput(1, 7);
-                                            var switchTemp = CompareNumber();
-
-
-                                            switch (localInput)
-                                            {
-                                                case 1:
-                                                    switchTemp = CompareNumber();
-                                                    break;
-                                                case 2:
-                                                    switchTemp = CompareName();
-                                                    break;
-                                                case 3:
-                                                    switchTemp = CompareLastName();
-                                                    break;
-                                                case 4:
-                                                    switchTemp = CompareAge();
-                                                    break;
-                                                case 5:
-                                                    switchTemp = CompareDep();
-                                                    break;
-                                                case 6:
-                                                    switchTemp = CompareProjects();
-                                                    break;
-                                                case 7:
-                                                    switchTemp = CompareSalary();
-                                                    break;
-                                            }
-
-                                            Console.WriteLine("\nСписок до сортировки:\n");
-                                            com.deps[input].PrintDepContent();
-                                            com.deps[input].staff.Sort(switchTemp);
-                                            Console.WriteLine("\nСписок после сортировки:\n");
-                                            com.deps[input].PrintDepContent();
-                                            delay();
-
-                                        }
-                                    }
-                                    /// если департаментов нет выводим ошибку
-                                    else
-                                    {
-                                        Console.Clear();
-                                        Departments.Errors(6);
-                                        delay();
-                                        flag = false;
-                                    }
-                                    break;
-                                /// в главное меню
-                                case 5:
-                                    flag = false;
-                                    break;
-                            }
+                            flag = menu_3.menu();
                             break;
                         /// сохранение в файл
                         case 4:
-                            ShowMenu_4();
-
-                            input = TakeMenuInput(1, 3);
-                            bool loadSaveMeth = false;
-                            string file = "";
-
-                            if (input > 0 & input < 3)
-                            {
-                                switch (input)
-                                {
-                                    case 1:
-                                        CompanyToXml(com);
-                                        break;
-                                    case 2:
-                                        CompanyToJson(com);
-                                        delay();
-                                        break;
-                                }
-                                Console.WriteLine($"\nФайл {file} сохранен\n");
-                                flag = false;
-                                delay();
-                            }
-                            else
-                            {
-                                flag = false;
-                            }
+                            flag = menu_4.menu();
                             break;
                         /// загрузка из файла
                         case 5:
-                            ShowMenu_5();
-                            loadSaveMeth = false;
-                            bool fileLoadFlag = false;
-                            input = TakeMenuInput(1, 3);
-                            file = "";
-
-                            if (input > 0 & input < 3)
-                            {
-                                switch (input)
-                                {
-                                    case 1:
-                                        file = xmlData;
-                                        com = CompanyFromXml();
-                                        fileLoadFlag = true;
-                                        break;
-                                    case 2:
-                                        file = jsonData;
-                                        com = CompanyFromJson();
-                                        fileLoadFlag = true;
-                                        break;
-                                }
-                                if (fileLoadFlag & !fileError)
-                                {
-                                    Console.WriteLine($"\nФайл {file} загружен\n");
-                                    fileLoadFlag = false;
-                                }
-                                else
-                                {
-                                    Console.WriteLine($"\nФайл отсутствует!\n");
-                                    fileError = false;
-                                }
-                                flag = false;
-                                delay();
-                            }
-                            else
-                            {
-                                flag = false;
-                            }
+                            flag = menu_5.menu();
                             break;
                         }
                 }
