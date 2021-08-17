@@ -86,7 +86,7 @@ namespace Homework_8
         /// XML сериализация коллекции департаментов
         /// </summary>
         /// <param name="thisDepsList">выбранной компании</param>
-        public static void DepsXmlSerial(Company comp)
+        public static bool DepsXmlSerial(Company comp)
         {
             /// создаёт экземпляр сериализатора
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Departments>));
@@ -95,13 +95,14 @@ namespace Homework_8
             {
                 xmlSerializer.Serialize(fstream, comp.deps);
             }
+            return true;
         }
 
         /// <summary>
         /// XML сериализация всех работников 
         /// </summary>
         /// <param name="comp">выбранной компании</param>
-        public static void AllStaffXmlSerial(Company comp)
+        public static bool AllStaffXmlSerial(Company comp)
         {
             /// актуализирует данные
             fillAllStaffList(comp);
@@ -110,16 +111,19 @@ namespace Homework_8
             {
                 xmlSerializer.Serialize(fstream, allStaff);
             }
+            return true;
         }
 
         /// <summary>
         /// десериализация XML департаментов и вывод на консоль
         /// </summary>
-        static void DeSerialDepsXML()
+        static bool DeSerialDepsXML()
         {
             if (!File.Exists(DepsXml))
             {
                 Departments.Errors(8);
+                delay();
+                return false;
             }
             else
             {
@@ -132,6 +136,7 @@ namespace Homework_8
                 }
                 /// выводит данные на консоль
                 tmpComp.PrintCompanyDeps();
+                return true;
             }
         }
 
@@ -139,11 +144,13 @@ namespace Homework_8
         /// десериализация XML всех работников и вывод на консоль
         /// </summary>
         /// <param name="comp"></param>
-        static void DeSerialAllStaffXML()
+        static bool DeSerialAllStaffXML()
         {
             if (!File.Exists(AllStaffXml))
             {
                 Departments.Errors(8);
+                delay();
+                return false;
             }
             else
             {
@@ -156,6 +163,7 @@ namespace Homework_8
                 }
                 /// выводит на консоль
                 tmpDep.PrintDepContent();
+                return true;
             }
         }
 
@@ -167,7 +175,7 @@ namespace Homework_8
         /// Сериализация персонала
         /// </summary>
         /// <param name="comp"></param>
-        public static void AllStaffJsonSerial(Company comp)
+        public static bool AllStaffJsonSerial(Company comp)
         {
             /// актуализация данных
             fillAllStaffList(comp);
@@ -175,26 +183,30 @@ namespace Homework_8
             var json = JsonConvert.SerializeObject(allStaff);
             /// записываем данные в джейсон
             File.WriteAllText(jsonStaffData, json);
+            return true;
         }
 
         /// <summary>
         /// Сериализация департаментов
         /// </summary>
         /// <param name="thisDepsList"></param>
-        public static void DepsJsonSerial(List<Departments> thisDepsList)
+        public static bool DepsJsonSerial(List<Departments> thisDepsList)
         {
             var json = JsonConvert.SerializeObject(thisDepsList);
             File.WriteAllText(jsonDepsData, json);
+            return true;
         }
 
         /// <summary>
         /// Десериализация департаментов
         /// </summary>
-        public static void DepsJsonDeSerial()
+        public static bool DepsJsonDeSerial()
         {
             if (!File.Exists(jsonDepsData))
             {
                 Departments.Errors(8);
+                delay();
+                return false;
             }
             else
             {
@@ -207,17 +219,20 @@ namespace Homework_8
                 {
                     Console.WriteLine($"{item.Print()}");
                 }
+                return true;
             }
         }
 
         /// <summary>
         /// десериализация персонала
         /// </summary>
-        public static void StaffJsonDeSerial()
+        public static bool StaffJsonDeSerial()
         {
             if (!File.Exists(jsonStaffData))
             {
                 Departments.Errors(8);
+                delay();
+                return false;
             }
             else
             {
@@ -227,6 +242,7 @@ namespace Homework_8
                 {
                     Console.WriteLine($"{item.Print()}");
                 }
+                return true;
             }
         }
 
@@ -275,7 +291,8 @@ namespace Homework_8
                 $"\n1. Создание одного или нескольких сотрудников" +
                 $"\n2. Редактирование сотрудника" +
                 $"\n3. Удаление сотрудника" +
-                $"\n\n4. Главное меню\n");
+                $"\n4. Перемещение всех в другой департамент" +
+                $"\n\n5. Главное меню\n");
         }
 
         /// <summary>
@@ -579,7 +596,7 @@ namespace Homework_8
                         /// работа с сотрудниками
                         case 2:
                             ShowMenu_2();
-                            input = TakeMenuInput(1, 4);
+                            input = TakeMenuInput(1, 5);
                             switch (input)
                             {
                                 /// добавление сотрудников
@@ -752,8 +769,46 @@ namespace Homework_8
                                         }
                                     }
                                     break;
-                                /// выход в главное меню
                                 case 4:
+                                    /// если нет департаментов
+                                    if (com.deps.Count == 0)
+                                    {
+                                        Console.Clear();
+                                        Departments.Errors(6);
+                                        delay();
+                                        flag = false;
+                                    }
+                                    /// если департаменты есть
+                                    else
+                                    {
+                                        Console.Clear();
+                                        com.PrintCompanyDeps();
+                                        Console.WriteLine("\nвыберите департамент с сотрудниками\n");
+                                        input = TakeMenuInput(0, com.deps.Count);
+                                        /// если нет сотрудников в департаменте
+                                        if (com.deps[input].staff.Count == 0)
+                                        {
+                                            Console.Clear();
+                                            Departments.Errors(7);
+                                            delay();
+                                            flag = false;
+                                        }
+                                        /// если сотрудники есть
+                                        else
+                                        {
+                                            Console.Clear();
+                                            com.PrintCompanyDeps();
+                                            Console.WriteLine("\nвыберите департамент для перевода\n");
+                                            int localInput = TakeMenuInput(0, com.deps.Count);
+                                            com.deps[input].AllChangeDep(com.deps[localInput]);
+                                            Console.WriteLine("\nГотово\n");
+                                            flag = false;
+                                            delay();
+                                        }
+                                    }
+                                    break;
+                                /// выход в главное меню
+                                case 5:
                                     flag = false;
                                     break;
                             }
@@ -890,81 +945,78 @@ namespace Homework_8
                         /// сохранение в файл
                         case 4:
                             ShowMenu_4();
+
                             input = TakeMenuInput(1, 5);
-                            switch (input)
+                            bool loadSaveMeth = false;
+                            string file = "";
+
+                            if (input > 0 & input < 5)
                             {
-                                /// департаменты в XML
-                                case 1:
-                                    DepsXmlSerial(com);
-                                    Console.WriteLine($"\nФайл {DepsXml} сохранен\n");
-                                    flag = false;
-                                    delay();
-                                    break;
-                                /// департаменты в json
-                                case 2:
-                                    DepsJsonSerial(com.deps);
-                                    Console.WriteLine($"\nФайл {jsonDepsData} сохранен\n");
-                                    flag = false;
-                                    delay();
-                                    break;
-                                /// работники в XML
-                                case 3:
-                                    AllStaffXmlSerial(com);
-                                    Console.WriteLine($"\nФайл {AllStaffXml} сохранен\n");
-                                    flag = false;
-                                    delay();
-                                    break;
-                                /// работники в JSON
-                                case 4:
-                                    AllStaffJsonSerial(com);
-                                    Console.WriteLine($"\nФайл {jsonStaffData} сохранен\n");
-                                    flag = false;
-                                    delay();
-                                    break;
-                                /// в главное меню
-                                case 5:
-                                    flag = false;
-                                    break;
+                                switch (input)
+                                {
+                                    case 1:
+                                        file = DepsXml;
+                                        loadSaveMeth = DepsXmlSerial(com);
+                                        break;
+                                    case 2:
+                                        file = jsonDepsData;
+                                        loadSaveMeth = DepsJsonSerial(com.deps);
+                                        break;
+                                    case 3:
+                                        file = AllStaffXml;
+                                        loadSaveMeth = AllStaffXmlSerial(com);
+                                        break;
+                                    case 4:
+                                        file = jsonStaffData;
+                                        loadSaveMeth = AllStaffJsonSerial(com);
+                                        break;
+                                }
+                                Console.WriteLine($"\nФайл {file} сохранен\n");
+                                flag = false;
+                                delay();
+                            }
+                            else
+                            {
+                                flag = false;
                             }
                             break;
+
                         /// загрузка из файла
                         case 5:
+
                             ShowMenu_5();
+                            loadSaveMeth = false;
                             input = TakeMenuInput(1, 5);
-                            switch (input)
+                            file = "";
+
+                            if (input > 0 & input < 5)
                             {
-                                /// департаменты из xml
-                                case 1:
-                                    DeSerialDepsXML();
-                                    Console.WriteLine($"\nФайл {DepsXml} загружен\n");
-                                    flag = false;
-                                    delay();
-                                    break;
-                                /// из json
-                                case 2:
-                                    DepsJsonDeSerial();
-                                    Console.WriteLine($"\nФайл {jsonDepsData} загружен\n");
-                                    flag = false;
-                                    delay();
-                                    break;
-                                /// сотрудники их xml
-                                case 3:
-                                    DeSerialAllStaffXML();
-                                    Console.WriteLine($"\nФайл {AllStaffXml} загружен\n");
-                                    flag = false;
-                                    delay();
-                                    break;
-                                /// из json
-                                case 4:
-                                    StaffJsonDeSerial();
-                                    Console.WriteLine($"\nФайл {jsonStaffData} загружен\n");
-                                    flag = false;
-                                    delay();
-                                    break;
-                                /// в главное меню
-                                case 5:
-                                    flag = false;
-                                    break;
+                                switch (input)
+                                {
+                                    case 1:
+                                        file = DepsXml;
+                                        loadSaveMeth = DeSerialDepsXML();
+                                        break;
+                                    case 2:
+                                        file = jsonDepsData;
+                                        loadSaveMeth = DepsJsonDeSerial();
+                                        break;
+                                    case 3:
+                                        file = AllStaffXml;
+                                        loadSaveMeth = DeSerialAllStaffXML();
+                                        break;
+                                    case 4:
+                                        file = jsonStaffData;
+                                        loadSaveMeth = StaffJsonDeSerial();
+                                        break;
+                                }
+                                Console.WriteLine($"\nФайл {file} загружен\n");
+                                flag = false;
+                                delay();
+                            }
+                            else
+                            {
+                                flag = false;
                             }
                             break;
                         }

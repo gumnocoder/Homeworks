@@ -133,7 +133,6 @@ namespace Homework_8
                     this.staff[0] = s;
                     otherDep.AddStaff(this.staff[0]);
                     this.RemoveStaff(0);
-                    return true; ;
                 }
                 return true;
             }
