@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 
@@ -55,195 +56,64 @@ namespace Homework_8
             Console.Clear();
         }
 
-        /// <summary>
-        ///  общая коллекция работников
-        /// </summary>
-        static List<Staff> allStaff = new List<Staff>();
-
-        /// <summary>
-        /// при необходимости сериализации создаёт общую коллекцию работников
-        /// </summary>
-        /// <param name="comp">выбранной компании</param>
-        public static void fillAllStaffList(Company comp)
-        {
-            /// чтобы данные были актуальны сначала стирает старые
-            allStaff.Clear();
-            /// перебирает департаменты
-            foreach (var dep in comp.deps)
-            {
-                /// в них работников
-                foreach (var staff in dep.staff)
-                {
-                    /// добавляет в коллекцию
-                    allStaff.Add(staff);
-                }
-            }
-        }
-
         #region XML (де)сериализация
 
-        /// <summary>
-        /// XML сериализация коллекции департаментов
-        /// </summary>
-        /// <param name="thisDepsList">выбранной компании</param>
-        public static bool DepsXmlSerial(Company comp)
-        {
-            /// создаёт экземпляр сериализатора
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Departments>));
-            /// создаёт поток и записывает элементы коллекции в файл
-            using (Stream fstream = new FileStream(DepsXml, FileMode.Create, FileAccess.Write))
-            {
-                xmlSerializer.Serialize(fstream, comp.deps);
-            }
-            return true;
-        }
+        public static string xmlData = "company_struct.xml";
 
         /// <summary>
-        /// XML сериализация всех работников 
-        /// </summary>
-        /// <param name="comp">выбранной компании</param>
-        public static bool AllStaffXmlSerial(Company comp)
-        {
-            /// актуализирует данные
-            fillAllStaffList(comp);
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Staff>));
-            using (Stream fstream = new FileStream(AllStaffXml, FileMode.Create, FileAccess.Write))
-            {
-                xmlSerializer.Serialize(fstream, allStaff);
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// десериализация XML департаментов и вывод на консоль
-        /// </summary>
-        static bool DeSerialDepsXML()
-        {
-            if (!File.Exists(DepsXml))
-            {
-                Departments.Errors(8);
-                delay();
-                return false;
-            }
-            else
-            {
-                /// создаёт временную компанию для хранения списка департаментов
-                Company tmpComp = new Company("tmp");
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Departments>));
-                using (Stream fStream = new FileStream(DepsXml, FileMode.Open, FileAccess.Read))
-                {
-                    tmpComp.deps = xmlSerializer.Deserialize(fStream) as List<Departments>;
-                }
-                /// выводит данные на консоль
-                tmpComp.PrintCompanyDeps();
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// десериализация XML всех работников и вывод на консоль
+        /// сохраняет структуру в xml
         /// </summary>
         /// <param name="comp"></param>
-        static bool DeSerialAllStaffXML()
+        public static void CompanyToXml(Company comp)
         {
-            if (!File.Exists(AllStaffXml))
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Company));
+            using (Stream fstream = new FileStream(xmlData, FileMode.Create, FileAccess.Write))
             {
-                Departments.Errors(8);
-                delay();
-                return false;
+                xmlSerializer.Serialize(fstream, comp);
             }
-            else
-            {
-                /// создаёт временный департамент для хранения коллекции работников
-                Departments tmpDep = new Departments();
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Staff>));
-                using (Stream fStream = new FileStream(AllStaffXml, FileMode.Open, FileAccess.Read))
-                {
-                    tmpDep.staff = xmlSerializer.Deserialize(fStream) as List<Staff>;
-                }
-                /// выводит на консоль
-                tmpDep.PrintDepContent();
-                return true;
-            }
+        }
+
+        /// <summary>
+        /// загружает струткуру из xml
+        /// </summary>
+        /// <returns></returns>
+        public static Company CompanyFromXml()
+        {
+            FileStream fs = new FileStream(xmlData, FileMode.Open);
+            XmlReader xmlReader = XmlReader.Create(fs);
+            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Company));
+            Company tmpComp;
+            tmpComp = (Company)xmlSerializer.Deserialize(xmlReader);
+            fs.Close();
+            return tmpComp;
         }
 
         #endregion
 
         #region JSON (де)сериализация
 
+        public static string jsonData = "company_struct.json";
+
         /// <summary>
-        /// Сериализация персонала
+        /// сохраняет структуру в json
         /// </summary>
         /// <param name="comp"></param>
-        public static bool AllStaffJsonSerial(Company comp)
+        public static void CompanyToJson(Company comp)
         {
-            /// актуализация данных
-            fillAllStaffList(comp);
-            /// создаём сериализатор
-            var json = JsonConvert.SerializeObject(allStaff);
-            /// записываем данные в джейсон
-            File.WriteAllText(jsonStaffData, json);
-            return true;
+            string json = JsonConvert.SerializeObject(comp);
+            File.WriteAllText(jsonData, json);
         }
 
         /// <summary>
-        /// Сериализация департаментов
+        /// Загружает структуру из json
         /// </summary>
-        /// <param name="thisDepsList"></param>
-        public static bool DepsJsonSerial(List<Departments> thisDepsList)
+        /// <returns></returns>
+        public static Company CompanyFromJson()
         {
-            var json = JsonConvert.SerializeObject(thisDepsList);
-            File.WriteAllText(jsonDepsData, json);
-            return true;
-        }
-
-        /// <summary>
-        /// Десериализация департаментов
-        /// </summary>
-        public static bool DepsJsonDeSerial()
-        {
-            if (!File.Exists(jsonDepsData))
-            {
-                Departments.Errors(8);
-                delay();
-                return false;
-            }
-            else
-            {
-                /// читаем файл
-                string json = File.ReadAllText(jsonDepsData);
-                /// создаём коллекцию элементов
-                List<Departments> list = JsonConvert.DeserializeObject<List<Departments>>(json);
-                /// перебираем элементы и выводим на консоль
-                foreach (var item in list)
-                {
-                    Console.WriteLine($"{item.Print()}");
-                }
-                return true;
-            }
-        }
-
-        /// <summary>
-        /// десериализация персонала
-        /// </summary>
-        public static bool StaffJsonDeSerial()
-        {
-            if (!File.Exists(jsonStaffData))
-            {
-                Departments.Errors(8);
-                delay();
-                return false;
-            }
-            else
-            {
-                string json = File.ReadAllText(jsonStaffData);
-                List<Staff> list = JsonConvert.DeserializeObject<List<Staff>>(json);
-                foreach (var item in list)
-                {
-                    Console.WriteLine($"{item.Print()}");
-                }
-                return true;
-            }
+            Company tmpComp = new Company();
+            string json = File.ReadAllText(jsonData);
+            tmpComp = JsonConvert.DeserializeObject<Company>(json);
+            return tmpComp;
         }
 
         #endregion
@@ -316,11 +186,9 @@ namespace Homework_8
         {
             Console.Clear();
             Console.WriteLine($"\nСохранение в файл\n" +
-                $"\n1. Сохранение департаментов в XML" +
-                $"\n2. Сохранение департаментов в Json" +
-                $"\n3. Сохранение сотрудников в XML" +
-                $"\n4. Сохранение сотрудников в Json" +
-                $"\n\n5. Главное меню\n");
+                $"\n1. Сохранение в XML" +
+                $"\n2. Сохранение в Json" +
+                $"\n3. Главное меню\n");
         }
 
         /// <summary>
@@ -330,11 +198,9 @@ namespace Homework_8
         {
             Console.Clear();
             Console.WriteLine($"\nЗагрузка из файла\n" +
-                $"\n1. Загрузка департаментов из XML" +
-                $"\n2. Загрузка департаментов из Json" +
-                $"\n3. Загрузка сотрудников из XML" +
-                $"\n4. Загрузка сотрудников из Json" +
-                $"\n\n5. Главное меню\n");
+                $"\n1. Загрузка из XML" +
+                $"\n2. Загрузка из Json" +
+                $"\n3. Главное меню\n");
         }
 
         #endregion
@@ -946,29 +812,20 @@ namespace Homework_8
                         case 4:
                             ShowMenu_4();
 
-                            input = TakeMenuInput(1, 5);
+                            input = TakeMenuInput(1, 3);
                             bool loadSaveMeth = false;
                             string file = "";
 
-                            if (input > 0 & input < 5)
+                            if (input > 0 & input < 3)
                             {
                                 switch (input)
                                 {
                                     case 1:
-                                        file = DepsXml;
-                                        loadSaveMeth = DepsXmlSerial(com);
+                                        CompanyToXml(com);
                                         break;
                                     case 2:
-                                        file = jsonDepsData;
-                                        loadSaveMeth = DepsJsonSerial(com.deps);
-                                        break;
-                                    case 3:
-                                        file = AllStaffXml;
-                                        loadSaveMeth = AllStaffXmlSerial(com);
-                                        break;
-                                    case 4:
-                                        file = jsonStaffData;
-                                        loadSaveMeth = AllStaffJsonSerial(com);
+                                        CompanyToJson(com);
+                                        delay();
                                         break;
                                 }
                                 Console.WriteLine($"\nФайл {file} сохранен\n");
@@ -980,37 +837,35 @@ namespace Homework_8
                                 flag = false;
                             }
                             break;
-
                         /// загрузка из файла
                         case 5:
-
                             ShowMenu_5();
                             loadSaveMeth = false;
-                            input = TakeMenuInput(1, 5);
+                            bool fileLoadFlag = false;
+                            input = TakeMenuInput(1, 3);
                             file = "";
 
-                            if (input > 0 & input < 5)
+                            if (input > 0 & input < 3)
                             {
                                 switch (input)
                                 {
                                     case 1:
-                                        file = DepsXml;
-                                        loadSaveMeth = DeSerialDepsXML();
+                                        file = xmlData;
+                                        com = CompanyFromXml();
+                                        fileLoadFlag = true;
                                         break;
                                     case 2:
-                                        file = jsonDepsData;
-                                        loadSaveMeth = DepsJsonDeSerial();
-                                        break;
-                                    case 3:
-                                        file = AllStaffXml;
-                                        loadSaveMeth = DeSerialAllStaffXML();
-                                        break;
-                                    case 4:
-                                        file = jsonStaffData;
-                                        loadSaveMeth = StaffJsonDeSerial();
+                                        file = jsonData;
+                                        com = CompanyFromJson();
+                                        fileLoadFlag = true;
                                         break;
                                 }
-                                Console.WriteLine($"\nФайл {file} загружен\n");
+                                if (fileLoadFlag)
+                                {
+                                    Console.WriteLine($"\nФайл {file} загружен\n");
+                                    fileLoadFlag = false;
+                                }
+                                
                                 flag = false;
                                 delay();
                             }
