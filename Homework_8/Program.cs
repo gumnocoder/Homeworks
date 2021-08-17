@@ -368,6 +368,81 @@ namespace Homework_8
         }
 
         #endregion
+
+        #region МЕТОДЫ СОРТИРОВКИ
+
+        /// <summary>
+        /// Сортировщик по номеру
+        /// </summary>
+        /// <returns>возвращает экземпляр сортировщика</returns>
+        public static IComparer<Staff> CompareNumber()
+        {
+            CompareNumber cnu = new CompareNumber();
+            return cnu;
+        }
+
+        /// <summary>
+        /// сортировщик по имени
+        /// </summary>
+        /// <returns>возвращает экземпляр сортировщика</returns>
+        public static IComparer<Staff> CompareName()
+        {
+            CompareName cn = new CompareName();
+            return cn;
+        }
+
+        /// <summary>
+        /// сортировщик по фамилии
+        /// </summary>
+        /// <returns>возвращает экземпляр сортировщика</returns>
+        public static IComparer<Staff> CompareLastName()
+        {
+            CompareLastName cln = new CompareLastName();
+            return cln;
+        }
+
+        /// <summary>
+        /// сортировщик по возрасту
+        /// </summary>
+        /// <returns>возвращает экземпляр сортировщика</returns>
+        public static IComparer<Staff> CompareAge()
+        {
+            CompareAge ca = new CompareAge();
+            return ca;
+        }
+
+        /// <summary>
+        /// сортировщик по отделу
+        /// </summary>
+        /// <returns>возвращает экземпляр сортировщика</returns>
+        public static IComparer<Staff> CompareDep()
+        {
+            CompareDep cd = new CompareDep();
+            return cd;
+        }
+
+        /// <summary>
+        /// Сортировщик по проектам
+        /// </summary>
+        /// <returns>возвращает экземпляр сортировщика</returns>
+        public static IComparer<Staff> CompareProjects()
+        {
+            CompareProjects cp = new CompareProjects();
+            return cp;
+        }
+
+        /// <summary>
+        /// сортировщик по зарплате
+        /// </summary>
+        /// <returns>возвращает экземпляр сортировщика</returns>
+        public static IComparer<Staff> CompareSalary()
+        {
+            CompareSalary cs = new CompareSalary();
+            return cs;
+        }
+
+        #endregion
+
         static void Main(string[] args)
         {
 
@@ -743,23 +818,6 @@ namespace Homework_8
                                     break;
                                 /// сортировка
                                 case 4:
-
-                                    /// создаём сортировщики
-                                    /// сортировка по полю ИД
-                                    CompareNumber cnu = new CompareNumber();
-                                    /// по полю имя
-                                    CompareName cn = new CompareName();
-                                    /// по полю фамилия
-                                    CompareLastName cln = new CompareLastName();
-                                    /// по полю возраст
-                                    CompareAge ca = new CompareAge();
-                                    /// по департаменту
-                                    CompareDep cp = new CompareDep();
-                                    /// по количеству проектов
-                                    CompareProjects cpr = new CompareProjects();
-                                    /// по зарплате
-                                    CompareSalary cs = new CompareSalary(); 
-
                                     Console.Clear();
                                     /// если департаменты есть
                                     if (com.deps.Count != 0)
@@ -787,79 +845,43 @@ namespace Homework_8
                                                 "\n{5} - проекты " +
                                                 "\n{6} - зарплата",
                                                 1, 2, 3, 4, 5, 6, 7);
+
                                             int localInput = TakeMenuInput(1, 7);
+                                            var switchTemp = CompareNumber();
+
+
                                             switch (localInput)
                                             {
-                                                /// ИД
                                                 case 1:
-                                                    Console.WriteLine("\nСписок до сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    com.deps[input].staff.Sort(cnu);
-                                                    Console.WriteLine("\nСписок после сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    delay();
+                                                    switchTemp = CompareNumber();
                                                     break;
-                                                /// имя
                                                 case 2:
-                                                    Console.WriteLine("\nСписок до сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    com.deps[input].staff.Sort(cn);
-                                                    Console.WriteLine("\nСписок после сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    flag = false;
-                                                    delay();
+                                                    switchTemp = CompareName();
                                                     break;
-                                                /// фамилия
                                                 case 3:
-                                                    Console.WriteLine("\nСписок до сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    com.deps[input].staff.Sort(cln);
-                                                    Console.WriteLine("\nСписок после сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    flag = false;
-                                                    delay();
+                                                    switchTemp = CompareLastName();
                                                     break;
-                                                /// возраст
                                                 case 4:
-                                                    Console.WriteLine("\nСписок до сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    com.deps[input].staff.Sort(ca);
-                                                    Console.WriteLine("\nСписок после сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    flag = false;
-                                                    delay();
+                                                    switchTemp = CompareAge();
                                                     break;
-                                                /// департамент
                                                 case 5:
-                                                    Console.WriteLine("\nСписок до сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    com.deps[input].staff.Sort(cp);
-                                                    Console.WriteLine("\nСписок после сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    flag = false;
-                                                    delay();
+                                                    switchTemp = CompareDep();
                                                     break;
-                                                /// проекты
                                                 case 6:
-                                                    Console.WriteLine("\nСписок до сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    com.deps[input].staff.Sort(cpr);
-                                                    Console.WriteLine("\nСписок после сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    flag = false;
-                                                    delay();
+                                                    switchTemp = CompareProjects();
                                                     break;
-                                                /// зарплата
                                                 case 7:
-                                                    Console.WriteLine("\nСписок до сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    com.deps[input].staff.Sort(cs);
-                                                    Console.WriteLine("\nСписок после сортировки:\n");
-                                                    com.deps[input].PrintDepContent();
-                                                    flag = false;
-                                                    delay();
+                                                    switchTemp = CompareSalary();
                                                     break;
                                             }
+
+                                            Console.WriteLine("\nСписок до сортировки:\n");
+                                            com.deps[input].PrintDepContent();
+                                            com.deps[input].staff.Sort(switchTemp);
+                                            Console.WriteLine("\nСписок после сортировки:\n");
+                                            com.deps[input].PrintDepContent();
+                                            delay();
+
                                         }
                                     }
                                     /// если департаментов нет выводим ошибку
