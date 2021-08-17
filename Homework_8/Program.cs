@@ -656,7 +656,8 @@ namespace Homework_8
                                                 Console.WriteLine("\nВведите номер сотрудника согласно индексу\n");
                                                 int localInput = TakeMenuInput(0, com.deps[input].staff.Count);
                                                 Console.Clear();
-                                                Console.WriteLine($"будем редактировать сотрудника {com.deps[input].staff[localInput].Print()}");
+                                                Console.WriteLine($"будем редактировать сотрудника " +
+                                                    $"{com.deps[input].staff[localInput].Print()}");
                                                 Console.WriteLine("для изменения поля введите:" +
                                                     "\n1 Имя" +
                                                     "\n2 Фамилия" +
@@ -665,62 +666,49 @@ namespace Homework_8
                                                     "\n5 Количество открытых проектов" +
                                                     "\n6 Сменить департамент" +
                                                     "\n\n7 Завершить редактирование");
+
                                                 int editInput = TakeMenuInput(1, 7);
-                                                switch (editInput)
+                                                bool editResult = false;
+                                                Departments curDep = com.deps[input];
+                                                if (editInput > 0 & editInput < 7)
                                                 {
-                                                    case 1:
-                                                        /// ChangeStaffName(int pos, string newName)
-                                                        Console.WriteLine("\nВведите новое имя\n");
-                                                        string newName = Console.ReadLine();
-                                                        com.deps[input].ChangeStaffName(localInput, newName);
-                                                        Console.WriteLine("\nГотово\n");
-                                                        delay();
-                                                        break;
-                                                    case 2:
-                                                        /// ChangeStaffLastName(int pos, string newLastName)
-                                                        Console.WriteLine("\nВведите новую фамилию\n");
-                                                        newName = Console.ReadLine();
-                                                        com.deps[input].ChangeStaffLastName(localInput, newName);
-                                                        Console.WriteLine("\nГотово\n");
-                                                        delay();
-                                                        break;
-                                                    case 3:
-                                                        /// ChangeAge(int pos, int newAge)
-                                                        Console.WriteLine("\nВведите новый возраст (от 18 до 75 лет)\n");
-                                                        int newAge = TakeMenuInput(18, 75);
-                                                        com.deps[input].ChangeAge(localInput, newAge);
-                                                        Console.WriteLine("\nГотово\n");
-                                                        delay();
-                                                        break;
-                                                    case 4:
-                                                        /// ChangeSalary(int pos, int newSalary)
-                                                        Console.WriteLine("\nВведите новую зарплату\n");
-                                                        int newSalary = TakeMenuInput(0, 1000000);
-                                                        com.deps[input].ChangeSalary(localInput, newSalary);
-                                                        Console.WriteLine("\nГотово\n");
-                                                        delay();
-                                                        break;
-                                                    case 5:
-                                                        /// ChangeProjects(int pos, int newProjects)
-                                                        Console.WriteLine("\nВведите новую зарплату\n");
-                                                        int newProjects = TakeMenuInput(0, 1000);
-                                                        com.deps[input].ChangeProjects(localInput, newProjects);
-                                                        Console.WriteLine("\nГотово\n");
-                                                        delay();
-                                                        break;
-                                                    case 6:
-                                                        /// ChangeDep(int pos, Departments otherDep)
-                                                        com.PrintCompanyDeps();
-                                                        Console.WriteLine("\nВведите индекс департамента для перевода\n");
-                                                        int depIndex = TakeMenuInput(0, com.deps.Count);
-                                                        com.deps[input].ChangeDep(localInput, com.deps[depIndex]);
-                                                        Console.WriteLine("\nГотово\n");
-                                                        delay();
-                                                        break;
-                                                    case 7:
-                                                        localFlag = false;
-                                                        flag = false;
-                                                        break;
+                                                    Console.WriteLine("\nВведите новое значение\n");
+                                                    switch (editInput)
+                                                    {
+                                                        case 1:
+                                                            string newName = Console.ReadLine();
+                                                            editResult = curDep.ChangeStaffName(localInput, newName);
+                                                            break;
+                                                        case 2:
+                                                            newName = Console.ReadLine();
+                                                            editResult = curDep.ChangeStaffLastName(localInput, newName);
+                                                            break;
+                                                        case 3:
+                                                            Console.WriteLine("\n(от 18 до 75 лет)\n");
+                                                            int newAge = TakeMenuInput(18, 75);
+                                                            editResult = curDep.ChangeAge(localInput, newAge);
+                                                            break;
+                                                        case 4:
+                                                            Console.WriteLine("\n(не более 1 000 000)\n");
+                                                            int newSalary = TakeMenuInput(0, 1000000);
+                                                            editResult = curDep.ChangeSalary(localInput, newSalary);
+                                                            break;
+                                                        case 5:
+                                                            int newProjects = TakeMenuInput(0, 1000);
+                                                            editResult = curDep.ChangeProjects(localInput, newProjects);
+                                                            break;
+                                                        case 6:
+                                                            com.PrintCompanyDeps();
+                                                            int depIndex = TakeMenuInput(0, com.deps.Count);
+                                                            editResult = curDep.ChangeDep(localInput, com.deps[depIndex]);
+                                                            break;
+                                                    }
+                                                    delay();
+                                                }
+                                                else
+                                                {
+                                                    localFlag = false;
+                                                    flag = false;
                                                 }
                                             }
                                         }

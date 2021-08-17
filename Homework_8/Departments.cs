@@ -90,7 +90,7 @@ namespace Homework_8
         /// </summary>
         /// <param name="pos">индекс сотрудника в коллекции</param>
         /// <param name="otherDep">конечный департамент</param>
-        public void ChangeDep(int pos, Departments otherDep)
+        public bool ChangeDep(int pos, Departments otherDep)
         {
             /// если индекс доступен
             if (pos > -1 & pos < this.staff.Count)
@@ -109,17 +109,18 @@ namespace Homework_8
                     this.staff[pos] = s;
                     otherDep.AddStaff(this.staff[pos]);
                     this.RemoveStaff(pos);
+                    return true;
                 }
-                else Errors(3);
+                else return false;
             }
-            else Errors(1);
+            else return false;
         }
 
         /// <summary>
         /// перемещение всех сотрудников в другой департамент
         /// </summary>
         /// <param name="otherDep">конечный департамент</param>
-        public void AllChangeDep(Departments otherDep)
+        public bool AllChangeDep(Departments otherDep)
         {
             /// по аналогии с методом ChangeDep()
             if (otherDep.checkCapacity())
@@ -132,9 +133,11 @@ namespace Homework_8
                     this.staff[0] = s;
                     otherDep.AddStaff(this.staff[0]);
                     this.RemoveStaff(0);
+                    return true; ;
                 }
+                return true;
             }
-            else Errors(3);
+            else return false;
         }
 
         /// <summary>
@@ -153,15 +156,16 @@ namespace Homework_8
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="newName"></param>
-        public void ChangeStaffName(int pos, string newName)
+        public bool ChangeStaffName(int pos, string newName)
         {
             if (CheckPos(pos))
             {
                 Staff s = this.staff[pos];
-                s.FirstName = newName; 
+                s.FirstName = newName;
                 this.staff[pos] = s;
+                return true;
             }
-            else Errors(1);
+            else return false;
         }
 
         /// <summary>
@@ -169,15 +173,16 @@ namespace Homework_8
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="newLastName"></param>
-        public void ChangeStaffLastName(int pos, string newLastName)
+        public bool ChangeStaffLastName(int pos, string newLastName)
         {
             if (CheckPos(pos))
             {
                 Staff s = this.staff[pos];
                 s.LastName = newLastName;
                 this.staff[pos] = s;
+                return true;
             }
-            else Errors(1);
+            else return false;
         }
 
         /// <summary>
@@ -185,30 +190,32 @@ namespace Homework_8
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="newAge"></param>
-        public void ChangeAge(int pos, int newAge)
+        public bool ChangeAge(int pos, int newAge)
         {
             if (CheckPos(pos))
             {
                 Staff s = this.staff[pos];
                 s.Age = newAge;
                 this.staff[pos] = s;
+                return true;
             }
-            else Errors(1);
+            else return false;
         }
         /// <summary>
         /// изменение зп
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="newSalary"></param>
-        public void ChangeSalary(int pos, int newSalary)
+        public bool ChangeSalary(int pos, int newSalary)
         {
             if (CheckPos(pos))
             {
                 Staff s = this.staff[pos];
                 s.Salary = newSalary;
                 this.staff[pos] = s;
+                return true;
             }
-            else Errors(1);
+            else return false;
         }
 
         /// <summary>
@@ -216,15 +223,16 @@ namespace Homework_8
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="newProjects"></param>
-        public void ChangeProjects(int pos, int newProjects)
+        public bool ChangeProjects(int pos, int newProjects)
         {
             if (CheckPos(pos))
             {
                 Staff s = this.staff[pos];
                 s.ProjectsCount = newProjects;
                 this.staff[pos] = s;
+                return true;
             }
-            else Errors(1);
+            else return false;
         }
 
         /// <summary>
