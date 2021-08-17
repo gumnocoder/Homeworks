@@ -58,6 +58,8 @@ namespace Homework_8
 
         #region XML (де)сериализация
 
+        public static bool fileError = false;
+
         public static string xmlData = "company_struct.xml";
 
         /// <summary>
@@ -79,13 +81,21 @@ namespace Homework_8
         /// <returns></returns>
         public static Company CompanyFromXml()
         {
-            FileStream fs = new FileStream(xmlData, FileMode.Open);
-            XmlReader xmlReader = XmlReader.Create(fs);
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(Company));
-            Company tmpComp;
-            tmpComp = (Company)xmlSerializer.Deserialize(xmlReader);
-            fs.Close();
-            return tmpComp;
+            if (File.Exists(xmlData))
+            {
+                FileStream fs = new FileStream(xmlData, FileMode.Open);
+                XmlReader xmlReader = XmlReader.Create(fs);
+                XmlSerializer xmlSerializer = new XmlSerializer(typeof(Company));
+                Company tmpComp;
+                tmpComp = (Company)xmlSerializer.Deserialize(xmlReader);
+                fs.Close();
+                return tmpComp;
+            }
+            else
+            {
+                fileError = true;
+                return new Company();
+            }
         }
 
         #endregion
@@ -110,10 +120,18 @@ namespace Homework_8
         /// <returns></returns>
         public static Company CompanyFromJson()
         {
-            Company tmpComp = new Company();
-            string json = File.ReadAllText(jsonData);
-            tmpComp = JsonConvert.DeserializeObject<Company>(json);
-            return tmpComp;
+            if (File.Exists(jsonData))
+            {
+                Company tmpComp = new Company();
+                string json = File.ReadAllText(jsonData);
+                tmpComp = JsonConvert.DeserializeObject<Company>(json);
+                return tmpComp;
+            }
+            else
+            {
+                fileError = true;
+                return new Company();
+            }
         }
 
         #endregion
@@ -860,12 +878,16 @@ namespace Homework_8
                                         fileLoadFlag = true;
                                         break;
                                 }
-                                if (fileLoadFlag)
+                                if (fileLoadFlag & !fileError)
                                 {
                                     Console.WriteLine($"\nФайл {file} загружен\n");
                                     fileLoadFlag = false;
                                 }
-                                
+                                else
+                                {
+                                    Console.WriteLine($"\nФайл отсутствует!\n");
+                                    fileError = false;
+                                }
                                 flag = false;
                                 delay();
                             }
