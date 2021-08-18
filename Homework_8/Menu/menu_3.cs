@@ -45,7 +45,7 @@ namespace Homework_8
                     if (com.deps.Count != 0)
                     {
                         com.PrintCompanyDeps();
-                        input = TakeMenuInput(0, com.deps.Count);
+                        input = TakeMenuInput(0, com.deps.Count - 1);
                         if (com.deps[input].staff.Count == 0)
                         {
                             Console.Clear();
@@ -72,7 +72,7 @@ namespace Homework_8
                     {
                         com.PrintCompanyDeps();
                         Console.WriteLine("Выберите отдел с сотрудниками");
-                        input = TakeMenuInput(0, com.deps.Count);
+                        input = TakeMenuInput(0, com.deps.Count - 1);
                         /// если выбранный департамент пуст
                         if (com.deps[input].staff.Count == 0)
                         {

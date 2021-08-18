@@ -42,7 +42,7 @@ namespace Homework_8
                         Console.Clear();
                         com.PrintCompanyDeps();
                         Console.WriteLine("\nвыберите департамент\n");
-                        input = TakeMenuInput(0, com.deps.Count);
+                        input = TakeMenuInput(0, com.deps.Count - 1);
                         Console.Clear();
                         Console.WriteLine("Сколько хотите добавить работников? " +
                             "\n(отредактировать поля можно после создания");
@@ -74,7 +74,7 @@ namespace Homework_8
                         Console.Clear();
                         com.PrintCompanyDeps();
                         Console.WriteLine("\nвыберите департамент с сотрудниками\n");
-                        input = TakeMenuInput(0, com.deps.Count);
+                        input = TakeMenuInput(0, com.deps.Count - 1);
                         /// если департамент пуст
                         if (com.deps[input].staff.Count == 0)
                         {
@@ -96,7 +96,7 @@ namespace Homework_8
                                 }
                                 com.deps[input].PrintDepContent();
                                 Console.WriteLine("\nВведите номер сотрудника согласно индексу\n");
-                                int localInput = TakeMenuInput(0, com.deps[input].staff.Count);
+                                int localInput = TakeMenuInput(0, com.deps[input].staff.Count - 1);
                                 Console.Clear();
                                 Console.WriteLine($"будем редактировать сотрудника " +
                                     $"{com.deps[input].staff[localInput].Print()}");
@@ -170,7 +170,7 @@ namespace Homework_8
                         Console.Clear();
                         com.PrintCompanyDeps();
                         Console.WriteLine("\nвыберите департамент с сотрудниками\n");
-                        input = TakeMenuInput(0, com.deps.Count);
+                        input = TakeMenuInput(0, com.deps.Count - 1);
                         /// если нет сотрудников в департаменте
                         if (com.deps[input].staff.Count == 0)
                         {
@@ -182,7 +182,7 @@ namespace Homework_8
                         else
                         {
                             Console.WriteLine("\nВведите номер сотрудника согласно индексу\n");
-                            int localInput = TakeMenuInput(0, com.deps[input].staff.Count);
+                            int localInput = TakeMenuInput(0, com.deps[input].staff.Count - 1);
                             com.deps[input].RemoveStaff(localInput);
                             Console.WriteLine("\nСотрудник удалён\n");
                             delay();
@@ -204,7 +204,7 @@ namespace Homework_8
                         Console.Clear();
                         com.PrintCompanyDeps();
                         Console.WriteLine("\nвыберите департамент с сотрудниками\n");
-                        input = TakeMenuInput(0, com.deps.Count);
+                        input = TakeMenuInput(0, com.deps.Count - 1);
                         /// если нет сотрудников в департаменте
                         if (com.deps[input].staff.Count == 0)
                         {

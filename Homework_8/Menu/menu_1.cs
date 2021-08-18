@@ -43,7 +43,7 @@ namespace Homework_8
                     {
                         com.PrintCompanyDeps();
                         Console.WriteLine("\nВведите номер департамента согласно индексу\n");
-                        input = TakeMenuInput(0, com.deps.Count);
+                        input = TakeMenuInput(0, com.deps.Count - 1);
                         bool localFlag = true;
                         while (localFlag == true)
                         {
@@ -88,7 +88,7 @@ namespace Homework_8
                     {
                         com.PrintCompanyDeps();
                         Console.WriteLine("\nВведите номер департамента согласно индексу\n");
-                        input = TakeMenuInput(0, com.deps.Count);
+                        input = TakeMenuInput(0, com.deps.Count - 1);
                         com.RemoveDep(input);
                         Console.WriteLine("Удаление завершено");
                     }
@@ -105,7 +105,7 @@ namespace Homework_8
                         {
                             com.PrintCompanyDeps();
                             Console.WriteLine("\nВведите номер департамента согласно индексу\n");
-                            input = TakeMenuInput(0, com.deps.Count);
+                            input = TakeMenuInput(0, com.deps.Count - 1);
                             if (com.deps[input].staff.Count == 0)
                             {
                                 Console.Clear();
