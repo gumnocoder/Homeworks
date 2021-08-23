@@ -89,7 +89,7 @@ namespace Homework_9
             }
             FileToZip(bot, outputImage);
             new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
-            //returnConvertedAndCompressed(bot, outputImage, chatId);
+
         }
         public static void SaveImageToNewFormat(string outputImage, string outputFormat, Image img)
         {
@@ -114,7 +114,6 @@ namespace Homework_9
 
         public static void FileToZip(TelegramBotClient bot, string outputImage)
         {
-
             zippedImage = outputImage + ".zip";
             using (FileStream save = new FileStream(outputImage, FileMode.OpenOrCreate))
             {
@@ -125,18 +124,6 @@ namespace Homework_9
                         save.CopyTo(save3);
                     }
                 }
-            }
-        }
-
-        public static async void returnConvertedAndCompressed(TelegramBotClient bot, string outputImage, string chatId)
-        {
-            await using (Stream stream = File.OpenRead(Path.Combine(Environment.CurrentDirectory, zippedImage)))
-            {
-                await bot.SendDocumentAsync(
-                    chatId: chatId,
-                    document: new InputOnlineFile(content: stream, fileName: zippedImage),
-                    caption: zippedImage
-                );
             }
         }
     }
@@ -157,6 +144,7 @@ namespace Homework_9
         {
             void MessageListener(object sender, MessageEventArgs e)
             {
+                var ee = e.Message.Text.ToLower();
                 if (e.Message.Text == "/start")
                 {
                     new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
