@@ -21,6 +21,7 @@ namespace Homework_9
         public static string outputImage;
         public static string outputFormat;
         public static string chatId;
+        public static string zippedImage;
         public static bool controlFlag = false;
         public static bool queryContentFlag = false;
 
@@ -87,7 +88,8 @@ namespace Homework_9
                 }
                 
             }
-            FileToZip(bot, outputImage);
+            new FileToZip().CompressFile(bot, outputImage);
+            zippedImage = outputImage + ".zip";
             new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
 
         }
@@ -109,42 +111,14 @@ namespace Homework_9
                     break;
             }
         }
-
-        public static string zippedImage;
-
-        public static void FileToZip(TelegramBotClient bot, string outputImage)
-        {
-            zippedImage = outputImage + ".zip";
-            using (FileStream save = new FileStream(outputImage, FileMode.OpenOrCreate))
-            {
-                using (FileStream save2 = File.Create(zippedImage))
-                {
-                    using (GZipStream save3 = new GZipStream(save2, CompressionMode.Compress))
-                    {
-                        save.CopyTo(save3);
-                    }
-                }
-            }
-        }
     }
-
-    
-    public class TeleBot
-    {
-        public static TelegramBotClient bot = new TelegramBotClient(setToken());
-        public static string setToken()
-        {
-             return File.ReadAllText("token.ini");
-        }
-    }
-
     class Program
     {
         static void Main()
         {
             void MessageListener(object sender, MessageEventArgs e)
             {
-                var ee = e.Message.Text.ToLower();
+                //var ee = e.Message.Text.ToLower();
                 if (e.Message.Text == "/start")
                 {
                     new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);

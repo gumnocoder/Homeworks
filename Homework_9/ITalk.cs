@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using Telegram.Bot;
 using Telegram.Bot.Types.InputFiles;
 
@@ -12,6 +9,9 @@ namespace Homework_9
         void SendMessage(string chatId, TelegramBotClient bot);
     }
 
+    /// <summary>
+    /// отправляет инструкции
+    /// </summary>
     public class SendHelp : ITalk
     {
         public void SendMessage(string chatId, TelegramBotClient bot)
@@ -25,6 +25,9 @@ namespace Homework_9
         }
     }
 
+    /// <summary>
+    /// отправляет архив с конвертированным файлом
+    /// </summary>
     public class SendArchive : ITalk
     {
         public string path;
