@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -11,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.InputFiles;
 using Telegram.Bot.Types.ReplyMarkups;
 using static Homework_9.imageConverter;
 using static Homework_9.TeleBot;
@@ -21,15 +23,18 @@ namespace Homework_9
     {
         public static string inputImage;
 
+        public static string imageName;
+
         public static string outputImage;
 
         public static string outputFormat;
 
         public static string chatId;
-        public static async void Download(TelegramBotClient bot)
+
+        public static bool controlFlag = false;
+        public static async void Download(TelegramBotClient bot, string chatId)
         {
-            //string id = inputImage;
-            string FileName = inputImage + ".jpg";
+            string FileName = imageName + ".jpg";
             Console.WriteLine(FileName);
             using (FileStream fs = new FileStream(FileName, FileMode.Create))
             {
@@ -40,7 +45,7 @@ namespace Homework_9
                 while (true)
                 {
                     InlineKeyboardMarkup keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(new[]
-                        {       
+                        {
                             new []
                             {
                                 InlineKeyboardButton.WithCallbackData("JPG", ".jpg"),
@@ -88,61 +93,69 @@ namespace Homework_9
                         if (flag == true) break;
                     }
 
-                    outputImage = inputImage + outputFormat;
+                    outputImage = imageName + outputFormat;
 
                     switch (outputFormat)
                     {
                         case ".jpg":
                             img.Save(outputImage, ImageFormat.Jpeg);
+
                             break;
                         case ".png":
                             img.Save(outputImage, ImageFormat.Png);
+
                             break;
                         case ".gif":
                             img.Save(outputImage, ImageFormat.Gif);
+
                             break;
                         case ".tiff":
                             img.Save(outputImage, ImageFormat.Tiff);
+
                             break;
                     }
-
                     break;
                 }
-                //ConvertImage();
-
-                //outputFormat = Console.ReadLine();
             }
+
+            Console.WriteLine(Environment.CurrentDirectory + outputImage);
+            FileToZip(bot, outputImage, chatId);
+            returnConvertedAndCompressed(bot, outputImage, chatId);
             Console.WriteLine("getted");
         }
 
-/*        public static async void ConvertImage()
+        public static string zippedImage;
+
+        public static void FileToZip(TelegramBotClient bot, string outputImage, string chatId)
         {
-            Image img;
-            await using (FileStream file = File.Open(inputImage + ".jpg", FileMode.Open, FileAccess.Read))
+
+            zippedImage = outputImage + ".zip";
+            using (FileStream save = new FileStream(outputImage, FileMode.OpenOrCreate))
             {
-                img = Image.FromStream(file);
-
-                outputImage = inputImage + outputFormat;
-
-                switch (outputFormat)
+                using (FileStream save2 = File.Create(zippedImage))
                 {
-                    case ".jpg":
-                        img.Save(outputImage, ImageFormat.Jpeg);
-                        break;
-                    case ".png":
-                        img.Save(outputImage, ImageFormat.Png);
-                        break;
-                    case ".gif":
-                        img.Save(outputImage, ImageFormat.Gif);
-                        break;
-                    case ".tiff":
-                        img.Save(outputImage, ImageFormat.Tiff);
-                        break;
+                    using (GZipStream save3 = new GZipStream(save2, CompressionMode.Compress))
+                    {
+                        save.CopyTo(save3);
+                    }
                 }
             }
-        }*/
+        }
+
+        public static async void returnConvertedAndCompressed(TelegramBotClient bot, string outputImage, string chatId)
+        {
+            await using (Stream stream = File.OpenRead(Path.Combine(Environment.CurrentDirectory, zippedImage)))
+            {
+                await bot.SendDocumentAsync(
+                    chatId: chatId,
+                    document: new InputOnlineFile(content: stream, fileName: zippedImage),
+                    caption: zippedImage
+                );
+            }
+        }
     }
 
+    
     public class TeleBot
     {
 
@@ -241,8 +254,20 @@ namespace Homework_9
                     //string a = e.Message.Chat.Id.ToString()
                     bot.SendTextMessageAsync(e.Message.Chat.Id, "Это что, фотка?");
                     inputImage = e.Message.Photo[^1].FileId.ToString();
+                    imageName = e.Message.MessageId.ToString();
                     Console.WriteLine(inputImage);
-                    Download(bot);
+                    Download(bot, chatId);
+                    Console.WriteLine(imageConverter.controlFlag);
+                    //if (imageConverter.controlFlag == true)
+                    //{
+                    //    var FilePath = Path.Combine(Environment.CurrentDirectory, outputImage);
+                    //    using (var stream = File.OpenRead(FilePath))
+                    //    {
+                    //        var r = bot.SendPhotoAsync(e.Message.Chat.Id, new InputOnlineFile(stream)).Result;
+                    //        imageConverter.controlFlag = false;
+                    //    }
+                        
+                    //}
 
                     //using (FileStream fs = File.Create("tmp"))
                     //bot.DownloadFileAsync(e.Message.Photo[^1].FileId, fs);
