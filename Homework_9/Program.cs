@@ -3,12 +3,6 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading;
-using ImageMagick;
-using Newtonsoft.Json.Linq;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
@@ -32,19 +26,33 @@ namespace Homework_9
         public static string chatId;
 
         public static bool controlFlag = false;
-        public static async void Download(TelegramBotClient bot, string chatId)
+
+        public static bool queryContentFlag = false;
+
+        public static async void ChooseOutputFormat(object s, CallbackQueryEventArgs ev)
+        {
+
+            var message = ev.CallbackQuery.Message;
+
+            if (ev.CallbackQuery.Data == ".jpg") outputFormat = ".jpg"; 
+            else if (ev.CallbackQuery.Data == ".gif") outputFormat = ".gif";
+            else if (ev.CallbackQuery.Data == ".png") outputFormat = ".png";
+            else if (ev.CallbackQuery.Data == ".tiff") outputFormat = ".tiff";
+
+            ev.CallbackQuery.Data = "";
+            queryContentFlag = true;
+        }
+        public static async void Download(TelegramBotClient bot, string chatId, MessageEventArgs e)
         {
             string FileName = imageName + ".jpg";
-            Console.WriteLine(FileName);
             using (FileStream fs = new FileStream(FileName, FileMode.Create))
             {
-                Console.WriteLine("FileCreated");
                 await bot.GetInfoAndDownloadFileAsync(inputImage, fs);
                 Image img = Image.FromStream(fs);
 
                 while (true)
                 {
-                    InlineKeyboardMarkup keyboard = new Telegram.Bot.Types.ReplyMarkups.InlineKeyboardMarkup(new[]
+                    InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup(new[]
                         {
                             new []
                             {
@@ -59,39 +67,12 @@ namespace Homework_9
                     bool flag = false;
                     while (true)
                     {
-                        bot.OnCallbackQuery += async (object sc, CallbackQueryEventArgs ev) =>
-                        {
-                            var message = ev.CallbackQuery.Message;
-                            if (ev.CallbackQuery.Data == ".jpg")
-                            {
-                                outputFormat = ".jpg";
-                                ev.CallbackQuery.Data = "";
-                                flag = true;
-                            }
-                            else
-                            if (ev.CallbackQuery.Data == ".gif")
-                            {
-                                outputFormat = ".gif";
-                                ev.CallbackQuery.Data = "";
-                                flag = true;
-                            }
-                            else
-                            if (ev.CallbackQuery.Data == ".png")
-                            {
-                                outputFormat = ".png";
-                                ev.CallbackQuery.Data = "";
-                                flag = true;
-                            }
-                            else
-                            if (ev.CallbackQuery.Data == ".tiff")
-                            {
-                                outputFormat = ".tiff";
-                                ev.CallbackQuery.Data = "";
-                                flag = true;
-                            }
-                        };
-                        if (flag == true) break;
+
+                        bot.OnCallbackQuery += ChooseOutputFormat;
+                        if (queryContentFlag == true) break;
                     }
+
+                    queryContentFlag = false;
 
                     outputImage = imageName + outputFormat;
 
@@ -99,29 +80,22 @@ namespace Homework_9
                     {
                         case ".jpg":
                             img.Save(outputImage, ImageFormat.Jpeg);
-
                             break;
                         case ".png":
                             img.Save(outputImage, ImageFormat.Png);
-
                             break;
                         case ".gif":
                             img.Save(outputImage, ImageFormat.Gif);
-
                             break;
                         case ".tiff":
                             img.Save(outputImage, ImageFormat.Tiff);
-
                             break;
                     }
                     break;
                 }
             }
-
-            Console.WriteLine(Environment.CurrentDirectory + outputImage);
             FileToZip(bot, outputImage, chatId);
             returnConvertedAndCompressed(bot, outputImage, chatId);
-            Console.WriteLine("getted");
         }
 
         public static string zippedImage;
@@ -182,16 +156,13 @@ namespace Homework_9
                 {
                     bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.Text);
                 }
-                if (e.Message.Type == Telegram.Bot.Types.Enums.MessageType.Photo)
+                if (e.Message.Type == MessageType.Photo)
                 {
                     chatId = e.Message.Chat.Id.ToString();
-                    //string a = e.Message.Chat.Id.ToString()
-                    bot.SendTextMessageAsync(e.Message.Chat.Id, "Это что, фотка?");
+                    bot.SendTextMessageAsync(e.Message.Chat.Id, "Обнаружил изображение, запускаем сценарий");
                     inputImage = e.Message.Photo[^1].FileId.ToString();
                     imageName = e.Message.MessageId.ToString();
-                    Console.WriteLine(inputImage);
-                    Download(bot, chatId);
-                    Console.WriteLine(imageConverter.controlFlag);
+                    Download(bot, chatId, e);
                 }
             }
 
