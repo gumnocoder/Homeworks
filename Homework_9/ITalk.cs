@@ -36,16 +36,21 @@ namespace Homework_9
         public string archive;
         public string Archive { get; set; }
 
+        /// <summary>
+        /// конструктор
+        /// </summary>
+        /// <param name="Path">руть к файлу</param>
+        /// <param name="Archive">название файла</param>
         public SendArchive(string Path, string Archive)
         {
             this.path = Path;
             this.archive = Archive;
         }
-        public async void SendMessage(string chatId, TelegramBotClient bot)
+        public void SendMessage(string chatId, TelegramBotClient bot)
         {
-            await using (Stream stream = File.OpenRead(this.path))
+            using (Stream stream = File.OpenRead(this.path))
             {
-                await bot.SendDocumentAsync(
+                bot.SendDocumentAsync(
                     chatId: chatId,
                     document: new InputOnlineFile(content: stream, fileName: this.archive),
                     caption: this.archive

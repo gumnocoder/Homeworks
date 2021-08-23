@@ -61,6 +61,9 @@ namespace Homework_9
 
         public static async void Scenario(TelegramBotClient bot, string chatId, MessageEventArgs e)
         {
+            //if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, chatId))) 
+            //    Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, chatId));
+            string path = Path.Combine(Environment.CurrentDirectory, chatId);
             string FileName = imageName + ".jpg";
             using (FileStream fs = new FileStream(FileName, FileMode.Create))
             {
@@ -82,43 +85,29 @@ namespace Homework_9
 
                     outputImage = imageName + outputFormat;
 
-                    SaveImageToNewFormat(outputImage, outputFormat, img);
+                    new SaveImage(outputFormat).SaveToFile(outputImage, img);
 
                     break;
                 }
-                
             }
+            
+
             new FileToZip().CompressFile(bot, outputImage);
             zippedImage = outputImage + ".zip";
             new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
 
-        }
-        public static void SaveImageToNewFormat(string outputImage, string outputFormat, Image img)
-        {
-            switch (outputFormat)
-            {
-                case ".bmp":
-                    new SaveToBmp().SaveToFile(outputImage, img);
-                    break;
-                case ".png":
-                    new SaveToPng().SaveToFile(outputImage, img);
-                    break;
-                case ".gif":
-                    new SaveToGif().SaveToFile(outputImage, img);
-                    break;
-                case ".tiff":
-                    new SaveToTiff().SaveToFile(outputImage, img);
-                    break;
-            }
+            //File.Delete(zippedImage);
+            //File.Delete(inputImage);
+
         }
     }
+
     class Program
     {
         static void Main()
         {
             void MessageListener(object sender, MessageEventArgs e)
             {
-                //var ee = e.Message.Text.ToLower();
                 if (e.Message.Text == "/start")
                 {
                     new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
