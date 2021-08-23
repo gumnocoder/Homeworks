@@ -4,9 +4,9 @@ using System.IO;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
 using static Homework_9.imageConverter;
 using static Homework_9.TeleBot;
+using static Homework_9.CallBack;
 
 namespace Homework_9
 {
@@ -15,45 +15,10 @@ namespace Homework_9
         public static string inputImage;
         public static string imageName;
         public static string outputImage;
-        public static string outputFormat;
         public static string chatId;
         public static string zippedImage;
         public static bool controlFlag = false;
-        public static bool queryContentFlag = false;
 
-        public static InlineKeyboardMarkup keyboard()
-        {
-            return new InlineKeyboardMarkup(new[]
-                        {
-                    new []
-                    {
-                        InlineKeyboardButton.WithCallbackData("BMP", ".bmp"),
-                        InlineKeyboardButton.WithCallbackData("GIF", ".gif"),
-                        InlineKeyboardButton.WithCallbackData("PNG", ".png"),
-                        InlineKeyboardButton.WithCallbackData("TIFF", ".tiff"),
-                    }
-                });
-        }
-        public static void ChooseOutputFormat(object s, CallbackQueryEventArgs e)
-        {
-            switch (e.CallbackQuery.Data)
-            {
-                case ".bmp":
-                    outputFormat = ".bmp";
-                    break;
-                case ".gif":
-                    outputFormat = ".gif";
-                    break;
-                case ".png":
-                    outputFormat = ".png";
-                    break;
-                case ".tiff":
-                    outputFormat = ".tiff";
-                    break;
-            }
-            e.CallbackQuery.Data = "";
-            queryContentFlag = true;
-        }
 
         public static async void Scenario(TelegramBotClient bot, string chatId, MessageEventArgs e)
         {
@@ -68,33 +33,23 @@ namespace Homework_9
 
                 while (true)
                 {
-                    await bot.SendTextMessageAsync(chatId, "Выберите формат в который хотите конвертировать изображение", replyMarkup: keyboard());
+                    await bot.SendTextMessageAsync(chatId, "Выберите формат в который хотите конвертировать изображение", replyMarkup: CallBack.keyboard());
                     bool flag = false;
                     while (true)
                     {
-
                         bot.OnCallbackQuery += ChooseOutputFormat;
                         if (queryContentFlag == true) break;
                     }
 
                     queryContentFlag = false;
-
                     outputImage = imageName + outputFormat;
-
                     new SaveImage(outputFormat).SaveToFile(outputImage, img);
-
                     break;
                 }
             }
-            
-
             new FileToZip().CompressFile(bot, outputImage);
             zippedImage = outputImage + ".zip";
             new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
-
-            //File.Delete(zippedImage);
-            //File.Delete(inputImage);
-
         }
     }
 
@@ -117,7 +72,6 @@ namespace Homework_9
                     Scenario(bot, chatId, e);
                 }
             }
-
             bot.OnMessage += MessageListener;
             bot.StartReceiving();
             Console.ReadKey();
