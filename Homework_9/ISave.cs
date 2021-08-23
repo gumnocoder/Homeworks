@@ -56,15 +56,29 @@ namespace Homework_9
         }
     }
 
+    /// <summary>
+    /// Переключает формат и вызывает соответствующий класс ISave
+    /// </summary>
     public class SaveImage : ISave
     {
+
         string outputFormat;
         public  string OutputFormat { get; set; }
 
+        /// <summary>
+        /// принимает параметром новый формат
+        /// </summary>
+        /// <param name="OutputFormat">новый формат</param>
         public SaveImage(string OutputFormat)
         {
             this.outputFormat = OutputFormat;
         }
+        
+        /// <summary>
+        /// Вызывает нужный метод сохранения
+        /// </summary>
+        /// <param name="outputFile"></param>
+        /// <param name="img"></param>
         public void SaveToFile(string outputFile, Image img)
         {
             switch (this.outputFormat)
