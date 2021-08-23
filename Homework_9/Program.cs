@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.IO.Compression;
+using System.Threading;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
@@ -16,33 +17,48 @@ namespace Homework_9
     class imageConverter
     {
         public static string inputImage;
-
         public static string imageName;
-
         public static string outputImage;
-
         public static string outputFormat;
-
         public static string chatId;
-
         public static bool controlFlag = false;
-
         public static bool queryContentFlag = false;
 
-        public static async void ChooseOutputFormat(object s, CallbackQueryEventArgs ev)
+        public static InlineKeyboardMarkup keyboard()
         {
-
-            var message = ev.CallbackQuery.Message;
-
-            if (ev.CallbackQuery.Data == ".jpg") outputFormat = ".jpg"; 
-            else if (ev.CallbackQuery.Data == ".gif") outputFormat = ".gif";
-            else if (ev.CallbackQuery.Data == ".png") outputFormat = ".png";
-            else if (ev.CallbackQuery.Data == ".tiff") outputFormat = ".tiff";
-
-            ev.CallbackQuery.Data = "";
+            return new InlineKeyboardMarkup(new[]
+                        {
+                    new []
+                    {
+                        InlineKeyboardButton.WithCallbackData("BMP", ".bmp"),
+                        InlineKeyboardButton.WithCallbackData("GIF", ".gif"),
+                        InlineKeyboardButton.WithCallbackData("PNG", ".png"),
+                        InlineKeyboardButton.WithCallbackData("TIFF", ".tiff"),
+                    }
+                });
+        }
+        public static void ChooseOutputFormat(object s, CallbackQueryEventArgs e)
+        {
+            switch (e.CallbackQuery.Data)
+            {
+                case ".bmp":
+                    outputFormat = ".bmp";
+                    break;
+                case ".gif":
+                    outputFormat = ".gif";
+                    break;
+                case ".png":
+                    outputFormat = ".png";
+                    break;
+                case ".tiff":
+                    outputFormat = ".tiff";
+                    break;
+            }
+            e.CallbackQuery.Data = "";
             queryContentFlag = true;
         }
-        public static async void Download(TelegramBotClient bot, string chatId, MessageEventArgs e)
+
+        public static async void Scenario(TelegramBotClient bot, string chatId, MessageEventArgs e)
         {
             string FileName = imageName + ".jpg";
             using (FileStream fs = new FileStream(FileName, FileMode.Create))
@@ -52,18 +68,7 @@ namespace Homework_9
 
                 while (true)
                 {
-                    InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup(new[]
-                        {
-                            new []
-                            {
-                                InlineKeyboardButton.WithCallbackData("JPG", ".jpg"),
-                                InlineKeyboardButton.WithCallbackData("GIF", ".gif"),
-                                InlineKeyboardButton.WithCallbackData("PNG", ".png"),
-                                InlineKeyboardButton.WithCallbackData("TIFF", ".tiff"),
-                            }
-                        });
-
-                    await bot.SendTextMessageAsync(chatId, "Выберите формат в который хотите конвертировать изображение", replyMarkup: keyboard);
+                    await bot.SendTextMessageAsync(chatId, "Выберите формат в который хотите конвертировать изображение", replyMarkup: keyboard());
                     bool flag = false;
                     while (true)
                     {
@@ -76,31 +81,38 @@ namespace Homework_9
 
                     outputImage = imageName + outputFormat;
 
-                    switch (outputFormat)
-                    {
-                        case ".jpg":
-                            img.Save(outputImage, ImageFormat.Jpeg);
-                            break;
-                        case ".png":
-                            img.Save(outputImage, ImageFormat.Png);
-                            break;
-                        case ".gif":
-                            img.Save(outputImage, ImageFormat.Gif);
-                            break;
-                        case ".tiff":
-                            img.Save(outputImage, ImageFormat.Tiff);
-                            break;
-                    }
+                    SaveImageToNewFormat(outputImage, outputFormat, img);
+
                     break;
                 }
+                
             }
-            FileToZip(bot, outputImage, chatId);
-            returnConvertedAndCompressed(bot, outputImage, chatId);
+            FileToZip(bot, outputImage);
+            new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
+            //returnConvertedAndCompressed(bot, outputImage, chatId);
+        }
+        public static void SaveImageToNewFormat(string outputImage, string outputFormat, Image img)
+        {
+            switch (outputFormat)
+            {
+                case ".bmp":
+                    new SaveToBmp().SaveToFile(outputImage, img);
+                    break;
+                case ".png":
+                    new SaveToPng().SaveToFile(outputImage, img);
+                    break;
+                case ".gif":
+                    new SaveToGif().SaveToFile(outputImage, img);
+                    break;
+                case ".tiff":
+                    new SaveToTiff().SaveToFile(outputImage, img);
+                    break;
+            }
         }
 
         public static string zippedImage;
 
-        public static void FileToZip(TelegramBotClient bot, string outputImage, string chatId)
+        public static void FileToZip(TelegramBotClient bot, string outputImage)
         {
 
             zippedImage = outputImage + ".zip";
@@ -132,12 +144,7 @@ namespace Homework_9
     
     public class TeleBot
     {
-        TelegramBotClient bot;
-        string token;
-
-        public TelegramBotClient Bot;
-        public string Token;
-
+        public static TelegramBotClient bot = new TelegramBotClient(setToken());
         public static string setToken()
         {
              return File.ReadAllText("token.ini");
@@ -148,13 +155,11 @@ namespace Homework_9
     {
         static void Main()
         {
-            TelegramBotClient bot = new TelegramBotClient(setToken());
-
             void MessageListener(object sender, MessageEventArgs e)
             {
-                if (e.Message.Text != null)
+                if (e.Message.Text == "/start")
                 {
-                    bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.Text);
+                    new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
                 }
                 if (e.Message.Type == MessageType.Photo)
                 {
@@ -162,7 +167,7 @@ namespace Homework_9
                     bot.SendTextMessageAsync(e.Message.Chat.Id, "Обнаружил изображение, запускаем сценарий");
                     inputImage = e.Message.Photo[^1].FileId.ToString();
                     imageName = e.Message.MessageId.ToString();
-                    Download(bot, chatId, e);
+                    Scenario(bot, chatId, e);
                 }
             }
 
