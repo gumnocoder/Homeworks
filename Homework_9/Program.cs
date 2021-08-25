@@ -7,6 +7,8 @@ using static Homework_9.TeleBot;
 using static Homework_9.CallBack;
 using static Homework_9.TurnConversionFlag;
 using Telegram.Bot.Types.ReplyMarkups;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Homework_9
 {
@@ -20,12 +22,12 @@ namespace Homework_9
         public static void TurnOff()
         {
             inputImageExists = false;
+            Console.WriteLine($"inputImageExists {inputImageExists}");
         }
         public void TurnOn(object sender, MessageEventArgs e)
         {
-            Console.WriteLine(inputImageExists);
             inputImageExists = true;
-            Console.WriteLine(inputImageExists);
+            Console.WriteLine($"inputImageExists {inputImageExists}");
             //sk(sender, e);
         }
     }
@@ -54,9 +56,10 @@ namespace Homework_9
             ResizeKeyboard = true,
             OneTimeKeyboard = true,
         };
-        public static async void SendKeyboard(object sender, MessageEventArgs e)
+        public static async void SendKeyboard(MessageEventArgs e)
         {
             await bot.SendTextMessageAsync(e.Message.Chat.Id.ToString(), "Выберите формат в который хотите конвертировать изображение", replyMarkup: keyboard);
+            Console.WriteLine("keyboard sended");
         }
 
         /// <summary>
@@ -64,13 +67,13 @@ namespace Homework_9
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public static async void ChooseFormat(object sender, MessageEventArgs e)
+        public static async void ChooseFormat(MessageEventArgs e)
         {
             var mt = e.Message.Text;
-
-            if (inputImageExists)
+            Console.WriteLine($" ChooseFormat mt {e.Message.Text}");
+            await Task.Run(delegate ()
             {
-                while (inputImageExists)
+                if (inputImageExists)
                 {
                     if (mt == "BMP"
                     | mt == "PNG"
@@ -78,14 +81,11 @@ namespace Homework_9
                     | mt == "TIFF")
                     {
                         outputFormat = mt;
-                        Console.WriteLine($"{outputFormat} {inputImageExists}");
                         TurnOff();
+                        Console.WriteLine($" ChooseFormat outputFormat {outputFormat} inputImageExists {inputImageExists}");
                     }
                 }
-
-                
-            }
-            
+            });
         }
 
         [Obsolete]
@@ -125,7 +125,7 @@ namespace Homework_9
 
                             queryContentFlag = false;
                             outputImage = imageName + outputFormat;
-                            new SaveImage(outputFormat).SaveToFile(outputImage, img);
+                            //new SaveImage(outputFormat).SaveToFile(outputImage, img);
                             break;
                         }
                     }
@@ -136,16 +136,20 @@ namespace Homework_9
             }
             SaveImageFromUser si = new SaveImageFromUser(bot);
             ImageMessage im = new ImageMessage();
-            TurnConversionFlag tkf = new TurnConversionFlag();
+            //TurnConversionFlag tkf = new TurnConversionFlag();
             bot.StartReceiving();
             bot.OnMessage += new StartMessage(bot).Listen;
             bot.OnMessage += im.Listen;
+            im.onPhoto += SendKeyboard;
             im.onPhoto += si.SaveFromStream;
-            im.onPhoto += new ImageChecked(bot).Listen; im.onPhoto += SendKeyboard;
-            im.onPhoto += new TurnConversionFlag().TurnOn;
-            si.ImageSaved += new ImageChecked(bot).Listen;
-            //im.onPhoto += SendKeyboard;
             //im.onPhoto += ChooseFormat;
+            //im.onPhoto += si.SaveFromStream;
+            //im.onPhoto += new ImageChecked(bot).Listen; 
+            //im.onPhoto += SendKeyboard;
+            //im.onPhoto += new TurnConversionFlag().TurnOn;
+            si.ImageSaved += new SaveImage().ReadyToSaving;
+
+            //
 
             //tkf.sk += SendKeyboard;
             /// если присылают сообщение

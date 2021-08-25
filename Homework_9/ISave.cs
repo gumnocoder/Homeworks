@@ -5,6 +5,9 @@ using static Homework_9.Program;
 using Telegram.Bot.Args;
 using System.IO;
 using Telegram.Bot;
+using System.Threading;
+using System;
+using System.Threading.Tasks;
 
 namespace Homework_9
 {
@@ -19,7 +22,7 @@ namespace Homework_9
 
     public interface IStreamSave
     {
-        void SaveFromStream(object sender, MessageEventArgs e);
+        void SaveFromStream(MessageEventArgs e);
     }
 
     /// <summary>
@@ -84,22 +87,35 @@ namespace Homework_9
             this.bot = Bot;
         }
 
-        public delegate void imageSaved(object sender, MessageEventArgs e);
+        public delegate void imageSaved(MessageEventArgs e);
 
         public event imageSaved ImageSaved;
 
-        public async void SaveFromStream(object sender, MessageEventArgs e)
+        public async void SaveFromStream(MessageEventArgs e)
         {
             inputFile = e.Message.MessageId.ToString() + ".jpg";
-
+            Console.WriteLine($"inputFile {inputFile}");
             inputImageId = e.Message.Photo[^1].FileId.ToString();
-
+            Console.WriteLine($"inputImageId {inputImageId}");
             using (FileStream fs = new FileStream(inputFile, FileMode.Create))
             {
                 await bot.GetInfoAndDownloadFileAsync(inputImageId, fs);
-                //Image img = Image.FromFile(inputFile);
-                if (File.Exists(inputFile) & new System.IO.FileInfo(inputFile).Length > 0) ImageSaved(sender, e);
+                ImageSavedFlag(e); Console.WriteLine($"!File.Exists(inputFile) {!File.Exists(inputFile)} FileInfo(inputFile).Length {new FileInfo(inputFile).Length}");
             }
+        }
+
+        public static bool flag = true;
+
+        public async void ImageSavedFlag(MessageEventArgs e)
+        {
+            await Task.Run(delegate ()
+            {
+                if (File.Exists(inputFile) & new FileInfo(inputFile).Length > 0 & ImageSaved != null & flag == true)
+                {
+                    ImageSaved(e);
+                    Console.WriteLine("ImageSaved");
+                }
+            });
         }
     }
 
@@ -108,7 +124,7 @@ namespace Homework_9
     /// </summary>
     public class SaveImage : ISave
     {
-        string outputFormat;
+/*        string outputFormat;
         public  string OutputFormat { get; set; }
 
         /// <summary>
@@ -118,6 +134,19 @@ namespace Homework_9
         public SaveImage(string OutputFormat)
         {
             this.outputFormat = OutputFormat;
+        }*/
+
+        public async void ReadyToSaving(MessageEventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                SaveImageFromUser.flag = false;
+                Console.WriteLine("ReadyToSaving");
+                Image img = Image.FromFile(SaveImageFromUser.inputFile);
+                Console.WriteLine(StartMessage.outputFormat);
+            });
+
+            //SaveToFile(inputImage + StartMessage.outputFormat, img);
         }
         
         /// <summary>
@@ -127,7 +156,7 @@ namespace Homework_9
         /// <param name="img"></param>
         public void SaveToFile(string outputFile, Image img)
         {
-            switch (this.outputFormat)
+            switch (StartMessage.outputFormat)
             {
                 case ".bmp":
                     new SaveToBmp().SaveToFile(outputFile, img);

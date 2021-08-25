@@ -31,29 +31,38 @@ namespace Homework_9
                     break;
                 case "BMP":
                     if (inputImageExists) outputFormat = ".bmp";
+                    Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
                     break;
                 case "PNG":
                     if (inputImageExists) outputFormat = ".png";
+                    Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
                     break;
                 case "GIF":
                     if (inputImageExists) outputFormat = ".gif";
+                    Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
                     break;
                 case "TIFF":
                     if (inputImageExists) outputFormat = ".tiff";
+                    Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
                     break;
             }
-            Console.WriteLine($"{inputImageExists} {outputFormat}");
         }
     }
 
     public class ImageMessage : MessageListener
     {
-        public delegate void ImageSended(object sender, MessageEventArgs e);
+        public delegate void ImageSended(MessageEventArgs e);
 
         public event ImageSended onPhoto;
+
         public void Listen(object sender, MessageEventArgs e)
         {
-            if (e.Message.Type == MessageType.Photo) { Console.WriteLine("photo"); onPhoto(sender, e); }
+            if (e.Message.Type == MessageType.Photo) { inputImageExists = true; Console.WriteLine($"{e.Message.Type} sended"); OnPhoto(e); }
+        }
+        public void OnPhoto(MessageEventArgs e)
+        {
+            onPhoto(e);
+            Console.WriteLine($"onPhoto event");
         }
     }
 
