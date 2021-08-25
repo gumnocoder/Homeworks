@@ -2,7 +2,6 @@
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
-
 using static Homework_9.TurnConversionFlag;
 namespace Homework_9
 {
@@ -21,17 +20,29 @@ namespace Homework_9
             this.bot = Bot;
         }
 
+        public static string outputFormat = "";
         public void Listen(object sender, MessageEventArgs e)
         {
             var ee = e.Message.Text;
-            if (ee == "/start")
+            switch (ee)
             {
-                new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
+                case "/start":
+                    new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
+                    break;
+                case "BMP":
+                    if (inputImageExists) outputFormat = ".bmp";
+                    break;
+                case "PNG":
+                    if (inputImageExists) outputFormat = ".png";
+                    break;
+                case "GIF":
+                    if (inputImageExists) outputFormat = ".gif";
+                    break;
+                case "TIFF":
+                    if (inputImageExists) outputFormat = ".tiff";
+                    break;
             }
-            else if (ee == "BMP" & inputImageExists)
-            {
-                Console.WriteLine("BMP");
-            }
+            Console.WriteLine($"{inputImageExists} {outputFormat}");
         }
     }
 

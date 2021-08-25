@@ -1,5 +1,10 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
+using static Homework_9.TurnConversionFlag;
+using static Homework_9.Program;
+using Telegram.Bot.Args;
+using System.IO;
+using Telegram.Bot;
 
 namespace Homework_9
 {
@@ -10,6 +15,11 @@ namespace Homework_9
     public interface ISave
     {
         void SaveToFile(string outputFile, Image img);
+    }
+
+    public interface IStreamSave
+    {
+        void SaveFromStream(object sender, MessageEventArgs e);
     }
 
     /// <summary>
@@ -56,15 +66,48 @@ namespace Homework_9
         }
     }
 
+    public class SaveImageFromUser : IStreamSave
+
+    {
+        public static string inputFile;
+
+        public static string inputImageId;
+
+
+        public ITelegramBotClient bot;
+
+        public ITelegramBotClient Bot { get; set; }
+
+
+        public SaveImageFromUser(ITelegramBotClient Bot)
+        {
+            this.bot = Bot;
+        }
+
+        public delegate void imageSaved(object sender, MessageEventArgs e);
+
+        public event imageSaved ImageSaved;
+
+        public async void SaveFromStream(object sender, MessageEventArgs e)
+        {
+            inputFile = e.Message.MessageId.ToString() + ".jpg";
+
+            inputImageId = e.Message.Photo[^1].FileId.ToString();
+
+            using (FileStream fs = new FileStream(inputFile, FileMode.Create))
+            {
+                await bot.GetInfoAndDownloadFileAsync(inputImageId, fs);
+                //Image img = Image.FromFile(inputFile);
+                if (File.Exists(inputFile) & new System.IO.FileInfo(inputFile).Length > 0) ImageSaved(sender, e);
+            }
+        }
+    }
+
     /// <summary>
     /// Переключает формат и вызывает соответствующий класс ISave
     /// </summary>
     public class SaveImage : ISave
     {
-        public delegate void ConversionFinished();
-
-        public event ConversionFinished saved;
-
         string outputFormat;
         public  string OutputFormat { get; set; }
 
@@ -99,7 +142,8 @@ namespace Homework_9
                     new SaveToTiff().SaveToFile(outputFile, img);
                     break;
             }
-            saved();
+            inputImageExists = false;
+            StartMessage.outputFormat = "";
         }
     }
 }

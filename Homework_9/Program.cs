@@ -107,8 +107,8 @@ namespace Homework_9
                     //if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, chatId))) 
                     //    Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, chatId));
                     string path = Path.Combine(Environment.CurrentDirectory, chatId);
-                    string FileName = imageName + ".jpg";
-                    using (FileStream fs = new FileStream(FileName, FileMode.Create))
+                    string FileName = e.Message.MessageId.ToString() + ".jpg";
+                    using (FileStream fs = new FileStream(e.Message.MessageId.ToString() + ".jpg", FileMode.Create))
                     {
                         await bot.GetInfoAndDownloadFileAsync(inputImage, fs);
                         Image img = Image.FromStream(fs);
@@ -134,16 +134,19 @@ namespace Homework_9
                     new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
                 }
             }
+            SaveImageFromUser si = new SaveImageFromUser(bot);
             ImageMessage im = new ImageMessage();
             TurnConversionFlag tkf = new TurnConversionFlag();
             bot.StartReceiving();
             bot.OnMessage += new StartMessage(bot).Listen;
             bot.OnMessage += im.Listen;
+            im.onPhoto += si.SaveFromStream;
             im.onPhoto += new ImageChecked(bot).Listen; im.onPhoto += SendKeyboard;
             im.onPhoto += new TurnConversionFlag().TurnOn;
+            si.ImageSaved += new ImageChecked(bot).Listen;
             //im.onPhoto += SendKeyboard;
             //im.onPhoto += ChooseFormat;
-            
+
             //tkf.sk += SendKeyboard;
             /// если присылают сообщение
             /// и сообщение содержит картинку
