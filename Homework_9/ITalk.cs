@@ -46,11 +46,11 @@ namespace Homework_9
             this.path = Path;
             this.archive = Archive;
         }
-        public void SendMessage(string chatId, TelegramBotClient bot)
+        public async void SendMessage(string chatId, TelegramBotClient bot)
         {
             using (Stream stream = File.OpenRead(this.path))
             {
-                bot.SendDocumentAsync(
+                await bot.SendDocumentAsync(
                     chatId: chatId,
                     document: new InputOnlineFile(content: stream, fileName: this.archive),
                     caption: this.archive

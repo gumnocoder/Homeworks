@@ -1,13 +1,20 @@
-﻿using Telegram.Bot.Args;
+﻿using System;
+using Telegram.Bot.Args;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Homework_9
 {
     class CallBack
     {
+        public delegate void CallBackContent();
+
+        public event CallBackContent GetCallbackContent; 
+
         public static string outputFormat;
 
         public static bool queryContentFlag = false;
+
+        
 
         /// <summary>
         /// кнопки выбора конечного формата
@@ -36,22 +43,22 @@ namespace Homework_9
         /// <param name="e"></param>
         public static void ChooseOutputFormat(object s, CallbackQueryEventArgs e)
         {
-            switch (e.CallbackQuery.Data)
-            {
-                case ".bmp":
-                    outputFormat = ".bmp";
-                    break;
-                case ".gif":
-                    outputFormat = ".gif";
-                    break;
-                case ".png":
-                    outputFormat = ".png";
-                    break;
-                case ".tiff":
-                    outputFormat = ".tiff";
-                    break;
-            }
+            var ee = e.CallbackQuery.Data;
+            if (ee == ".bmp") { outputFormat = ".bmp"; }
+            else if (ee == ".gif") { outputFormat = ".gif"; }
+            else if (ee == ".png") { outputFormat = ".png"; }
+            else if (ee == ".tiff") { outputFormat = ".tiff"; }
+            //Console.WriteLine(outputFormat);
+            //Console.Write($"({e.CallbackQuery.Data})");
+            
+            //e.CallbackQuery.Data.Remove(0);
             e.CallbackQuery.Data = "";
+
+            string[] str = e.CallbackQuery.Data.Split();
+            foreach (var elem in str)
+            {
+                Console.WriteLine(elem);
+            }
             queryContentFlag = true;
         }
 
