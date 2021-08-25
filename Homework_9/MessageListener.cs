@@ -3,6 +3,7 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 
+using static Homework_9.TurnConversionFlag;
 namespace Homework_9
 {
     public interface MessageListener
@@ -22,9 +23,14 @@ namespace Homework_9
 
         public void Listen(object sender, MessageEventArgs e)
         {
-            if (e.Message.Text == "/start")
+            var ee = e.Message.Text;
+            if (ee == "/start")
             {
                 new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
+            }
+            else if (ee == "BMP" & inputImageExists)
+            {
+                Console.WriteLine("BMP");
             }
         }
     }
@@ -36,7 +42,7 @@ namespace Homework_9
         public event ImageSended onPhoto;
         public void Listen(object sender, MessageEventArgs e)
         {
-            if (e.Message.Type == MessageType.Photo) onPhoto(sender, e);
+            if (e.Message.Type == MessageType.Photo) { Console.WriteLine("photo"); onPhoto(sender, e); }
         }
     }
 

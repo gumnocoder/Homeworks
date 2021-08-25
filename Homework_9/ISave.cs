@@ -61,6 +61,9 @@ namespace Homework_9
     /// </summary>
     public class SaveImage : ISave
     {
+        public delegate void ConversionFinished();
+
+        public event ConversionFinished saved;
 
         string outputFormat;
         public  string OutputFormat { get; set; }
@@ -96,6 +99,7 @@ namespace Homework_9
                     new SaveToTiff().SaveToFile(outputFile, img);
                     break;
             }
+            saved();
         }
     }
 }

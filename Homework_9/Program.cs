@@ -5,11 +5,30 @@ using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 using static Homework_9.TeleBot;
 using static Homework_9.CallBack;
+using static Homework_9.TurnConversionFlag;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Homework_9
 {
+    class TurnConversionFlag
+    {
+        //public delegate void sendKeyboard(object sender, MessageEventArgs e);
 
+        //public event sendKeyboard sk;
+
+        public static bool inputImageExists = false;
+        public static void TurnOff()
+        {
+            inputImageExists = false;
+        }
+        public void TurnOn(object sender, MessageEventArgs e)
+        {
+            Console.WriteLine(inputImageExists);
+            inputImageExists = true;
+            Console.WriteLine(inputImageExists);
+            //sk(sender, e);
+        }
+    }
     class Program
     {
         public static string inputImage;
@@ -18,17 +37,12 @@ namespace Homework_9
         public static string chatId;
         public static string zippedImage;
         public static bool controlFlag = false;
-        public static bool inputImageExists = false;
 
         [Obsolete]
 
-        public static async void SendKeyboard(object sender, MessageEventArgs e)
+        public static ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup
         {
-            inputImageExists = true;
-            chatId = e.Message.Chat.Id.ToString();
-            var keyboard = new ReplyKeyboardMarkup
-            {
-                Keyboard = new[] {
+            Keyboard = new[] {
                     new[]
                     {
                         new KeyboardButton("BMP"),
@@ -37,10 +51,41 @@ namespace Homework_9
                         new KeyboardButton("TIFF"),
                     },
                 },
-                ResizeKeyboard = true, OneTimeKeyboard = true,
+            ResizeKeyboard = true,
+            OneTimeKeyboard = true,
+        };
+        public static async void SendKeyboard(object sender, MessageEventArgs e)
+        {
+            await bot.SendTextMessageAsync(e.Message.Chat.Id.ToString(), "Выберите формат в который хотите конвертировать изображение", replyMarkup: keyboard);
+        }
+
+        /// <summary>
+        /// Переключает флаг разрешения на ковертирование после выбора формата
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public static async void ChooseFormat(object sender, MessageEventArgs e)
+        {
+            var mt = e.Message.Text;
+
+            if (inputImageExists)
+            {
+                while (inputImageExists)
+                {
+                    if (mt == "BMP"
+                    | mt == "PNG"
+                    | mt == "GIF"
+                    | mt == "TIFF")
+                    {
+                        outputFormat = mt;
+                        Console.WriteLine($"{outputFormat} {inputImageExists}");
+                        TurnOff();
+                    }
+                }
+
                 
-            };
-            await bot.SendTextMessageAsync(chatId, "Выберите формат в который хотите конвертировать изображение", replyMarkup: keyboard);
+            }
+            
         }
 
         [Obsolete]
@@ -90,12 +135,21 @@ namespace Homework_9
                 }
             }
             ImageMessage im = new ImageMessage();
-
+            TurnConversionFlag tkf = new TurnConversionFlag();
+            bot.StartReceiving();
             bot.OnMessage += new StartMessage(bot).Listen;
             bot.OnMessage += im.Listen;
             im.onPhoto += new ImageChecked(bot).Listen; im.onPhoto += SendKeyboard;
-
-            bot.StartReceiving();
+            im.onPhoto += new TurnConversionFlag().TurnOn;
+            //im.onPhoto += SendKeyboard;
+            //im.onPhoto += ChooseFormat;
+            
+            //tkf.sk += SendKeyboard;
+            /// если присылают сообщение
+            /// и сообщение содержит картинку
+            /// бот присылает клавиатуру
+            /// после нажатия кнопки назначается формат
+            /// клавиатура пропадает
             Console.ReadKey();
         }
     }
