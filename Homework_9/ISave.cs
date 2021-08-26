@@ -149,21 +149,36 @@ namespace Homework_9
     /// </summary>
     public class SaveImage
     {
+        /// <summary>
+        /// выйл выходного изображения
+        /// </summary>
         public static string outputFile;
 
+        /// <summary>
+        /// для события оповещающего об успешной конвертации
+        /// </summary>
+        /// <param name="e"></param>
         [Obsolete]
         public delegate void ConvertedImageSavedNotify(MessageEventArgs e);
-
+        /// <summary>
+        /// событие успешной конвертации
+        /// </summary>
         [Obsolete]
         public static event ConvertedImageSavedNotify convertedImageSavedNotify;
 
+        /// <summary>
+        /// метод содержащий логику конвертирования
+        /// </summary>
+        /// <param name="e"></param>
         [Obsolete]
         public static async void StartSave(MessageEventArgs e)
         {
-
+            /// полное название конечного рисунка
             outputFile = SaveImageFromUser.inputFile + StartMessage.outputFormat;
+            /// загружает в переменную изображение из исходного файла
             var img = Image.FromFile(SaveImageFromUser.InputFileJpg);
 
+            /// вызывает подходящий метод сохранения в зависимости от выбранного формата
             await Task.Run(() =>
             {
                 if (StartMessage.outputFormat != null & StartMessage.outputFormat != "")
