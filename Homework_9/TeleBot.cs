@@ -9,8 +9,14 @@ namespace Homework_9
     /// </summary>
     public static class TeleBot
     {
+        /// <summary>
+        /// файл содержащий токен
+        /// </summary>
         static readonly string token = "token.ini";
 
+        /// <summary>
+        /// бот
+        /// </summary>
         public static TelegramBotClient bot = new TelegramBotClient(setToken());
 
         /// <summary>
@@ -20,7 +26,7 @@ namespace Homework_9
         public static string setToken()
         {
             if (File.Exists(token)) return File.ReadAllText(token);
-            /// во избежание ошибок
+            /// во избежание ошибок при отсутствии токена приложение завершается
             else Environment.Exit(0);
             return "end";
         }

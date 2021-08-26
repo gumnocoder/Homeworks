@@ -13,8 +13,14 @@ namespace Homework_9
         void Listen(object sender, MessageEventArgs e);
     }
 
+    /// <summary>
+    /// обрабатывает запросы
+    /// </summary>
     public class StartMessage : MessageListener
     {
+        /// <summary>
+        /// выбранный формат
+        /// </summary>
         public static string outputFormat = "";
 
         [Obsolete]
@@ -22,7 +28,9 @@ namespace Homework_9
         {
             
             var ee = e.Message.Text;
+            /// отправляет приветственное сообщение и инструкции
             if (ee == "/start") new SendHelp().SendMessage(e);
+            /// позволяет выбрать формат
             if (inputImageExists)
             {
                 switch (ee)
@@ -40,33 +48,46 @@ namespace Homework_9
                         outputFormat = ".tiff";
                         break;
                 }
-                Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
+                /// запускает сохранение в выбранном формате
                 StartSave(e);
             }
         }
     }
 
+    /// <summary>
+    /// проверяет наличие изображения в сообщении
+    /// </summary>
     public class ImageMessage : MessageListener
     {
+        /// <summary>
+        /// указывает на наличие отсутствии обрабатываемого изображения в логике
+        /// </summary>
         public static bool inputImageExists = false;
-
+        /// <summary>
+        /// для создания события
+        /// </summary>
+        /// <param name="e"></param>
         [Obsolete]
         public delegate void ImageSended(MessageEventArgs e);
-
+        /// <summary>
+        /// событие оповещающее о наличии изображения
+        /// </summary>
         [Obsolete]
         public event ImageSended onPhoto;
 
+        /// <summary>
+        /// метод вызывающий событие указывающее на наличие изображения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         [Obsolete]
         public void Listen(object sender, MessageEventArgs e)
         {
-            if (e.Message.Type == MessageType.Photo) { inputImageExists = true; Console.WriteLine($"{e.Message.Type} sended"); OnPhoto(e); }
-        }
-
-        [Obsolete]
-        public void OnPhoto(MessageEventArgs e)
-        {
-            onPhoto(e);
-            Console.WriteLine($"onPhoto event");
+            if (e.Message.Type == MessageType.Photo) 
+            { 
+                inputImageExists = true;
+                onPhoto(e);
+            }
         }
     }
 }

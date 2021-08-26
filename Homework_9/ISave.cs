@@ -67,26 +67,67 @@ namespace Homework_9
     /// </summary>
     public class SaveImageFromUser
     {
-
+        /// <summary>
+        /// 
+        /// </summary>
         public static string inputFile;
+        /// <summary>
+        /// 
+        /// </summary>
         public static string InputFileJpg;
+        /// <summary>
+        /// 
+        /// </summary>
         public static string inputImageId;
 
 
         public ITelegramBotClient bot;
-
         public ITelegramBotClient Bot { get; set; }
 
-
+        /// <summary>
+        /// конструктор
+        /// </summary>
+        /// <param name="Bot"></param>
         public SaveImageFromUser(ITelegramBotClient Bot)
         {
             this.bot = Bot;
         }
 
+        /// <summary>
+        /// для создания события уведомляющего 
+        /// об окончании сохранения изображения от пользователя
+        /// </summary>
         public delegate void ImageFromUserSavedNotify();
-
+        /// <summary>
+        /// событие окончания сохранения файла от пользователя
+        /// </summary>
         public event ImageFromUserSavedNotify imageFromUserSavedNotify;
 
+        public static bool flag = true;
+
+        /// <summary>
+        /// событие окончания сохранения пользовательского изображения
+        /// </summary>
+        /// <param name="e"></param>
+        [Obsolete]
+        public async void ImageSavedFlag(MessageEventArgs e)
+        {
+            await Task.Run(delegate ()
+            {
+                if (File.Exists(InputFileJpg) 
+                & new FileInfo(InputFileJpg).Length > 0 
+                & imageFromUserSavedNotify != null 
+                & flag == true)
+                {
+                    imageFromUserSavedNotify();
+                }
+            });
+        }
+
+        /// <summary>
+        /// содержит логику сохранения изобрадения от пользователя
+        /// </summary>
+        /// <param name="e"></param>
         [Obsolete]
         public async void SaveFromStream(MessageEventArgs e)
         {
@@ -94,30 +135,12 @@ namespace Homework_9
             InputFileJpg = e.Message.MessageId.ToString() + ".jpg";
             inputImageId = e.Message.Photo[^1].FileId.ToString();
 
-            Console.WriteLine($"inputFile {inputFile}");
-            Console.WriteLine($"inputImageId {inputImageId}");
-
+            /// поток для загрузки изображения
             using (FileStream fs = new FileStream(InputFileJpg, FileMode.Create))
             {
                 await bot.GetInfoAndDownloadFileAsync(inputImageId, fs);
-                ImageSavedFlag(e); 
-                Console.WriteLine($"!File.Exists(InputFileJpg) {!File.Exists(InputFileJpg)} FileInfo(inputFile).Length {new FileInfo(InputFileJpg).Length}");
+                ImageSavedFlag(e);
             }
-        }
-
-        public static bool flag = true;
-
-        [Obsolete]
-        public async void ImageSavedFlag(MessageEventArgs e)
-        {
-            await Task.Run(delegate ()
-            {
-                if (File.Exists(InputFileJpg) & new FileInfo(InputFileJpg).Length > 0 & imageFromUserSavedNotify != null & flag == true)
-                {
-                    imageFromUserSavedNotify();
-                    Console.WriteLine("ImageSaved");
-                }
-            });
         }
     }
 
@@ -126,13 +149,6 @@ namespace Homework_9
     /// </summary>
     public class SaveImage
     {
-        public async void ReadyToSaving()
-        {
-            await Task.Run(() =>
-            {
-                SaveImageFromUser.flag = false;
-            });
-        }
         public static string outputFile;
 
         [Obsolete]
@@ -146,7 +162,6 @@ namespace Homework_9
         {
 
             outputFile = SaveImageFromUser.inputFile + StartMessage.outputFormat;
-            Console.WriteLine($"StartSave outputFile {outputFile}");
             var img = Image.FromFile(SaveImageFromUser.InputFileJpg);
 
             await Task.Run(() =>
@@ -171,7 +186,6 @@ namespace Homework_9
 
                     inputImageExists = false;
                     StartMessage.outputFormat = "";
-                    Console.WriteLine($"image {outputFile} saved");
                     if (convertedImageSavedNotify != null & outputFile != "") 
                     { 
                         convertedImageSavedNotify(e);

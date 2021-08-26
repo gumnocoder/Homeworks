@@ -48,7 +48,7 @@ namespace Homework_9
             im.onPhoto += SendKeyboard;
             im.onPhoto += si.SaveFromStream;
 
-            si.imageFromUserSavedNotify += new SaveImage().ReadyToSaving;
+
             SaveImage.convertedImageSavedNotify += new FileToZip().StartCompressing;
 
             Console.ReadKey();

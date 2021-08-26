@@ -7,17 +7,31 @@ using static Homework_9.SendArchive;
 namespace Homework_9
 
 {
+    /// <summary>
+    /// для запаковки файла в zip
+    /// </summary>
     class FileToZip
     {
-
+        /// <summary>
+        /// содержит название архивированного файла
+        /// </summary>
         public static string ArchiveWithConvertedFile = "";
 
+        /// <summary>
+        /// вызывает метод архивации
+        /// </summary>
+        /// <param name="e"></param>
         [Obsolete]
         public void StartCompressing(MessageEventArgs e)
         {
             CompressFile(SaveImage.outputFile, e);
         }
 
+        /// <summary>
+        /// метод архивации конвертированного изображения
+        /// </summary>
+        /// <param name="outputImage"></param>
+        /// <param name="e"></param>
         [Obsolete]
         public void CompressFile(string outputImage, MessageEventArgs e)
         {
@@ -35,6 +49,7 @@ namespace Homework_9
                     }
                 }
                 readyToSendArchiveFlag = true;
+                /// Запускает логику отправки архива
                 SendMessageWithArchive(e);
             }
         }

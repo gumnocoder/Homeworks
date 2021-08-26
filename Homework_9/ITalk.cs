@@ -33,18 +33,21 @@ namespace Homework_9
     /// отправляет архив с конвертированным файлом
     /// </summary>
     public class SendArchive
-    {
+    { 
         public static bool readyToSendArchiveFlag = false;
 
         /// <summary>
-        /// конструктор
+        /// 
         /// </summary>
         [Obsolete]
         public static async void SendMessageWithArchive(MessageEventArgs e)
         {
+            /// название архива
             string archive = SaveImage.outputFile + ".zip";
-            Console.WriteLine(Environment.CurrentDirectory + @"\" + SaveImage.outputFile + ".zip");
-            using (Stream stream = File.OpenRead(Path.Combine(Environment.CurrentDirectory + @"\" + SaveImage.outputFile + ".zip")))
+            /// путь к архиву
+            string path = Path.Combine(Environment.CurrentDirectory + @"\" + SaveImage.outputFile + ".zip");
+            /// поток отправляющий архив
+            using (Stream stream = File.OpenRead(path))
             {
                 await bot.SendDocumentAsync(
                     chatId: e.Message.Chat.Id.ToString(),
