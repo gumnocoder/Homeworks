@@ -16,20 +16,12 @@ namespace Homework_9
 
     public class StartMessage : MessageListener
     {
-        public TelegramBotClient bot;
-        public TelegramBotClient Bot { get; set; }
-
-        public StartMessage(TelegramBotClient Bot)
-        {
-            this.bot = Bot;
-        }
-
         public static string outputFormat = "";
         public void Listen(object sender, MessageEventArgs e)
         {
             
             var ee = e.Message.Text;
-            if (ee == "/start") new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), this.bot);
+            if (ee == "/start") new SendHelp().SendMessage(e);
             if (inputImageExists)
             {
                 switch (ee)

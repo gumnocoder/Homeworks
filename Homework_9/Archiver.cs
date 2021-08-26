@@ -3,20 +3,27 @@ using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
 using Telegram.Bot;
+using Telegram.Bot.Args;
 using static Homework_9.SendArchive;
+using static Homework_9.ITalk;
 
 namespace Homework_9
 
 {
-    class FileToZip
+    class FileToZip : MessageListener
     {
-        public static string ArchiveWithConvertedFile = "";
-        public void StartCompressing()
+        public void Listen(object sender, MessageEventArgs e)
         {
-            CompressFile(SaveImage.outputFile);
+
         }
 
-        public void CompressFile(string outputImage)
+        public static string ArchiveWithConvertedFile = "";
+        public void StartCompressing(MessageEventArgs e)
+        {
+            CompressFile(SaveImage.outputFile, e);
+        }
+
+        public void CompressFile(string outputImage, MessageEventArgs e)
         {
             using (FileStream save = new FileStream(outputImage, FileMode.OpenOrCreate))
             {
@@ -28,13 +35,14 @@ namespace Homework_9
                     {
                         save.CopyTo(save3);
                         readyToSendArchiveFlag = true;
-                        ToSendMessage();
+                        
                         Console.WriteLine($"readyToSendArchiveFlag {readyToSendArchiveFlag} switched");
                         Console.WriteLine($"SendArchive.ToSendMessage()");
                         Console.WriteLine($"file {outputImage + ".zip"} zipped");
                     }
                 }
             }
+            SendMessageWithArchive(e);
         }
     }
 }

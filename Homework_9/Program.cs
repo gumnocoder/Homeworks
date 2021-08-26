@@ -46,80 +46,22 @@ namespace Homework_9
         [Obsolete]
         static void Main()
         {
-            async void MessageListener(object sender, MessageEventArgs e)
-            {
-                chatId = e.Message.Chat.Id.ToString();
+            //new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
 
-                if (e.Message.Text == "/start")
-                {
-                    new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
-                }
-                if (e.Message.Type == MessageType.Photo)
-                {
-                    await bot.SendTextMessageAsync(e.Message.Chat.Id, "Обнаружил изображение, запускаем сценарий");
-                    inputImage = e.Message.Photo[^1].FileId.ToString();
-                    imageName = e.Message.MessageId.ToString();
-                    //if (!Directory.Exists(Path.Combine(Environment.CurrentDirectory, chatId))) 
-                    //    Directory.CreateDirectory(Path.Combine(Environment.CurrentDirectory, chatId));
-                    string path = Path.Combine(Environment.CurrentDirectory, chatId);
-                    string FileName = e.Message.MessageId.ToString() + ".jpg";
-                    using (FileStream fs = new FileStream(e.Message.MessageId.ToString() + ".jpg", FileMode.Create))
-                    {
-                        await bot.GetInfoAndDownloadFileAsync(inputImage, fs);
-                        Image img = Image.FromStream(fs);
-
-                        while (true)
-                        {
-                            //await bot.SendTextMessageAsync(chatId, "Выберите формат в который хотите конвертировать изображение", replyMarkup: CallBack.keyboard());
-                            bool flag = false;
-                            while (true)
-                            {
-                             //   bot.OnCallbackQuery += ChooseOutputFormat;
-                            //    if (queryContentFlag == true) break;
-                            }
-
-                            //queryContentFlag = false;
-                            //outputImage = imageName + outputFormat;
-                            //new SaveImage(outputFormat).SaveToFile(outputImage, img);
-                            break;
-                        }
-                    }
-                    //new FileToZip().CompressFile(bot, outputImage);
-                    zippedImage = outputImage + ".zip";
-                    //new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
-                }
-            }
             SaveImageFromUser si = new SaveImageFromUser(bot);
             SaveImage si_2 = new SaveImage();
             ImageMessage im = new ImageMessage();
-            //TurnConversionFlag tkf = new TurnConversionFlag();
+
             bot.StartReceiving();
-            bot.OnMessage += new StartMessage(bot).Listen;
+            bot.OnMessage += new StartMessage().Listen;
             bot.OnMessage += im.Listen;
             im.onPhoto += SendKeyboard;
             im.onPhoto += si.SaveFromStream;
-            //im.onPhoto += ChooseFormat;
-            //im.onPhoto += si.SaveFromStream;
-            //im.onPhoto += new ImageChecked(bot).Listen; 
-            //im.onPhoto += SendKeyboard;
-            //im.onPhoto += new TurnConversionFlag().TurnOn;
+
             si.imageFromUserSavedNotify += new SaveImage().ReadyToSaving;
             SaveImage.convertedImageSavedNotify += new FileToZip().StartCompressing;
-            //si_2.Saving += new SaveImage().StartSave;
-            //
-            // new SendArchive().readyToSendArchive ;
 
-            //tkf.sk += SendKeyboard;
-            /// если присылают сообщение
-            /// и сообщение содержит картинку
-            /// бот присылает клавиатуру
-            /// после нажатия кнопки назначается формат
-            /// клавиатура пропадает
             Console.ReadKey();
-        }
-        public void answer()
-        {
-            Console.WriteLine($"convertedImageSavedNotify");
         }
     }
 }

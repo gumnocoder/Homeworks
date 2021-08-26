@@ -147,7 +147,7 @@ namespace Homework_9
         }
         public static string outputFile;
 
-        public delegate void ConvertedImageSavedNotify();
+        public delegate void ConvertedImageSavedNotify(MessageEventArgs e);
 
         public static event ConvertedImageSavedNotify convertedImageSavedNotify;
 
@@ -183,7 +183,7 @@ namespace Homework_9
                     Console.WriteLine($"image {outputFile} saved");
                     if (convertedImageSavedNotify != null & outputFile != "") 
                     { 
-                        convertedImageSavedNotify(); 
+                        convertedImageSavedNotify(e); 
                     }
                 }
             });
