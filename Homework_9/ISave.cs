@@ -183,7 +183,8 @@ namespace Homework_9
                     Console.WriteLine($"image {outputFile} saved");
                     if (convertedImageSavedNotify != null & outputFile != "") 
                     { 
-                        convertedImageSavedNotify(e); 
+                        convertedImageSavedNotify(e);
+                        FileToZip.ArchiveWithConvertedFile = outputFile + ".zip";
                     }
                 }
             });

@@ -66,18 +66,16 @@ namespace Homework_9
         /// <param name="Archive">название файла</param>
         public static async void SendMessageWithArchive(MessageEventArgs e)
         {
-
-            await Task.Run(() =>
+            string archive = SaveImage.outputFile + ".zip";
+            Console.WriteLine(Environment.CurrentDirectory + @"\" + SaveImage.outputFile + ".zip");
+            using (Stream stream = File.OpenRead(Path.Combine(Environment.CurrentDirectory + @"\" + SaveImage.outputFile + ".zip")))
             {
-                using (Stream stream = File.OpenRead(Path.Combine(Environment.CurrentDirectory + @"\" + ArchiveWithConvertedFile)))
-                {
-                    bot.SendDocumentAsync(
-                        chatId: e.Message.Chat.Id.ToString(),
-                        document: new InputOnlineFile(content: stream, fileName: ArchiveWithConvertedFile),
-                        caption: ArchiveWithConvertedFile
-                    );
-                }
-            });
+                await bot.SendDocumentAsync(
+                    chatId: e.Message.Chat.Id.ToString(),
+                    document: new InputOnlineFile(content: stream, fileName: archive),
+                    caption: archive
+                );
+            }
         }
     }
 }
