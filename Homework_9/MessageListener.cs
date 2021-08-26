@@ -27,6 +27,7 @@ namespace Homework_9
         public static string outputFormat = "";
         public void Listen(object sender, MessageEventArgs e)
         {
+            
             var ee = e.Message.Text;
             switch (ee)
             {

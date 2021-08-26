@@ -129,7 +129,7 @@ namespace Homework_9
                             break;
                         }
                     }
-                    new FileToZip().CompressFile(bot, outputImage);
+                    //new FileToZip().CompressFile(bot, outputImage);
                     zippedImage = outputImage + ".zip";
                     new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
                 }
@@ -148,7 +148,8 @@ namespace Homework_9
             //im.onPhoto += new ImageChecked(bot).Listen; 
             //im.onPhoto += SendKeyboard;
             //im.onPhoto += new TurnConversionFlag().TurnOn;
-            si.ImageSaved += new SaveImage().ReadyToSaving;
+            si.imageFromUserSavedNotify += new SaveImage().ReadyToSaving;
+            SaveImage.convertedImageSavedNotify += new FileToZip().StartCompressing;
             //si_2.Saving += new SaveImage().StartSave;
             //
 
@@ -159,6 +160,10 @@ namespace Homework_9
             /// после нажатия кнопки назначается формат
             /// клавиатура пропадает
             Console.ReadKey();
+        }
+        public void answer()
+        {
+            Console.WriteLine($"convertedImageSavedNotify");
         }
     }
 }

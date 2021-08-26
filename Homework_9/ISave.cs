@@ -69,6 +69,8 @@ namespace Homework_9
     {
         public static string inputFile;
 
+        public static string InputFileJpg;
+
         public static string inputImageId;
 
 
@@ -82,20 +84,24 @@ namespace Homework_9
             this.bot = Bot;
         }
 
-        public delegate void imageSaved(MessageEventArgs e);
+        public delegate void ImageFromUserSavedNotify();
 
-        public event imageSaved ImageSaved;
+        public event ImageFromUserSavedNotify imageFromUserSavedNotify;
 
         public async void SaveFromStream(MessageEventArgs e)
         {
-            inputFile = e.Message.MessageId.ToString() + ".jpg";
-            Console.WriteLine($"inputFile {inputFile}");
+            inputFile = e.Message.MessageId.ToString();
+            InputFileJpg = e.Message.MessageId.ToString() + ".jpg";
             inputImageId = e.Message.Photo[^1].FileId.ToString();
+
+            Console.WriteLine($"inputFile {inputFile}");
             Console.WriteLine($"inputImageId {inputImageId}");
-            using (FileStream fs = new FileStream(inputFile, FileMode.Create))
+
+            using (FileStream fs = new FileStream(InputFileJpg, FileMode.Create))
             {
                 await bot.GetInfoAndDownloadFileAsync(inputImageId, fs);
-                ImageSavedFlag(e); Console.WriteLine($"!File.Exists(inputFile) {!File.Exists(inputFile)} FileInfo(inputFile).Length {new FileInfo(inputFile).Length}");
+                ImageSavedFlag(e); 
+                Console.WriteLine($"!File.Exists(InputFileJpg) {!File.Exists(InputFileJpg)} FileInfo(inputFile).Length {new FileInfo(InputFileJpg).Length}");
             }
         }
 
@@ -105,9 +111,9 @@ namespace Homework_9
         {
             await Task.Run(delegate ()
             {
-                if (File.Exists(inputFile) & new FileInfo(inputFile).Length > 0 & ImageSaved != null & flag == true)
+                if (File.Exists(InputFileJpg) & new FileInfo(InputFileJpg).Length > 0 & imageFromUserSavedNotify != null & flag == true)
                 {
-                    ImageSaved(e);
+                    imageFromUserSavedNotify();
                     Console.WriteLine("ImageSaved");
                 }
             });
@@ -131,26 +137,24 @@ namespace Homework_9
             this.outputFormat = OutputFormat;
         }*/
 
-        public async void ReadyToSaving(MessageEventArgs e)
+        public async void ReadyToSaving()
         {
             await Task.Run(() =>
             {
                 SaveImageFromUser.flag = false;
-                //SaveToFile(inputImageId + StartMessage.outputFormat, img);
             });
-
-            //SaveToFile(inputImageId + StartMessage.outputFormat, img);
         }
+        public static string outputFile;
 
-        public delegate void readyToSave(MessageEventArgs e);
+        public delegate void ConvertedImageSavedNotify();
 
-        public static event readyToSave ReadyToSave;
-
+        public static event ConvertedImageSavedNotify convertedImageSavedNotify;
 
         public static async void StartSave(MessageEventArgs e)
         {
-            var outputFile = SaveImageFromUser.inputFile + StartMessage.outputFormat;
-            var img = Image.FromFile(SaveImageFromUser.inputFile);
+            outputFile = SaveImageFromUser.inputFile + StartMessage.outputFormat;
+            Console.WriteLine($"StartSave outputFile {outputFile}");
+            var img = Image.FromFile(SaveImageFromUser.InputFileJpg);
             await Task.Run(() =>
             {
                 if (StartMessage.outputFormat != null & StartMessage.outputFormat != "")
@@ -179,6 +183,7 @@ namespace Homework_9
                             break;
                     }
                     Console.WriteLine($"image {outputFile} saved");
+                    if (convertedImageSavedNotify != null & outputFile != "") convertedImageSavedNotify();
                 }
             });
         }
