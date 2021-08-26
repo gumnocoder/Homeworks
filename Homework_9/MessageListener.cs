@@ -3,6 +3,10 @@ using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 using static Homework_9.TurnConversionFlag;
+using static Homework_9.SaveImage;
+using static Homework_9.SaveImageFromUser;
+using System.Drawing;
+
 namespace Homework_9
 {
     public interface MessageListener
@@ -30,20 +34,36 @@ namespace Homework_9
                     new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
                     break;
                 case "BMP":
-                    if (inputImageExists) outputFormat = ".bmp";
-                    Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
+                    if (inputImageExists)
+                    {
+                        outputFormat = ".bmp";
+                        Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
+                        StartSave(e);
+                    }
                     break;
                 case "PNG":
-                    if (inputImageExists) outputFormat = ".png";
-                    Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
+                    if (inputImageExists)
+                    {
+                        outputFormat = ".png";
+                        Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
+                        StartSave(e);
+                    }
                     break;
                 case "GIF":
-                    if (inputImageExists) outputFormat = ".gif";
-                    Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
+                    if (inputImageExists)
+                    {
+                        outputFormat = ".gif";
+                        Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
+                        StartSave(e);
+                    }
                     break;
                 case "TIFF":
-                    if (inputImageExists) outputFormat = ".tiff";
-                    Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
+                    if (inputImageExists)
+                    {
+                        outputFormat = ".tiff";
+                        Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
+                        StartSave(e);
+                    }
                     break;
             }
         }

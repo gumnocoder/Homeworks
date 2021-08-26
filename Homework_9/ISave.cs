@@ -20,11 +20,6 @@ namespace Homework_9
         void SaveToFile(string outputFile, Image img);
     }
 
-    public interface IStreamSave
-    {
-        void SaveFromStream(MessageEventArgs e);
-    }
-
     /// <summary>
     /// конвертирует в BMP
     /// </summary>
@@ -69,7 +64,7 @@ namespace Homework_9
         }
     }
 
-    public class SaveImageFromUser : IStreamSave
+    public class SaveImageFromUser
 
     {
         public static string inputFile;
@@ -122,7 +117,7 @@ namespace Homework_9
     /// <summary>
     /// Переключает формат и вызывает соответствующий класс ISave
     /// </summary>
-    public class SaveImage : ISave
+    public class SaveImage
     {
 /*        string outputFormat;
         public  string OutputFormat { get; set; }
@@ -141,38 +136,51 @@ namespace Homework_9
             await Task.Run(() =>
             {
                 SaveImageFromUser.flag = false;
-                Console.WriteLine("ReadyToSaving");
-                Image img = Image.FromFile(SaveImageFromUser.inputFile);
-                Console.WriteLine(StartMessage.outputFormat);
+                //SaveToFile(inputImageId + StartMessage.outputFormat, img);
             });
 
-            //SaveToFile(inputImage + StartMessage.outputFormat, img);
+            //SaveToFile(inputImageId + StartMessage.outputFormat, img);
         }
-        
-        /// <summary>
-        /// Вызывает нужный метод сохранения
-        /// </summary>
-        /// <param name="outputFile"></param>
-        /// <param name="img"></param>
-        public void SaveToFile(string outputFile, Image img)
+
+        public delegate void readyToSave(MessageEventArgs e);
+
+        public static event readyToSave ReadyToSave;
+
+
+        public static async void StartSave(MessageEventArgs e)
         {
-            switch (StartMessage.outputFormat)
+            var outputFile = SaveImageFromUser.inputFile + StartMessage.outputFormat;
+            var img = Image.FromFile(SaveImageFromUser.inputFile);
+            await Task.Run(() =>
             {
-                case ".bmp":
-                    new SaveToBmp().SaveToFile(outputFile, img);
-                    break;
-                case ".png":
-                    new SaveToPng().SaveToFile(outputFile, img);
-                    break;
-                case ".gif":
-                    new SaveToGif().SaveToFile(outputFile, img);
-                    break;
-                case ".tiff":
-                    new SaveToTiff().SaveToFile(outputFile, img);
-                    break;
-            }
-            inputImageExists = false;
-            StartMessage.outputFormat = "";
+                if (StartMessage.outputFormat != null & StartMessage.outputFormat != "")
+                {
+                    switch (StartMessage.outputFormat)
+                    {
+                        case ".bmp":
+                            new SaveToBmp().SaveToFile(outputFile, img);
+                            inputImageExists = false;
+                            StartMessage.outputFormat = "";
+                            break;
+                        case ".png":
+                            new SaveToPng().SaveToFile(outputFile, img);
+                            inputImageExists = false;
+                            StartMessage.outputFormat = "";
+                            break;
+                        case ".gif":
+                            new SaveToGif().SaveToFile(outputFile, img);
+                            inputImageExists = false;
+                            StartMessage.outputFormat = "";
+                            break;
+                        case ".tiff":
+                            new SaveToTiff().SaveToFile(outputFile, img);
+                            inputImageExists = false;
+                            StartMessage.outputFormat = "";
+                            break;
+                    }
+                    Console.WriteLine($"image {outputFile} saved");
+                }
+            });
         }
     }
 }

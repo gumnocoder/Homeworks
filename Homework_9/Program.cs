@@ -135,6 +135,7 @@ namespace Homework_9
                 }
             }
             SaveImageFromUser si = new SaveImageFromUser(bot);
+            SaveImage si_2 = new SaveImage();
             ImageMessage im = new ImageMessage();
             //TurnConversionFlag tkf = new TurnConversionFlag();
             bot.StartReceiving();
@@ -148,7 +149,7 @@ namespace Homework_9
             //im.onPhoto += SendKeyboard;
             //im.onPhoto += new TurnConversionFlag().TurnOn;
             si.ImageSaved += new SaveImage().ReadyToSaving;
-
+            //si_2.Saving += new SaveImage().StartSave;
             //
 
             //tkf.sk += SendKeyboard;
