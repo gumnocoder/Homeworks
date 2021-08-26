@@ -4,33 +4,14 @@ using System.IO;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 using static Homework_9.TeleBot;
-using static Homework_9.CallBack;
-using static Homework_9.TurnConversionFlag;
+
+
 using Telegram.Bot.Types.ReplyMarkups;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Homework_9
 {
-    class TurnConversionFlag
-    {
-        //public delegate void sendKeyboard(object sender, MessageEventArgs e);
-
-        //public event sendKeyboard sk;
-
-        public static bool inputImageExists = false;
-        public static void TurnOff()
-        {
-            inputImageExists = false;
-            Console.WriteLine($"inputImageExists {inputImageExists}");
-        }
-        public void TurnOn(object sender, MessageEventArgs e)
-        {
-            inputImageExists = true;
-            Console.WriteLine($"inputImageExists {inputImageExists}");
-            //sk(sender, e);
-        }
-    }
     class Program
     {
         public static string inputImage;
@@ -62,32 +43,6 @@ namespace Homework_9
             Console.WriteLine("keyboard sended");
         }
 
-        /// <summary>
-        /// Переключает флаг разрешения на ковертирование после выбора формата
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public static async void ChooseFormat(MessageEventArgs e)
-        {
-            var mt = e.Message.Text;
-            Console.WriteLine($" ChooseFormat mt {e.Message.Text}");
-            await Task.Run(delegate ()
-            {
-                if (inputImageExists)
-                {
-                    if (mt == "BMP"
-                    | mt == "PNG"
-                    | mt == "GIF"
-                    | mt == "TIFF")
-                    {
-                        outputFormat = mt;
-                        TurnOff();
-                        Console.WriteLine($" ChooseFormat outputFormat {outputFormat} inputImageExists {inputImageExists}");
-                    }
-                }
-            });
-        }
-
         [Obsolete]
         static void Main()
         {
@@ -115,23 +70,23 @@ namespace Homework_9
 
                         while (true)
                         {
-                            await bot.SendTextMessageAsync(chatId, "Выберите формат в который хотите конвертировать изображение", replyMarkup: CallBack.keyboard());
+                            //await bot.SendTextMessageAsync(chatId, "Выберите формат в который хотите конвертировать изображение", replyMarkup: CallBack.keyboard());
                             bool flag = false;
                             while (true)
                             {
-                                bot.OnCallbackQuery += ChooseOutputFormat;
-                                if (queryContentFlag == true) break;
+                             //   bot.OnCallbackQuery += ChooseOutputFormat;
+                            //    if (queryContentFlag == true) break;
                             }
 
-                            queryContentFlag = false;
-                            outputImage = imageName + outputFormat;
+                            //queryContentFlag = false;
+                            //outputImage = imageName + outputFormat;
                             //new SaveImage(outputFormat).SaveToFile(outputImage, img);
                             break;
                         }
                     }
                     //new FileToZip().CompressFile(bot, outputImage);
                     zippedImage = outputImage + ".zip";
-                    new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
+                    //new SendArchive(Path.Combine(Environment.CurrentDirectory, zippedImage), zippedImage).SendMessage(chatId, bot);
                 }
             }
             SaveImageFromUser si = new SaveImageFromUser(bot);
@@ -152,6 +107,7 @@ namespace Homework_9
             SaveImage.convertedImageSavedNotify += new FileToZip().StartCompressing;
             //si_2.Saving += new SaveImage().StartSave;
             //
+            // new SendArchive().readyToSendArchive ;
 
             //tkf.sk += SendKeyboard;
             /// если присылают сообщение

@@ -31,20 +31,21 @@ namespace Homework_9
     public class SendArchive : ITalk
     {
         public static bool readyToSendArchiveFlag = false;
+        public static string path;
+        public static string archive;
 
         public delegate void ReadyToSendArchive();
+        public static event ReadyToSendArchive readyToSendArchive;
 
-        public event ReadyToSendArchive readyToSendArchive;
-
-        public string path;
-        public string Path { get; set; }
-
-        public string archive;
-        public string Archive { get; set; }
-
-        public async void ToSendMessage()
+        public static void ToSendMessage()
         {
 
+            if (readyToSendArchiveFlag)
+            {
+                readyToSendArchiveFlag = false;
+                //readyToSendArchive();
+                //SendMessage(chatId, bot);
+            }
         }
 
         /// <summary>
@@ -52,19 +53,14 @@ namespace Homework_9
         /// </summary>
         /// <param name="Path">руть к файлу</param>
         /// <param name="Archive">название файла</param>
-        public SendArchive(string Path, string Archive)
-        {
-            this.path = Path;
-            this.archive = Archive;
-        }
         public async void SendMessage(string chatId, TelegramBotClient bot)
         {
-            using (Stream stream = File.OpenRead(this.path))
+            using (Stream stream = File.OpenRead(path))
             {
                 await bot.SendDocumentAsync(
                     chatId: chatId,
-                    document: new InputOnlineFile(content: stream, fileName: this.archive),
-                    caption: this.archive
+                    document: new InputOnlineFile(content: stream, fileName: archive),
+                    caption: archive
                 );
             }
         }

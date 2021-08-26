@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
-using static Homework_9.TurnConversionFlag;
+using static Homework_9.ImageMessage;
 using static Homework_9.Program;
 using Telegram.Bot.Args;
 using System.IO;
@@ -64,13 +64,14 @@ namespace Homework_9
         }
     }
 
+    /// <summary>
+    /// Загружает картинку отправленную пользователем
+    /// </summary>
     public class SaveImageFromUser
-
     {
+
         public static string inputFile;
-
         public static string InputFileJpg;
-
         public static string inputImageId;
 
 

@@ -7,7 +7,7 @@ namespace Homework_9
     /// <summary>
     /// Создаёт бота и назначает ему токен
     /// </summary>
-    public class TeleBot
+    public static class TeleBot
     {
         static readonly string token = "token.ini";
 

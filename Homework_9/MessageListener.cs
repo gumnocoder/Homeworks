@@ -2,7 +2,7 @@
 using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
-using static Homework_9.TurnConversionFlag;
+using static Homework_9.ImageMessage;
 using static Homework_9.SaveImage;
 using static Homework_9.SaveImageFromUser;
 using System.Drawing;
@@ -29,13 +29,11 @@ namespace Homework_9
         {
             
             var ee = e.Message.Text;
+            if (ee == "/start") new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), this.bot);
             if (inputImageExists)
             {
                 switch (ee)
                 {
-                    case "/start":
-                        new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
-                        break;
                     case "BMP":
                         outputFormat = ".bmp";
                         break;
@@ -57,6 +55,8 @@ namespace Homework_9
 
     public class ImageMessage : MessageListener
     {
+        public static bool inputImageExists = false;
+
         public delegate void ImageSended(MessageEventArgs e);
 
         public event ImageSended onPhoto;
@@ -71,22 +71,4 @@ namespace Homework_9
             Console.WriteLine($"onPhoto event");
         }
     }
-
-    public class ImageChecked : MessageListener
-    {
-        public TelegramBotClient bot;
-
-        public TelegramBotClient Bot { get; set; }
-
-        public ImageChecked(TelegramBotClient Bot)
-        {
-            this.bot = Bot;
-        }
-
-        public void Listen(object sender, MessageEventArgs e)
-        {
-            bot.SendTextMessageAsync(e.Message.Chat.Id.ToString(), "Изображение!");
-        }
-    }
-
 }
