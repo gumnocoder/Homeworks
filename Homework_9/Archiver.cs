@@ -1,28 +1,24 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Threading.Tasks;
-using Telegram.Bot;
 using Telegram.Bot.Args;
 using static Homework_9.SendArchive;
-using static Homework_9.ITalk;
 
 namespace Homework_9
 
 {
-    class FileToZip : MessageListener
+    class FileToZip
     {
-        public void Listen(object sender, MessageEventArgs e)
-        {
-
-        }
 
         public static string ArchiveWithConvertedFile = "";
+
+        [Obsolete]
         public void StartCompressing(MessageEventArgs e)
         {
             CompressFile(SaveImage.outputFile, e);
         }
 
+        [Obsolete]
         public void CompressFile(string outputImage, MessageEventArgs e)
         {
             using (FileStream save = new FileStream(outputImage, FileMode.OpenOrCreate))

@@ -1,11 +1,9 @@
 ﻿using System.Drawing;
 using System.Drawing.Imaging;
 using static Homework_9.ImageMessage;
-using static Homework_9.Program;
 using Telegram.Bot.Args;
 using System.IO;
 using Telegram.Bot;
-using System.Threading;
 using System;
 using System.Threading.Tasks;
 
@@ -89,6 +87,7 @@ namespace Homework_9
 
         public event ImageFromUserSavedNotify imageFromUserSavedNotify;
 
+        [Obsolete]
         public async void SaveFromStream(MessageEventArgs e)
         {
             inputFile = e.Message.MessageId.ToString();
@@ -108,6 +107,7 @@ namespace Homework_9
 
         public static bool flag = true;
 
+        [Obsolete]
         public async void ImageSavedFlag(MessageEventArgs e)
         {
             await Task.Run(delegate ()
@@ -126,18 +126,6 @@ namespace Homework_9
     /// </summary>
     public class SaveImage
     {
-/*        string outputFormat;
-        public  string OutputFormat { get; set; }
-
-        /// <summary>
-        /// принимает параметром новый формат
-        /// </summary>
-        /// <param name="OutputFormat">новый формат</param>
-        public SaveImage(string OutputFormat)
-        {
-            this.outputFormat = OutputFormat;
-        }*/
-
         public async void ReadyToSaving()
         {
             await Task.Run(() =>
@@ -147,10 +135,13 @@ namespace Homework_9
         }
         public static string outputFile;
 
+        [Obsolete]
         public delegate void ConvertedImageSavedNotify(MessageEventArgs e);
 
+        [Obsolete]
         public static event ConvertedImageSavedNotify convertedImageSavedNotify;
 
+        [Obsolete]
         public static async void StartSave(MessageEventArgs e)
         {
 

@@ -1,22 +1,23 @@
 ﻿using System;
-using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 using static Homework_9.ImageMessage;
 using static Homework_9.SaveImage;
-using static Homework_9.SaveImageFromUser;
-using System.Drawing;
+
 
 namespace Homework_9
 {
     public interface MessageListener
     {
+        [Obsolete]
         void Listen(object sender, MessageEventArgs e);
     }
 
     public class StartMessage : MessageListener
     {
         public static string outputFormat = "";
+
+        [Obsolete]
         public void Listen(object sender, MessageEventArgs e)
         {
             
@@ -49,14 +50,19 @@ namespace Homework_9
     {
         public static bool inputImageExists = false;
 
+        [Obsolete]
         public delegate void ImageSended(MessageEventArgs e);
 
+        [Obsolete]
         public event ImageSended onPhoto;
 
+        [Obsolete]
         public void Listen(object sender, MessageEventArgs e)
         {
             if (e.Message.Type == MessageType.Photo) { inputImageExists = true; Console.WriteLine($"{e.Message.Type} sended"); OnPhoto(e); }
         }
+
+        [Obsolete]
         public void OnPhoto(MessageEventArgs e)
         {
             onPhoto(e);

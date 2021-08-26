@@ -1,16 +1,14 @@
 ﻿using System;
 using System.IO;
-using Telegram.Bot;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.InputFiles;
 using static Homework_9.TeleBot;
-using static Homework_9.FileToZip;
-using System.Threading.Tasks;
 
 namespace Homework_9
 {
     public interface ITalk
     {
+        [Obsolete]
         void SendMessage(MessageEventArgs e);
     }
 
@@ -19,6 +17,7 @@ namespace Homework_9
     /// </summary>
     public class SendHelp : ITalk
     {
+        [Obsolete]
         public void SendMessage(MessageEventArgs e)
         {
             bot.SendTextMessageAsync(e.Message.Chat.Id.ToString(), "Добро пожаловать в конвертер изображений!\n\n");
@@ -33,37 +32,14 @@ namespace Homework_9
     /// <summary>
     /// отправляет архив с конвертированным файлом
     /// </summary>
-    public class SendArchive : ITalk
+    public class SendArchive
     {
         public static bool readyToSendArchiveFlag = false;
-        public static string path;
-        public static string archive;
-
-        public delegate void ReadyToSendArchive(MessageEventArgs e);
-        public event ReadyToSendArchive Sending;
-
-        //public void ToSendMessage()
-        //{
-
-        //    if (readyToSendArchiveFlag)
-        //    {
-        //        Sending(e);
-        //    }
-        //}
-
-
-        public void SendMessage(MessageEventArgs e)
-        {
-
-        }
-
-
 
         /// <summary>
         /// конструктор
         /// </summary>
-        /// <param name="Path">руть к файлу</param>
-        /// <param name="Archive">название файла</param>
+        [Obsolete]
         public static async void SendMessageWithArchive(MessageEventArgs e)
         {
             string archive = SaveImage.outputFile + ".zip";
