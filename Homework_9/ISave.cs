@@ -152,9 +152,11 @@ namespace Homework_9
 
         public static async void StartSave(MessageEventArgs e)
         {
+
             outputFile = SaveImageFromUser.inputFile + StartMessage.outputFormat;
             Console.WriteLine($"StartSave outputFile {outputFile}");
             var img = Image.FromFile(SaveImageFromUser.InputFileJpg);
+
             await Task.Run(() =>
             {
                 if (StartMessage.outputFormat != null & StartMessage.outputFormat != "")
@@ -163,27 +165,25 @@ namespace Homework_9
                     {
                         case ".bmp":
                             new SaveToBmp().SaveToFile(outputFile, img);
-                            inputImageExists = false;
-                            StartMessage.outputFormat = "";
                             break;
                         case ".png":
                             new SaveToPng().SaveToFile(outputFile, img);
-                            inputImageExists = false;
-                            StartMessage.outputFormat = "";
                             break;
                         case ".gif":
                             new SaveToGif().SaveToFile(outputFile, img);
-                            inputImageExists = false;
-                            StartMessage.outputFormat = "";
                             break;
                         case ".tiff":
                             new SaveToTiff().SaveToFile(outputFile, img);
-                            inputImageExists = false;
-                            StartMessage.outputFormat = "";
                             break;
                     }
+
+                    inputImageExists = false;
+                    StartMessage.outputFormat = "";
                     Console.WriteLine($"image {outputFile} saved");
-                    if (convertedImageSavedNotify != null & outputFile != "") convertedImageSavedNotify();
+                    if (convertedImageSavedNotify != null & outputFile != "") 
+                    { 
+                        convertedImageSavedNotify(); 
+                    }
                 }
             });
         }

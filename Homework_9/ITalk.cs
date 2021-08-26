@@ -30,11 +30,22 @@ namespace Homework_9
     /// </summary>
     public class SendArchive : ITalk
     {
+        public static bool readyToSendArchiveFlag = false;
+
+        public delegate void ReadyToSendArchive();
+
+        public event ReadyToSendArchive readyToSendArchive;
+
         public string path;
         public string Path { get; set; }
 
         public string archive;
         public string Archive { get; set; }
+
+        public async void ToSendMessage()
+        {
+
+        }
 
         /// <summary>
         /// конструктор
@@ -56,8 +67,6 @@ namespace Homework_9
                     caption: this.archive
                 );
             }
-
-            
         }
     }
 }

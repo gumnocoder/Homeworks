@@ -29,43 +29,28 @@ namespace Homework_9
         {
             
             var ee = e.Message.Text;
-            switch (ee)
+            if (inputImageExists)
             {
-                case "/start":
-                    new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
-                    break;
-                case "BMP":
-                    if (inputImageExists)
-                    {
+                switch (ee)
+                {
+                    case "/start":
+                        new SendHelp().SendMessage(e.Message.Chat.Id.ToString(), bot);
+                        break;
+                    case "BMP":
                         outputFormat = ".bmp";
-                        Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
-                        StartSave(e);
-                    }
-                    break;
-                case "PNG":
-                    if (inputImageExists)
-                    {
+                        break;
+                    case "PNG":
                         outputFormat = ".png";
-                        Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
-                        StartSave(e);
-                    }
-                    break;
-                case "GIF":
-                    if (inputImageExists)
-                    {
+                        break;
+                    case "GIF":
                         outputFormat = ".gif";
-                        Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
-                        StartSave(e);
-                    }
-                    break;
-                case "TIFF":
-                    if (inputImageExists)
-                    {
+                        break;
+                    case "TIFF":
                         outputFormat = ".tiff";
-                        Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
-                        StartSave(e);
-                    }
-                    break;
+                        break;
+                }
+                Console.WriteLine($"inputImageExists {inputImageExists} outputFormat ({outputFormat})");
+                StartSave(e);
             }
         }
     }
