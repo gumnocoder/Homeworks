@@ -58,17 +58,58 @@ namespace Homework_9
     /// <summary>
     /// отправляет инструкции
     /// </summary>
-    public class SendHelp : ITalk
+    public class SendHello : ITalk
     {
         [Obsolete]
         public void SendMessage(MessageEventArgs e)
         {
-            bot.SendTextMessageAsync(e.Message.Chat.Id.ToString(), "Добро пожаловать в конвертер изображений!\n\n");
-            bot.SendTextMessageAsync(e.Message.Chat.Id.ToString(), "Вы можете отправить в чат изображение, после чего Вам будет \n" +
+            bot.SendTextMessageAsync(e.Message.Chat.Id.ToString(), 
+                "Вы можете отправить в чат изображение, после чего Вам будет \n" +
                 "предложен формат для конвертирования, на выбор.\n" +
                 "В результате конвертирования Вам вернётся \n" +
                 "заархивированное изображение в заказанном формате.\n" +
                 "Приятного использования!");
+        }
+    }
+
+    public class SendFileOnRequest
+    {
+        public static void CheckFile(string file, MessageEventArgs e)
+        {
+            if (File.Exists(file)) SendFileFromServer(file, e);
+            else SendFileError(file, e);
+        }
+
+        public static void SendFileError(string file, MessageEventArgs e)
+        {
+            bot.SendTextMessageAsync(e.Message.Chat.Id, $"{file} не существует!");
+        }
+        public static async void SendFileFromServer(string file, MessageEventArgs e)
+        {
+            string path = Path.Combine(Environment.CurrentDirectory + @"\" + file);
+            /// поток отправляющий файл
+            using (Stream stream = File.OpenRead(path))
+            {
+                await bot.SendDocumentAsync(
+                    chatId: e.Message.Chat.Id.ToString(),
+                    document: new InputOnlineFile(content: stream, fileName: file),
+                    caption: file
+                );
+            }
+        }
+    }
+
+    public class SendHelp : ITalk
+    {
+        [Obsolete]
+
+        public void SendMessage(MessageEventArgs e)
+        {
+            bot.SendTextMessageAsync(e.Message.Chat.Id.ToString(), 
+                "Добро пожаловать в конвертер изображений!\n\n" +
+                "Список команд:\n\n" +
+                "/start инструкция по использованию\n" +
+                "/getdir список файлов для скачивания");
         }
     }
 
