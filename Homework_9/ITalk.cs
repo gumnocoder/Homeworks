@@ -82,7 +82,8 @@ namespace Homework_9
 
         public static void SendFileError(string file, MessageEventArgs e)
         {
-            bot.SendTextMessageAsync(e.Message.Chat.Id, $"{file} не существует!");
+            bot.SendTextMessageAsync(e.Message.Chat.Id, $"{file} не существует! Запрос отменён");
+            StartMessage.FlagToGetFile = false;
         }
         public static async void SendFileFromServer(string file, MessageEventArgs e)
         {
@@ -90,6 +91,7 @@ namespace Homework_9
             /// поток отправляющий файл
             using (Stream stream = File.OpenRead(path))
             {
+                StartMessage.FlagToGetFile = false;
                 await bot.SendDocumentAsync(
                     chatId: e.Message.Chat.Id.ToString(),
                     document: new InputOnlineFile(content: stream, fileName: file),

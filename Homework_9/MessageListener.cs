@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.Enums;
 using static Homework_9.ImageMessage;
 using static Homework_9.SaveImage;
+using static Homework_9.TeleBot;
 
 
 namespace Homework_9
@@ -23,19 +25,42 @@ namespace Homework_9
         /// </summary>
         public static string outputFormat = "";
 
+        public static bool FlagToGetFile = false;
+
         [Obsolete]
         public void Listen(object sender, MessageEventArgs e)
         {
             
             var ee = e.Message.Text;
+
             /// отправляет приветственное сообщение и инструкции
             if (ee == "/start") new SendHello().SendMessage(e);
             else if (ee == "/getdir")
             {
                 GetFilesOnServer.getFilesOnServer(e);
             }
-
-            else if (ee != null | ee != "") new SendHelp().SendMessage(e);
+            else if (ee == "/getfile")
+            {
+                bot.SendTextMessageAsync(e.Message.Chat.Id, "Введите название файла который хотите получить");
+                FlagToGetFile = true;
+            }
+            else
+            {
+                if (FlagToGetFile)
+                {
+                    if (ee != null & ee != "")
+                    {
+                        SendFileOnRequest.CheckFile(ee, e);
+                    }
+                    else
+                    {
+                        bot.SendTextMessageAsync(
+                            e.Message.Chat.Id,
+                            "Невозможно распознать запрос");
+                    }
+                }
+                else new SendHelp().SendMessage(e);
+            }
             /// позволяет выбрать формат
             if (inputImageExists)
             {
