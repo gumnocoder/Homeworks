@@ -21,10 +21,18 @@ namespace Homework_9
     public class StartMessage : MessageListener
     {
         /// <summary>
+        /// флаг начала работы с ботом
+        /// </summary>
+        public bool firstMessageFlag = true;
+
+        /// <summary>
         /// выбранный формат
         /// </summary>
         public static string outputFormat = "";
 
+        /// <summary>
+        /// флаг текущей операции получения файла с сервера
+        /// </summary>
         public static bool FlagToGetFile = false;
 
         [Obsolete]
@@ -34,16 +42,26 @@ namespace Homework_9
             var ee = e.Message.Text;
 
             /// отправляет приветственное сообщение и инструкции
-            if (ee == "/start") new SendHelp().SendMessage(e);
+            if (ee == "/start")
+            {
+                new SendHelp().SendMessage(e);
+            }
+            /// отправляет список
             else if (ee == "/getdir")
             {
                 GetFilesOnServer.getFilesOnServer(e);
             }
+            /// для получения файла с сервера
             else if (ee == "/getfile")
             {
-                bot.SendTextMessageAsync(e.Message.Chat.Id, "Введите название файла который хотите получить");
+                bot.SendTextMessageAsync(
+                    e.Message.Chat.Id, 
+                    "Введите название файла который хотите получить. " +
+                    "Регистр букв учитывается");
                 FlagToGetFile = true;
             }
+            /// для отправки запрошенного файла или 
+            /// при получении неучтённых сообщений
             else
             {
                 if (FlagToGetFile)
@@ -59,7 +77,15 @@ namespace Homework_9
                             "Невозможно распознать запрос");
                     }
                 }
+                else if (firstMessageFlag)
+                {
+                    bot.SendTextMessageAsync(
+                    e.Message.Chat.Id,
+                    "Воспользуйтесь командой /start");
+                    firstMessageFlag = false;
+                }
             }
+
             /// позволяет выбрать формат
             if (inputImageExists)
             {

@@ -104,8 +104,6 @@ namespace Homework_9
         /// </summary>
         public event ImageFromUserSavedNotify imageFromUserSavedNotify;
 
-        public static bool flag = true;
-
         /// <summary>
         /// событие окончания сохранения пользовательского изображения
         /// </summary>
@@ -117,8 +115,7 @@ namespace Homework_9
             {
                 if (File.Exists(InputFileJpg) 
                 & new FileInfo(InputFileJpg).Length > 0 
-                & imageFromUserSavedNotify != null 
-                & flag == true)
+                & imageFromUserSavedNotify != null)
                 {
                     imageFromUserSavedNotify();
                 }

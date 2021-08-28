@@ -59,9 +59,6 @@ namespace Homework_9
             im.onPhoto += SendKeyboard;
             im.onPhoto += si.SaveFromStream;
 
-
-            
-
             Console.ReadKey();
         }
     }

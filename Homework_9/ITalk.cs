@@ -25,6 +25,10 @@ namespace Homework_9
         /// </summary>
         public static string files = "";
         
+        /// <summary>
+        /// сценарий отправки файлов на сервере
+        /// </summary>
+        /// <param name="e"></param>
         public static void getFilesOnServer(MessageEventArgs e)
         {
             GetDirectory(e);
@@ -57,17 +61,36 @@ namespace Homework_9
 
     public class SendFileOnRequest
     {
+        /// <summary>
+        /// проверяет наличие и запускает 
+        /// соответствующий сценарий
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="e"></param>
         public static void CheckFile(string file, MessageEventArgs e)
         {
             if (File.Exists(file)) SendFileFromServer(file, e);
             else SendFileError(file, e);
         }
 
+        /// <summary>
+        /// отправляет ошибку при отсутствии файла
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="e"></param>
         public static void SendFileError(string file, MessageEventArgs e)
         {
-            bot.SendTextMessageAsync(e.Message.Chat.Id, $"{file} не существует! Запрос отменён");
+            bot.SendTextMessageAsync(
+                e.Message.Chat.Id, 
+                $"{file} не существует! Запрос отменён");
             StartMessage.FlagToGetFile = false;
         }
+
+        /// <summary>
+        /// отправляет запрошенный файл
+        /// </summary>
+        /// <param name="file">имя файла с расширением</param>
+        /// <param name="e"></param>
         public static async void SendFileFromServer(string file, MessageEventArgs e)
         {
             string path = Path.Combine(Environment.CurrentDirectory + @"\" + file);
@@ -77,17 +100,21 @@ namespace Homework_9
                 StartMessage.FlagToGetFile = false;
                 await bot.SendDocumentAsync(
                     chatId: e.Message.Chat.Id.ToString(),
-                    document: new InputOnlineFile(content: stream, fileName: file),
+                    document: new InputOnlineFile(
+                        content: stream, 
+                        fileName: file),
                     caption: file
                 );
             }
         }
     }
 
+    /// <summary>
+    /// Отправляет приветствие и инструкции
+    /// </summary>
     public class SendHelp : ITalk
     {
         [Obsolete]
-
         public void SendMessage(MessageEventArgs e)
         {
             bot.SendTextMessageAsync(e.Message.Chat.Id.ToString(), 
@@ -102,7 +129,8 @@ namespace Homework_9
                 "Список команд:\n\n" +
                 "/start инструкция по использованию\n" +
                 "/getdir список файлов для скачивания\n" +
-                "/getfile отправляет запрос на отправку файла с сервера");
+                "/getfile отправляет запрос на отправку файла с сервера\n\n" +
+                "Внимание, регистр букв учитывается!");
         }
     }
 
