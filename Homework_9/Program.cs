@@ -41,10 +41,10 @@ namespace Homework_9
                 replyMarkup: keyboard);
         }
 
+
         [Obsolete]
         static void Main()
         {
-
             SaveImage.convertedImageSavedNotify += new FileToZip().StartCompressing;
             SaveImageFromUser si = new SaveImageFromUser(bot);
             SaveImage si_2 = new SaveImage();

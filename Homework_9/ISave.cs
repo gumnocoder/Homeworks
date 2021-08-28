@@ -6,6 +6,7 @@ using System.IO;
 using Telegram.Bot;
 using System;
 using System.Threading.Tasks;
+using static Homework_9.TeleBot;
 
 namespace Homework_9
 {
@@ -175,37 +176,50 @@ namespace Homework_9
         {
             /// полное название конечного рисунка
             outputFile = SaveImageFromUser.inputFile + StartMessage.outputFormat;
+            Image img = null;
             /// загружает в переменную изображение из исходного файла
-            var img = Image.FromFile(SaveImageFromUser.InputFileJpg);
+            try
+            {
+                img = Image.FromFile(SaveImageFromUser.InputFileJpg);
+            }
+            catch (Exception)
+            {
+                bot.SendTextMessageAsync(
+                    e.Message.Chat.Id, 
+                    "отправляйте фото по одному!");
+            }
             inputImageExists = false;
             /// вызывает подходящий метод сохранения в зависимости от выбранного формата
-            await Task.Run(() =>
+            if (img != null)
             {
-                if (StartMessage.outputFormat != null & StartMessage.outputFormat != "")
+                await Task.Run(() =>
                 {
-                    switch (StartMessage.outputFormat)
+                    if (StartMessage.outputFormat != null & StartMessage.outputFormat != "")
                     {
-                        case ".bmp":
-                            new SaveToBmp().SaveToFile(outputFile, img);
-                            break;
-                        case ".png":
-                            new SaveToPng().SaveToFile(outputFile, img);
-                            break;
-                        case ".gif":
-                            new SaveToGif().SaveToFile(outputFile, img);
-                            break;
-                        case ".tiff":
-                            new SaveToTiff().SaveToFile(outputFile, img);
-                            break;
+                        switch (StartMessage.outputFormat)
+                        {
+                            case ".bmp":
+                                new SaveToBmp().SaveToFile(outputFile, img);
+                                break;
+                            case ".png":
+                                new SaveToPng().SaveToFile(outputFile, img);
+                                break;
+                            case ".gif":
+                                new SaveToGif().SaveToFile(outputFile, img);
+                                break;
+                            case ".tiff":
+                                new SaveToTiff().SaveToFile(outputFile, img);
+                                break;
+                        }
+                        StartMessage.outputFormat = "";
+                        if (convertedImageSavedNotify != null & outputFile != "")
+                        {
+                            convertedImageSavedNotify(e);
+                            FileToZip.ArchiveWithConvertedFile = outputFile + ".zip";
+                        }
                     }
-                    StartMessage.outputFormat = "";
-                    if (convertedImageSavedNotify != null & outputFile != "") 
-                    { 
-                        convertedImageSavedNotify(e);
-                        FileToZip.ArchiveWithConvertedFile = outputFile + ".zip";
-                    }
-                }
-            });
+                });
+            }
         }
     }
 }

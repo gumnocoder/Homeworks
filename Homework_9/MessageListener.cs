@@ -34,7 +34,7 @@ namespace Homework_9
             var ee = e.Message.Text;
 
             /// отправляет приветственное сообщение и инструкции
-            if (ee == "/start") new SendHello().SendMessage(e);
+            if (ee == "/start") new SendHelp().SendMessage(e);
             else if (ee == "/getdir")
             {
                 GetFilesOnServer.getFilesOnServer(e);
@@ -59,7 +59,6 @@ namespace Homework_9
                             "Невозможно распознать запрос");
                     }
                 }
-                else new SendHelp().SendMessage(e);
             }
             /// позволяет выбрать формат
             if (inputImageExists)
