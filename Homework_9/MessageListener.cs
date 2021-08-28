@@ -30,6 +30,7 @@ namespace Homework_9
             var ee = e.Message.Text;
             /// отправляет приветственное сообщение и инструкции
             if (ee == "/start") new SendHelp().SendMessage(e);
+            if (ee == "/getdir") GetFilesOnServer.getFilesOnServer(e);
             /// позволяет выбрать формат
             if (inputImageExists)
             {
@@ -84,7 +85,8 @@ namespace Homework_9
         public void Listen(object sender, MessageEventArgs e)
         {
             if (e.Message.Type == MessageType.Photo) 
-            { 
+            {
+                //Console.WriteLine(e.Message.);
                 inputImageExists = true;
                 onPhoto(e);
             }

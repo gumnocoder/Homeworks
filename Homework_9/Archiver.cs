@@ -42,10 +42,6 @@ namespace Homework_9
                     using (GZipStream save3 = new GZipStream(save2, CompressionMode.Compress))
                     {
                         save.CopyTo(save3);
-                        Console.WriteLine($"readyToSendArchiveFlag {readyToSendArchiveFlag} switched");
-                        Console.WriteLine($"SendArchive.ToSendMessage()");
-                        Console.WriteLine($"file {outputImage + ".zip"} zipped");
-                        
                     }
                 }
                 readyToSendArchiveFlag = true;

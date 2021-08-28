@@ -177,7 +177,7 @@ namespace Homework_9
             outputFile = SaveImageFromUser.inputFile + StartMessage.outputFormat;
             /// загружает в переменную изображение из исходного файла
             var img = Image.FromFile(SaveImageFromUser.InputFileJpg);
-
+            inputImageExists = false;
             /// вызывает подходящий метод сохранения в зависимости от выбранного формата
             await Task.Run(() =>
             {
@@ -198,8 +198,6 @@ namespace Homework_9
                             new SaveToTiff().SaveToFile(outputFile, img);
                             break;
                     }
-
-                    inputImageExists = false;
                     StartMessage.outputFormat = "";
                     if (convertedImageSavedNotify != null & outputFile != "") 
                     { 

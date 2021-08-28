@@ -13,6 +13,49 @@ namespace Homework_9
     }
 
     /// <summary>
+    /// выводит список файлов для скачивания
+    /// </summary>
+    public class GetFilesOnServer
+    {
+        
+        public static string path = Environment.CurrentDirectory;
+        public static DirectoryInfo di = new DirectoryInfo(path);
+        /// <summary>
+        /// для промежуточного хранения списка файлов в директории
+        /// </summary>
+        public static string files = "";
+        
+        public static void getFilesOnServer(MessageEventArgs e)
+        {
+            GetDirectory(e);
+            SendDirectory(e);
+        }
+
+        /// <summary>
+        /// получает содержимое директории и записывает в строку
+        /// </summary>
+        /// <param name="e"></param>
+        public static void GetDirectory(MessageEventArgs e)
+        {
+            foreach (var file in di.GetFiles())
+            {
+                files += file.Name + "\n";
+            }
+        }
+
+        /// <summary>
+        /// отправляет список файлов и очищает временную строку
+        /// </summary>
+        /// <param name="e"></param>
+        public static void SendDirectory(MessageEventArgs e)
+        {
+            bot.SendTextMessageAsync(e.Message.Chat.Id.ToString(),
+            "Список файлов доступных к скачиванию:\n\n" + files);
+            files = "";
+        }
+    }
+
+    /// <summary>
     /// отправляет инструкции
     /// </summary>
     public class SendHelp : ITalk

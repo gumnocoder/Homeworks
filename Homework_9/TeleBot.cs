@@ -17,7 +17,7 @@ namespace Homework_9
         /// <summary>
         /// бот
         /// </summary>
-        public static TelegramBotClient bot = new TelegramBotClient(setToken());
+        public static TelegramBotClient bot = new TelegramBotClient(@"1903163949:AAF-KO0ar0FsHKgXfgqlYLxPjRWQeoFTPA4"/*setToken()*/);
 
         /// <summary>
         /// парсит файл с токеном
