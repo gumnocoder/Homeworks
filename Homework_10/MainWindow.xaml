@@ -1,0 +1,123 @@
+﻿<Window x:Class="Homework_10.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="http://hardcodet.net/taskbar"
+        xmlns:local="clr-namespace:Homework_10" xmlns:tb1="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"
+        Title="ConverterBot" 
+        Height="600"
+        Width="800" 
+        AutomationProperties.Name="ConverterBot"
+        WindowStyle="None"
+        MinHeight="600"
+        MinWidth="800"
+        MaxHeight="600"
+        MaxWidth="800">
+    <Window.Resources>
+        <Image x:Key="img" Source="/1.jpg"/>
+    </Window.Resources>
+    <Grid RenderTransformOrigin="0.5,0.5" 
+          Visibility="Visible" Margin="10,10,10,10">
+        <Grid.Background>
+            <ImageBrush ImageSource="/1.jpg"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition x:Name="Grid_1"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="438*"/>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="297*"/>
+            <ColumnDefinition Width="15*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Style>
+            <Style/>
+        </Grid.Style>
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform X="0"/>
+            </TransformGroup>
+        </Grid.RenderTransform>
+        <tb1:TaskbarIcon
+            Visibility="Visible"
+            ToolTipText="ConverterBot"
+            IconSource="bot.ico"
+            TrayLeftMouseDown="TrayIcon_Click" Grid.ColumnSpan="2" Margin="0,0,8,0"/>
+        <ListBox
+            Name="logList"
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="Black" Grid.ColumnSpan="3" Margin="0,11,7,11" Grid.RowSpan="3">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" Margin="5" BorderThickness="1" CornerRadius="10">
+                        <StackPanel Margin="10">
+                            <TextBlock 
+                                    Text="{Binding FirstName}" 
+                                    Margin="0" 
+                                    FontSize="15"/>
+                            <TextBlock 
+                                    Text="{Binding Msg}" 
+                                    Margin="0" 
+                                    FontSize="20"/>
+                            <TextBlock 
+                                    Text="{Binding Time}" 
+                                    Margin="10 0" 
+                                    FontSize="10" 
+                                    Foreground="Gray" 
+                                    TextAlignment="Right"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button 
+            Background="AliceBlue"
+            Grid.Column="4"
+            Grid.Row="2"
+            Name="TrayButton"
+            Content="в трей"
+                Height="40"
+                Width="80"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom"
+            BorderThickness="5"
+            BorderBrush="BlanchedAlmond"
+            Foreground="Black"
+            FontSize="15" Margin="159,0,0,11" Click="TrayButton_Click_1" Grid.RowSpan="2">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+        <Button 
+            Background="AliceBlue"
+            Grid.Column="4"
+            Grid.Row="2"
+            Content="выход"
+                Height="40"
+                Width="80"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Bottom" 
+            Click="Button_Click"
+            BorderThickness="5"
+            BorderBrush="BlanchedAlmond"
+            Foreground="Black"
+            FontSize="15" Margin="58,0,0,11" Grid.RowSpan="2">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+        </Button>
+    </Grid>
+</Window>

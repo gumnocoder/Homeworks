@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="1.jpg" />
+    <None Remove="1613048199_18-p-oranzhevii-fon-poligonalnii-18.jpg" />
+    <None Remove="bot.ico" />
+    <None Remove="i.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="Telegram.Bot" Version="16.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Homework_9\Homework_9.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="bot.ico" />
+  </ItemGroup>
+
+</Project>
