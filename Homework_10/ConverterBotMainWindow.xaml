@@ -1,19 +1,17 @@
-﻿<Window x:Class="Homework_10.MainWindow"
+﻿<Window x:Class="Homework_10.ConverterBotMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:tb="http://hardcodet.net/taskbar"
         xmlns:local="clr-namespace:Homework_10" xmlns:tb1="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="ConverterBot" 
-        AutomationProperties.Name="ConverterBot"
+        Title="ConverterBotMainWindow" 
         Height="450" 
         Width="300"
         MinHeight="450"
         MinWidth="300"
         ResizeMode="NoResize"
-        Background="DarkOliveGreen"
+        Background="Olive"
         WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
@@ -22,20 +20,10 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <ListBox Name="logList" Grid.Row="1" Margin="15,5,15,1" Background="NavajoWhite" Foreground="DarkOliveGreen"></ListBox>
-        <TextBlock Grid.Row="0" 
-                   Margin="15,10,15,4" 
-                   Background="NavajoWhite" 
-                   Foreground="Black" 
-                   FontStyle="Oblique"/>
-        <TextBlock Grid.Row="2" 
-                   Margin="15,7,15,7" 
-                   Background="NavajoWhite" 
-                   Foreground="Black" 
-                   FontStyle="Oblique"/>
+
+        <TextBlock Grid.Row="2" Margin="4,2,4,2" Background="NavajoWhite" Foreground="Black" FontStyle="Oblique"/>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
@@ -43,63 +31,50 @@
             </Grid.ColumnDefinitions>
             <Button Name="SendButton" 
                     Grid.Column="0" 
+                    Foreground="AliceBlue"
                     Margin="4,4,2,4"
                     Height="40"
-                    Width="40"
-                    BorderThickness="0">
+                    Width="40">
                 <Button.Background>
                     <ImageBrush ImageSource="/img_res/send_btn.png"/>
                 </Button.Background>
-                <Button.ToolTip>
-                    <ToolTip Content="отправить сообщение" Background="NavajoWhite" Foreground="DarkOliveGreen"/>
-                </Button.ToolTip>
             </Button>
             <Button Name="ExplorerButton" 
                     Grid.Column="1" 
-                    Margin="2,4,2,4" Click="ExplorerButton_Click"
+                    Foreground="AliceBlue" 
+                    Margin="2,4,2,4" 
+                    Click="ExplorerButton_Click"
                     Height="40"
-                    Width="40" BorderThickness="0">
+                    Width="40"
+                    >
                 <Button.Background>
                     <ImageBrush ImageSource="/img_res/explorer_btn.png"/>
                 </Button.Background>
                 <Button.ToolTip>
-                    <ToolTip Content="открыть каталог файлов на сервере" Background="NavajoWhite" Foreground="DarkOliveGreen"/>
+                    <ToolTip Content="открыть каталог файлов на сервере"/>
                 </Button.ToolTip>
             </Button>
             <Button Name="TrayButton" 
                     Grid.Column="2" 
+                    Foreground="AliceBlue" 
                     Margin="2,4,2,4" 
                     Click="TrayButton_Click"
                     Height="40"
-                    Width="40" BorderThickness="0">
+                    Width="40">
                 <Button.Background>
                     <ImageBrush ImageSource="/img_res/minimize_btn.png"/>
                 </Button.Background>
-                <Button.ToolTip>
-                    <ToolTip Content="свернуть в трей" Background="NavajoWhite" Foreground="DarkOliveGreen"/>
-                </Button.ToolTip>
             </Button>
             <Button Name="ExitButton" 
                     Grid.Column="3" 
+                    Foreground="AliceBlue" 
                     Margin="2,4,4,4" 
                     Click="Button_Click"
                     Height="40"
-                    Width="40"
-                    BorderThickness="0">
+                    Width="40">
                 <Button.Background>
                     <ImageBrush ImageSource="/img_res/exit_btn.png"/>
                 </Button.Background>
-                <Button.ToolTip>
-                    <ToolTip Content="выход из приложения" Background="NavajoWhite" Foreground="DarkOliveGreen"/>
-                </Button.ToolTip>
-            </Button>
-            <Button Name="JsonExportButton" Grid.Column="4" Height="40" Width="40" BorderThickness="0">
-                <Button.Background>
-                    <ImageBrush ImageSource="/img_res/json_export_btn.png"/>
-                </Button.Background>
-                <Button.ToolTip>
-                    <ToolTip Content="экспорт истории сообщений в формат json" Background="NavajoWhite" Foreground="DarkOliveGreen"/>
-                </Button.ToolTip>
             </Button>
         </Grid>
         <tb1:TaskbarIcon
@@ -109,4 +84,3 @@
             TrayLeftMouseDown="TrayIcon_Click" Grid.ColumnSpan="2" Margin="0,0,8,0"/>
     </Grid>
 </Window>
-

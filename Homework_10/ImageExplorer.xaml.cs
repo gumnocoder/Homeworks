@@ -20,21 +20,25 @@ namespace Homework_10
     public class RootContent
     {
 
-        string fileName;
+        //public string fileName;
 
-        string fileExtension;
+        //public string fileExtension;
 
-        float fileSize;
+        //public float fileSize;
 
-        string FileName { get; set; }
-        string FileExtension { get; set; }
-        float FileSize { get; set; }
+        public string FileName { get; set; }
+        public string FileExtension { get; set; }
+        public float FileSize { get; set; }
 
         public RootContent(string FileName, string FileExtension, float FileSize)
         {
-            this.fileName = FileName;
-            this.fileExtension = FileExtension;
-            this.fileSize = FileSize;
+            this.FileName = FileName;
+            this.FileExtension = FileExtension;
+            this.FileSize = FileSize;
+        }
+        public override string ToString()
+        {
+            return $"{this.FileName} {this.FileSize} байт";
         }
     }
         
@@ -49,21 +53,24 @@ namespace Homework_10
         public ImageExplorer()
         {
             InitializeComponent();
+            FillFilesExplorer();
+            rootContent.ItemsSource = AllFiles;
         }
 
         private void ToTrayImageExplorer_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
+            Hide();
         }
 
         private void CloseImageExplorer_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void TrayIcon_Click(object sender, RoutedEventArgs e)
         {
-            this.Show();
+            //if (ImageExplorer.Ac)
+            ShowDialog();
         }
         private void FillFilesExplorer()
         {
@@ -71,16 +78,16 @@ namespace Homework_10
             {
                 var name = file.Name.ToString();
                 var ext = file.Extension.ToString();
-                
-                //file.ToString().Substring(file.ToString().LastIndexOf('.'));
-                float size = di.GetFiles().Length;
-                Debug.WriteLine($"{name} {ext} {size}");
+                float size = file.Length;
+
+                Debug.WriteLine($"{name} {ext} {size} byte");
                 AllFiles.Add(new RootContent(name, ext, size));
             }
         }
 
-        private void SendFile_Click(object sender, RoutedEventArgs e)
+        private void Refresh_Click(object sender, RoutedEventArgs e)
         {
+            AllFiles.Clear();
             FillFilesExplorer();
         }
     }

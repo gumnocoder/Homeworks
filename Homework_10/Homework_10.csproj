@@ -10,7 +10,14 @@
     <None Remove="1.jpg" />
     <None Remove="1613048199_18-p-oranzhevii-fon-poligonalnii-18.jpg" />
     <None Remove="bot.ico" />
+    <None Remove="bot_explorer.ico" />
     <None Remove="i.jpg" />
+    <None Remove="img_res\exit_btn.png" />
+    <None Remove="img_res\explorer_btn.png" />
+    <None Remove="img_res\json_export_btn.png" />
+    <None Remove="img_res\minimize_btn.png" />
+    <None Remove="img_res\refresh_btn.png" />
+    <None Remove="img_res\send_btn.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +34,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="bot.ico" />
+    <Resource Include="bot_explorer.ico" />
+    <Resource Include="img_res\exit_btn.png" />
+    <Resource Include="img_res\explorer_btn.png" />
+    <Resource Include="img_res\json_export_btn.png" />
+    <Resource Include="img_res\minimize_btn.png" />
+    <Resource Include="img_res\refresh_btn.png" />
+    <Resource Include="img_res\send_btn.png" />
   </ItemGroup>
 
 </Project>

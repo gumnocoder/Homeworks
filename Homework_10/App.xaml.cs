@@ -15,9 +15,10 @@ namespace Homework_10
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Window a = new ImageExplorer();
-            a.Show();
+
             //MessageBox.Show("Hello World!");
+            //ConverterBotMainWindow a = new ConverterBotMainWindow();
+            //a.Show();
         }
     }
 }

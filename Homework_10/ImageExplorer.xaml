@@ -3,14 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Homework_10" xmlns:tb1="http://www.hardcodet.net/taskbar"
+        xmlns:local="clr-namespace:Homework_10"
         mc:Ignorable="d"
-        Title="Обозреватель" Height="450" Width="800">
+        Title="Обозреватель" Height="450" Width="800"
+        Icon="bot_explorer.ico">
     
-    <Grid Visibility="Visible" Margin="5, 5, 5, 5">
-        <Grid.Background>
+    <Grid Visibility="Visible" Margin="5, 5, 5, 5" Background="Olive">
+        <!--<Grid.Background>
             <ImageBrush ImageSource="/1.jpg"/>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="420*"/>
@@ -24,12 +25,12 @@
             <ColumnDefinition Width="375*"/>
             <ColumnDefinition Width="15*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="PictureContent" Grid.Row="1" Grid.Column="1" Source="/bot.ico"/>
-        <tb1:TaskbarIcon
+        <Image x:Name="PictureContent" Grid.Row="1" Grid.Column="1" Source="/bot_explorer.ico"/>
+        <!--<tb1:TaskbarIcon
             Visibility="Visible"
             ToolTipText="ConverterBot"
             IconSource="bot.ico"
-            TrayLeftMouseDown="TrayIcon_Click" Grid.ColumnSpan="2" Margin="0,0,8,0"/>
+            TrayLeftMouseDown="TrayIcon_Click" Grid.ColumnSpan="2" Margin="0,0,8,0"/>-->
         <Grid 
             x:Name="NavigationBarGrid" 
             Grid.Row="1" 
@@ -44,11 +45,11 @@
                 x:Name="UserId" 
                 Grid.Row="0" 
                 Visibility="Visible" 
-                Background="Gray" 
+                Background="NavajoWhite" 
                 Margin="2,2,2,2"/>
-            <DataGrid 
+            <!--<DataGrid 
                 Margin="2,2,2,2"
-                x:Name="RootContent" 
+                x:Name="rootContent" 
                 Grid.Row="1" 
                 Background="Gray" 
                 HorizontalScrollBarVisibility="Auto" 
@@ -58,16 +59,68 @@
                     <DataGridTextColumn Header="Расширение" Width="3*"/>
                     <DataGridTextColumn Header="Размер" Width="2*"/>
                 </DataGrid.Columns>
-            </DataGrid>
+            </DataGrid>-->
+            <ListView Margin="2,2,2,2" 
+                      x:Name="rootContent"  
+                      Grid.Row="1" 
+                      Background="NavajoWhite">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Имя" Width="210" DisplayMemberBinding="{Binding FileName}">
+                            <GridViewColumn.HeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Background" Value="Olive"/>
+                                    <Setter Property="Foreground" Value="AntiqueWhite"/>
+                                </Style>
+                            </GridViewColumn.HeaderContainerStyle>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Расширение" Width="100" DisplayMemberBinding="{Binding FileExtension}">
+                            <GridViewColumn.HeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Background" Value="Olive"/>
+                                    <Setter Property="Foreground" Value="AntiqueWhite"/>
+                                </Style>
+                            </GridViewColumn.HeaderContainerStyle>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Размер" Width="50" DisplayMemberBinding="{Binding FileSize}">
+                            <GridViewColumn.HeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Background" Value="Olive"/>
+                                    <Setter Property="Foreground" Value="AntiqueWhite"/>
+                                </Style>
+                            </GridViewColumn.HeaderContainerStyle>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                        
+            </ListView>
+            <!--<ListBox Margin="2,2,2,2" 
+                     x:Name="rootContent"                 
+                     Grid.Row="1" 
+                     Background="Gray">
+            </ListBox>-->
             <Grid x:Name="ButtonsGrid" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Margin="1,2,1,2" Content="Закрыть" x:Name="CloseImageExplorer" Grid.Column="2" Click="CloseImageExplorer_Click"/>
-                <Button Margin="1,2,1,2" Content="В трей" x:Name="ToTrayImageExplorer" Grid.Column="1" Click="ToTrayImageExplorer_Click"/>
-                <Button Margin="1,2,1,2" Content="Отправить" x:Name="SendFile" Grid.Column="0" Click="SendFile_Click"/>
+                <Button Margin="1,2,1,2"
+                        Content="Закрыть" 
+                        x:Name="CloseImageExplorer"
+                        Grid.Column="2" 
+                        Click="CloseImageExplorer_Click" 
+                        Background="DarkOliveGreen"
+                        Foreground="AntiqueWhite"/>
+                <!--<Button Margin="1,2,1,2" Content="В трей" x:Name="ToTrayImageExplorer" Grid.Column="1" Click="ToTrayImageExplorer_Click"/>-->
+                <Button 
+                    Margin="1,2,1,2" 
+                    Content="Обновить" 
+                    x:Name="Refresh" 
+                    Grid.Column="0" 
+                    Click="Refresh_Click"
+                    Background="DarkOliveGreen"
+                    Foreground="AntiqueWhite"/>
             </Grid>
             
         </Grid>

@@ -10,27 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Homework_9;
-using static Homework_10.TeleBot;
+
 namespace Homework_10
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Логика взаимодействия для ConverterBotMainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ConverterBotMainWindow : Window
     {
-
-        [Obsolete]
-        public MainWindow()
+        public ConverterBotMainWindow()
         {
             InitializeComponent();
-
-
-            TeleBot teleBot = new TeleBot(this);
-
-            //logList.ItemsSource = teleBot.BotMessageLog;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -53,7 +44,5 @@ namespace Homework_10
             ImageExplorer a = new ImageExplorer();
             a.Show();
         }
-
-
     }
 }
