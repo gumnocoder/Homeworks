@@ -101,6 +101,7 @@ namespace Homework_9
         /// </summary>
         /// <param name="file"></param>
         /// <param name="e"></param>
+        [Obsolete]
         public static void CheckFile(string file, MessageEventArgs e)
         {
             if (File.Exists(file)) SendFileFromServer(file, e);
@@ -112,6 +113,7 @@ namespace Homework_9
         /// </summary>
         /// <param name="file"></param>
         /// <param name="e"></param>
+        [Obsolete]
         public static void SendFileError(string file, MessageEventArgs e)
         {
             bot.SendTextMessageAsync(
@@ -125,6 +127,7 @@ namespace Homework_9
         /// </summary>
         /// <param name="file">имя файла с расширением</param>
         /// <param name="e"></param>
+        [Obsolete]
         public static async void SendFileFromServer(string file, MessageEventArgs e)
         {
             string path = Path.Combine(Environment.CurrentDirectory + @"\" + file);

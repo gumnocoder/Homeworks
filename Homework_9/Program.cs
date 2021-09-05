@@ -10,7 +10,7 @@ namespace Homework_9
         static void Main()
         {
             SaveImage.convertedImageSavedNotify += new FileToZip().StartCompressing;
-            SaveImageFromUser si = new SaveImageFromUser(bot);
+            SaveImageFromUser si = new SaveImageFromUser();
             SaveImage si_2 = new SaveImage();
             ImageMessage im = new ImageMessage();
 

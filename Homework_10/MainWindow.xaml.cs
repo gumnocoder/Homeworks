@@ -29,7 +29,7 @@ namespace Homework_10
 
         private void TrayIcon_Click(object sender, RoutedEventArgs e)
         {
-            this.Show();
+            Show();
         }
 
         private void TrayButton_Click(object sender, RoutedEventArgs e)

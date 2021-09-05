@@ -4,7 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using Telegram.Bot;
 using Telegram.Bot.Args;
-using static Homework_9.StartMessage;
+using static Homework_9.TeleBot;
+using static Homework_9.SaveImage;
+using static Homework_9.SendFileOnRequest;
+
 namespace Homework_10
 {
     class TeleBot
@@ -19,7 +22,7 @@ namespace Homework_10
         /// <summary>
         /// бот
         /// </summary>
-        public static TelegramBotClient bot;
+        //public static TelegramBotClient bot;
 
         public static ObservableCollection<MessageLog> BotMessageLog { get; set; }
 
@@ -64,17 +67,22 @@ namespace Homework_10
             BotMessageLog = new ObservableCollection<MessageLog>();
             w = W;
 
-            bot = new TelegramBotClient(setToken());
+            //bot = new TelegramBotClient(setToken());
+            bot.StartReceiving();
 
             bot.OnMessage += MessageListener;
             bot.OnMessage += new Homework_9.StartMessage().Listen;
 
-            Homework_9.ImageMessage im = new Homework_9.ImageMessage();
-            Homework_9.SaveImageFromUser si = new Homework_9.SaveImageFromUser(bot);
-            im.onPhoto += Homework_9.SendFileOnRequest.SendKeyboard;
+
+            Homework_9.ImageMessage im = new();
+            Homework_9.SaveImageFromUser si = new();
+            bot.OnMessage += im.Listen;
+            im.onPhoto += SendKeyboard;
             im.onPhoto += si.SaveFromStream;
 
-            bot.StartReceiving();
+            convertedImageSavedNotify += new Homework_9.FileToZip().StartCompressing;
+
+
         }
     }
 }

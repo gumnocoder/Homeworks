@@ -10,7 +10,7 @@ namespace Homework_9
     /// <summary>
     /// для запаковки файла в zip
     /// </summary>
-    class FileToZip
+    public class FileToZip
     {
         /// <summary>
         /// содержит название архивированного файла

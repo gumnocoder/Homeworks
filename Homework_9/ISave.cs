@@ -82,7 +82,7 @@ namespace Homework_9
         public static string inputImageId;
 
 
-        public ITelegramBotClient bot;
+/*        public ITelegramBotClient bot;
         public ITelegramBotClient Bot { get; set; }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace Homework_9
         public SaveImageFromUser(ITelegramBotClient Bot)
         {
             this.bot = Bot;
-        }
+        }*/
 
         /// <summary>
         /// для создания события уведомляющего 
