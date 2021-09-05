@@ -1,21 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Homework_10
+﻿namespace Homework_10
 {
     class MessageLog
     {
+        /// <summary>
+        /// время отправки
+        /// </summary>
         public string Time { get; set; }
-
+        /// <summary>
+        /// ID отправителя
+        /// </summary>
         public long Id { get; set; }
-
+        /// <summary>
+        /// Текст сообщения
+        /// </summary>
         public string Msg { get; set; }
-
+        /// <summary>
+        /// Имя отправителя
+        /// </summary>
         public string FirstName { get; set; }
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="Time">время отправки</param>
+        /// <param name="Msg">Текст сообщения</param>
+        /// <param name="FirstName">Имя отправителя
+        /// </summary></param>
+        /// <param name="Id">ID отправителя</param>
         public MessageLog(
             string Time, 
             string Msg, 
@@ -27,30 +38,5 @@ namespace Homework_10
             this.FirstName = FirstName;
             this.Id = Id;
         }
-/*
-        public DateTime Time;
-
-        public long ChatId;
-
-        public string FirstName;
-
-        public string Msg;
-
-        public string MsgType;
-
-        public MessageLog(
-            DateTime Time,
-            long ChatId, 
-            string FirstName, 
-            string Msg, 
-            string MsgType
-            )
-        {
-            this.Time = Time;
-            this.ChatId = ChatId;
-            this.FirstName = FirstName;
-            this.Msg = Msg;
-            this.MsgType = MsgType;
-        }*/
     }
 }

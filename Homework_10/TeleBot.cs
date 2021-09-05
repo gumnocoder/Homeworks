@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using Telegram.Bot;
 using Telegram.Bot.Args;
-using static Homework_9.TeleBot;
-
+using static Homework_9.StartMessage;
 namespace Homework_10
 {
     class TeleBot
@@ -64,11 +62,17 @@ namespace Homework_10
         public TeleBot(MainWindow W)
         {
             BotMessageLog = new ObservableCollection<MessageLog>();
-            this.w = W;
+            w = W;
 
             bot = new TelegramBotClient(setToken());
 
             bot.OnMessage += MessageListener;
+            bot.OnMessage += new Homework_9.StartMessage().Listen;
+
+            Homework_9.ImageMessage im = new Homework_9.ImageMessage();
+            Homework_9.SaveImageFromUser si = new Homework_9.SaveImageFromUser(bot);
+            im.onPhoto += Homework_9.SendFileOnRequest.SendKeyboard;
+            im.onPhoto += si.SaveFromStream;
 
             bot.StartReceiving();
         }

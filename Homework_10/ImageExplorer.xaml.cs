@@ -1,29 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Homework_10
 {
+    /// <summary>
+    /// для создания обьекта файл в текущем каталоге
+    /// </summary>
     public class RootContent
     {
-
+        /// <summary>
+        /// название
+        /// </summary>
         public string FileName { get; set; }
+        /// <summary>
+        /// расширение
+        /// </summary>
         public string FileExtension { get; set; }
+        /// <summary>
+        /// размер
+        /// </summary>
         public float FileSize { get; set; }
 
+        /// <summary>
+        /// конструктор
+        /// </summary>
+        /// <param name="FileName">название</param>
+        /// <param name="FileExtension">расширение</param>
+        /// <param name="FileSize">размер</param>
         public RootContent(string FileName, string FileExtension, float FileSize)
         {
             this.FileName = FileName;
@@ -41,9 +47,19 @@ namespace Homework_10
     /// </summary>
     public partial class ImageExplorer : Window
     {
+        /// <summary>
+        /// список файлов в текущем каталоге
+        /// </summary>
         public static ObservableCollection<RootContent> AllFiles = new();
+        /// <summary>
+        /// директория для вывода файлов
+        /// </summary>
         public static string path = Environment.CurrentDirectory;
         public static DirectoryInfo di = new DirectoryInfo(path);
+
+        /// <summary>
+        /// конструктор
+        /// </summary>
         public ImageExplorer()
         {
             InitializeComponent();
@@ -65,6 +81,9 @@ namespace Homework_10
         {
             ShowDialog();
         }
+        /// <summary>
+        /// заполняет коллекцию списком файлов
+        /// </summary>
         private void FillFilesExplorer()
         {
             foreach (var file in di.GetFiles())
@@ -78,6 +97,11 @@ namespace Homework_10
             }
         }
 
+        /// <summary>
+        /// обновляет список файлов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             AllFiles.Clear();

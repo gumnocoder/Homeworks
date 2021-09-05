@@ -1,19 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 using static Homework_10.TeleBot;
 namespace Homework_10
 {
     class JsonExport
     {
+        /// <summary>
+        /// наименование файла содержащего экспортированные сообщения
+        /// </summary>
         public static string jsonData = "messages_list.json";
 
+        /// <summary>
+        /// архивация файла json
+        /// </summary>
         private static void ArchiveOldJson()
         {
             DateTime now = DateTime.Now;
@@ -35,17 +36,29 @@ namespace Homework_10
                 }
             }
         }
+
+        /// <summary>
+        /// удаление файла json
+        /// </summary>
         private static void DeleteOldJson()
         {
             File.Delete(jsonData);
         }
+
+        /// <summary>
+        /// проверка наличия файла json
+        /// </summary>
+        /// <returns></returns>
         private static bool CreateJsonFile()
         {
+            /// создаёт в случае отсутствия
             if (!File.Exists(jsonData))
             {
                 using FileStream fs = File.Create(jsonData);
                 return true;
             }
+            /// если файл есть то архивирует старый, 
+            /// удаляет старый и создаёт новый 
             else
             {
                 ArchiveOldJson();
@@ -54,6 +67,9 @@ namespace Homework_10
             }
         }
 
+        /// <summary>
+        /// Сохраняет лог сообщений в файл
+        /// </summary>
         public static void MessagesToJson()
         {
             if (CreateJsonFile())

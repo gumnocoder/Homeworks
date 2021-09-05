@@ -2,6 +2,7 @@
 using System.IO;
 using Telegram.Bot.Args;
 using Telegram.Bot.Types.InputFiles;
+using Telegram.Bot.Types.ReplyMarkups;
 using static Homework_9.TeleBot;
 
 namespace Homework_9
@@ -61,6 +62,39 @@ namespace Homework_9
 
     public class SendFileOnRequest
     {
+        /// <summary>
+        /// при получении изображения вызывает клавиатуру с кнопками для выбора формата
+        /// </summary>
+        /// <param name="e"></param>
+        [Obsolete]
+        public static async void SendKeyboard(MessageEventArgs e)
+        {
+            await bot.SendTextMessageAsync(
+                e.Message.Chat.Id.ToString(),
+                "Выберите формат в который хотите конвертировать изображение",
+                replyMarkup: SendFileOnRequest.keyboard);
+        }
+
+        /// <summary>
+        /// клавиатура с кнопками выбора формата
+        /// </summary>
+        [Obsolete]
+
+        public static ReplyKeyboardMarkup keyboard = new ReplyKeyboardMarkup
+        {
+            Keyboard = new[] {
+                    new[]
+                    {
+                        new KeyboardButton("BMP"),
+                        new KeyboardButton("PNG"),
+                        new KeyboardButton("GIF"),
+                        new KeyboardButton("TIFF"),
+                    },
+                },
+            ResizeKeyboard = true,
+            OneTimeKeyboard = true,
+        };
+
         /// <summary>
         /// проверяет наличие и запускает 
         /// соответствующий сценарий
