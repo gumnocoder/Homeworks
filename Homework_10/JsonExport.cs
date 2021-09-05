@@ -16,7 +16,14 @@ namespace Homework_10
 
         private static void ArchiveOldJson()
         {
-            string outp = $"{DateTime.Now.ToString("d")}_{jsonData}.zip";
+            DateTime now = DateTime.Now;
+            string time = now.ToString("t");
+            // имя нового архива с датой
+            // в формате 1.1.2021_12-00_messages_list.json
+            string outp = $"{now.ToString("d")}_" +
+                $"{time.Replace(time[2], Convert.ToChar("-"))}_" +
+                $"{jsonData}.zip";
+
             using (FileStream save = new FileStream(jsonData, FileMode.OpenOrCreate))
             {
                 using (FileStream save2 = File.Create(outp))
