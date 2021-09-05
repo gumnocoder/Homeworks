@@ -23,7 +23,7 @@ namespace Homework_10
         /// </summary>
         public static TelegramBotClient bot;
 
-        public ObservableCollection<MessageLog> BotMessageLog { get; set; }
+        public static ObservableCollection<MessageLog> BotMessageLog { get; set; }
 
         /// <summary>
         /// парсит файл с токеном
@@ -63,7 +63,7 @@ namespace Homework_10
         [Obsolete]
         public TeleBot(MainWindow W)
         {
-            this.BotMessageLog = new ObservableCollection<MessageLog>();
+            BotMessageLog = new ObservableCollection<MessageLog>();
             this.w = W;
 
             bot = new TelegramBotClient(setToken());

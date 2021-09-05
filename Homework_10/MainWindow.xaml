@@ -108,7 +108,7 @@
                     Grid.Column="1" 
                     Height="40" 
                     Width="40" 
-                    BorderThickness="0">
+                    BorderThickness="0" Click="JsonExportButton_Click">
                 <Button.Background>
                     <ImageBrush ImageSource="/img_res/json_export_btn.png"/>
                 </Button.Background>

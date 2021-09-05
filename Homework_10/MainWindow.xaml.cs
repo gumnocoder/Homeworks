@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Homework_9;
+using static Homework_10.JsonExport;
 using static Homework_10.TeleBot;
 namespace Homework_10
 {
@@ -30,7 +30,7 @@ namespace Homework_10
 
             TeleBot teleBot = new TeleBot(this);
 
-            logList.ItemsSource = teleBot.BotMessageLog;
+            logList.ItemsSource = BotMessageLog;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -52,6 +52,11 @@ namespace Homework_10
         {
             ImageExplorer a = new ImageExplorer();
             a.Show();
+        }
+
+        private void JsonExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessagesToJson();
         }
     }
 }
