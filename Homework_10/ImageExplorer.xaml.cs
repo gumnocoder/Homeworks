@@ -20,12 +20,6 @@ namespace Homework_10
     public class RootContent
     {
 
-        //public string fileName;
-
-        //public string fileExtension;
-
-        //public float fileSize;
-
         public string FileName { get; set; }
         public string FileExtension { get; set; }
         public float FileSize { get; set; }
@@ -69,7 +63,6 @@ namespace Homework_10
 
         private void TrayIcon_Click(object sender, RoutedEventArgs e)
         {
-            //if (ImageExplorer.Ac)
             ShowDialog();
         }
         private void FillFilesExplorer()

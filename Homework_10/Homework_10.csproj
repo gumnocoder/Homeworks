@@ -16,8 +16,10 @@
     <None Remove="img_res\explorer_btn.png" />
     <None Remove="img_res\json_export_btn.png" />
     <None Remove="img_res\minimize_btn.png" />
+    <None Remove="img_res\pin_transp_btn.png" />
     <None Remove="img_res\refresh_btn.png" />
     <None Remove="img_res\send_btn.png" />
+    <None Remove="img_res\send_transp_btn.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,8 +41,10 @@
     <Resource Include="img_res\explorer_btn.png" />
     <Resource Include="img_res\json_export_btn.png" />
     <Resource Include="img_res\minimize_btn.png" />
+    <Resource Include="img_res\pin_transp_btn.png" />
     <Resource Include="img_res\refresh_btn.png" />
     <Resource Include="img_res\send_btn.png" />
+    <Resource Include="img_res\send_transp_btn.png" />
   </ItemGroup>
 
 </Project>

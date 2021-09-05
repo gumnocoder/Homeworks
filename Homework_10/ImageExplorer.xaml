@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="Обозреватель" Height="450" Width="800"
         Icon="bot_explorer.ico">
-    
-    <Grid Visibility="Visible" Margin="5, 5, 5, 5" Background="Olive">
+
+    <Grid Visibility="Visible" Margin="5, 5, 5, 5" Background="DarkOliveGreen">
         <!--<Grid.Background>
             <ImageBrush ImageSource="/1.jpg"/>
         </Grid.Background>-->
@@ -25,7 +25,7 @@
             <ColumnDefinition Width="375*"/>
             <ColumnDefinition Width="15*"/>
         </Grid.ColumnDefinitions>
-        <Image x:Name="PictureContent" Grid.Row="1" Grid.Column="1" Source="/bot_explorer.ico"/>
+        <Image x:Name="PictureContent" Grid.Row="1" Grid.Column="1" Source="/bot_explorer.ico" Margin="10"/>
         <!--<tb1:TaskbarIcon
             Visibility="Visible"
             ToolTipText="ConverterBot"
@@ -69,7 +69,7 @@
                         <GridViewColumn Header="Имя" Width="210" DisplayMemberBinding="{Binding FileName}">
                             <GridViewColumn.HeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">
-                                    <Setter Property="Background" Value="Olive"/>
+                                    <Setter Property="Background" Value="DarkOliveGreen"/>
                                     <Setter Property="Foreground" Value="AntiqueWhite"/>
                                 </Style>
                             </GridViewColumn.HeaderContainerStyle>
@@ -77,7 +77,7 @@
                         <GridViewColumn Header="Расширение" Width="100" DisplayMemberBinding="{Binding FileExtension}">
                             <GridViewColumn.HeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">
-                                    <Setter Property="Background" Value="Olive"/>
+                                    <Setter Property="Background" Value="DarkOliveGreen"/>
                                     <Setter Property="Foreground" Value="AntiqueWhite"/>
                                 </Style>
                             </GridViewColumn.HeaderContainerStyle>
@@ -85,14 +85,14 @@
                         <GridViewColumn Header="Размер" Width="50" DisplayMemberBinding="{Binding FileSize}">
                             <GridViewColumn.HeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">
-                                    <Setter Property="Background" Value="Olive"/>
+                                    <Setter Property="Background" Value="DarkOliveGreen"/>
                                     <Setter Property="Foreground" Value="AntiqueWhite"/>
                                 </Style>
                             </GridViewColumn.HeaderContainerStyle>
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>
-                        
+
             </ListView>
             <!--<ListBox Margin="2,2,2,2" 
                      x:Name="rootContent"                 
@@ -105,24 +105,36 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button Margin="1,2,1,2"
-                        Content="Закрыть" 
+                <Button Margin="1,2,2,2"
                         x:Name="CloseImageExplorer"
                         Grid.Column="2" 
-                        Click="CloseImageExplorer_Click" 
-                        Background="DarkOliveGreen"
-                        Foreground="AntiqueWhite"/>
+                        Height="30"
+                        Width="30"
+                        Click="CloseImageExplorer_Click"
+                        Foreground="AntiqueWhite"
+                        HorizontalAlignment="Right"
+                        ToolTip="закрыть обозреватель">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/img_res/exit_btn.png" Stretch="UniformToFill"/>
+                    </Button.Background>
+                </Button>
                 <!--<Button Margin="1,2,1,2" Content="В трей" x:Name="ToTrayImageExplorer" Grid.Column="1" Click="ToTrayImageExplorer_Click"/>-->
                 <Button 
-                    Margin="1,2,1,2" 
-                    Content="Обновить" 
+                    Margin="2,2,1,2" 
+                    Height="30"
+                    Width="30"
                     x:Name="Refresh" 
                     Grid.Column="0" 
+                    HorizontalAlignment="Left"
                     Click="Refresh_Click"
-                    Background="DarkOliveGreen"
-                    Foreground="AntiqueWhite"/>
+                    Foreground="AntiqueWhite"
+                    ToolTip="обновить список файлов">
+                    <Button.Background>
+                        <ImageBrush ImageSource="/img_res/refresh_btn.png"/>
+                    </Button.Background>
+                </Button>
             </Grid>
-            
+
         </Grid>
     </Grid>
 </Window>

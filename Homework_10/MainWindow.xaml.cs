@@ -53,7 +53,5 @@ namespace Homework_10
             ImageExplorer a = new ImageExplorer();
             a.Show();
         }
-
-
     }
 }
