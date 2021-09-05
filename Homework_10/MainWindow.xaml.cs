@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using static Homework_10.JsonExport;
+using static Homework_9.TeleBot;
 using static Homework_10.TeleBot;
 
 
@@ -46,6 +47,17 @@ namespace Homework_10
         private void JsonExportButton_Click(object sender, RoutedEventArgs e)
         {
             MessagesToJson();
+        }
+
+        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (messageToUser.Text != "" & 
+                selectedUserId.Text != "")
+            {
+                bot.SendTextMessageAsync(selectedUserId.Text, 
+                    messageToUser.Text
+                    );
+            }
         }
     }
 }

@@ -17,13 +17,14 @@
         WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="7*"/>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="1*"/>
+            <RowDefinition/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <ListBox Name="logList" 
-                      Grid.Row="1" 
+                      Grid.Row="2" 
                       Margin="15,5,15,1" 
                       Background="NavajoWhite" 
                       Foreground="DarkOliveGreen">
@@ -39,21 +40,33 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBlock Grid.Row="0"
-                   Margin="15,10,15,4" 
+        <TextBlock Name="UserName" 
+                   Grid.Row="1"
+                   Margin="15,1,15,4" 
                    Background="NavajoWhite" 
                    Foreground="Black" 
                    FontStyle="Normal"
                    Padding="5"
                    Text="{Binding ElementName=logList, Path=SelectedItem.FirstName}">
         </TextBlock>
-        <TextBox Grid.Row="2" 
+        <TextBlock x:Name="selectedUserId" 
+                   Grid.Row="1"
+                   Margin="15,1,15,4" 
+                   Background="NavajoWhite" 
+                   Foreground="Black" 
+                   FontStyle="Normal"
+                   Padding="5"
+                   Visibility="Collapsed"
+                   Text="{Binding ElementName=logList, Path=SelectedItem.Id}">
+        </TextBlock>
+        <TextBox x:Name="messageToUser" 
+                 Grid.Row="3" 
                  Margin="15,7,15,7" 
                  Background="NavajoWhite" 
                  Foreground="Black" 
                  FontStyle="Oblique" 
                  Padding="5"/>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="15*"/>
@@ -61,10 +74,15 @@
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Image Source="/img_res/send_transp_btn.png" Grid.Column="3" ToolTip="отправить сообщение"/>
-            <Image Source="/img_res/pin_transp_btn.png" Grid.Column="2" ToolTip="каталог файлов на сервере" MouseLeftButtonDown="ExplorerButton_Click"/>
+            <Image Source="/img_res/send_transp_btn.png" 
+                   Grid.Column="3" 
+                   ToolTip="отправить сообщение" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
+            <Image Source="/img_res/pin_transp_btn.png" 
+                   Grid.Column="2" 
+                   ToolTip="каталог файлов на сервере" 
+                   MouseLeftButtonDown="ExplorerButton_Click"/>
         </Grid>
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="3*"/>
@@ -124,8 +142,7 @@
             ToolTipText="ConverterBot"
             IconSource="bot.ico"
             TrayLeftMouseDown="TrayIcon_Click" 
-            Grid.ColumnSpan="2" 
-            Margin="0,0,8,0"/>
+            Margin="0,0,8,0" Grid.RowSpan="2"/>
     </Grid>
 </Window>
 
