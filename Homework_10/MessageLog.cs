@@ -8,16 +8,12 @@ namespace Homework_10
 {
     class MessageLog
     {
-        public string time;
         public string Time { get; set; }
 
-        public long id;
         public long Id { get; set; }
 
-        public string msg;
         public string Msg { get; set; }
 
-        public string firstName;
         public string FirstName { get; set; }
 
         public MessageLog(
@@ -26,10 +22,10 @@ namespace Homework_10
             string FirstName, 
             long Id)
         {
-            this.time = Time;
-            this.msg = Msg;
-            this.firstName = FirstName;
-            this.id = Id;
+            this.Time = Time;
+            this.Msg = Msg;
+            this.FirstName = FirstName;
+            this.Id = Id;
         }
 /*
         public DateTime Time;

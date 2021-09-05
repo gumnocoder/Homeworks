@@ -22,13 +22,29 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <ListBox Name="logList" Grid.Row="1" Margin="15,5,15,1" Background="NavajoWhite" Foreground="DarkOliveGreen"></ListBox>
+        <ListBox Name="logList" 
+                      Grid.Row="1" 
+                      Margin="15,5,15,1" 
+                      Background="NavajoWhite" 
+                      Foreground="DarkOliveGreen">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="DarkOliveGreen" BorderThickness="2" Margin="5">
+                        <StackPanel Margin="5">
+                            <TextBlock Text="{Binding FirstName}"/>
+                            <TextBlock Text="{Binding Msg}"/>
+                            <TextBlock Text="{Binding Time}"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <TextBlock Grid.Row="0" 
                    Margin="15,10,15,4" 
                    Background="NavajoWhite" 
                    Foreground="Black" 
                    FontStyle="Oblique"/>
-        <TextBlock Grid.Row="2" 
+        <TextBox Grid.Row="2" 
                    Margin="15,7,15,7" 
                    Background="NavajoWhite" 
                    Foreground="Black" 

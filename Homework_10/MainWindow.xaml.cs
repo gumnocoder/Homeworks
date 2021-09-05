@@ -30,7 +30,7 @@ namespace Homework_10
 
             TeleBot teleBot = new TeleBot(this);
 
-            //logList.ItemsSource = teleBot.BotMessageLog;
+            logList.ItemsSource = teleBot.BotMessageLog;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
