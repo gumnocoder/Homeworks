@@ -18,29 +18,51 @@ namespace Homework_10
         public MainWindow()
         {
             InitializeComponent();
-
+            /// создаётся коллекция сообщений 
+            /// и запускаются подписки на события
             TeleBot teleBot = new TeleBot(this);
-
+            /// лог сообщений привязывается к листу logList
             logList.ItemsSource = BotMessageLog;
         }
 
+        /// <summary>
+        /// нажатие на кнопку выход
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// кнопка вызвать из трея
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TrayIcon_Click(object sender, RoutedEventArgs e)
         {
             Show();
         }
 
+        /// <summary>
+        ///  кнопка свернуть в трей
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TrayButton_Click(object sender, RoutedEventArgs e)
         {
             Hide();
         }
 
+        /// <summary>
+        /// обзор файлов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ExplorerButton_Click(object sender, RoutedEventArgs e)
         {
+            /// сработает только после выбора получателя
             if (selectedUserId.Text != "")
             {
                 CurrentUserId = selectedUserId.Text;
@@ -53,19 +75,31 @@ namespace Homework_10
                 TargetError();
             }
         }
-
+        
+        /// <summary>
+        /// запускает цикл сохранения лога в json
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void JsonExportButton_Click(object sender, RoutedEventArgs e)
         {
             MessagesToJson();
         }
 
-        private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        /// <summary>
+        /// послать сообщение 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            /// только если выбран получатель
             if (selectedUserId.Text != "")
             {
+                /// и набран текст в соответствующем поле
                 if (messageToUser.Text != "")
                 {
-                    bot.SendTextMessageAsync(
+                    await bot.SendTextMessageAsync(
                         selectedUserId.Text,
                         messageToUser.Text
                         );
@@ -80,6 +114,10 @@ namespace Homework_10
                 TargetError();
             }
         }
+
+        /// <summary>
+        /// вызов окна с сообщением об ошибке
+        /// </summary>
         public void MessageContentError()
         {
             messageContentError ce = new();

@@ -9,41 +9,6 @@ using static Homework_9.TeleBot;
 
 namespace Homework_10
 {
-    /// <summary>
-    /// для создания обьекта файл в текущем каталоге
-    /// </summary>
-    public class RootContent
-    {
-        /// <summary>
-        /// название
-        /// </summary>
-        public string FileName { get; set; }
-        /// <summary>
-        /// расширение
-        /// </summary>
-        public string FileExtension { get; set; }
-        /// <summary>
-        /// размер
-        /// </summary>
-        public float FileSize { get; set; }
-
-        /// <summary>
-        /// конструктор
-        /// </summary>
-        /// <param name="FileName">название</param>
-        /// <param name="FileExtension">расширение</param>
-        /// <param name="FileSize">размер</param>
-        public RootContent(string FileName, string FileExtension, float FileSize)
-        {
-            this.FileName = FileName;
-            this.FileExtension = FileExtension;
-            this.FileSize = FileSize;
-        }
-        public override string ToString()
-        {
-            return $"{this.FileName} {this.FileSize} байт";
-        }
-    }
         
     /// <summary>
     /// Логика взаимодействия для ImageExplorer.xaml
@@ -70,20 +35,11 @@ namespace Homework_10
             rootContent.ItemsSource = AllFiles;
         }
 
-        private void ToTrayImageExplorer_Click(object sender, RoutedEventArgs e)
-        {
-            Hide();
-        }
-
         private void CloseImageExplorer_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void TrayIcon_Click(object sender, RoutedEventArgs e)
-        {
-            ShowDialog();
-        }
         /// <summary>
         /// заполняет коллекцию списком файлов
         /// </summary>
@@ -96,6 +52,7 @@ namespace Homework_10
                 float size = file.Length;
 
                 Debug.WriteLine($"{name} {ext} {size} byte");
+                Debug.WriteLine(name.Substring(name.IndexOf(".")));
                 AllFiles.Add(new RootContent(name, ext, size));
             }
         }
@@ -111,21 +68,32 @@ namespace Homework_10
             FillFilesExplorer();
         }
 
-        private void Send_Click(object sender, RoutedEventArgs e)
+
+        /// <summary>
+        /// отправка файла
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void Send_Click(object sender, RoutedEventArgs e)
         {
+            /// если файл выбран
             if (fileName.Text != "")
             {
                 using (FileStream stream = File.OpenRead(Environment.CurrentDirectory + @"\" + fileName.Text))
-                bot.SendDocumentAsync(
-                    chatId: CurrentUserId,
-                    document: new InputOnlineFile(
-                        content: stream,
-                        fileName: fileName.Text),
-                    caption: fileName.Text);
+                    await bot.SendDocumentAsync(
+                        chatId: CurrentUserId,
+                        document: new InputOnlineFile(
+                            content: stream,
+                            fileName: fileName.Text),
+                        caption: fileName.Text);
             }
+            /// если файл не выбран
             else FileNotChosenError();
         }
 
+        /// <summary>
+        /// ошибка при не выбранном файле
+        /// </summary>
         public void FileNotChosenError()
         {
             fileNotChosenError fe = new();
