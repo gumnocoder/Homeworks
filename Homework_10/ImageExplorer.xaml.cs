@@ -3,6 +3,9 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using Telegram.Bot.Types.InputFiles;
+using static Homework_10.MessageLog;
+using static Homework_9.TeleBot;
 
 namespace Homework_10
 {
@@ -106,6 +109,27 @@ namespace Homework_10
         {
             AllFiles.Clear();
             FillFilesExplorer();
+        }
+
+        private void Send_Click(object sender, RoutedEventArgs e)
+        {
+            if (fileName.Text != "")
+            {
+                using (FileStream stream = File.OpenRead(Environment.CurrentDirectory + @"\" + fileName.Text))
+                bot.SendDocumentAsync(
+                    chatId: CurrentUserId,
+                    document: new InputOnlineFile(
+                        content: stream,
+                        fileName: fileName.Text),
+                    caption: fileName.Text);
+            }
+            else FileNotChosenError();
+        }
+
+        public void FileNotChosenError()
+        {
+            fileNotChosenError fe = new();
+            fe.ShowDialog();
         }
     }
 }

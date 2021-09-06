@@ -3,7 +3,8 @@ using System.Windows;
 using static Homework_10.JsonExport;
 using static Homework_9.TeleBot;
 using static Homework_10.TeleBot;
-
+using static Homework_10.MessageLog;
+using System.Diagnostics;
 
 namespace Homework_10
 {
@@ -40,8 +41,17 @@ namespace Homework_10
 
         private void ExplorerButton_Click(object sender, RoutedEventArgs e)
         {
-            ImageExplorer a = new ImageExplorer();
-            a.Show();
+            if (selectedUserId.Text != "")
+            {
+                CurrentUserId = selectedUserId.Text;
+                Debug.WriteLine(selectedUserId.Text);
+                ImageExplorer a = new();
+                a.Show();
+            }
+            else 
+            {
+                TargetError();
+            }
         }
 
         private void JsonExportButton_Click(object sender, RoutedEventArgs e)
@@ -51,13 +61,34 @@ namespace Homework_10
 
         private void Image_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            if (messageToUser.Text != "" & 
-                selectedUserId.Text != "")
+            if (selectedUserId.Text != "")
             {
-                bot.SendTextMessageAsync(selectedUserId.Text, 
-                    messageToUser.Text
-                    );
+                if (messageToUser.Text != "")
+                {
+                    bot.SendTextMessageAsync(
+                        selectedUserId.Text,
+                        messageToUser.Text
+                        );
+                }
+                else
+                {
+                    MessageContentError();
+                }
             }
+            else
+            {
+                TargetError();
+            }
+        }
+        public void MessageContentError()
+        {
+            messageContentError ce = new();
+            ce.ShowDialog();
+        }
+        public void TargetError()
+        {
+            targerError te = new();
+            te.ShowDialog();
         }
     }
 }

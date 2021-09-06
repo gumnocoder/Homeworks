@@ -2,6 +2,7 @@
 {
     class MessageLog
     {
+        public static string CurrentUserId;
         /// <summary>
         /// время отправки
         /// </summary>

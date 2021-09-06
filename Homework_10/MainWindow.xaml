@@ -15,6 +15,9 @@
         ResizeMode="NoResize"
         Background="DarkOliveGreen"
         WindowStyle="None">
+    <Window.Resources>
+        
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -80,7 +83,8 @@
             <Image Source="/img_res/pin_transp_btn.png" 
                    Grid.Column="2" 
                    ToolTip="каталог файлов на сервере" 
-                   MouseLeftButtonDown="ExplorerButton_Click"/>
+                   MouseLeftButtonDown="ExplorerButton_Click"
+                   />
         </Grid>
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
