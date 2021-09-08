@@ -4,13 +4,15 @@ using static Homework_11_console.employe.Director;
 
 namespace Homework_11_console.structure
 {
-    sealed class Company
+    sealed class Company : WorkPlace
     {
         public string Name { get; set; }
 
         public Director director = companyDirector;
 
-        public List<WorkPlace> offices = new();
+
+
+        new public List<WorkPlace> workPlaces = new();
 
         public static Company _instance;
         private Company(string Name = "OAO Coders")
@@ -28,12 +30,18 @@ namespace Homework_11_console.structure
                 return _instance;
             }
         }
+
+        new public void Create(WorkPlace workPlace)
+        {
+            this.workPlaces.Add(workPlace);
+        }
+
         public override string ToString()
         {
-            int officesCount = offices.Count;
-            if (officesCount == null) officesCount = 0;
+            int officesCount = workPlaces.Count;
+            
             return $"Company {this.Name}, " +
-                $"count of offices: {(offices.Count == null ? 0 : offices.Count)}, " +
+                $"count of offices: {officesCount}, " +
                 $"director: {director}";
         }
     }

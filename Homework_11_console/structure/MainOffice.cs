@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Homework_11_console.employe;
 namespace Homework_11_console.structure
 {
@@ -7,17 +9,35 @@ namespace Homework_11_console.structure
     {
         new public string workPlace = "Header office";
 
-        public static MainOffice _instance;
 
-        MainOffice() { }
+        public List<Employe> employe = new();
 
-        public MainOffice(List<Employe> Workers)
+        public override void Hire(Employe worker)
         {
-            Workers = new List<Employe>();
-            workers = Workers;
+            if (employe != null)
+                employe.Add(worker);
+            else Debug.WriteLine($"MainOffice.workers == null!");
         }
 
-        public List<Employe> Workers { get; set; }
 
+        static MainOffice _instance = null;
+
+        public static MainOffice mainOffice() 
+        { 
+            if (_instance == null)
+            {
+                _instance = new MainOffice();
+                Console.WriteLine("main office created in MainOffice.mainOffice()");
+                _instance.employe = new();
+            }
+            return _instance;
+        }
+
+        public MainOffice() { workers = new List<Employe>(); }
+
+        public override string ToString()
+        {
+            return $"{workPlace} employe count: {employe.Count}";
+        }
     }
 }

@@ -2,7 +2,7 @@
 {
     class Director : Employe
     {
-        public string Name { get; set; }
+        new public string Name { get; set; }
 
         public static Director _instance;
         private Director(string Name = "Bill Gates", int Salary = 1300)
@@ -16,7 +16,6 @@
             get
             {
                 if (_instance == null) { _instance = new Director(); }
-                _instance.Salary += 1000;
                 return _instance;
             }
         }
