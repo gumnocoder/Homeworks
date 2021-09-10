@@ -12,11 +12,8 @@ namespace Homework_11_ConsUI.structBin
         static int officeCount = 0;
         public static int OfficeCount { get { return officeCount; } }
 
-        protected List<Office> offices;
-        public List<Office> Offices { get; set; }
         public Department(string Name)
         {
-            this.offices = Offices;
             Offices = new();
             this.Name = Name;
         }

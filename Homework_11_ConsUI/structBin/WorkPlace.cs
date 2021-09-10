@@ -4,9 +4,11 @@ namespace Homework_11_ConsUI.structBin
 {
     abstract class WorkPlace
     {
-        public List<Intern> Workers { get; set; }
+        public List<Employe> Workers { get; set; }
+        //public List<Intern> Workers { get; set; }
+        public List<Department> Departments { get; set; }
+        public List<Office> Offices { get; set; }
 
-        protected string name;
         public string Name { get; set; }
 
         public virtual void Hire(Intern intern) { }

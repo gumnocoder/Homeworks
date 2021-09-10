@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 
 namespace Homework_11_ConsUI.employeBin
 {
-    class Intern
+    class Intern : Employe
     {
-        public int Salary { get; set; }
-        public Intern(int Salary)
+        static int internsCount = 0;
+        public Intern(int Salary, string Name, byte Age)
         {
+            ++internsCount;
             this.Salary = Salary;
+            this.Name = Name;
+            this.Age = Age;
         }
+        public Intern() : this(100, $"intern_{internsCount}", 18) { ++internsCount; }
         public override string ToString()
         {
-            return $"intern, salary: {Salary}";
+            return $"intern {Name}, {Age} y.o., salary: {Salary}";
         }
     }
 }

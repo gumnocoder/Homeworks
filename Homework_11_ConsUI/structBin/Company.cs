@@ -11,12 +11,8 @@ namespace Homework_11_ConsUI.structBin
         public static int depsCount = 0;
         public static int DepsCount { get { return depsCount; } }
 
-        protected List<Department> departments;
-        public List<Department> Departments { get; set; }
-
         public Company()
         {
-            this.departments = Departments;
             Departments = new();
         }
 

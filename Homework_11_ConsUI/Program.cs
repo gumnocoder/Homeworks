@@ -16,7 +16,9 @@ namespace Homework_11_ConsUI
             Console.WriteLine(depsCount);
             com.AutoOpen();
             com.Departments[0].AutoOpen();
-            com.Departments[0].Offices[0].Hire(new Intern(100));
+            com.Departments[0].Offices[0].Hire(new Intern(100, "John", 18));
+            com.Departments[0].Offices[0].Hire(new Intern());
+            foreach (var e in com.Departments[0].Offices[0].Workers) Console.WriteLine(e);
             Console.WriteLine(com.Departments[0].Offices[0]);
             Console.WriteLine(com.Departments[0].Offices[0].Workers[0]);
             Console.WriteLine(depsCount);
