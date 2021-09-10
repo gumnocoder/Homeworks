@@ -14,19 +14,19 @@ namespace Homework_11_ConsUI.structBin
 
         public Department(string Name)
         {
-            Offices = new();
+            this.WorkPlaces = new();
             this.Name = Name;
         }
 
         public override void Open(Office office)
         {
             ++officeCount;
-            Offices.Add(office);
+            this.WorkPlaces.Add(office);
         }
 
-        public void AutoOpen()
+        public override void AutoOpen()
         {
-            Offices.Add(new Office($"Office #{officeCount}"));
+            this.WorkPlaces.Add(new Office($"Office #{officeCount}"));
         }
         public override string ToString()
         {

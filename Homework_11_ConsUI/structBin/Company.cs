@@ -13,19 +13,19 @@ namespace Homework_11_ConsUI.structBin
 
         public Company()
         {
-            Departments = new();
+            WorkPlaces = new();
         }
 
         public override void Open(Department dep)
         {
             ++depsCount;
-            this.Departments.Add(dep);
+            this.WorkPlaces.Add(dep);
         }
 
-        public void AutoOpen()
+        public override void AutoOpen()
         {
             ++depsCount;
-            this.Departments.Add(
+            this.WorkPlaces.Add(
                 new Department($"DepartmentName {depsCount}")
                 );
         }
@@ -33,7 +33,7 @@ namespace Homework_11_ConsUI.structBin
         public override string ToString()
         {
             return $"Company, count of departments " +
-                $"{Departments.Count}";
+                $"{WorkPlaces.Count}";
         }
     }
 }

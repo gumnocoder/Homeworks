@@ -5,13 +5,11 @@ namespace Homework_11_ConsUI.structBin
     abstract class WorkPlace
     {
         public List<Employe> Workers { get; set; }
-        //public List<Intern> Workers { get; set; }
-        public List<Department> Departments { get; set; }
-        public List<Office> Offices { get; set; }
-
+        public List<WorkPlace> WorkPlaces { get; set; }
         public string Name { get; set; }
 
         public virtual void Hire(Intern intern) { }
+        public virtual void Hire(DepartmentBoss depBoss) { }
 
         public virtual void Sack() { }
 
@@ -20,6 +18,8 @@ namespace Homework_11_ConsUI.structBin
         public virtual void Open(Office office) { }
 
         public virtual void Close() { }
+
+        public virtual void AutoOpen() { }
 
     }
 }

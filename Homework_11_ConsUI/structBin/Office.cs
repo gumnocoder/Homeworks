@@ -12,12 +12,12 @@ namespace Homework_11_ConsUI.structBin
         public Office(string Name)
         {
             this.Name = Name;
-            this.Workers = new();
+            Workers = new();
         }
 
         public override void Hire(Intern intern)
         {
-            this.Workers.Add(intern);
+            Workers.Add(intern);
         }
 
         public override string ToString()
