@@ -9,14 +9,14 @@ namespace Homework_11_console.employe
         public Intern(
             int Age,
             string Name, 
-            int Salary, 
-            WorkPlace workPlace
+            int Salary 
+            //WorkPlace workPlace
             )
         {
             this.Age = Age;
             this.Name = Name;
             this.Salary = Salary;
-            this.WorkPlace = workPlace;
+            //this.WorkPlace = workPlace;
         }
 
         public override string ToString()

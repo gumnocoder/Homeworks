@@ -11,13 +11,15 @@ namespace Homework_11_console.structure
         public Director director = companyDirector;
 
 
+        new List<WorkPlace> workPlaces;
 
-        new public List<WorkPlace> workPlaces = new();
+        public List<WorkPlace> WPlaces { get { return this.workPlaces; } }
 
         public static Company _instance;
         private Company(string Name = "OAO Coders")
         {
             this.Name = Name;
+            this.workPlaces = WPlaces;
         }
         public static Company OneCompany
         {
@@ -26,6 +28,7 @@ namespace Homework_11_console.structure
                 if (_instance == null)
                 {
                     _instance = new Company();
+                    //_instance.Create(new MainOffice());
                 }
                 return _instance;
             }

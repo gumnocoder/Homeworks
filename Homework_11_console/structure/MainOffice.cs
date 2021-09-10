@@ -10,12 +10,12 @@ namespace Homework_11_console.structure
         new public string workPlace = "Header office";
 
 
-        public List<Employe> employe = new();
+        new public List<Employe> workers;
 
-        public override void Hire(Employe worker)
+        new public void Hire(Employe worker)
         {
-            if (employe != null)
-                employe.Add(worker);
+            if (workers != null)
+                workers.Add(worker);
             else Debug.WriteLine($"MainOffice.workers == null!");
         }
 
@@ -28,16 +28,19 @@ namespace Homework_11_console.structure
             {
                 _instance = new MainOffice();
                 Console.WriteLine("main office created in MainOffice.mainOffice()");
-                _instance.employe = new();
+                //_instance.workers = new();
             }
             return _instance;
         }
 
-        public MainOffice() { workers = new List<Employe>(); }
+        public MainOffice() { 
+            this.workers = new List<Employe>(); 
+            
+        }
 
         public override string ToString()
         {
-            return $"{workPlace} employe count: {employe.Count}";
+            return $"{workPlace} employe count: {workers.Count}";
         }
     }
 }

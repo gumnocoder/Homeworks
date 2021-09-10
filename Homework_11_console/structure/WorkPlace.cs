@@ -6,7 +6,7 @@ namespace Homework_11_console.structure
 {
     public interface IHR
     {
-        List<Employe> workers { get; set; }
+        //List<Employe> workers { get; set; }
 
         public void Hire(Employe worker);
 
@@ -15,39 +15,28 @@ namespace Homework_11_console.structure
 
     public interface IWorkPlaceCreator
     {
-        List<WorkPlace> workPlaces { get; set; }
+        //List<WorkPlace> workPlaces { get; set; }
 
         public void Create(WorkPlace workPlace);
 
         public void Remove(WorkPlace workPlace);
     }
 
-    public abstract class WorkPlace : IHR, IWorkPlaceCreator
+    public class WorkPlace : IHR, IWorkPlaceCreator
     {
-        List<Employe> IHR.workers { get; set; }
-        List<WorkPlace> IWorkPlaceCreator.workPlaces 
-        { get ; set; }
 
-        protected List<Employe> workers;
-        protected List<WorkPlace> workPlaces;
-        protected string workPlace;
+
+        public List<Employe> workers { get; set; }
+        public List<WorkPlace> workPlaces;
+        public string workPlace;
         /// <summary>
         /// добавляет персонал в коллекцию
         /// </summary>
         /// <param name="worker">добавляемый работник</param>
         public virtual void Hire(Employe worker){
-            if (workers != null)
+
             workers.Add(worker);
-            else
-            {
-                workers = new List<Employe>();
-                Hire(worker);
-                Console.WriteLine(workers.Count);
-                foreach(var e in workers)
-                {
-                    Console.WriteLine(e);
-                }
-            }
+            Console.WriteLine("added");
         }
         /// <summary>
         /// удаляет персонал из коллекции
