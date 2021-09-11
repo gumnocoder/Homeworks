@@ -1,7 +1,7 @@
 ﻿using Homework_11_ConsUI.employeBin;
 namespace Homework_11_ConsUI.structBin
 {
-    class Company : WorkPlace
+    sealed class Company : WorkPlace
     {
         public static int depsCount = 0;
         public static int DepsCount { get { return depsCount; } }
