@@ -8,7 +8,8 @@ namespace Homework_11_ConsUI
     {
         static void Main(string[] args)
         {
-            Company com = new Company();
+            Company com = new();
+            com.HireDirector(new Director(com));
             Console.WriteLine(com);
             com.AutoOpen();
             Console.WriteLine(depsCount);
@@ -27,6 +28,7 @@ namespace Homework_11_ConsUI
             Console.WriteLine(com);
             foreach (var e in com.WorkPlaces) Console.WriteLine(e);
             Console.WriteLine($"dep 0 depboss salary = {com.WorkPlaces[0].Boss.MonthlySalary()}");
+            Console.WriteLine($"director salary = {companyDirector.MonthlySalary()}");
             Console.ReadKey();
         }
     }

@@ -1,4 +1,4 @@
-﻿
+﻿using Homework_11_ConsUI.employeBin;
 namespace Homework_11_ConsUI.structBin
 {
     class Company : WorkPlace
@@ -6,9 +6,17 @@ namespace Homework_11_ConsUI.structBin
         public static int depsCount = 0;
         public static int DepsCount { get { return depsCount; } }
 
+        public static Director companyDirector; 
+
         public Company()
         {
+            this.Name = "'Best Coders' corp.";
             WorkPlaces = new();
+        }
+
+        public void HireDirector(Director director)
+        {
+            companyDirector = director;
         }
 
         public override void Open(Department dep)
