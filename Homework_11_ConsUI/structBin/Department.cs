@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Homework_11_ConsUI.structBin.Company;
+﻿using Homework_11_ConsUI.employeBin;
 
 namespace Homework_11_ConsUI.structBin
 {
@@ -31,6 +26,11 @@ namespace Homework_11_ConsUI.structBin
         public override string ToString()
         {
             return $"Department {Name}";
+        }
+
+        public override void Hire(DepartmentBoss depBoss)
+        {
+            this.Boss = depBoss;
         }
     }
 }

@@ -8,6 +8,8 @@ namespace Homework_11_ConsUI.structBin
         public List<WorkPlace> WorkPlaces { get; set; }
         public string Name { get; set; }
 
+        public Employe Boss { get; set; }
+
         public virtual void Hire(Intern intern) { }
         public virtual void Hire(DepartmentBoss depBoss) { }
 

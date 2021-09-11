@@ -15,5 +15,10 @@
         {
             return $"intern {Name}, {Age} y.o., salary: {Salary}";
         }
+
+        public override int MonthlySalary()
+        {
+            return Salary * 20 * 8;
+        }
     }
 }

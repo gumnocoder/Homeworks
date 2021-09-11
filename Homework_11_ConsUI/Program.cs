@@ -16,14 +16,17 @@ namespace Homework_11_ConsUI
             Console.WriteLine(depsCount);
             com.AutoOpen();
             com.WorkPlaces[0].AutoOpen();
+            com.WorkPlaces[0].Hire(new DepartmentBoss("Johnny", 45, com.WorkPlaces[0]));
             com.WorkPlaces[0].WorkPlaces[0].Hire(new Intern(100, "John", 18));
             com.WorkPlaces[0].WorkPlaces[0].Hire(new Intern());
+            Console.WriteLine(com.WorkPlaces[0].WorkPlaces[0].Workers[0].MonthlySalary());
             foreach (var e in com.WorkPlaces[0].WorkPlaces[0].Workers) Console.WriteLine(e);
             Console.WriteLine(com.WorkPlaces[0].WorkPlaces[0]);
             Console.WriteLine(com.WorkPlaces[0].WorkPlaces[0].Workers[0]);
             Console.WriteLine(depsCount);
             Console.WriteLine(com);
             foreach (var e in com.WorkPlaces) Console.WriteLine(e);
+            Console.WriteLine($"dep 0 depboss salary = {com.WorkPlaces[0].Boss.MonthlySalary()}");
             Console.ReadKey();
         }
     }
