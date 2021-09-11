@@ -24,7 +24,7 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         Company()
         {
-            this.Name = "'Best Coders' corp.";
+            Name = "'Best Coders' corp.";
             WorkPlaces = new();
         }
 
