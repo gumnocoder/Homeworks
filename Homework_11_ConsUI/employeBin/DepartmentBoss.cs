@@ -6,6 +6,12 @@ namespace Homework_11_ConsUI.employeBin
     {
         int workersSalarySum = 0;
 
+        /// <summary>
+        /// конструктор
+        /// </summary>
+        /// <param name="Name"></param>
+        /// <param name="Age"></param>
+        /// <param name="ThisWorkPlace"></param>
         public DepartmentBoss(string Name, byte Age, WorkPlace ThisWorkPlace)
         {
             this.Name = Name;
@@ -13,6 +19,11 @@ namespace Homework_11_ConsUI.employeBin
             this.ThisWorkPlace = ThisWorkPlace;
         }
 
+        /// <summary>
+        /// подсчет всех зарплат
+        /// </summary>
+        /// <param name="workPlace"></param>
+        /// <returns></returns>
         private int CountingAllDepSalary(WorkPlace workPlace)
         {
             if (workPlace.Workers != null)
@@ -40,6 +51,11 @@ namespace Homework_11_ConsUI.employeBin
 
             return workersSalarySum;
         }
+
+        /// <summary>
+        /// подсчет зп начальника
+        /// </summary>
+        /// <returns></returns>
         public override int MonthlySalary()
         {
             workersSalarySum = 0;

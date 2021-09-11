@@ -5,8 +5,16 @@ namespace Homework_11_ConsUI.structBin
     class Department : WorkPlace
     {
         static int officeCount = 0;
+
+        /// <summary>
+        /// количество подотделов
+        /// </summary>
         public static int OfficeCount { get { return officeCount; } }
 
+        /// <summary>
+        /// конструктор
+        /// </summary>
+        /// <param name="Name"></param>
         public Department(string Name)
         {
             this.WorkPlaces = new();
