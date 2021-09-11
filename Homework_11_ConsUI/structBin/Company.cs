@@ -3,22 +3,48 @@ namespace Homework_11_ConsUI.structBin
 {
     sealed class Company : WorkPlace
     {
-        public static int depsCount = 0;
+        static int depsCount = 0;
+        /// <summary>
+        /// количество отделов
+        /// </summary>
         public static int DepsCount { get { return depsCount; } }
 
+        /// <summary>
+        /// директор
+        /// </summary>
         public static Director companyDirector;
 
+        /// <summary>
+        /// будет содержать ссылку на экземпляр класса Company
+        /// </summary>
         static Company _instance = null;
+
+        /// <summary>
+        /// конструктор
+        /// </summary>
         Company()
         {
             this.Name = "'Best Coders' corp.";
             WorkPlaces = new();
         }
+
+        /// <summary>
+        /// проверяет существует ли экземпляр
+        /// </summary>
         public static Company OneCompany
         {
-            get { if (_instance == null) _instance = new Company(); return _instance; }
+            get {
+                /// если нет то создаёт его и помещает ссылку в переменную
+                if (_instance == null) 
+                    _instance = new Company(); 
+                return _instance; 
+            }
         }
 
+        /// <summary>
+        /// найм директора
+        /// </summary>
+        /// <param name="director"></param>
         public static void HireDirector(Director director)
         {
             companyDirector = director;

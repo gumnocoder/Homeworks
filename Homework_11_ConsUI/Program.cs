@@ -11,9 +11,9 @@ namespace Homework_11_ConsUI
             HireDirector(new Director());
             Console.WriteLine(OneCompany);
             OneCompany.AutoOpen();
-            Console.WriteLine(depsCount);
+            Console.WriteLine(DepsCount);
             OneCompany.AutoOpen();
-            Console.WriteLine(depsCount);
+            Console.WriteLine(DepsCount);
             OneCompany.AutoOpen();
             OneCompany.WorkPlaces[0].AutoOpen();
             OneCompany.WorkPlaces[0].Hire(new DepartmentBoss("Johnny", 45, OneCompany.WorkPlaces[0]));
@@ -23,7 +23,7 @@ namespace Homework_11_ConsUI
             foreach (var e in OneCompany.WorkPlaces[0].WorkPlaces[0].Workers) Console.WriteLine(e);
             Console.WriteLine(OneCompany.WorkPlaces[0].WorkPlaces[0]);
             Console.WriteLine(OneCompany.WorkPlaces[0].WorkPlaces[0].Workers[0]);
-            Console.WriteLine(depsCount);
+            Console.WriteLine(DepsCount);
             Console.WriteLine(OneCompany);
             foreach (var e in OneCompany.WorkPlaces) Console.WriteLine(e);
             Console.WriteLine($"dep 0 depboss salary = {OneCompany.WorkPlaces[0].Boss.MonthlySalary()}");

@@ -3,15 +3,23 @@ using static Homework_11_ConsUI.structBin.Company;
 
 namespace Homework_11_ConsUI.employeBin
 {
+    /// <summary>
+    /// директор компании
+    /// </summary>
     class Director
     {
-        Company thisCompany;
-
-
+        /// <summary>
+        /// конструктор
+        /// </summary>
         public Director() { }
 
         private int workersSalarySum;
 
+        /// <summary>
+        /// подсчет сумм всех зарплат
+        /// </summary>
+        /// <param name="workPlace"></param>
+        /// <returns></returns>
         private int CountingAllDepSalary(WorkPlace workPlace)
         {
             if (workPlace.Workers != null)
@@ -24,7 +32,6 @@ namespace Homework_11_ConsUI.employeBin
                     }
                 }
             }
-
 
             if (workPlace.WorkPlaces != null)
             {
@@ -39,6 +46,11 @@ namespace Homework_11_ConsUI.employeBin
 
             return workersSalarySum;
         }
+
+        /// <summary>
+        /// подсчет зарплаты начальника
+        /// </summary>
+        /// <returns></returns>
         public int MonthlySalary()
         {
             workersSalarySum = 0;
