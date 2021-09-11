@@ -6,15 +6,20 @@ namespace Homework_11_ConsUI.structBin
         public static int depsCount = 0;
         public static int DepsCount { get { return depsCount; } }
 
-        public static Director companyDirector; 
+        public static Director companyDirector;
 
-        public Company()
+        static Company _instance = null;
+        Company()
         {
             this.Name = "'Best Coders' corp.";
             WorkPlaces = new();
         }
+        public static Company OneCompany
+        {
+            get { if (_instance == null) _instance = new Company(); return _instance; }
+        }
 
-        public void HireDirector(Director director)
+        public static void HireDirector(Director director)
         {
             companyDirector = director;
         }
@@ -35,7 +40,7 @@ namespace Homework_11_ConsUI.structBin
 
         public override string ToString()
         {
-            return $"Company, count of departments " +
+            return $"Company {Name}, count of departments " +
                 $"{WorkPlaces.Count}";
         }
     }

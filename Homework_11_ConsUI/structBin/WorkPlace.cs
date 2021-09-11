@@ -11,6 +11,7 @@ namespace Homework_11_ConsUI.structBin
         public Employe Boss { get; set; }
 
         public virtual void Hire(Intern intern) { }
+
         public virtual void Hire(DepartmentBoss depBoss) { }
 
         public virtual void Sack() { }
@@ -22,6 +23,8 @@ namespace Homework_11_ConsUI.structBin
         public virtual void Close() { }
 
         public virtual void AutoOpen() { }
+
+        public virtual void Rename(string newName) { this.Name = newName; }
 
     }
 }

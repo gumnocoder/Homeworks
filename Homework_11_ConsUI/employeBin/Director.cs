@@ -1,4 +1,5 @@
 ﻿using Homework_11_ConsUI.structBin;
+using static Homework_11_ConsUI.structBin.Company;
 
 namespace Homework_11_ConsUI.employeBin
 {
@@ -7,10 +8,7 @@ namespace Homework_11_ConsUI.employeBin
         Company thisCompany;
 
 
-        public Director(Company ThisCompany)
-        {
-            thisCompany = ThisCompany;
-        }
+        public Director() { }
 
         private int workersSalarySum;
 
@@ -44,7 +42,7 @@ namespace Homework_11_ConsUI.employeBin
         public int MonthlySalary()
         {
             workersSalarySum = 0;
-            workersSalarySum += CountingAllDepSalary(thisCompany);
+            workersSalarySum += CountingAllDepSalary(OneCompany);
             if (workersSalarySum > 1300)
                 return workersSalarySum;
             else return 1300;
