@@ -17,6 +17,7 @@ namespace Homework_11_ConsUI.employeBin
             byte Age = 50
             )
         {
+            this.Type = "Department Boss";
             this.WorkPlace = ThisWorkPlace;
             this.Name = Name;
             this.Age = Age;

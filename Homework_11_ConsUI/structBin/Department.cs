@@ -17,6 +17,7 @@ namespace Homework_11_ConsUI.structBin
         /// <param name="Name"></param>
         public Department(string Name)
         {
+            Workers = new();
             this.WorkPlaces = new();
             this.Name = Name;
         }
@@ -36,9 +37,14 @@ namespace Homework_11_ConsUI.structBin
             return $"Department {Name}";
         }
 
-        public override void Hire(Manager depBoss)
+        public override void Hire(Employe employe)
         {
-            this.Boss = depBoss;
+            this.Workers.Add(employe);
+        }
+        public override void HireBoss(DepartmentBoss depBoss)
+        {
+            this.Boss = depBoss.Name;
+            this.BossSalary = depBoss.MonthlySalary();
         }
     }
 }

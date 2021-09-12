@@ -5,10 +5,15 @@ namespace Homework_11_ConsUI.employeBin
 {
     abstract class Manager
     {
+        string type;
         WorkPlace workPlace;
         byte age;
         string name;
 
+        public string Type { 
+            get { return type; } 
+            set { type = value; } 
+        }
         public WorkPlace WorkPlace { 
             get { return workPlace; } 
             set { workPlace = value; } 

@@ -4,10 +4,13 @@ namespace Homework_11_ConsUI.employeBin
 {
     abstract class Employe
     {
+        string type;
         int salary;
         string name;
-        WorkPlace thisWorkPlace;
+        //WorkPlace thisWorkPlace;
         byte age;
+
+        public string Type { get { return type; } set { type = value; } }
 
         /// <summary>
         /// зарплата
@@ -25,14 +28,14 @@ namespace Homework_11_ConsUI.employeBin
             set { name = value; } 
         }
 
-        /// <summary>
-        /// место работы
-        /// </summary>
-        public WorkPlace ThisWorkPlace
-        { 
-            get { return thisWorkPlace; } 
-            set { thisWorkPlace = value; } 
-        }
+        ///// <summary>
+        ///// место работы
+        ///// </summary>
+        //public WorkPlace ThisWorkPlace
+        //{ 
+        //    get { return thisWorkPlace; } 
+        //    set { thisWorkPlace = value; } 
+        //}
 
         /// <summary>
         /// возраст
@@ -46,7 +49,7 @@ namespace Homework_11_ConsUI.employeBin
         {
             salary = Salary;
             name = Name;
-            thisWorkPlace = ThisWorkPlace;
+            //thisWorkPlace = ThisWorkPlace;
             age = Age;
         }
 

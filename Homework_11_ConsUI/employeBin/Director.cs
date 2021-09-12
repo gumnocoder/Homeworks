@@ -1,4 +1,7 @@
 ﻿using static Homework_11_ConsUI.structBin.Company;
+using Homework_11_ConsUI.structBin;
+using System;
+
 namespace Homework_11_ConsUI.employeBin
 {
     /// <summary>
@@ -7,35 +10,23 @@ namespace Homework_11_ConsUI.employeBin
     sealed class Director : Manager
     {
 
-        static Director _instance = null;
-
         /// <summary>
         /// конструктор
         /// </summary>
-        Director(
+        public Director(WorkPlace WorkPlace,
             string Name = "Bill Gates", 
             byte Age = 99
             )
         {
-            WorkPlace = OneCompany;
+            this.Type = "Director";
+            this.WorkPlace = WorkPlace;
             this.Name = Name;
             this.Age = Age;
         }
 
-        public static Director OneDirector
-        {
-            get
-            {
-                if (_instance == null) { 
-                    _instance = new Director(); 
-                }
-                return _instance;
-            }
-        }
-
         public override string ToString()
         {
-            return $"{OneCompany}, director - " +
+            return $"{this.WorkPlace}, director - " +
                 $"{Name}, " +
                 $"{MonthlySalary()}$ per month";
         }

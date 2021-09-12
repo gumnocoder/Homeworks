@@ -14,20 +14,25 @@ namespace Homework_11_ConsUI.structBin
         public List<WorkPlace> WorkPlaces { get; set; }
 
         public string Name { get; set; }
-        public Manager Boss { get; set; }
+        public string Boss { get; set; }
+
+        public int BossSalary { get; set; }
 
 
         /// <summary>
         /// найм работников
         /// </summary>
         /// <param name="intern">работник</param>
-        public virtual void Hire(Worker intern) { }
+        public virtual void Hire(Employe employe) { }
 
         /// <summary>
         /// найм начальника
         /// </summary>
         /// <param name="depBoss">нанимаемый начальник</param>
-        public virtual void Hire(Manager depBoss) { }
+        public virtual void HireBoss(DepartmentBoss depBoss) { }
+
+        public virtual void HireBoss(Director director) { }
+        public virtual void HireBoss(OfficeManager officeManager) { }
 
         public virtual void Sack() { }
 

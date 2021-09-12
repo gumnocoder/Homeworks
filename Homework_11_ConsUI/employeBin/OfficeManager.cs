@@ -10,6 +10,7 @@ namespace Homework_11_ConsUI.employeBin
             byte Age = 35
             )
         {
+            this.Type = "Office manager";
             this.WorkPlace = ThisWorkPlace;
             this.Name = Name;
             this.Age = Age;
