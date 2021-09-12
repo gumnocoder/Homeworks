@@ -18,6 +18,29 @@ namespace Homework_11_ConsUI.employeBin
             else return 1300;
         }
         
+        private static bool CheckWorkersList(WorkPlace workPlace)
+        {
+            if (workPlace.Workers != null)
+            {
+                if (workPlace.Workers.Count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static bool CheckWorkPlacesList(WorkPlace workPlace)
+        {
+            if (workPlace.WorkPlaces != null)
+            {
+                if (workPlace.WorkPlaces.Count > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         /// <summary>
         /// подсчет всех зарплат
@@ -27,7 +50,42 @@ namespace Homework_11_ConsUI.employeBin
         private static int CountingAllDepSalary(WorkPlace workPlace)
         {
             var wPW = workPlace.Workers;
-            
+
+            var wPWP = workPlace.WorkPlaces;
+
+            if (CheckWorkPlacesList(workPlace))
+            {
+                foreach (var wplace in workPlace.WorkPlaces)
+                {
+                    if (CheckWorkPlacesList(wplace)) { 
+                        return CountingAllDepSalary(wplace); 
+                    }
+                    if (CheckWorkersList(wplace)) { 
+                        for (int i = 0; i < wplace.Workers.Count; i++) { 
+                            workersSalarySum += wplace.Workers[i].MonthlySalary(); 
+                        }
+                    }
+                }
+            }
+            if (CheckWorkersList(workPlace))
+            {
+                for (int i = 0; i < workPlace.Workers.Count; i++)
+                {
+                    workersSalarySum += workPlace.Workers[i].MonthlySalary();
+                }
+            }
+/*
+            if (wPWP != null)
+            {
+                if (wPWP.Count > 0)
+                {
+                    foreach (var wp in wPWP)
+                    {
+                        if (wp.Workers != null) if (wp.Workers.Count > 0) { }
+                        workersSalarySum += CountingAllDepSalary(wp);
+                    }
+                }
+            }
 
             if (wPW != null)
             {
@@ -40,7 +98,7 @@ namespace Homework_11_ConsUI.employeBin
                 }
             }
 
-            var wPWP = workPlace.WorkPlaces;
+
 
             if (wPWP != null)
             {
@@ -51,7 +109,7 @@ namespace Homework_11_ConsUI.employeBin
                         workersSalarySum += CountingAllDepSalary(wp);
                     }
                 }
-            }
+            }*/
 
             return workersSalarySum;
         }

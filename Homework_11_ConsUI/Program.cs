@@ -16,7 +16,7 @@ namespace Homework_11_ConsUI
             OneCompany.WorkPlaces[0].AutoOpen();
 
             OneCompany.WorkPlaces[0].Hire(new DepartmentBoss("Johnny", 45, OneCompany.WorkPlaces[0]));
-            OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Intern(4, "John", 18));
+            OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Intern(6, "John", 18));
             OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Intern());
 
             foreach (var e in OneCompany.WorkPlaces) Console.WriteLine(e);
