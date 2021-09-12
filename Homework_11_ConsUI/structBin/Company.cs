@@ -4,9 +4,6 @@ namespace Homework_11_ConsUI.structBin
 {
     sealed class Company : WorkPlace
     {
-        string boss;
-        public string Boss { get { return boss; } set { boss = value; } }
-
         static int depsCount = 0;
         /// <summary>
         /// количество отделов
@@ -19,29 +16,30 @@ namespace Homework_11_ConsUI.structBin
         public static Director companyDirector;
 
 
-
         /// <summary>
         /// конструктор
         /// </summary>
         public Company()
         {
-            //Boss = OneDirector;
-            //HireDirector(new Director(this));
             Name = "'Best Coders' corp.";
             WorkPlaces = new();
-
+            Workers = new();
         }
 
-
+        public override void Hire(Employe employe)
+        {
+            this.Workers.Add(employe);
+        }
 
         /// <summary>
         /// найм директора
         /// </summary>
         /// <param name="director"></param>
-        public void HireDirector(Director director)
+        public override void HireBoss(Director director)
         {
             companyDirector = director;
             this.Boss = companyDirector.Name;
+            this.BossSalary = companyDirector.MonthlySalary();
         }
 
         public override void Open(Department dep)
@@ -57,7 +55,6 @@ namespace Homework_11_ConsUI.structBin
                 new Department($"DepartmentName {depsCount}")
                 );
         }
-
         public override string ToString()
         {
             return $"Company {Name}, count of departments " +

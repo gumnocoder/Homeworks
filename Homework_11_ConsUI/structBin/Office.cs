@@ -10,11 +10,16 @@ namespace Homework_11_ConsUI.structBin
             Workers = new();
         }
 
-        public override void Hire(Worker intern)
+        public override void Hire(Employe employe)
         {
-            Workers.Add(intern);
+            Workers.Add(employe);
         }
 
+        public override void HireBoss(OfficeManager officeManager)
+        {
+            this.Boss = officeManager.Name;
+            this.BossSalary = officeManager.MonthlySalary();
+        }
         public override string ToString()
         {
             return $"{Name}";

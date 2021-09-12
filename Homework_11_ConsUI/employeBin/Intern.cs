@@ -13,6 +13,7 @@ namespace Homework_11_ConsUI.employeBin
         public Intern(int Salary, string Name, byte Age)
         {
             ++internsCount;
+            this.Type = "Intern";
             this.Salary = Salary;
             this.Name = Name;
             this.Age = Age;

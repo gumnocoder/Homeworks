@@ -10,8 +10,6 @@ namespace Homework_11_ConsUI.employeBin
     sealed class Director : Manager
     {
 
-        //static Director _instance = null;
-
         /// <summary>
         /// конструктор
         /// </summary>
@@ -20,16 +18,11 @@ namespace Homework_11_ConsUI.employeBin
             byte Age = 99
             )
         {
+            this.Type = "Director";
             this.WorkPlace = WorkPlace;
-            //Console.WriteLine("sddfdf");
-            //Console.WriteLine(OneCompany);
-            //Console.WriteLine(this.WorkPlace);
-            //OneCompany.Boss = this;
             this.Name = Name;
             this.Age = Age;
         }
-
-
 
         public override string ToString()
         {

@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 
 namespace Homework_11_ConsUI.functions
 {
-    class ExportImportXml
+    class ExportImportJson
     {
 
         public static string jsonData = "company_struct.json";
