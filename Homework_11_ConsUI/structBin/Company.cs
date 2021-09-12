@@ -1,8 +1,12 @@
 ﻿using Homework_11_ConsUI.employeBin;
+using static Homework_11_ConsUI.employeBin.Director;
 namespace Homework_11_ConsUI.structBin
 {
     sealed class Company : WorkPlace
     {
+        string boss;
+        public string Boss { get { return boss; } set { boss = value; } }
+
         static int depsCount = 0;
         /// <summary>
         /// количество отделов
@@ -14,40 +18,30 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         public static Director companyDirector;
 
-        /// <summary>
-        /// будет содержать ссылку на экземпляр класса Company
-        /// </summary>
-        static Company _instance = null;
+
 
         /// <summary>
         /// конструктор
         /// </summary>
-        Company()
+        public Company()
         {
+            //Boss = OneDirector;
+            //HireDirector(new Director(this));
             Name = "'Best Coders' corp.";
             WorkPlaces = new();
+
         }
 
-        /// <summary>
-        /// проверяет существует ли экземпляр
-        /// </summary>
-        public static Company OneCompany
-        {
-            get {
-                /// если нет то создаёт его и помещает ссылку в переменную
-                if (_instance == null) 
-                    _instance = new Company(); 
-                return _instance; 
-            }
-        }
+
 
         /// <summary>
         /// найм директора
         /// </summary>
         /// <param name="director"></param>
-        public static void HireDirector(Director director)
+        public void HireDirector(Director director)
         {
             companyDirector = director;
+            this.Boss = companyDirector.Name;
         }
 
         public override void Open(Department dep)

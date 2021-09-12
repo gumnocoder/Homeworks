@@ -14,7 +14,7 @@ namespace Homework_11_ConsUI.structBin
         public List<WorkPlace> WorkPlaces { get; set; }
 
         public string Name { get; set; }
-        public Manager Boss { get; set; }
+        //public Manager Boss { get; set; }
 
 
         /// <summary>
@@ -28,6 +28,8 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         /// <param name="depBoss">нанимаемый начальник</param>
         public virtual void Hire(Manager depBoss) { }
+
+        public virtual void HireDirector() { }
 
         public virtual void Sack() { }
 

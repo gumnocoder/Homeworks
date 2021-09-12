@@ -13,6 +13,7 @@
         public Worker(int Salary, string Name, byte Age)
         {
             ++workersCount;
+            this.Type = "Worker";
             this.Salary = Salary;
             this.Name = Name;
             this.Age = Age;

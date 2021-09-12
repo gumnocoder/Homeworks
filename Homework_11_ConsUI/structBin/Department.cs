@@ -4,6 +4,9 @@ namespace Homework_11_ConsUI.structBin
 {
     class Department : WorkPlace
     {
+        Manager boss;
+        public Manager Boss { get; set; }
+
         static int officeCount = 0;
 
         /// <summary>
