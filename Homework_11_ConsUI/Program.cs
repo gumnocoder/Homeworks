@@ -9,15 +9,15 @@ namespace Homework_11_ConsUI
     {
         static void Main(string[] args)
         {
-            HireDirector(oneDirector);
+            HireDirector(OneDirector);
             OneCompany.AutoOpen();
             OneCompany.AutoOpen();
             OneCompany.AutoOpen();
             OneCompany.WorkPlaces[0].AutoOpen();
 
-            OneCompany.WorkPlaces[0].Hire(new DepartmentBoss("Johnny", 45, OneCompany.WorkPlaces[0]));
-            OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Intern(100, "John", 18));
-            OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Intern());
+            OneCompany.WorkPlaces[0].Hire(new DepartmentBoss(OneCompany.WorkPlaces[0], "Johnny", 45));
+            OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Worker(100, "John", 18));
+            OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Worker());
 
             foreach (var e in OneCompany.WorkPlaces) Console.WriteLine(e);
             foreach (var e in OneCompany.WorkPlaces[0].WorkPlaces[0].Workers) Console.WriteLine(e);

@@ -10,7 +10,7 @@ namespace Homework_11_ConsUI.structBin
             Workers = new();
         }
 
-        public override void Hire(Intern intern)
+        public override void Hire(Worker intern)
         {
             Workers.Add(intern);
         }

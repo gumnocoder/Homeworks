@@ -1,48 +1,43 @@
-﻿using Homework_11_ConsUI.structBin;
-using static Homework_11_ConsUI.structBin.Company;
-using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
+﻿using static Homework_11_ConsUI.structBin.Company;
 namespace Homework_11_ConsUI.employeBin
 {
     /// <summary>
     /// директор компании
     /// </summary>
-    sealed class Director
+    sealed class Director : Manager
     {
-        static string name;
-
-        public static string Name { 
-            get { return name; } 
-            set { name = value; } 
-        }
 
         static Director _instance = null;
 
         /// <summary>
         /// конструктор
         /// </summary>
-        Director(string Name = "Bill Gates") { name = Name; }
+        Director(
+            string Name = "Bill Gates", 
+            byte Age = 99
+            )
+        {
+            WorkPlace = OneCompany;
+            this.Name = Name;
+            this.Age = Age;
+        }
 
-        public static Director oneDirector
+        public static Director OneDirector
         {
             get
             {
-                if (_instance == null) _instance = new Director();
+                if (_instance == null) { 
+                    _instance = new Director(); 
+                }
                 return _instance;
             }
         }
 
-        /// <summary>
-        /// подсчет зарплаты начальника
-        /// </summary>
-        /// <returns></returns>
-        public int MonthlySalary()
-        {
-            return CountAdminSalary(OneCompany);
-        }
-
         public override string ToString()
         {
-            return $"{OneCompany}, director {Name}, {MonthlySalary()}$ per month";
+            return $"{OneCompany}, director - " +
+                $"{Name}, " +
+                $"{MonthlySalary()}$ per month";
         }
     }
 }

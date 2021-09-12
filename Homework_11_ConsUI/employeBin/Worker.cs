@@ -1,8 +1,8 @@
 ﻿namespace Homework_11_ConsUI.employeBin
 {
-    class Intern : Employe
+    class Worker : Employe
     {
-        static int internsCount = 0;
+        static int workersCount = 0;
 
         /// <summary>
         /// конструктор
@@ -10,9 +10,9 @@
         /// <param name="Salary"></param>
         /// <param name="Name"></param>
         /// <param name="Age"></param>
-        public Intern(int Salary, string Name, byte Age)
+        public Worker(int Salary, string Name, byte Age)
         {
-            ++internsCount;
+            ++workersCount;
             this.Salary = Salary;
             this.Name = Name;
             this.Age = Age;
@@ -21,10 +21,15 @@
         /// <summary>
         /// автоконструктор
         /// </summary>
-        public Intern() : this(100, $"intern_{internsCount}", 18) { ++internsCount; }
+        public Worker() : this(5, $"worker_{workersCount}", 18) 
+        { 
+            ++workersCount; 
+        }
         public override string ToString()
         {
-            return $"intern {Name}, {Age} y.o., salary: {Salary} per hour";
+            return $"Worker {Name}, " +
+                $"{Age} y.o., salary: " +
+                $"{Salary} per hour";
         }
 
         /// <summary>

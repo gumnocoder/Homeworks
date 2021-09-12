@@ -36,7 +36,7 @@ namespace Homework_11_ConsUI.structBin
             return $"Department {Name}";
         }
 
-        public override void Hire(DepartmentBoss depBoss)
+        public override void Hire(Manager depBoss)
         {
             this.Boss = depBoss;
         }
