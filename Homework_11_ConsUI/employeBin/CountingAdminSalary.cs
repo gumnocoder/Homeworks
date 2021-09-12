@@ -1,10 +1,24 @@
-﻿using Homework_11_ConsUI.structBin;
+﻿using System;
+using Homework_11_ConsUI.structBin;
 
 namespace Homework_11_ConsUI.employeBin
 {
     class CountingAdminSalary
     {
         static int workersSalarySum;
+
+        /// <summary>
+        /// расчёт 15% от всех зп
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        private static int PercentOfSalary(int num)
+        {
+            double result;
+            result = (15f / 100f) * num;
+            Console.WriteLine(result);
+            return Convert.ToInt32(result);
+        }
 
         /// <summary>
         /// сбрасывает workersSalarySum и запускает рекурсию
@@ -14,8 +28,11 @@ namespace Homework_11_ConsUI.employeBin
         public static int CountAdminSalary(WorkPlace workPlace)
         {
             workersSalarySum = 0;
-            if (CountingAllDepSalary(workPlace) > 1300) return workersSalarySum;
-            else return 1300;
+            workersSalarySum = PercentOfSalary(
+                CountingAllDepSalary(workPlace)
+                );
+            if (workersSalarySum < 1300) return 1300;
+            return workersSalarySum;
         }
         
         /// <summary>

@@ -21,7 +21,7 @@
         /// <summary>
         /// автоконструктор
         /// </summary>
-        public Intern() : this(3, $"intern_{internsCount}", 18) { ++internsCount; }
+        public Intern() : this(100, $"intern_{internsCount}", 18) { ++internsCount; }
         public override string ToString()
         {
             return $"intern {Name}, {Age} y.o., salary: {Salary} per hour";
