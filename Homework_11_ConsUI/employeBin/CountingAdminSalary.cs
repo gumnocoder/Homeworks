@@ -16,7 +16,6 @@ namespace Homework_11_ConsUI.employeBin
         {
             double result;
             result = (15f / 100f) * num;
-            Console.WriteLine(result);
             return Convert.ToInt32(result);
         }
 

@@ -5,10 +5,6 @@ namespace Homework_11_ConsUI.structBin
     sealed class Company : WorkPlace
     {
         static int depsCount = 0;
-        /// <summary>
-        /// количество отделов
-        /// </summary>
-        public static int DepsCount { get { return depsCount; } }
 
         /// <summary>
         /// директор
@@ -55,9 +51,11 @@ namespace Homework_11_ConsUI.structBin
                 new Department($"DepartmentName {depsCount}")
                 );
         }
+
         public override string ToString()
         {
-            return $"Company {Name}, count of departments " +
+            return $"Company {Name}, " +
+                $"count of departments " +
                 $"{WorkPlaces.Count}";
         }
     }
