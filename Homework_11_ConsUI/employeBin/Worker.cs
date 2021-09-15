@@ -1,6 +1,6 @@
 ﻿namespace Homework_11_ConsUI.employeBin
 {
-    class Worker : Employe
+    public class Worker : Employe
     {
         static int workersCount = 0;
 

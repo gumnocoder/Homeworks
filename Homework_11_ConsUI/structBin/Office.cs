@@ -2,7 +2,7 @@
 
 namespace Homework_11_ConsUI.structBin
 {
-    class Office : WorkPlace
+    public class Office : WorkPlace
     {
         static int subOfficesCount = 0;
         public Office(string Name)
@@ -11,6 +11,8 @@ namespace Homework_11_ConsUI.structBin
             Workers = new();
             WorkPlaces = new();
         }
+
+        public Office() { }
 
         public override void Hire(Employe employe)
         {

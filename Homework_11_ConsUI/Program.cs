@@ -4,6 +4,7 @@ using static Homework_11_ConsUI.structBin.Company;
 using Homework_11_ConsUI.employeBin;
 using static Homework_11_ConsUI.employeBin.Director;
 using static Homework_11_ConsUI.functions.ExportImportJson;
+using static Homework_11_ConsUI.functions.ExportToXml;
 namespace Homework_11_ConsUI
 {
     class Program
@@ -29,7 +30,8 @@ namespace Homework_11_ConsUI
             OneCompany.Rename("Horns&hooves");
             Console.WriteLine(OneCompany);
             Console.WriteLine(companyDirector);
-            CompanyToJson(OneCompany);
+            //CompanyToJson(OneCompany);
+            CompanyToXml(OneCompany);
             Console.ReadKey();
         }
     }

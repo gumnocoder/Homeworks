@@ -3,7 +3,7 @@ using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
 
 namespace Homework_11_ConsUI.employeBin
 {
-    abstract class Manager
+    public abstract class Manager
     {
         string type;
         WorkPlace workPlace;

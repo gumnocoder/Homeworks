@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Homework_11_ConsUI.employeBin
 {
-    class Intern : Employe
+    public class Intern : Employe
     {
         static int internsCount = 0;
 

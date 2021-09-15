@@ -1,8 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 using Homework_11_ConsUI.employeBin;
 namespace Homework_11_ConsUI.structBin
 {
-    abstract class WorkPlace
+    [XmlInclude(typeof(Department))]
+    [XmlInclude(typeof(Office))]
+    [XmlInclude(typeof(Company))]
+    public abstract class WorkPlace
     {
         /// <summary>
         /// список сотрудников

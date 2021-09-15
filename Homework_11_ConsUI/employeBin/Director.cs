@@ -7,7 +7,7 @@ namespace Homework_11_ConsUI.employeBin
     /// <summary>
     /// директор компании
     /// </summary>
-    sealed class Director : Manager
+    public sealed class Director : Manager
     {
 
         /// <summary>
@@ -24,6 +24,7 @@ namespace Homework_11_ConsUI.employeBin
             this.Age = Age;
         }
 
+        public Director() { }
         public override string ToString()
         {
             return $"{this.WorkPlace}, director - " +

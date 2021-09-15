@@ -1,8 +1,14 @@
-﻿using Homework_11_ConsUI.structBin;
+﻿using System.Xml.Serialization;
+using Homework_11_ConsUI.structBin;
 
 namespace Homework_11_ConsUI.employeBin
 {
-    abstract class Employe
+    [XmlInclude(typeof(Intern))]
+    [XmlInclude(typeof(Director))]
+    [XmlInclude(typeof(DepartmentBoss))]
+    [XmlInclude(typeof(OfficeManager))]
+    [XmlInclude(typeof(Worker))]
+    public abstract class Employe
     {
         string type;
         int salary;

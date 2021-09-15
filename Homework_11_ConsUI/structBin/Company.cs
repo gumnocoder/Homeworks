@@ -2,7 +2,7 @@
 using static Homework_11_ConsUI.employeBin.Director;
 namespace Homework_11_ConsUI.structBin
 {
-    sealed class Company : WorkPlace
+    public sealed class Company : WorkPlace
     {
         static int depsCount = 0;
 

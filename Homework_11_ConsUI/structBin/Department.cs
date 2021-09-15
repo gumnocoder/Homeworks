@@ -2,7 +2,7 @@
 
 namespace Homework_11_ConsUI.structBin
 {
-    class Department : WorkPlace
+    public class Department : WorkPlace
     {
         static int officeCount = 0;
 
@@ -17,6 +17,7 @@ namespace Homework_11_ConsUI.structBin
             this.Name = Name;
         }
 
+        public Department() { }
         public override void Open(Office office)
         {
             ++officeCount;
