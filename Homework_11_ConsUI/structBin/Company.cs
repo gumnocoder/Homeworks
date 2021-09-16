@@ -1,24 +1,11 @@
 ﻿using Homework_11_ConsUI.employeBin;
-using static Homework_11_ConsUI.employeBin.Director;
-using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
 using static Homework_11_ConsUI.structBin.OrgStructure;
-using System;
 
 namespace Homework_11_ConsUI.structBin
 {
     public sealed class Company : WorkPlace
     {
-
-        //int bossSalary;
-        //public int BossSalary { get { return bossSalary; } set { bossSalary = value; } }
-
         static int depsCount = 0;
-
-        /// <summary>
-        /// директор
-        /// </summary>
-        //public static Director companyDirector;
-
 
         /// <summary>
         /// конструктор
@@ -34,7 +21,6 @@ namespace Homework_11_ConsUI.structBin
         public override void Hire(Employe employe)
         {
             this.Workers.Add(employe);
-            //this.BossSalary = SetBossSalary(this);
             RefreshBossesSalary();
         }
 
@@ -44,7 +30,6 @@ namespace Homework_11_ConsUI.structBin
         /// <param name="director"></param>
         public override void HireBoss(Director director)
         {
-            //companyDirector = director;
             this.Boss = director.Name;
             this.BossSalary = SetBossSalary(this);
         }

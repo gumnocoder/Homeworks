@@ -1,6 +1,4 @@
-﻿using System;
-using Homework_11_ConsUI.employeBin;
-using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
+﻿using Homework_11_ConsUI.employeBin;
 using static Homework_11_ConsUI.structBin.OrgStructure;
 
 namespace Homework_11_ConsUI.structBin
@@ -19,43 +17,53 @@ namespace Homework_11_ConsUI.structBin
             Workers = new();
             WorkPlaces = new();
             this.Name = Name;
-            //BossSalary = SetBossSalary(this);
             workPlacesGlobal.Add(this);
         }
 
         public Department() { }
+
+        /// <summary>
+        /// открыть подотдел
+        /// </summary>
+        /// <param name="office"></param>
         public override void Open(Office office)
         {
             ++officeCount;
             this.WorkPlaces.Add(office);
         }
 
+        /// <summary>
+        /// открыть подотдел с параметрами по умолчанию
+        /// </summary>
         public override void AutoOpen()
         {
             this.WorkPlaces.Add(new Office($"Office #{officeCount}"));
         }
+
         public override string ToString()
         {
             return $"Department {Name}";
         }
 
+        /// <summary>
+        /// найм работника
+        /// </summary>
+        /// <param name="employe"></param>
         public override void Hire(Employe employe)
         {
             this.Workers.Add(employe);
             BossSalary = SetBossSalary(this);
             RefreshBossesSalary();
         }
+
+        /// <summary>
+        /// найм управляющего
+        /// </summary>
+        /// <param name="depBoss"></param>
         public override void HireBoss(DepartmentBoss depBoss)
         {
             Boss = depBoss.Name;
             BossSalary = SetBossSalary(this);
-            //this.BossSalary = depBoss.MonthlySalary();
         }
-
-        //public int SetBossSalary()
-        //{
-        //    Console.WriteLine("SetBossSalary");
-        //    return CountAdminSalary(this);
-        //}
     }
 }
