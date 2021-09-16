@@ -3,7 +3,7 @@ using Homework_11_ConsUI.structBin;
 using static Homework_11_ConsUI.structBin.Company;
 using Homework_11_ConsUI.employeBin;
 using static Homework_11_ConsUI.employeBin.Director;
-using static Homework_11_ConsUI.functions.ExportImportJson;
+using static Homework_11_ConsUI.functions.ExportToJson;
 using static Homework_11_ConsUI.functions.ExportToXml;
 using static Homework_11_ConsUI.structBin.OrgStructure;
 

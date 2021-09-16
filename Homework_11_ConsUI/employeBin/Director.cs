@@ -22,9 +22,13 @@ namespace Homework_11_ConsUI.employeBin
             this.WorkPlace = WorkPlace;
             this.Name = Name;
             this.Age = Age;
-            //this.Salary = MonthlySalary();
         }
+
+        /// <summary>
+        /// автоконструктор
+        /// </summary>
         public Director() { }
+
         public override string ToString()
         {
             return $"{this.WorkPlace}, director - " +
