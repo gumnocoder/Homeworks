@@ -23,6 +23,9 @@ namespace Homework_11_ConsUI.employeBin
             this.Age = Age;
         }
 
+        /// <summary>
+        /// автоконструктор
+        /// </summary>
         public DepartmentBoss() { }
     }
 }

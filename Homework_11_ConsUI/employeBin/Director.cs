@@ -33,7 +33,7 @@ namespace Homework_11_ConsUI.employeBin
         {
             return $"{this.WorkPlace}, director - " +
                 $"{Name}, " +
-                $"{MonthlySalary()}$ per month";
+                $"{this.WorkPlace.BossSalary}$ per month";
         }
     }
 }

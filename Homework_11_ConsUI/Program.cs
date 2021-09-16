@@ -28,16 +28,13 @@ namespace Homework_11_ConsUI
             OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Worker(1, "John", 18));
             OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Worker());
             OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Intern());
-            Console.WriteLine("IEnumerable");
             foreach (var e in OneCompany.WorkPlaces) Console.WriteLine(e);
-            Console.WriteLine("IEnumerable");
             foreach (var e in OneCompany.WorkPlaces[0].WorkPlaces[0].Workers) Console.WriteLine(e);
             OneCompany.WorkPlaces[0].WorkPlaces[0].Hire(new Worker(1, "John", 18));
             OneCompany.Rename("Horns&hooves");
             Console.WriteLine(OneCompany);
             Console.WriteLine(OneCompany.Boss);
             CompanyToJson(OneCompany);
-            Console.WriteLine("OneCompany.SetBossSalary(OneCompany)");
             OneCompany.SetBossSalary(OneCompany);
             CompanyToXml(OneCompany);
             Console.WriteLine(OneCompany.BossSalary);
