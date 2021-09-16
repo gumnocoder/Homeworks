@@ -22,8 +22,8 @@ namespace Homework_11_ConsUI.employeBin
             this.WorkPlace = WorkPlace;
             this.Name = Name;
             this.Age = Age;
+            //this.Salary = MonthlySalary();
         }
-
         public Director() { }
         public override string ToString()
         {

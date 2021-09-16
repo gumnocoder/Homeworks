@@ -12,12 +12,12 @@ namespace Homework_11_ConsUI.employeBin
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-        private static int PercentOfSalary(int num)
+/*        private static int PercentOfSalary(int num)
         {
             double result;
             result = (15f / 100f) * num;
             return Convert.ToInt32(result);
-        }
+        }*/
 
         /// <summary>
         /// сбрасывает workersSalarySum и запускает рекурсию
@@ -26,11 +26,15 @@ namespace Homework_11_ConsUI.employeBin
         /// <returns></returns>
         public static int CountAdminSalary(WorkPlace workPlace)
         {
+            Console.WriteLine("------------------ Start counting ------------------");
             workersSalarySum = 0;
-            workersSalarySum = PercentOfSalary(
-                CountingAllDepSalary(workPlace)
-                );
-            if (workersSalarySum < 1300) return 1300;
+            //workersSalarySum = PercentOfSalary(
+               // CountingAllDepSalary(workPlace)
+              //  );
+            CountingAllDepSalary(workPlace);
+            //Console.WriteLine(workersSalarySum);
+            if (workersSalarySum < 300) return 300;
+            Console.WriteLine("------------------ End counting ------------------");
             return workersSalarySum;
         }
         
@@ -62,6 +66,7 @@ namespace Homework_11_ConsUI.employeBin
             {
                 if (workPlace.WorkPlaces.Count > 0)
                 {
+                    
                     return true;
                 }
             }
@@ -73,34 +78,59 @@ namespace Homework_11_ConsUI.employeBin
         /// </summary>
         /// <param name="workPlace"></param>
         /// <returns></returns>
-        private static int CountingAllDepSalary(WorkPlace workPlace)
+        private static void CountingAllDepSalary(WorkPlace workPlace)
         {
-            if (CheckWorkPlacesList(workPlace))
-            {
-                foreach (var wplace in workPlace.WorkPlaces)
-                {
-                    if (CheckWorkPlacesList(wplace)) 
-                    { 
-                        return CountingAllDepSalary(wplace); 
-                    }
-                    if (CheckWorkersList(wplace)) 
-                    { 
-                        for (int i = 0; i < wplace.Workers.Count; i++) { 
-                            workersSalarySum += wplace.Workers[i].MonthlySalary(); 
-                        }
-                    }
-                }
-            }
-
             if (CheckWorkersList(workPlace))
             {
-                for (int i = 0; i < workPlace.Workers.Count; i++)
+                foreach (var e in workPlace.Workers)
                 {
-                    workersSalarySum += workPlace.Workers[i].MonthlySalary();
+                    workersSalarySum += e.MonthlySalary();
+                    Console.WriteLine("worker counted!");
                 }
             }
 
-            return workersSalarySum;
+            if (CheckWorkPlacesList(workPlace))
+            {
+                foreach (var e in workPlace.WorkPlaces)
+                {
+                    Console.WriteLine("-------------------------> Go Tree");
+                    CountingAllDepSalary(e);
+                }
+            }
+            Console.WriteLine(workPlace);
+            Console.WriteLine(workersSalarySum);
+            return;
+            //return workersSalarySum;
+
+                //if (CheckWorkersList(workPlace))
+                //{
+                //    for (int i = 0; i < workPlace.Workers.Count; i++)
+                //    {
+                //        //Console.WriteLine(workPlace.Workers[i]);
+                //        workersSalarySum += workPlace.Workers[i].MonthlySalary();
+                //    }
+                //}
+
+            //if (CheckWorkPlacesList(workPlace))
+            //{
+            //    foreach (var wplace in workPlace.WorkPlaces)
+            //    {
+            //        Console.WriteLine(wplace);
+            //        /*return */workersSalarySum += CountingAllDepSalary(wplace);
+
+            //        //if (CheckWorkersList(wplace)) 
+            //        //{ 
+            //        //    for (int i = 0; i < wplace.Workers.Count; i++) { 
+            //        //        workersSalarySum += wplace.Workers[i].MonthlySalary();
+            //        //        Console.WriteLine($"worker {wplace.Workers[i]} salary is {wplace.Workers[i].MonthlySalary()}");
+            //        //    }
+            //        //}
+            //    }
+            //}
+
+
+            //Console.WriteLine(workersSalarySum);
+            //return workersSalarySum;
         }
     }
 }

@@ -22,7 +22,7 @@
         /// <summary>
         /// автоконструктор
         /// </summary>
-        public Worker() : this(5, $"worker_{workersCount}", 18) 
+        public Worker() : this(1, $"worker_{workersCount}", 18) 
         { 
             ++workersCount; 
         }

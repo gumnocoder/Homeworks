@@ -9,7 +9,12 @@ namespace Homework_11_ConsUI.employeBin
         WorkPlace workPlace;
         byte age;
         string name;
+      //  int salary;
 
+       // public int Salary { 
+       //     get { return salary; }
+       //     set { salary = value; }
+      //  }
         public string Type { 
             get { return type; } 
             set { type = value; } 

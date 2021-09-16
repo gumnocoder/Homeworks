@@ -1,9 +1,13 @@
-﻿using Homework_11_ConsUI.employeBin;
+﻿using System;
+using Homework_11_ConsUI.employeBin;
+using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
+using static Homework_11_ConsUI.structBin.OrgStructure;
 
 namespace Homework_11_ConsUI.structBin
 {
     public class Department : WorkPlace
     {
+
         static int officeCount = 0;
 
         /// <summary>
@@ -13,8 +17,10 @@ namespace Homework_11_ConsUI.structBin
         public Department(string Name)
         {
             Workers = new();
-            this.WorkPlaces = new();
+            WorkPlaces = new();
             this.Name = Name;
+            //BossSalary = SetBossSalary(this);
+            workPlacesGlobal.Add(this);
         }
 
         public Department() { }
@@ -36,11 +42,20 @@ namespace Homework_11_ConsUI.structBin
         public override void Hire(Employe employe)
         {
             this.Workers.Add(employe);
+            BossSalary = SetBossSalary(this);
+            RefreshBossesSalary();
         }
         public override void HireBoss(DepartmentBoss depBoss)
         {
-            this.Boss = depBoss.Name;
-            this.BossSalary = depBoss.MonthlySalary();
+            Boss = depBoss.Name;
+            BossSalary = SetBossSalary(this);
+            //this.BossSalary = depBoss.MonthlySalary();
         }
+
+        //public int SetBossSalary()
+        //{
+        //    Console.WriteLine("SetBossSalary");
+        //    return CountAdminSalary(this);
+        //}
     }
 }

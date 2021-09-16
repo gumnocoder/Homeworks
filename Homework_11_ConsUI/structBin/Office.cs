@@ -1,15 +1,22 @@
-﻿using Homework_11_ConsUI.employeBin;
+﻿using System;
+using Homework_11_ConsUI.employeBin;
+using static Homework_11_ConsUI.structBin.OrgStructure;
 
 namespace Homework_11_ConsUI.structBin
 {
     public class Office : WorkPlace
     {
+
+        //int bossSalary;
+        //public int BossSalary { get { return bossSalary; } set { bossSalary = value; } }
+
         static int subOfficesCount = 0;
         public Office(string Name)
         {
             this.Name = Name;
             Workers = new();
             WorkPlaces = new();
+            workPlacesGlobal.Add(this);
         }
 
         public Office() { }
@@ -17,6 +24,7 @@ namespace Homework_11_ConsUI.structBin
         public override void Hire(Employe employe)
         {
             Workers.Add(employe);
+            RefreshBossesSalary();
         }
 
         public override void Open(Office office)
@@ -32,7 +40,7 @@ namespace Homework_11_ConsUI.structBin
         public override void HireBoss(OfficeManager officeManager)
         {
             this.Boss = officeManager.Name;
-            this.BossSalary = officeManager.MonthlySalary();
+            //this.BossSalary = officeManager.MonthlySalary();
         }
 
 

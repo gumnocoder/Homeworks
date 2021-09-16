@@ -1,4 +1,5 @@
-﻿using System.Xml.Serialization;
+﻿using System.Collections;
+using System.Xml.Serialization;
 using Homework_11_ConsUI.structBin;
 
 namespace Homework_11_ConsUI.employeBin

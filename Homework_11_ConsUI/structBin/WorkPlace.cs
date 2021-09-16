@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using Homework_11_ConsUI.employeBin;
+using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
+
 namespace Homework_11_ConsUI.structBin
 {
     [XmlInclude(typeof(Department))]
@@ -12,16 +16,32 @@ namespace Homework_11_ConsUI.structBin
         /// список сотрудников
         /// </summary>
         public List<Employe> Workers { get; set; }
+
         /// <summary>
         /// список отделов
         /// </summary>
         public List<WorkPlace> WorkPlaces { get; set; }
 
-        public string Name { get; set; }
-        public string Boss { get; set; }
+        string name;
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
 
-        public int BossSalary { get; set; }
+        string boss;
+        public string Boss
+        {
+            get { return boss; }
+            set { boss = value; }
+        }
 
+        int bossSalary;
+        public int BossSalary
+        {
+            get { return bossSalary; }
+            set { bossSalary = value; }
+        }
 
         /// <summary>
         /// найм работников
@@ -38,6 +58,10 @@ namespace Homework_11_ConsUI.structBin
         public virtual void HireBoss(Director director) { }
         public virtual void HireBoss(OfficeManager officeManager) { }
 
+        public virtual int SetBossSalary(WorkPlace workPlace) { 
+            if (this.Boss != null) return CountAdminSalary(workPlace); 
+            else return 0; 
+        }
         public virtual void Sack() { }
 
         /// <summary>
@@ -64,6 +88,5 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         /// <param name="newName"></param>
         public virtual void Rename(string newName) { this.Name = newName; }
-
     }
 }
