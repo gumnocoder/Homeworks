@@ -12,12 +12,12 @@ namespace Homework_11_ConsUI.employeBin
         /// </summary>
         /// <param name="num"></param>
         /// <returns></returns>
-/*        private static int PercentOfSalary(int num)
+        private static int PercentOfSalary(int num)
         {
-            double result;
+            float result;
             result = (15f / 100f) * num;
             return Convert.ToInt32(result);
-        }*/
+        }
 
         /// <summary>
         /// сбрасывает workersSalarySum и запускает рекурсию
@@ -27,12 +27,9 @@ namespace Homework_11_ConsUI.employeBin
         public static int CountAdminSalary(WorkPlace workPlace)
         {
             workersSalarySum = 0;
-            //workersSalarySum = PercentOfSalary(
-               // CountingAllDepSalary(workPlace)
-              //  );
             CountingAllDepSalary(workPlace);
-            //Console.WriteLine(workersSalarySum);
-            if (workersSalarySum < 300) return 300;
+            workersSalarySum = PercentOfSalary(workersSalarySum);
+            if (workersSalarySum < 1300) { return 1300; }
             return workersSalarySum;
         }
         
@@ -43,13 +40,12 @@ namespace Homework_11_ConsUI.employeBin
         /// <returns></returns>
         private static bool CheckWorkersList(WorkPlace workPlace)
         {
-            if (workPlace.Workers != null)
-            {
-                if (workPlace.Workers.Count > 0)
-                {
+            if (workPlace.Workers != null) {
+                if (workPlace.Workers.Count > 0) {
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -60,11 +56,8 @@ namespace Homework_11_ConsUI.employeBin
         /// <returns></returns>
         private static bool CheckWorkPlacesList(WorkPlace workPlace)
         {
-            if (workPlace.WorkPlaces != null)
-            {
-                if (workPlace.WorkPlaces.Count > 0)
-                {
-                    
+            if (workPlace.WorkPlaces != null) {
+                if (workPlace.WorkPlaces.Count > 0) {
                     return true;
                 }
             }
@@ -78,18 +71,14 @@ namespace Homework_11_ConsUI.employeBin
         /// <returns></returns>
         private static void CountingAllDepSalary(WorkPlace workPlace)
         {
-            if (CheckWorkersList(workPlace))
-            {
-                foreach (var e in workPlace.Workers)
-                {
+            if (CheckWorkersList(workPlace)) {
+                foreach (var e in workPlace.Workers) {
                     workersSalarySum += e.MonthlySalary();
                 }
             }
 
-            if (CheckWorkPlacesList(workPlace))
-            {
-                foreach (var e in workPlace.WorkPlaces)
-                {
+            if (CheckWorkPlacesList(workPlace)) {
+                foreach (var e in workPlace.WorkPlaces) {
                     CountingAllDepSalary(e);
                 }
             }

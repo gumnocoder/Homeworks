@@ -13,12 +13,12 @@ namespace Homework_11_ConsUI
         {
             Company OneCompany = new();
             OneCompany.HireBoss(new Director(OneCompany));
-            OneCompany.Hire(new Worker(1, "Johhhgn", 18));
+            OneCompany.Hire(new Worker(100, "Johhhgn", 18));
             OneCompany.AutoOpen();
             OneCompany.AutoOpen();
             OneCompany.AutoOpen();
             OneCompany.WorkPlaces[0].Hire(new Worker());
-            OneCompany.WorkPlaces[0].Hire(new Worker(1, "John", 18));
+            OneCompany.WorkPlaces[0].Hire(new Worker(100, "John", 18));
             OneCompany.WorkPlaces[0].Hire(new Worker(1, "Jo4hn", 18));
             OneCompany.WorkPlaces[0].Hire(new Worker(1, "Jdohn", 18));
             OneCompany.WorkPlaces[0].Hire(new Worker(1, "Johhhgn", 18));
