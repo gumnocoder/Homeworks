@@ -1,0 +1,104 @@
+﻿<Window x:Class="Homework_11_wpfUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="450" 
+        Width="800"
+        ResizeMode="NoResize"
+        WindowStyle="None"
+        Background="#334666">
+    
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="425"/>
+        </Grid.RowDefinitions >
+        <tb:TaskbarIcon 
+            Visibility="Visible"
+            ToolTipText="Company struct viewer"
+            IconSource="\icon.ico"
+            TrayLeftMouseDown="TaskbarIcon_TrayLeftMouseDown" 
+            Margin="0,0,8,0" Grid.RowSpan="2"/>
+        <Image Grid.Row="0" Source="\icon.png" HorizontalAlignment="Left" Margin="7,3,0,0"/>
+        <Image Name="closeBtn" 
+               Grid.Row="0" 
+               Source="\close.png" 
+               HorizontalAlignment="Right" 
+               Margin="0,5,5,3" 
+               MouseDown="exitBtn_Click"
+               ToolTip="закрыть"/>
+        <Image Name="maximizeBtn" 
+               Grid.Row="0" 
+               Source="\max.png" 
+               HorizontalAlignment="Right" 
+               Margin="0,5,25,3" 
+               MouseDown="maximizeBtn_MouseDown"
+               ToolTip="развернуть"/>
+        <Image Name="minimizeBtn" 
+               Grid.Row="0" 
+               Source="\min.png" 
+               HorizontalAlignment="Right" 
+               Margin="0,5,45,3" 
+               MouseDown="minimizeBtn_MouseDown"
+               ToolTip="свернуть"/>
+        <Menu Margin="35,5,5,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#334666" Foreground="#e9e9eb">
+            <MenuItem Header="File" FontSize="12" >
+                <MenuItem Header="Save as..." Background="#3e619b" Foreground="#e9e9eb">
+                    <MenuItem Header="XML" Background="#3e619b" Foreground="#e9e9eb"/>
+                    <MenuItem Header="JSON" Background="#3e619b" Foreground="#e9e9eb"/>
+                </MenuItem>
+                <MenuItem Header="Exit" Click="exitBtn_Click" Background="#3e619b" Foreground="#e9e9eb"/>
+            </MenuItem>
+            <Separator Width="10"/>
+            <MenuItem Header="Edit" FontSize="12"/>
+        </Menu>
+        <Grid Grid.Row="1" Margin="5,5,5,5" Background="#5c6c85">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+            <ListView 
+                Grid.Row="0" 
+                Grid.Column="0" 
+                Margin="0,0,22,0" 
+                Background="#5c6c85" 
+                MinWidth="150" 
+                HorizontalAlignment="Stretch"
+                Name="structContent">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="name" Width="70" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="substructs" Width="70" DisplayMemberBinding="{Binding this.WorkPlaces.Count}"/>
+                        <GridViewColumn Header="workers" Width="60" DisplayMemberBinding="{Binding this.Workers.Count}"/>
+                        <GridViewColumn Header="boss" Width="60" DisplayMemberBinding="{Binding this.boss}"/>
+                        <GridViewColumn Header="boss salary" Width="80" DisplayMemberBinding="{Binding this.bossSalary}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <GridSplitter Grid.Column="0" VerticalAlignment="Stretch" Margin="5,0,5,0" Background="#334666" Width="22" >
+
+            </GridSplitter>
+
+            <ScrollBar Grid.Column="0" 
+                       HorizontalAlignment="Right" 
+                       Margin="0,0,10,0" 
+                       Background="#aeb6c3" 
+                       BorderBrush="#8590a6" 
+                       BorderThickness="5" Foreground="Black">
+
+            </ScrollBar>
+            <Border Grid.Column="2" BorderBrush="#334666" BorderThickness="5,0,0,0">
+                <TextBlock Grid.Column="2" Background="#8590a6" Padding="5"></TextBlock>
+            </Border>
+            
+            <DockPanel HorizontalAlignment="Left" Height="0" LastChildFill="False" Margin="52,185,0,0" VerticalAlignment="Top" Width="13"/>
+        </Grid>
+
+    </Grid>
+</Window>
