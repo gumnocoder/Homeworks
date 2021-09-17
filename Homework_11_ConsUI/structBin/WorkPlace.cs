@@ -84,7 +84,22 @@ namespace Homework_11_ConsUI.structBin
             }
             else return 0; 
         }
-        public virtual void Sack() { }
+
+        /// <summary>
+        /// увольнение сотрудника
+        /// </summary>
+        /// <param name="employe"></param>
+        public virtual void Sack(Employe employe) { 
+            this.Workers.Remove(employe); 
+        }
+
+        /// <summary>
+        /// увольнение босса
+        /// </summary>
+        public virtual void SackBoss() { 
+            this.Boss = null; 
+            this.bossSalary = 0; 
+        }
 
         /// <summary>
         /// создаёт отдел
@@ -103,7 +118,13 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         public virtual void AutoOpen() { }
 
-        public virtual void Close() { }
+        /// <summary>
+        /// закрыть отдел
+        /// </summary>
+        /// <param name="workPlace"></param>
+        public virtual void Close(WorkPlace workPlace) { 
+            this.workPlaces.Remove(workPlace); 
+        }
 
         /// <summary>
         /// переименование отдела или компании

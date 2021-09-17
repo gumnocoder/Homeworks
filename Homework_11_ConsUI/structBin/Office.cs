@@ -63,7 +63,6 @@ namespace Homework_11_ConsUI.structBin
             this.Boss = officeManager.Name;
         }
 
-
         public override string ToString()
         {
             return $"{Name}, workers " +
