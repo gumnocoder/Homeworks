@@ -14,9 +14,8 @@ namespace Homework_11_ConsUI.employeBin
         /// <returns></returns>
         private static int PercentOfSalary(int num)
         {
-            double result;
+            float result;
             result = (15f / 100f) * num;
-            Console.WriteLine(result);
             return Convert.ToInt32(result);
         }
 
@@ -28,10 +27,9 @@ namespace Homework_11_ConsUI.employeBin
         public static int CountAdminSalary(WorkPlace workPlace)
         {
             workersSalarySum = 0;
-            workersSalarySum = PercentOfSalary(
-                CountingAllDepSalary(workPlace)
-                );
-            if (workersSalarySum < 1300) return 1300;
+            CountingAllDepSalary(workPlace);
+            workersSalarySum = PercentOfSalary(workersSalarySum);
+            if (workersSalarySum < 1300) { return 1300; }
             return workersSalarySum;
         }
         
@@ -42,13 +40,12 @@ namespace Homework_11_ConsUI.employeBin
         /// <returns></returns>
         private static bool CheckWorkersList(WorkPlace workPlace)
         {
-            if (workPlace.Workers != null)
-            {
-                if (workPlace.Workers.Count > 0)
-                {
+            if (workPlace.Workers != null) {
+                if (workPlace.Workers.Count > 0) {
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -59,10 +56,8 @@ namespace Homework_11_ConsUI.employeBin
         /// <returns></returns>
         private static bool CheckWorkPlacesList(WorkPlace workPlace)
         {
-            if (workPlace.WorkPlaces != null)
-            {
-                if (workPlace.WorkPlaces.Count > 0)
-                {
+            if (workPlace.WorkPlaces != null) {
+                if (workPlace.WorkPlaces.Count > 0) {
                     return true;
                 }
             }
@@ -74,34 +69,21 @@ namespace Homework_11_ConsUI.employeBin
         /// </summary>
         /// <param name="workPlace"></param>
         /// <returns></returns>
-        private static int CountingAllDepSalary(WorkPlace workPlace)
+        private static void CountingAllDepSalary(WorkPlace workPlace)
         {
-            if (CheckWorkPlacesList(workPlace))
-            {
-                foreach (var wplace in workPlace.WorkPlaces)
-                {
-                    if (CheckWorkPlacesList(wplace)) 
-                    { 
-                        return CountingAllDepSalary(wplace); 
-                    }
-                    if (CheckWorkersList(wplace)) 
-                    { 
-                        for (int i = 0; i < wplace.Workers.Count; i++) { 
-                            workersSalarySum += wplace.Workers[i].MonthlySalary(); 
-                        }
-                    }
+            if (CheckWorkersList(workPlace)) {
+                foreach (var e in workPlace.Workers) {
+                    workersSalarySum += e.MonthlySalary();
                 }
             }
 
-            if (CheckWorkersList(workPlace))
-            {
-                for (int i = 0; i < workPlace.Workers.Count; i++)
-                {
-                    workersSalarySum += workPlace.Workers[i].MonthlySalary();
+            if (CheckWorkPlacesList(workPlace)) {
+                foreach (var e in workPlace.WorkPlaces) {
+                    CountingAllDepSalary(e);
                 }
             }
 
-            return workersSalarySum;
+            return;
         }
     }
 }

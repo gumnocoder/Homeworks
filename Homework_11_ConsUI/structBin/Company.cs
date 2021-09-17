@@ -1,20 +1,11 @@
 ﻿using Homework_11_ConsUI.employeBin;
-using static Homework_11_ConsUI.employeBin.Director;
+using static Homework_11_ConsUI.structBin.OrgStructure;
+
 namespace Homework_11_ConsUI.structBin
 {
-    sealed class Company : WorkPlace
+    public sealed class Company : WorkPlace
     {
         static int depsCount = 0;
-        /// <summary>
-        /// количество отделов
-        /// </summary>
-        public static int DepsCount { get { return depsCount; } }
-
-        /// <summary>
-        /// директор
-        /// </summary>
-        public static Director companyDirector;
-
 
         /// <summary>
         /// конструктор
@@ -24,11 +15,13 @@ namespace Homework_11_ConsUI.structBin
             Name = "'Best Coders' corp.";
             WorkPlaces = new();
             Workers = new();
+            workPlacesGlobal.Add(this);
         }
 
         public override void Hire(Employe employe)
         {
             this.Workers.Add(employe);
+            RefreshBossesSalary();
         }
 
         /// <summary>
@@ -37,9 +30,8 @@ namespace Homework_11_ConsUI.structBin
         /// <param name="director"></param>
         public override void HireBoss(Director director)
         {
-            companyDirector = director;
-            this.Boss = companyDirector.Name;
-            this.BossSalary = companyDirector.MonthlySalary();
+            this.Boss = director.Name;
+            this.BossSalary = SetBossSalary(this);
         }
 
         public override void Open(Department dep)
@@ -55,10 +47,12 @@ namespace Homework_11_ConsUI.structBin
                 new Department($"DepartmentName {depsCount}")
                 );
         }
+
         public override string ToString()
         {
-            return $"Company {Name}, count of departments " +
-                $"{WorkPlaces.Count}";
+            return $"Company {Name}, " +
+                $"count of departments " +
+                $"{WorkPlaces.Count} {Boss}{BossSalary}";
         }
     }
 }

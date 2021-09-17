@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="close.png" />
+    <None Remove="icon.ico" />
+    <None Remove="icon.png" />
+    <None Remove="max.png" />
+    <None Remove="min.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Homework_11_ConsUI\Homework_11_ConsUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="close.png" />
+    <Resource Include="icon.ico" />
+    <Resource Include="icon.png" />
+    <Resource Include="max.png" />
+    <Resource Include="min.png" />
+  </ItemGroup>
+
+</Project>

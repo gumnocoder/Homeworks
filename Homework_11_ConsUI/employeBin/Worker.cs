@@ -1,6 +1,6 @@
 ﻿namespace Homework_11_ConsUI.employeBin
 {
-    class Worker : Employe
+    public class Worker : Employe
     {
         static int workersCount = 0;
 
@@ -10,7 +10,11 @@
         /// <param name="Salary"></param>
         /// <param name="Name"></param>
         /// <param name="Age"></param>
-        public Worker(int Salary, string Name, byte Age)
+        public Worker(
+            int Salary, 
+            string Name, 
+            byte Age
+            )
         {
             ++workersCount;
             this.Type = "Worker";
@@ -22,7 +26,11 @@
         /// <summary>
         /// автоконструктор
         /// </summary>
-        public Worker() : this(5, $"worker_{workersCount}", 18) 
+        public Worker() : this(
+            1, 
+            $"worker_{workersCount}", 
+            18
+            ) 
         { 
             ++workersCount; 
         }

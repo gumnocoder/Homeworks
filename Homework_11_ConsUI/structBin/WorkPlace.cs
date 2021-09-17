@@ -1,23 +1,63 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 using Homework_11_ConsUI.employeBin;
+using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
+
 namespace Homework_11_ConsUI.structBin
 {
-    abstract class WorkPlace
+    [XmlInclude(typeof(Department))]
+    [XmlInclude(typeof(Office))]
+    [XmlInclude(typeof(Company))]
+    public abstract class WorkPlace
     {
+        List<Employe> workers;
         /// <summary>
         /// список сотрудников
         /// </summary>
-        public List<Employe> Workers { get; set; }
+        public List<Employe> Workers
+        {
+            get { return workers; }
+            set { workers = value; }
+        }
+
+        List<WorkPlace> workPlaces;
         /// <summary>
         /// список отделов
         /// </summary>
-        public List<WorkPlace> WorkPlaces { get; set; }
+        public List<WorkPlace> WorkPlaces { 
+            get { return workPlaces; } 
+            set { workPlaces = value; } 
+        }
 
-        public string Name { get; set; }
-        public string Boss { get; set; }
+        string name;
+        /// <summary>
+        /// Название отдела
+        /// </summary>
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
 
-        public int BossSalary { get; set; }
+        string boss;
+        /// <summary>
+        /// Управляющий
+        /// </summary>
+        public string Boss
+        {
+            get { return boss; }
+            set { boss = value; }
+        }
 
+        int bossSalary;
+        /// <summary>
+        /// Зарплата управляющего
+        /// </summary>
+        public int BossSalary
+        {
+            get { return bossSalary; }
+            set { bossSalary = value; }
+        }
 
         /// <summary>
         /// найм работников
@@ -30,11 +70,36 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         /// <param name="depBoss">нанимаемый начальник</param>
         public virtual void HireBoss(DepartmentBoss depBoss) { }
-
         public virtual void HireBoss(Director director) { }
         public virtual void HireBoss(OfficeManager officeManager) { }
 
-        public virtual void Sack() { }
+        /// <summary>
+        /// устанавливает зп управляющего
+        /// </summary>
+        /// <param name="workPlace"></param>
+        /// <returns></returns>
+        public virtual int SetBossSalary(WorkPlace workPlace) {
+            if (this.Boss != null) { 
+                return CountAdminSalary(workPlace); 
+            }
+            else return 0; 
+        }
+
+        /// <summary>
+        /// увольнение сотрудника
+        /// </summary>
+        /// <param name="employe"></param>
+        public virtual void Sack(Employe employe) { 
+            this.Workers.Remove(employe); 
+        }
+
+        /// <summary>
+        /// увольнение босса
+        /// </summary>
+        public virtual void SackBoss() { 
+            this.Boss = null; 
+            this.bossSalary = 0; 
+        }
 
         /// <summary>
         /// создаёт отдел
@@ -53,13 +118,20 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         public virtual void AutoOpen() { }
 
-        public virtual void Close() { }
+        /// <summary>
+        /// закрыть отдел
+        /// </summary>
+        /// <param name="workPlace"></param>
+        public virtual void Close(WorkPlace workPlace) { 
+            this.workPlaces.Remove(workPlace); 
+        }
 
         /// <summary>
         /// переименование отдела или компании
         /// </summary>
         /// <param name="newName"></param>
-        public virtual void Rename(string newName) { this.Name = newName; }
-
+        public virtual void Rename(string newName) { 
+            this.Name = newName; 
+        }
     }
 }

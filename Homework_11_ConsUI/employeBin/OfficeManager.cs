@@ -2,7 +2,7 @@
 
 namespace Homework_11_ConsUI.employeBin
 {
-    class OfficeManager : Manager
+    public class OfficeManager : Manager
     {
         public OfficeManager(
             WorkPlace ThisWorkPlace, 
@@ -15,5 +15,6 @@ namespace Homework_11_ConsUI.employeBin
             this.Name = Name;
             this.Age = Age;
         }
+        public OfficeManager() { }
     }
 }

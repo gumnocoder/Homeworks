@@ -2,7 +2,7 @@
 
 namespace Homework_11_ConsUI.employeBin
 {
-    class DepartmentBoss : Manager
+    public class DepartmentBoss : Manager
     {
 
         /// <summary>
@@ -23,5 +23,9 @@ namespace Homework_11_ConsUI.employeBin
             this.Age = Age;
         }
 
+        /// <summary>
+        /// автоконструктор
+        /// </summary>
+        public DepartmentBoss() { }
     }
 }

@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Homework_11_ConsUI.employeBin
+﻿namespace Homework_11_ConsUI.employeBin
 {
-    class Intern : Employe
+    public class Intern : Employe
     {
         static int internsCount = 0;
 
+        /// <summary>
+        /// конструктор
+        /// </summary>
+        /// <param name="Salary"></param>
+        /// <param name="Name"></param>
+        /// <param name="Age"></param>
         public Intern(int Salary, string Name, byte Age)
         {
             ++internsCount;
@@ -19,7 +19,17 @@ namespace Homework_11_ConsUI.employeBin
             this.Age = Age;
         }
 
-        public Intern() : this(100, $"intern_{internsCount}", 18) { ++internsCount; }
+        /// <summary>
+        /// автоконструктор
+        /// </summary>
+        public Intern() : this(
+            100, 
+            $"intern_{internsCount}", 
+            18
+            ) 
+        { 
+            ++internsCount; 
+        }
 
         public override string ToString()
         {
