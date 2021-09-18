@@ -4,10 +4,27 @@
              xmlns:local="clr-namespace:Homework_11_wpfUI"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Style x:Name="headersStyle" TargetType="{x:Type GridViewColumnHeader}">
+        <Style x:Name="headersStyle" TargetType="GridViewColumnHeader">
             <Setter Property="Background" Value="#5c6c85"/>
             <Setter Property="Foreground" Value="#aeb5c5"/>
             <Setter Property="BorderBrush" Value="#aeb5c5"/>
+        </Style>
+        <Style TargetType="ContextMenu">
+            <Setter Property="Background" Value="#aeb5c5"/>
+            <Setter Property="Foreground" Value="#5c6c85"/>
+
+        </Style>
+        <Style TargetType="Menu">
+            <Setter Property="Background" Value="#334666"/>
+            <Setter Property="Foreground" Value="#aeb5c5"/>
+        </Style>
+        <Style TargetType="MenuItem">
+            <Setter Property="Background" Value="#334666"/>
+            <Setter Property="Foreground" Value="#aeb5c5"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#334666"/>
+            <Setter Property="Foreground" Value="#aeb5c5"/>
         </Style>
     </Application.Resources>
 </Application>

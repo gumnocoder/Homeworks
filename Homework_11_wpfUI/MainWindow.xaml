@@ -11,12 +11,12 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         Background="#334666">
-    
-    <Grid>
+
+    <Grid VerticalAlignment="Stretch">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
-            <RowDefinition Height="425"/>
+            <RowDefinition Height="425*"/>
         </Grid.RowDefinitions >
         <tb:TaskbarIcon 
             Visibility="Visible"
@@ -46,40 +46,84 @@
                Margin="0,5,45,3" 
                MouseDown="minimizeBtn_MouseDown"
                ToolTip="свернуть"/>
-        <Menu Margin="35,5,5,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#334666" Foreground="#e9e9eb">
+        <Menu Margin="35,5,5,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="File" FontSize="12" >
-                <MenuItem Header="Save as..." Background="#3e619b" Foreground="#e9e9eb">
-                    <MenuItem Header="XML" Background="#3e619b" Foreground="#e9e9eb"/>
-                    <MenuItem Header="JSON" Background="#3e619b" Foreground="#e9e9eb"/>
+                <MenuItem Header="Save as...">
+                    <MenuItem Header="XML" Click="MenuItem_Click_1"/>
+                    <MenuItem Header="JSON"/>
                 </MenuItem>
-                <MenuItem Header="Exit" Click="exitBtn_Click" Background="#3e619b" Foreground="#e9e9eb"/>
+                <MenuItem Header="Exit" Click="exitBtn_Click"/>
             </MenuItem>
             <Separator Width="10"/>
-            <MenuItem Header="Edit" FontSize="12"/>
+            <MenuItem Header="Edit" FontSize="12">
+                <MenuItem Header="Create Company" Click="MenuItem_Click">
+                    <MenuItem.Icon>
+                        <Image Source="\icon.ico">
+                        </Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
         </Menu>
-        <Grid Grid.Row="1" Margin="5,5,5,5" Background="#5c6c85">
+        <Grid Grid.Row="1" Margin="5,5,5,5" Background="#5c6c85" VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <ListView 
-                Grid.Row="0" 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Background="#5c6c85" 
+                Name="workersContent" 
+                VerticalContentAlignment="Stretch">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="name" Width="70" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="salary" Width="70" DisplayMemberBinding="{Binding Salary}"/>
+                        <GridViewColumn Header="type" Width="70" DisplayMemberBinding="{Binding Type}"/>
+                        <GridViewColumn Header="age" Width="70" DisplayMemberBinding="{Binding Age}"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Уволить"/>
+                        <MenuItem Header="Переименовать"/>
+                        <MenuItem Header="Изменить оплату"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+            <ListView 
+                Grid.Row="1" 
                 Grid.Column="0" 
                 Margin="0,0,22,0" 
                 Background="#5c6c85" 
                 MinWidth="150" 
                 HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
                 Name="structContent">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="name" Width="70" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="substructs" Width="70" DisplayMemberBinding="{Binding this.WorkPlaces.Count}"/>
-                        <GridViewColumn Header="workers" Width="60" DisplayMemberBinding="{Binding this.Workers.Count}"/>
-                        <GridViewColumn Header="boss" Width="60" DisplayMemberBinding="{Binding this.boss}"/>
-                        <GridViewColumn Header="boss salary" Width="80" DisplayMemberBinding="{Binding this.bossSalary}"/>
+                        <GridViewColumn Header="name" Width="100" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="boss" Width="70" DisplayMemberBinding="{Binding Boss}"/>
+                        <GridViewColumn Header="boss salary" Width="80" DisplayMemberBinding="{Binding BossSalary}"/>
+                        <GridViewColumn Header="substructs" Width="70" DisplayMemberBinding="{Binding WorkPlaces.Count}"/>
+                        <GridViewColumn Header="workers" Width="60" DisplayMemberBinding="{Binding Workers.Count}"/>
                     </GridView>
                 </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Open substruct" Name="openSubStruct">
+                            <MenuItem Header="department" Name="openDepatment" Click="openSubStructDep_Click"/>
+                            <MenuItem Header="office" Name="openOffice" Click="openOffice_Click"/>
+                        </MenuItem>
+                        <MenuItem Header="Close substruct"/>
+                        <Separator/>
+                        <MenuItem Name="hireSubBoss" Header="Нанять управляющего" Click="HireBossInDep"/>
+                        <MenuItem Header="Уволить управляющего"/>
+                        <Separator/>
+                        <MenuItem Header="Нанять работника" Name="hireWorker" Click="hireWorker_Click"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
             </ListView>
             <GridSplitter Grid.Column="0" VerticalAlignment="Stretch" Margin="5,0,5,0" Background="#334666" Width="22" >
 
@@ -94,9 +138,17 @@
 
             </ScrollBar>
             <Border Grid.Column="2" BorderBrush="#334666" BorderThickness="5,0,0,0">
-                <TextBlock Grid.Column="2" Background="#8590a6" Padding="5"></TextBlock>
+                <TextBlock Grid.Column="2" Background="#8590a6" Padding="5" Margin="0,22,0,0"></TextBlock>
             </Border>
-            
+            <TextBlock 
+                Name="pathStructOrEmploye" 
+                Grid.Column="2"
+                Visibility="Visible" 
+                Background="#334666" 
+                Foreground="#8590a6"
+                VerticalAlignment="Top"
+                Text="{Binding ElementName=structContent, Path=SelectedItem}"
+                Padding="5"/>
             <DockPanel HorizontalAlignment="Left" Height="0" LastChildFill="False" Margin="52,185,0,0" VerticalAlignment="Top" Width="13"/>
         </Grid>
 

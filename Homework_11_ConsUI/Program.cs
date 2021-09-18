@@ -17,9 +17,9 @@ namespace Homework_11_ConsUI
             if (OneCompany.Workers.Count > 0) Console.WriteLine("true"); else Console.WriteLine("False");
             OneCompany.Sack(OneCompany.Workers[0]);
             if (OneCompany.Workers.Count > 0) Console.WriteLine("true"); else Console.WriteLine("False");
-            OneCompany.AutoOpen();
-            OneCompany.AutoOpen();
-            OneCompany.AutoOpen();
+            OneCompany.OpenDep();
+            OneCompany.OpenDep();
+            OneCompany.OpenDep();
             OneCompany.WorkPlaces[0].Hire(new Worker());
             OneCompany.WorkPlaces[0].Hire(new Worker(100, "John", 18));
             OneCompany.WorkPlaces[0].Hire(new Worker(1, "Jo4hn", 18));

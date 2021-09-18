@@ -5,6 +5,7 @@ namespace Homework_11_ConsUI.structBin
 {
     public class Department : WorkPlace
     {
+        new public string Boss { get; set; }
 
         static int officeCount = 0;
 
@@ -30,6 +31,14 @@ namespace Homework_11_ConsUI.structBin
         {
             ++officeCount;
             this.WorkPlaces.Add(office);
+        }
+
+        public override void OpenDep()
+        {
+            ++Company.depsCount;
+            this.WorkPlaces.Add(
+                new Department($"DepartmentName {Company.depsCount}")
+                );
         }
 
         /// <summary>
