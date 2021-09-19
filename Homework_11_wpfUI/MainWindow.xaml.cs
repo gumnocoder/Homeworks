@@ -29,21 +29,34 @@ namespace Homework_11_wpfUI
 
         private  void OnKeyDown(object sender, KeyEventArgs e)
         {
-            var key = e.KeyboardDevice.Modifiers;
-            var ctrl = ModifierKeys.Control;
-            var shift = ModifierKeys.Shift;
-
-
-            if (key == ctrl && e.Key == Key.Q)
-            { MenuItem_Click(sender, e); }
-            else if (key == ctrl && e.Key == Key.W)
-            { CompanyDepartmentOpen(sender, e); }
-            else if (key == ctrl && e.Key == Key.E)
-            { CompanyOfficeOpen(sender, e); }
-            else if (key == ctrl && e.Key == Key.X)
-            { exitBtn_Click(sender, e); }
-            else if (key == shift && e.Key == Key.A)
-            { AutoFillingCompanyStructBtn(sender, e); }
+            switch (e.KeyboardDevice.Modifiers)
+            {
+                case ModifierKeys.Control:
+                    switch (e.Key)
+                    {
+                        case Key.Q:
+                            CreateCompanyBtn(sender, e);
+                            break;
+                        case Key.W:
+                            CompanyDepartmentOpen(sender, e);
+                            break;
+                        case Key.E:
+                            CompanyOfficeOpen(sender, e);
+                            break;
+                        case Key.X:
+                            exitBtn_Click(sender, e);
+                            break;
+                    }
+                    break;
+                case ModifierKeys.Shift:
+                    switch (e.Key)
+                    {
+                        case Key.A:
+                            AutoFillingCompanyStructBtn(sender, e);
+                            break;
+                    }
+                    break;
+            }
         }
 
         private void OnListKeyDown(object sender, KeyEventArgs e)
@@ -52,25 +65,25 @@ namespace Homework_11_wpfUI
             {
                 switch (e.KeyboardDevice.Modifiers)
                 {
-                    case (ModifierKeys.Control):
+                    case ModifierKeys.Control:
                         switch (e.Key)
                         {
-                            case (Key.H):
+                            case Key.H:
                                 hireWorker_Click(sender, e);
                                 break;
-                            case (Key.O):
+                            case Key.O:
                                 openSubStructDep_Click(sender, e);
                                 break;
                         }
                         break;
 
-                    case (ModifierKeys.Shift):
+                    case ModifierKeys.Shift:
                         switch (e.Key)
                         {
-                            case (Key.H):
+                            case Key.H:
                                 HireIntern_Click(sender, e);
                                 break;
-                            case (Key.O):
+                            case Key.O:
                                 openOffice_Click(sender, e);
                                 break;
                         }
@@ -144,7 +157,7 @@ namespace Homework_11_wpfUI
         {
             company.HireBoss(new Director(company));
         }
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void CreateCompanyBtn(object sender, RoutedEventArgs e)
         {
             if (!isCompanyCreated)
             {
@@ -300,6 +313,15 @@ namespace Homework_11_wpfUI
             currentWorkPlace = company;
             structContent.ItemsSource = currentWorkPlace.WorkPlaces;
             workersContent.ItemsSource = currentWorkPlace.Workers;
+        }
+
+        private void CloseSubstructBtn(object sender, RoutedEventArgs e)
+        {
+            var content = structContent.SelectedItem;
+            if (content != null)
+            {
+                currentWorkPlace.Close(content as WorkPlace);
+            }
         }
     }
 }
