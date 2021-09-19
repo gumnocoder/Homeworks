@@ -49,7 +49,7 @@
         <Menu Margin="35,5,5,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="File" FontSize="12" >
                 <MenuItem Header="Save as...">
-                    <MenuItem Header="XML" Click="MenuItem_Click_1"/>
+                    <MenuItem Header="XML" Click="SaveCompanyToXmlBtn"/>
                     <MenuItem Header="JSON"/>
                 </MenuItem>
                 <MenuItem Header="Exit          ctrl + x" Click="exitBtn_Click"/>
@@ -68,8 +68,10 @@
                           ctrl + E" 
                           Click="CompanyOfficeOpen"/>
                 <Separator/>
-                <MenuItem Header="Automatic filling         shift + A" Click="MenuItem_Click_2"/>
+                <MenuItem Header="Automatic filling         shift + A" Click="AutoFillingCompanyStructBtn"/>
             </MenuItem>
+            <Separator Width="10"/>
+            <MenuItem Header="Go Company-tree root..." Click="GoCompanyRootBtn"/>
         </Menu>
         <Grid Grid.Row="1" Margin="5,5,5,5" 
               Background="#5c6c85" 
@@ -114,7 +116,9 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Name="structContent"
-                KeyDown="OnListKeyDown">
+                KeyDown="OnListKeyDown"
+                MouseDoubleClick="structContent_MouseDown"
+                >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="name" Width="100"

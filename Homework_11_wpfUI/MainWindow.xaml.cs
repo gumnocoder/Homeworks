@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Input;
-using static System.Windows.SystemParameters;
-using Homework_11_ConsUI.structBin;
 using Homework_11_ConsUI.employeBin;
-using static Homework_11_ConsUI.functions.ExportToXml;
-using System.Diagnostics;
+using Homework_11_ConsUI.structBin;
 using Homework_11_wpfUI.messagesBin;
-using static Homework_11_wpfUI.messagesBin.xmlSaved;
+using static System.Windows.SystemParameters;
+using static Homework_11_ConsUI.functions.ExportToXml;
 
 namespace Homework_11_wpfUI
 {
@@ -19,14 +17,14 @@ namespace Homework_11_wpfUI
     {
         public static ObservableCollection<WorkPlace> allWorkPlaces = new();
 
+        WorkPlace currentWorkPlace;
+
         bool isCompanyCreated = false;
 
         Company company;
         public MainWindow()
         {
             InitializeComponent();
-            
-            //structContent.ItemsSource = company.WorkPlaces;
         }
 
         private  void OnKeyDown(object sender, KeyEventArgs e)
@@ -45,17 +43,13 @@ namespace Homework_11_wpfUI
             else if (key == ctrl && e.Key == Key.X)
             { exitBtn_Click(sender, e); }
             else if (key == shift && e.Key == Key.A)
-            { MenuItem_Click_2(sender, e); }
+            { AutoFillingCompanyStructBtn(sender, e); }
         }
 
         private void OnListKeyDown(object sender, KeyEventArgs e)
         {
             if (structContent.SelectedItem != null)
             {
-                //var key = e.KeyboardDevice.Modifiers;
-                //var ctrl = ModifierKeys.Control;
-                //var shift = ModifierKeys.Shift;
-
                 switch (e.KeyboardDevice.Modifiers)
                 {
                     case (ModifierKeys.Control):
@@ -81,21 +75,7 @@ namespace Homework_11_wpfUI
                                 break;
                         }
                         break;
-
                 }
-
-                //WorkPlace a = structContent.SelectedItem as WorkPlace;
-                //if (key == ctrl && e.Key == Key.H)
-                //{ hireWorker_Click(sender, e); }
-
-                //else if (key == shift && e.Key == Key.H)
-                //{ HireIntern_Click(sender, e); }
-
-                //else if (key == ctrl && e.Key == Key.O)
-                //{ openSubStructDep_Click(sender, e); }
-
-                //else if (key == shift && e.Key == Key.O)
-                //{ openOffice_Click(sender, e); }
             }
         }
 
@@ -115,8 +95,6 @@ namespace Homework_11_wpfUI
                 {
                     a.HireBoss(new DepartmentBoss(a));
                     foreach (var i in company.WorkPlaces) Debug.WriteLine(i.Boss);
-                    //a.HireBoss(new DepartmentBoss());
-                    //Debug.WriteLine(structContent.SelectedItem.Boss);
                 }
                 else if(a is Office)
                 {
@@ -133,16 +111,16 @@ namespace Homework_11_wpfUI
             if (flag == false)
             {
                 flag = true;
-                this.Top = 0;
-                this.Left = 0;
-                this.Width = PrimaryScreenWidth;
-                this.Height = PrimaryScreenHeight;
+                Top = 0;
+                Left = 0;
+                Width = PrimaryScreenWidth;
+                Height = PrimaryScreenHeight;
             }
             else
             {
                 flag = false;
-                this.Width = 800;
-                this.Height = 450;
+                Width = 800;
+                Height = 450;
             }
         }
 
@@ -176,20 +154,9 @@ namespace Homework_11_wpfUI
                 Debug.WriteLine(company.Boss);
                 var m = new companyCreated();
                 m.ShowDialog();
-                //FillCompanySubstructs();
             }
         }
 
-        private void FillCompanySubstructs()
-        {
-            //if (isCompanyCreated)
-            //{
-            //    foreach (var e in company.WorkPlaces)
-            //    {
-            //        allWorkPlaces.Add(e);
-            //    }
-            //}
-        }
 
         private void CompanyDepartmentOpen(object sender, RoutedEventArgs e)
         {
@@ -221,6 +188,10 @@ namespace Homework_11_wpfUI
             {
                 (structContent.SelectedItem as WorkPlace).Hire(new Worker());
             }
+            else
+            {
+                currentWorkPlace.Hire(new Worker());
+            }
         }
 
         private void HireIntern_Click(object sender, RoutedEventArgs e)
@@ -228,6 +199,10 @@ namespace Homework_11_wpfUI
             if (structContent.SelectedItem != null)
             {
                 (structContent.SelectedItem as WorkPlace).Hire(new Intern());
+            }
+            else
+            {
+                currentWorkPlace.Hire(new Intern());
             }
         }
 
@@ -255,7 +230,7 @@ namespace Homework_11_wpfUI
             }
         }
 
-        private void MenuItem_Click_1(object sender, RoutedEventArgs e)
+        private void SaveCompanyToXmlBtn(object sender, RoutedEventArgs e)
         {
             if (isCompanyCreated)
             {
@@ -266,15 +241,17 @@ namespace Homework_11_wpfUI
         }
         private void Refresh()
         {
-            structContent.ItemsSource = company.WorkPlaces;
+            structContent.ItemsSource = currentWorkPlace.WorkPlaces;
         }
-        private void MenuItem_Click_2(object sender, RoutedEventArgs e)
+        private void AutoFillingCompanyStructBtn(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("started");
             CreateCompany();
-            for (int i = 0; i < 10; i++) { company.OpenDep(); }
-            for (int i = 0; i < 5; i++) { company.Open(); }
-            foreach (WorkPlace wp in company.WorkPlaces)
+            HireCompanyBoss();
+            currentWorkPlace = company;
+            for (int i = 0; i < 10; i++) { currentWorkPlace.OpenDep(); }
+            for (int i = 0; i < 5; i++) { currentWorkPlace.Open(); }
+            foreach (WorkPlace wp in currentWorkPlace.WorkPlaces)
             {
                 if (wp.GetType() == typeof(Department))
                 {
@@ -286,9 +263,9 @@ namespace Homework_11_wpfUI
                         for (int i = 0; i < 10; i++) { wP.Hire(new Worker()); }
                         wP.Hire(new Intern());
                         wP.Hire(new Intern());
-                        //if (wP.GetType() == typeof(Department))
-                        //{ wP.HireBoss(new DepartmentBoss(wP)); }
-                        //else { wP.HireBoss(new OfficeManager(wP)); }
+                        if (wP.GetType() == typeof(Department))
+                        { wP.HireBoss(new DepartmentBoss(wP)); }
+                        else { wP.HireBoss(new OfficeManager(wP)); }
                     }
                     for (int i = 0; i < 10; i++) { wp.Hire(new Worker()); }
                     wp.HireBoss(new DepartmentBoss(wp));
@@ -303,6 +280,26 @@ namespace Homework_11_wpfUI
             }
             Refresh();
         }
-    }
 
+        private void structContent_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var content = structContent.SelectedItem;
+            if (content != null)
+            {
+                currentWorkPlace = content as WorkPlace;
+                if (currentWorkPlace.Workers != null)
+                {
+                    workersContent.ItemsSource = currentWorkPlace.Workers;
+                }
+                structContent.ItemsSource = currentWorkPlace.WorkPlaces;
+            }
+        }
+
+        private void GoCompanyRootBtn(object sender, RoutedEventArgs e)
+        {
+            currentWorkPlace = company;
+            structContent.ItemsSource = currentWorkPlace.WorkPlaces;
+            workersContent.ItemsSource = currentWorkPlace.Workers;
+        }
+    }
 }

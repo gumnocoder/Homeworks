@@ -18,7 +18,7 @@
         {
             ++workersCount;
             this.Type = "Worker";
-            this.Salary = Salary;
+            this.Salary = Salary * 20 * 8;
             this.Name = Name;
             this.Age = Age;
         }
