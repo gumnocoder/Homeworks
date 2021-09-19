@@ -261,8 +261,9 @@ namespace Homework_11_wpfUI
         {
             if (isCompanyCreated)
             {
-                company.OpenDep();
+                currentWorkPlace.OpenDep();
             }
+            Refresh();
         }
 
         /// <summary>
@@ -276,8 +277,9 @@ namespace Homework_11_wpfUI
         {
             if (isCompanyCreated)
             {
-                company.Open();
+                currentWorkPlace.Open();
             }
+            Refresh();
         }
 
         /// <summary>
