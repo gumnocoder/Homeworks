@@ -51,7 +51,12 @@ namespace Homework_11_ConsUI.structBin
 
         public override string ToString()
         {
-            return $"Department {Name}";
+            return $"{Name} \n\n" +
+                $"---------------------\n\n" +
+                $"Substructs count: {WorkPlaces.Count}\n" +
+                $"Workers count: {Workers.Count}\n\n" +
+                $"Boss: {Boss}\n" +
+                $"Boss monthly salary: {BossSalary}";
         }
 
         /// <summary>
