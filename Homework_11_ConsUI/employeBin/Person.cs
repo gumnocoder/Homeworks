@@ -17,7 +17,7 @@ namespace Homework_11_ConsUI.employeBin
         /// <summary>
         /// имя
         /// </summary>
-        internal string Name
+        public string Name
         {
             get { return name; }
             set { name = value; }
@@ -27,7 +27,7 @@ namespace Homework_11_ConsUI.employeBin
         /// <summary>
         /// возраст
         /// </summary>
-        internal byte Age
+        public byte Age
         {
             get { return age; }
             set { age = value; }
