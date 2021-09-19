@@ -5,6 +5,8 @@ namespace Homework_11_ConsUI.structBin
 {
     public class Department : WorkPlace
     {
+        //string boss;
+        //new public string Boss { get { return boss; } set { boss = value; } }
 
         static int officeCount = 0;
 
@@ -23,6 +25,17 @@ namespace Homework_11_ConsUI.structBin
         public Department() { }
 
         /// <summary>
+        /// найм работника
+        /// </summary>
+        /// <param name="employe"></param>
+        public override void Hire(Employe employe)
+        {
+            Workers.Add(employe);
+            //BossSalary = SetBossSalary(this);
+            RefreshBossesSalary();
+        }
+
+        /// <summary>
         /// открыть подотдел
         /// </summary>
         /// <param name="office"></param>
@@ -30,6 +43,14 @@ namespace Homework_11_ConsUI.structBin
         {
             ++officeCount;
             this.WorkPlaces.Add(office);
+        }
+
+        public override void OpenDep()
+        {
+            ++Company.depsCount;
+            this.WorkPlaces.Add(
+                new Department($"DepartmentName {Company.depsCount}")
+                );
         }
 
         /// <summary>
@@ -42,19 +63,15 @@ namespace Homework_11_ConsUI.structBin
 
         public override string ToString()
         {
-            return $"Department {Name}";
+            return $"{Name} \n\n" +
+                $"---------------------\n\n" +
+                $"Substructs count: {WorkPlaces.Count}\n" +
+                $"Workers count: {Workers.Count}\n\n" +
+                $"Boss: {Boss}\n" +
+                $"Boss monthly salary: {BossSalary}";
         }
 
-        /// <summary>
-        /// найм работника
-        /// </summary>
-        /// <param name="employe"></param>
-        public override void Hire(Employe employe)
-        {
-            this.Workers.Add(employe);
-            BossSalary = SetBossSalary(this);
-            RefreshBossesSalary();
-        }
+
 
         /// <summary>
         /// найм управляющего
@@ -63,7 +80,7 @@ namespace Homework_11_ConsUI.structBin
         public override void HireBoss(DepartmentBoss depBoss)
         {
             Boss = depBoss.Name;
-            BossSalary = SetBossSalary(this);
+            //BossSalary = SetBossSalary(this);
         }
     }
 }

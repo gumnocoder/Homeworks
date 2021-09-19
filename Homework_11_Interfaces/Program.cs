@@ -4,7 +4,7 @@ namespace Homework_11_Interfaces
 {
     interface I1
     {
-        void M() { Console.WriteLine("I1.M()"); }
+        static void M() { Console.WriteLine("I1.M()"); }
     }
 
     interface I2
@@ -20,6 +20,24 @@ namespace Homework_11_Interfaces
 
     class B : A, I1, I2
     {
-        
+        new public void M() { Console.WriteLine("A.B()"); }
+    }
+
+    class C
+    {
+        public void M()
+        {
+            I1.M();
+        }
+    }
+
+    class Program
+    {
+        static void Main()
+        {
+            I1 b = new B();
+            b.M();
+            Console.ReadKey();
+        }
     }
 }

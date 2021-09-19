@@ -33,7 +33,11 @@
 
         public override string ToString()
         {
-            return $"{Name} {Age} y.o., {Salary}$ per month";
+            return $"{Name}\n\n" +
+                $"----------------------\n\n" +
+                $"Type {Type}\n" +
+                $"{Age} y.o., salary:\n" +
+                $"{Salary} per month\n";
         }
     }
 }

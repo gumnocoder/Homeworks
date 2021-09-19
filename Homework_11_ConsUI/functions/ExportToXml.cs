@@ -4,7 +4,7 @@ using Homework_11_ConsUI.structBin;
 
 namespace Homework_11_ConsUI.functions
 {
-    class ExportToXml
+    public class ExportToXml
     {
         static string xmlData = "company_struct.xml";
 

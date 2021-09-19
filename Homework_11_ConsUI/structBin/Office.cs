@@ -22,7 +22,12 @@ namespace Homework_11_ConsUI.structBin
         /// <summary>
         /// автоконструктор
         /// </summary>
-        public Office() { }
+        public Office()
+        {
+            Workers = new();
+            WorkPlaces = new();
+            workPlacesGlobal.Add(this);
+        }
 
         /// <summary>
         /// найм персонала
@@ -65,9 +70,12 @@ namespace Homework_11_ConsUI.structBin
 
         public override string ToString()
         {
-            return $"{Name}, workers " +
-                $"{Workers.Count}, " +
-                $"sub-structures: {WorkPlaces.Count}";
+            return $"{Name} \n\n" +
+                $"---------------------\n\n" +
+                $"Substructs count: {WorkPlaces.Count}\n" +
+                $"Workers count: {Workers.Count}\n\n" +
+                $"Boss: {Boss}\n" +
+                $"Boss monthly salary: {BossSalary}";
         }
     }
 }

@@ -10,13 +10,13 @@
         Width="800"
         ResizeMode="NoResize"
         WindowStyle="None"
-        Background="#334666">
-    
-    <Grid>
+        Background="#334666"
+        KeyDown="OnKeyDown">
 
+    <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
-            <RowDefinition Height="425"/>
+            <RowDefinition Height="425*"/>
         </Grid.RowDefinitions >
         <tb:TaskbarIcon 
             Visibility="Visible"
@@ -46,59 +46,160 @@
                Margin="0,5,45,3" 
                MouseDown="minimizeBtn_MouseDown"
                ToolTip="свернуть"/>
-        <Menu Margin="35,5,5,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#334666" Foreground="#e9e9eb">
+        <Menu Margin="35,5,5,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
             <MenuItem Header="File" FontSize="12" >
-                <MenuItem Header="Save as..." Background="#3e619b" Foreground="#e9e9eb">
-                    <MenuItem Header="XML" Background="#3e619b" Foreground="#e9e9eb"/>
-                    <MenuItem Header="JSON" Background="#3e619b" Foreground="#e9e9eb"/>
+                <MenuItem Header="Save as...">
+                    <MenuItem Header="XML" Click="SaveCompanyToXmlBtn"/>
+                    <MenuItem Header="JSON"/>
                 </MenuItem>
-                <MenuItem Header="Exit" Click="exitBtn_Click" Background="#3e619b" Foreground="#e9e9eb"/>
+                <MenuItem Header="Exit          ctrl + x" Click="exitBtn_Click"/>
             </MenuItem>
             <Separator Width="10"/>
-            <MenuItem Header="Edit" FontSize="12"/>
+            <MenuItem Header="Edit" FontSize="12">
+                <MenuItem Header="Create Company 
+                                 ctrl + Q" Click="CreateCompanyBtn">
+                    <MenuItem.Icon>
+                        <Image Source="\icon.ico"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Open company department                 ctrl + W"  
+                          Click="CompanyDepartmentOpen"/>
+                <MenuItem Header="Open company office 
+                          ctrl + E" 
+                          Click="CompanyOfficeOpen"/>
+                <Separator/>
+                <MenuItem Header="Automatic filling         shift + A" Click="AutoFillingCompanyStructBtn"/>
+            </MenuItem>
+            <Separator Width="50" Background="#334666" />
+            <MenuItem Header="Go Company-tree root..." Click="GoCompanyRootBtn" FontSize="10"/>
         </Menu>
-        <Grid Grid.Row="1" Margin="5,5,5,5" Background="#5c6c85">
+        <Grid Grid.Row="1" Margin="5,5,5,5" 
+              Background="#5c6c85" 
+              VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="7*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <ListView 
-                Grid.Row="0" 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Background="#5c6c85" 
+                Name="workersContent" 
+                VerticalContentAlignment="Stretch">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="name" Width="70" 
+                                        DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="salary" Width="70" 
+                                        DisplayMemberBinding="{Binding Salary}"/>
+                        <GridViewColumn Header="type" Width="70" 
+                                        DisplayMemberBinding="{Binding Type}"/>
+                        <GridViewColumn Header="age" Width="70" 
+                                        DisplayMemberBinding="{Binding Age}"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Sack" Click="SackEmployeBtn"/>
+                        <MenuItem Header="Rename"/>
+                        <MenuItem Header="Set salary"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+            <ListView 
+                Grid.Row="1" 
                 Grid.Column="0" 
-                Margin="0,0,22,0" 
+                Margin="0,0,5,0" 
                 Background="#5c6c85" 
                 MinWidth="150" 
                 HorizontalAlignment="Stretch"
-                Name="structContent">
+                VerticalAlignment="Stretch"
+                Name="structContent"
+                KeyDown="OnListKeyDown"
+                MouseDoubleClick="structContent_MouseDown"
+                >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="name" Width="70" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="substructs" Width="70" DisplayMemberBinding="{Binding this.WorkPlaces.Count}"/>
-                        <GridViewColumn Header="workers" Width="60" DisplayMemberBinding="{Binding this.Workers.Count}"/>
-                        <GridViewColumn Header="boss" Width="60" DisplayMemberBinding="{Binding this.boss}"/>
-                        <GridViewColumn Header="boss salary" Width="80" DisplayMemberBinding="{Binding this.bossSalary}"/>
+                        <GridViewColumn Header="name" Width="100"
+                                        DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="boss" Width="70"
+                                        DisplayMemberBinding="{Binding Boss}"/>
+                        <GridViewColumn Header="boss salary" Width="80"
+                                        DisplayMemberBinding="{Binding BossSalary}"/>
+                        <GridViewColumn Header="substructs" Width="70" 
+                                        DisplayMemberBinding="{Binding WorkPlaces.Count}"/>
+                        <GridViewColumn Header="workers" Width="60" 
+                                        DisplayMemberBinding="{Binding Workers.Count}"/>
                     </GridView>
                 </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu HorizontalAlignment="Left">
+                        <MenuItem Header="Open substruct" Name="openSubStruct">
+                            <MenuItem Header="department  ctrl + O"  Name="openDepatment" Click="openSubStructDep_Click">
+                            </MenuItem>
+                            <MenuItem Header="office          shift + O" Name="openOffice" Click="openOffice_Click"/>
+                        </MenuItem>
+                        <MenuItem Header="Close substruct" Click="CloseSubstructBtn"/>
+                        <Separator/>
+                        <MenuItem Name="hireSubBoss" Header="Hire manager" Click="HireBossInDep"/>
+                        <MenuItem Header="Sack manager"/>
+                        <Separator/>
+                        <MenuItem Header="Hire new worker     ctrl + H" Name="hireWorker" Click="hireWorker_Click"/>
+                        <MenuItem Header="Hire new intern     shift + H" Name="hireIntern" Click="HireIntern_Click"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
             </ListView>
-            <GridSplitter Grid.Column="0" VerticalAlignment="Stretch" Margin="5,0,5,0" Background="#334666" Width="22" >
+            <GridSplitter Grid.Column="0" 
+                          VerticalAlignment="Stretch"
+                          Margin="5,0,5,0"
+                          Background="#334666"
+                          Width="5" >
 
             </GridSplitter>
 
-            <ScrollBar Grid.Column="0" 
-                       HorizontalAlignment="Right" 
-                       Margin="0,0,10,0" 
-                       Background="#aeb6c3" 
-                       BorderBrush="#8590a6" 
-                       BorderThickness="5" Foreground="Black">
+            <Grid Grid.Column="2" Margin="0,22,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" 
+                    BorderBrush="#334666" 
+                    BorderThickness="5,0,0,5">
+                    <TextBlock Grid.Column="2" 
+                           Background="#8590a6" 
+                           Padding="5" 
 
-            </ScrollBar>
-            <Border Grid.Column="2" BorderBrush="#334666" BorderThickness="5,0,0,0">
-                <TextBlock Grid.Column="2" Background="#8590a6" Padding="5"></TextBlock>
-            </Border>
+                           Text="{Binding ElementName=structContent, Path=SelectedItem}"/>
+                </Border>
+                <Border Grid.Row="1" 
+                    BorderBrush="#334666" 
+                    BorderThickness="5,5,0,0">
+                    <TextBlock Grid.Column="2" 
+                           Background="#8590a6" 
+                           Padding="5" 
+                           Text="{Binding ElementName=workersContent, Path=SelectedItem}"/>
+                </Border>
+            </Grid>
+
+            <TextBlock 
+                Name="pathStructOrEmploye" 
+                Grid.Column="2"
+                Visibility="Visible" 
+                Background="#334666" 
+                Foreground="#8590a6"
+                VerticalAlignment="Top"
+                Padding="5"
+                
+                Text="{Binding ElementName=structContent, 
+                Path=SelectedItem.Name}"/>
             
-            <DockPanel HorizontalAlignment="Left" Height="0" LastChildFill="False" Margin="52,185,0,0" VerticalAlignment="Top" Width="13"/>
+            <DockPanel HorizontalAlignment="Left" 
+                       Height="0" 
+                       LastChildFill="False" 
+                       Margin="52,185,0,0"
+                       VerticalAlignment="Top"
+                       Width="13"/>
         </Grid>
-
     </Grid>
 </Window>
