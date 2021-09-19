@@ -1,14 +1,13 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Homework_11_ConsUI.employeBin;
 using Homework_11_ConsUI.structBin;
 using Homework_11_wpfUI.messagesBin;
-using static System.Windows.SystemParameters;
-using static Homework_11_ConsUI.functions.ExportToXml;
-using static Homework_11_ConsUI.functions.ExportToJson;
 using Homework_11_wpfUI.userInterference;
+using static System.Windows.SystemParameters;
+using static Homework_11_ConsUI.functions.ExportToJson;
+using static Homework_11_ConsUI.functions.ExportToXml;
 
 namespace Homework_11_wpfUI
 {
@@ -22,10 +21,13 @@ namespace Homework_11_wpfUI
         public MainWindow()
         {
             InitializeComponent();
-            //workersContent.ItemsSource = employeList;
         }
 
-        private void OnKeyDown(object sender, KeyEventArgs e)
+        #region HOT KEYS
+
+        private void OnKeyDown(
+            object sender, 
+            KeyEventArgs e)
         {
             switch (e.KeyboardDevice.Modifiers)
             {
@@ -57,7 +59,9 @@ namespace Homework_11_wpfUI
             }
         }
 
-        private void OnListKeyDown(object sender, KeyEventArgs e)
+        private void OnListKeyDown(
+            object sender, 
+            KeyEventArgs e)
         {
             if (structContent.SelectedItem != null)
             {
@@ -90,14 +94,33 @@ namespace Homework_11_wpfUI
             }
         }
 
-        private void exitBtn_Click(object sender, RoutedEventArgs e)
+        #endregion
+
+        /// <summary>
+        /// Выход
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void exitBtn_Click(
+            object sender, 
+            RoutedEventArgs e)
         {
             Close();
         }
 
+        /// <summary>
+        /// приложение работает на весь экран
+        /// </summary>
         bool maximixedWindowFlag = false;
 
-        private void maximizeBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// развернуть приложение
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void maximizeBtn_MouseDown(
+            object sender, 
+            MouseButtonEventArgs e)
         {
             if (maximixedWindowFlag == false)
             {
@@ -115,37 +138,66 @@ namespace Homework_11_wpfUI
             }
         }
 
-        private void minimizeBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// свернуть в трей
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void minimizeBtn_MouseDown(
+            object sender, 
+            MouseButtonEventArgs e)
         {
             Hide();
         }
 
-        private void TaskbarIcon_TrayLeftMouseDown(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// восстановить из трея
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TaskbarIcon_TrayLeftMouseDown(
+            object sender, 
+            RoutedEventArgs e)
         {
             Show();
         }
 
-        private void structContent_MouseDown(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// при выборе строки с отделом выводит список сотрудников
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void structContent_MouseDown(
+            object sender, 
+            MouseButtonEventArgs e)
         {
             var content = structContent.SelectedItem;
             if (content != null)
             {
+                /// отмечает отдел выбранным
                 currentWorkPlace = content as WorkPlace;
+                /// выводит список сотрудников если они есть
                 if (currentWorkPlace.Workers != null)
                 {
-                    //workersContent.ItemsSource = employeList;
                     workersContent.ItemsSource = currentWorkPlace.Workers;
                 }
+                /// открывает список подотделов
                 structContent.ItemsSource = currentWorkPlace.WorkPlaces;
             }
         }
 
-        private void GoCompanyRootBtn(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// вернуть в корень структуры
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void GoCompanyRootBtn(
+            object sender, 
+            RoutedEventArgs e)
         {
             currentWorkPlace = company;
             structContent.ItemsSource = currentWorkPlace.WorkPlaces;
             workersContent.ItemsSource = currentWorkPlace.Workers;
-            //workersContent.ItemsSource = employeList;
         }
 
         #endregion
@@ -160,76 +212,85 @@ namespace Homework_11_wpfUI
 
         WorkPlace currentWorkPlace;
 
-        private static ObservableCollection<WorkPlace> workPlacesList = new();
 
-        private static ObservableCollection<Employe> employeList = new();
-
+        /// <summary>
+        /// создать компанию
+        /// </summary>
         void CreateCompany()
         {
             company = new();
             currentWorkPlace = company;
             isCompanyCreated = true;
-            //fillWorkersList();
         }
 
-        //private void fillWorkersList()
-        //{
-        //    if (isCompanyCreated & currentWorkPlace.Workers != null)
-        //    {
-        //        foreach (Employe worker in currentWorkPlace.Workers)
-        //        {
-        //            employeList.Add(worker);
-        //        }
-        //        Refresh();
-        //    }
-        //}
 
-        private void CreateCompanyBtn(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// создать компанию и нанять директора
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CreateCompanyBtn(
+            object sender, 
+            RoutedEventArgs e)
         {
             if (!isCompanyCreated)
             {
                 CreateCompany();
-                Debug.WriteLine(company);
                 HireCompanyBoss();
-                Debug.WriteLine(company.Boss);
                 var m = new companyCreated();
                 m.ShowDialog();
             }
         }
 
+        /// <summary>
+        /// нанять диреткора
+        /// </summary>
         void HireCompanyBoss()
         {
             company.HireBoss(new Director(company));
         }
 
-        private void CompanyDepartmentOpen(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// открыть департамент в корне
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CompanyDepartmentOpen(
+            object sender, 
+            RoutedEventArgs e)
         {
             if (isCompanyCreated)
             {
                 company.OpenDep();
-                structContent.ItemsSource = company.WorkPlaces;
-                foreach (WorkPlace wop in company.WorkPlaces)
-                { Debug.WriteLine(wop.Name); }
             }
         }
 
-        private void CompanyOfficeOpen(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// открыть офис в корне
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CompanyOfficeOpen(
+            object sender, 
+            RoutedEventArgs e)
         {
             if (isCompanyCreated)
             {
                 company.Open();
-                structContent.ItemsSource = company.WorkPlaces;
-                foreach (WorkPlace wop in company.WorkPlaces)
-                    Debug.WriteLine(wop.Name);
             }
         }
 
+        /// <summary>
+        /// срздает тестовую структуру
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AutoFillingCompanyStructBtn(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("started");
             CreateCompany();
             HireCompanyBoss();
             currentWorkPlace = company;
+            for (int i = 0; i < 5; i++) { currentWorkPlace.Hire(new Worker()); }
             for (int i = 0; i < 10; i++) { currentWorkPlace.OpenDep(); }
             for (int i = 0; i < 5; i++) { currentWorkPlace.Open(); }
             foreach (WorkPlace wp in currentWorkPlace.WorkPlaces)
@@ -237,8 +298,8 @@ namespace Homework_11_wpfUI
                 if (wp.GetType() == typeof(Department))
                 {
                     wp.OpenDep();
-                    wp.AutoOpen();
-                    wp.AutoOpen();
+                    wp.Open();
+                    wp.Open();
                     foreach (WorkPlace wP in wp.WorkPlaces)
                     {
                         for (int i = 0; i < 10; i++) { wP.Hire(new Worker()); }
@@ -261,7 +322,6 @@ namespace Homework_11_wpfUI
                     }
                 }
             }
-            //fillWorkersList();
             Refresh();
         }
 
@@ -270,9 +330,16 @@ namespace Homework_11_wpfUI
         #region Работа с подструктурами
 
         public static WorkPlace temporaryWorkPlace;
-        private void openSubStructDep_Click(object sender, RoutedEventArgs e)
+
+        /// <summary>
+        /// открывает под отделом департамент 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void openSubStructDep_Click(
+            object sender, 
+            RoutedEventArgs e)
         {
-            Debug.WriteLine(isCompanyCreated);
             if (isCompanyCreated)
             {
                 if (structContent.SelectedItem != null)
@@ -281,66 +348,100 @@ namespace Homework_11_wpfUI
                 }
             }
         }
-        private void openOffice_Click(object sender, RoutedEventArgs e)
+
+        /// <summary>
+        /// открывает под отделом офис
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void openOffice_Click(
+            object sender, 
+            RoutedEventArgs e)
         {
-            Debug.WriteLine(isCompanyCreated);
             if (isCompanyCreated)
             {
                 if (structContent.SelectedItem != null)
                 {
                     WorkPlace wp = structContent.SelectedItem as WorkPlace;
-                    wp.AutoOpen();
+                    wp.Open();
                 }
             }
         }
 
-        private void HireBossInDep(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// нанимает босса в подотдел
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HireBossInDep(
+            object sender, 
+            RoutedEventArgs e)
         {
             if (structContent.SelectedItem != null)
             {
                 WorkPlace a = structContent.SelectedItem as WorkPlace;
                 if (a is Department)
                 {
+                    ///департамент босса если департамент
                     a.HireBoss(new DepartmentBoss(a));
-                    foreach (var i in company.WorkPlaces) Debug.WriteLine(i.Boss);
                 }
                 else if (a is Office)
                 {
+                    /// или офис менеджера если офис
                     a.HireBoss(new OfficeManager(a));
-                    foreach (var i in company.WorkPlaces) Debug.WriteLine(i.Boss);
                 }
             }
             Refresh();
         }
 
-        private void hireWorker_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// нанимает работника в компанию или отдел
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void hireWorker_Click(
+            object sender, 
+            RoutedEventArgs e)
         {
             if (structContent.SelectedItem != null)
             {
-                (structContent.SelectedItem as WorkPlace).Hire(new Worker());
+                (structContent.SelectedItem as WorkPlace).Hire(
+                    new Worker());
             }
             else
             {
                 currentWorkPlace.Hire(new Worker());
             }
-            //fillWorkersList();
         }
 
-        private void HireIntern_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// нанимает интерна в компанию или отдел
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HireIntern_Click(
+            object sender, 
+            RoutedEventArgs e)
         {
             if (structContent.SelectedItem != null)
             {
-                (structContent.SelectedItem as WorkPlace).Hire(new Intern());
+                (structContent.SelectedItem as WorkPlace).Hire(
+                    new Intern());
             }
             else
             {
                 currentWorkPlace.Hire(new Intern());
             }
-
-            //fillWorkersList();
         }
 
-        private void CloseSubstructBtn(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// закрывает подотдел
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CloseSubstructBtn(
+            object sender, 
+            RoutedEventArgs e)
         {
             var content = structContent.SelectedItem;
             if (content != null)
@@ -349,15 +450,20 @@ namespace Homework_11_wpfUI
             }
         }
 
-        private void SackEmployeBtn(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// увольняет сотрудника
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SackEmployeBtn(
+            object sender, 
+            RoutedEventArgs e)
         {
             var content = workersContent.SelectedItem;
             if (content != null)
             {
                 currentWorkPlace.Sack(content as Employe);
             }
-
-            //fillWorkersList();
         }
 
         #endregion
@@ -366,7 +472,14 @@ namespace Homework_11_wpfUI
 
         #region Вспомогательные методы
 
-        private void SaveCompanyToXmlBtn(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// сохраняет в xml
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveCompanyToXmlBtn(
+            object sender, 
+            RoutedEventArgs e)
         {
             if (isCompanyCreated)
             {
@@ -376,7 +489,14 @@ namespace Homework_11_wpfUI
             }
         }
 
-        private void SaveCompanyToJsonBtn(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// сохраняет в json
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SaveCompanyToJsonBtn(
+            object sender, 
+            RoutedEventArgs e)
         {
             if (isCompanyCreated)
             {
@@ -385,6 +505,10 @@ namespace Homework_11_wpfUI
                 jsonSav.ShowDialog();
             }
         }
+
+        /// <summary>
+        /// обновляет списки департаментов и сотрудников
+        /// </summary>
         private void Refresh()
         {
             structContent.ItemsSource = currentWorkPlace.WorkPlaces;
@@ -396,25 +520,44 @@ namespace Homework_11_wpfUI
         #region
         #endregion
 
-        private void structContent_MouseDown_1(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// помечает выбранный департамент для дальнейших операция
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void structContent_MouseDown_1(
+            object sender, 
+            MouseButtonEventArgs e)
         {
             if (structContent.SelectedItem != null)
             {
                 temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
-                Debug.WriteLine(temporaryWorkPlace);
             }
         }
 
-        private void structContent_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        /// <summary>
+        /// присваивает изменения
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void structContent_SelectionChanged(
+            object sender, 
+            SelectionChangedEventArgs e)
         {
             if (structContent.SelectedItem != null)
             {
                 temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
-                Debug.WriteLine(temporaryWorkPlace);
             }
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// показывает форму для изменения названия
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MenuItem_Click(
+            object sender, 
+            RoutedEventArgs e)
         {
             if (structContent.SelectedItem != null)
             {
@@ -423,11 +566,6 @@ namespace Homework_11_wpfUI
                 structContent.SelectedItem = temporaryWorkPlace;
                 Refresh();
             }
-        }
-
-        private void structContent_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            MessageBox.Show("12334");
         }
     }
 }

@@ -72,7 +72,15 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         /// <param name="depBoss">нанимаемый начальник</param>
         public virtual void HireBoss(DepartmentBoss depBoss) { Debug.WriteLine(depBoss.Name); }
+        /// <summary>
+        /// найм управляющего
+        /// </summary>
+        /// <param name="director"></param>
         public virtual void HireBoss(Director director) { }
+        /// <summary>
+        /// найм директора
+        /// </summary>
+        /// <param name="officeManager"></param>
         public virtual void HireBoss(OfficeManager officeManager) { }
 
         /// <summary>
@@ -108,19 +116,22 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         /// <param name="dep">отдел</param>
         public virtual void Open(Department dep) { }
+        /// <summary>
+        /// для автоматического создания отдела
+        /// </summary>
         public virtual void Open() { }
 
+        /// <summary>
+        /// автоматическое создание департамента
+        /// </summary>
         public virtual void OpenDep() { }
+
         /// <summary>
         /// создаёт подотдел
         /// </summary>
         /// <param name="office">подотдел</param>
         public virtual void Open(Office office) { }
 
-        /// <summary>
-        /// автоматическое создание отдела
-        /// </summary>
-        public virtual void AutoOpen() { }
 
         /// <summary>
         /// закрыть отдел
