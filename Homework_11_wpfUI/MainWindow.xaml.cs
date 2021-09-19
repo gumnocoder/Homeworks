@@ -7,6 +7,9 @@ using Homework_11_ConsUI.structBin;
 using Homework_11_wpfUI.messagesBin;
 using static System.Windows.SystemParameters;
 using static Homework_11_ConsUI.functions.ExportToXml;
+using static Homework_11_ConsUI.functions.ExportToJson;
+using Homework_11_wpfUI.userInterference;
+
 namespace Homework_11_wpfUI
 {
     /// <summary>
@@ -19,6 +22,7 @@ namespace Homework_11_wpfUI
         public MainWindow()
         {
             InitializeComponent();
+            //workersContent.ItemsSource = employeList;
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -129,6 +133,7 @@ namespace Homework_11_wpfUI
                 currentWorkPlace = content as WorkPlace;
                 if (currentWorkPlace.Workers != null)
                 {
+                    //workersContent.ItemsSource = employeList;
                     workersContent.ItemsSource = currentWorkPlace.Workers;
                 }
                 structContent.ItemsSource = currentWorkPlace.WorkPlaces;
@@ -140,6 +145,7 @@ namespace Homework_11_wpfUI
             currentWorkPlace = company;
             structContent.ItemsSource = currentWorkPlace.WorkPlaces;
             workersContent.ItemsSource = currentWorkPlace.Workers;
+            //workersContent.ItemsSource = employeList;
         }
 
         #endregion
@@ -154,11 +160,29 @@ namespace Homework_11_wpfUI
 
         WorkPlace currentWorkPlace;
 
+        private static ObservableCollection<WorkPlace> workPlacesList = new();
+
+        private static ObservableCollection<Employe> employeList = new();
+
         void CreateCompany()
         {
             company = new();
+            currentWorkPlace = company;
             isCompanyCreated = true;
+            //fillWorkersList();
         }
+
+        //private void fillWorkersList()
+        //{
+        //    if (isCompanyCreated & currentWorkPlace.Workers != null)
+        //    {
+        //        foreach (Employe worker in currentWorkPlace.Workers)
+        //        {
+        //            employeList.Add(worker);
+        //        }
+        //        Refresh();
+        //    }
+        //}
 
         private void CreateCompanyBtn(object sender, RoutedEventArgs e)
         {
@@ -213,8 +237,8 @@ namespace Homework_11_wpfUI
                 if (wp.GetType() == typeof(Department))
                 {
                     wp.OpenDep();
-                    wp.Open(new Office());
-                    wp.Open(new Office());
+                    wp.AutoOpen();
+                    wp.AutoOpen();
                     foreach (WorkPlace wP in wp.WorkPlaces)
                     {
                         for (int i = 0; i < 10; i++) { wP.Hire(new Worker()); }
@@ -232,9 +256,12 @@ namespace Homework_11_wpfUI
                     wp.Open();
                     wp.Open();
                     wp.HireBoss(new OfficeManager(wp));
-                    for (int i = 0; i < 5; i++) { wp.Hire(new Intern()); }
+                    for (int i = 0; i < 5; i++) { 
+                        wp.Hire(new Intern()); 
+                    }
                 }
             }
+            //fillWorkersList();
             Refresh();
         }
 
@@ -242,6 +269,7 @@ namespace Homework_11_wpfUI
 
         #region Работа с подструктурами
 
+        public static WorkPlace temporaryWorkPlace;
         private void openSubStructDep_Click(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine(isCompanyCreated);
@@ -295,6 +323,7 @@ namespace Homework_11_wpfUI
             {
                 currentWorkPlace.Hire(new Worker());
             }
+            //fillWorkersList();
         }
 
         private void HireIntern_Click(object sender, RoutedEventArgs e)
@@ -307,6 +336,8 @@ namespace Homework_11_wpfUI
             {
                 currentWorkPlace.Hire(new Intern());
             }
+
+            //fillWorkersList();
         }
 
         private void CloseSubstructBtn(object sender, RoutedEventArgs e)
@@ -325,6 +356,8 @@ namespace Homework_11_wpfUI
             {
                 currentWorkPlace.Sack(content as Employe);
             }
+
+            //fillWorkersList();
         }
 
         #endregion
@@ -342,9 +375,20 @@ namespace Homework_11_wpfUI
                 xmlSaved.ShowDialog();
             }
         }
+
+        private void SaveCompanyToJsonBtn(object sender, RoutedEventArgs e)
+        {
+            if (isCompanyCreated)
+            {
+                var jsonSav = new jsonSaved();
+                CompanyToJson(company);
+                jsonSav.ShowDialog();
+            }
+        }
         private void Refresh()
         {
             structContent.ItemsSource = currentWorkPlace.WorkPlaces;
+            workersContent.ItemsSource = currentWorkPlace.Workers;
         }
 
         #endregion
@@ -352,5 +396,38 @@ namespace Homework_11_wpfUI
         #region
         #endregion
 
+        private void structContent_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            if (structContent.SelectedItem != null)
+            {
+                temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
+                Debug.WriteLine(temporaryWorkPlace);
+            }
+        }
+
+        private void structContent_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (structContent.SelectedItem != null)
+            {
+                temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
+                Debug.WriteLine(temporaryWorkPlace);
+            }
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (structContent.SelectedItem != null)
+            {
+                var wpr = new WorkPlaceRename();
+                wpr.ShowDialog();
+                structContent.SelectedItem = temporaryWorkPlace;
+                Refresh();
+            }
+        }
+
+        private void structContent_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            MessageBox.Show("12334");
+        }
     }
 }

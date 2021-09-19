@@ -117,7 +117,8 @@
                 VerticalAlignment="Stretch"
                 Name="structContent"
                 KeyDown="OnListKeyDown"
-                MouseDoubleClick="structContent_MouseDown"
+                MouseDoubleClick="structContent_MouseDown" 
+                SelectionChanged="structContent_SelectionChanged" 
                 >
                 <ListView.View>
                     <GridView>
@@ -135,18 +136,26 @@
                 </ListView.View>
                 <ListView.ContextMenu>
                     <ContextMenu HorizontalAlignment="Left">
-                        <MenuItem Header="Open substruct" Name="openSubStruct">
-                            <MenuItem Header="department  ctrl + O"  Name="openDepatment" Click="openSubStructDep_Click">
+                        <MenuItem Header="Open substruct" 
+                                  Name="openSubStruct">
+                            <MenuItem Header="department  ctrl + O"  
+                                      Name="openDepatment" 
+                                      Click="openSubStructDep_Click">
                             </MenuItem>
-                            <MenuItem Header="office          shift + O" Name="openOffice" Click="openOffice_Click"/>
+                            <MenuItem Header="office          shift + O" 
+                                      Name="openOffice" 
+                                      Click="openOffice_Click"/>
                         </MenuItem>
-                        <MenuItem Header="Close substruct" Click="CloseSubstructBtn"/>
+                        <MenuItem Header="Close substruct" 
+                                  Click="CloseSubstructBtn"/>
                         <Separator/>
                         <MenuItem Name="hireSubBoss" Header="Hire manager" Click="HireBossInDep"/>
                         <MenuItem Header="Sack manager"/>
                         <Separator/>
                         <MenuItem Header="Hire new worker     ctrl + H" Name="hireWorker" Click="hireWorker_Click"/>
                         <MenuItem Header="Hire new intern     shift + H" Name="hireIntern" Click="HireIntern_Click"/>
+                        <Separator/>
+                        <MenuItem Header="Rename substructure" Click="MenuItem_Click"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Homework_11_ConsUI.functions
 {
-    class ExportToJson
+    public class ExportToJson
     {
 
         public static string jsonData = "company_struct.json";

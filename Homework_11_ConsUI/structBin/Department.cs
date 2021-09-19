@@ -58,6 +58,7 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         public override void AutoOpen()
         {
+            ++officeCount;
             this.WorkPlaces.Add(new Office($"Office #{officeCount}"));
         }
 
