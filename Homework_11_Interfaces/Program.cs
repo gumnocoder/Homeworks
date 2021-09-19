@@ -1,33 +1,28 @@
 ﻿using System;
+using static Homework_11_Interfaces.B;
 
 namespace Homework_11_Interfaces
 {
     interface I1
     {
-        static void M() { Console.WriteLine("I1.M()"); }
+        void M();
     }
 
     interface I2
     {
-        void M() { Console.WriteLine("I2.M()"); }
+        void M();
     }
 
     class A : I1, I2
     {
         public void M() { Console.WriteLine("A.M()"); }
-
     }
 
-    class B : A, I1, I2
+    class B : A
     {
-        new public void M() { Console.WriteLine("A.B()"); }
-    }
-
-    class C
-    {
-        public void M()
+        new public void M()
         {
-            I1.M();
+            Console.WriteLine("B.M()");
         }
     }
 
@@ -35,8 +30,12 @@ namespace Homework_11_Interfaces
     {
         static void Main()
         {
-            I1 b = new B();
+            A a = new();
+            B b = new();
+            a.M();
             b.M();
+            a = new B();
+            a.M();
             Console.ReadKey();
         }
     }
