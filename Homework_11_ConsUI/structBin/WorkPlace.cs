@@ -81,7 +81,7 @@ namespace Homework_11_ConsUI.structBin
         /// <param name="workPlace"></param>
         /// <returns></returns>
         public virtual int SetBossSalary(WorkPlace workPlace) {
-            if (this.Boss != null) {
+            if (Boss != null) {
                 return CountAdminSalary(workPlace);
             }
             else return 0;

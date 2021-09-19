@@ -51,10 +51,10 @@ namespace Homework_11_ConsUI
             Console.WriteLine();
             Console.WriteLine();
             
-            foreach (var e in workPlacesGlobal)
-            {
-                Console.WriteLine(e);
-            }
+            //foreach (var e in workPlacesGlobal)
+            //{
+            //    Console.WriteLine(e);
+            //}
             Console.ReadKey();
         }
     }

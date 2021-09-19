@@ -26,5 +26,9 @@
             <Setter Property="Background" Value="#334666"/>
             <Setter Property="Foreground" Value="#aeb5c5"/>
         </Style>
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="#334666"/>
+            <Setter Property="Foreground" Value="#aeb5c5"/>
+        </Style>
     </Application.Resources>
 </Application>

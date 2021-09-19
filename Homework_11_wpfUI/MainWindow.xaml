@@ -52,22 +52,28 @@
                     <MenuItem Header="XML" Click="MenuItem_Click_1"/>
                     <MenuItem Header="JSON"/>
                 </MenuItem>
-                <MenuItem Header="Exit" Click="exitBtn_Click"/>
+                <MenuItem Header="Exit          ctrl + x" Click="exitBtn_Click"/>
             </MenuItem>
             <Separator Width="10"/>
             <MenuItem Header="Edit" FontSize="12">
-                <MenuItem Header="Create Company | ctrl + Q" Click="MenuItem_Click">
+                <MenuItem Header="Create Company 
+                                 ctrl + Q" Click="MenuItem_Click">
                     <MenuItem.Icon>
-                        <Image Source="\icon.ico">
-                        </Image>
+                        <Image Source="\icon.ico"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Open company department | ctrl + W"  Click="CompanyDepartmentOpen"/>
-                <MenuItem Header="Open company office | ctrl + E" Click="CompanyOfficeOpen"/>
-
+                <MenuItem Header="Open company department                 ctrl + W"  
+                          Click="CompanyDepartmentOpen"/>
+                <MenuItem Header="Open company office 
+                          ctrl + E" 
+                          Click="CompanyOfficeOpen"/>
+                <Separator/>
+                <MenuItem Header="Automatic filling         shift + A" Click="MenuItem_Click_2"/>
             </MenuItem>
         </Menu>
-        <Grid Grid.Row="1" Margin="5,5,5,5" Background="#5c6c85" VerticalAlignment="Stretch">
+        <Grid Grid.Row="1" Margin="5,5,5,5" 
+              Background="#5c6c85" 
+              VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*"/>
                 <ColumnDefinition Width="5*"/>
@@ -81,10 +87,14 @@
                 VerticalContentAlignment="Stretch">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="name" Width="70" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="salary" Width="70" DisplayMemberBinding="{Binding Salary}"/>
-                        <GridViewColumn Header="type" Width="70" DisplayMemberBinding="{Binding Type}"/>
-                        <GridViewColumn Header="age" Width="70" DisplayMemberBinding="{Binding Age}"/>
+                        <GridViewColumn Header="name" Width="70" 
+                                        DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="salary" Width="70" 
+                                        DisplayMemberBinding="{Binding Salary}"/>
+                        <GridViewColumn Header="type" Width="70" 
+                                        DisplayMemberBinding="{Binding Type}"/>
+                        <GridViewColumn Header="age" Width="70" 
+                                        DisplayMemberBinding="{Binding Age}"/>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu>
@@ -107,26 +117,32 @@
                 KeyDown="OnListKeyDown">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="name" Width="100" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="boss" Width="70" DisplayMemberBinding="{Binding Boss}"/>
-                        <GridViewColumn Header="boss salary" Width="80" DisplayMemberBinding="{Binding BossSalary}"/>
-                        <GridViewColumn Header="substructs" Width="70" DisplayMemberBinding="{Binding WorkPlaces.Count}"/>
-                        <GridViewColumn Header="workers" Width="60" DisplayMemberBinding="{Binding Workers.Count}"/>
+                        <GridViewColumn Header="name" Width="100"
+                                        DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="boss" Width="70"
+                                        DisplayMemberBinding="{Binding Boss}"/>
+                        <GridViewColumn Header="boss salary" Width="80"
+                                        DisplayMemberBinding="{Binding BossSalary}"/>
+                        <GridViewColumn Header="substructs" Width="70" 
+                                        DisplayMemberBinding="{Binding WorkPlaces.Count}"/>
+                        <GridViewColumn Header="workers" Width="60" 
+                                        DisplayMemberBinding="{Binding Workers.Count}"/>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu>
                     <ContextMenu HorizontalAlignment="Left">
                         <MenuItem Header="Open substruct" Name="openSubStruct">
-                            <MenuItem Header="  ctrl + O | department" Name="openDepatment" Click="openSubStructDep_Click"/>
-                            <MenuItem Header="shift + O | office" Name="openOffice" Click="openOffice_Click"/>
+                            <MenuItem Header="department  ctrl + O"  Name="openDepatment" Click="openSubStructDep_Click">
+                            </MenuItem>
+                            <MenuItem Header="office          shift + O" Name="openOffice" Click="openOffice_Click"/>
                         </MenuItem>
                         <MenuItem Header="Close substruct"/>
                         <Separator/>
                         <MenuItem Name="hireSubBoss" Header="Hire manager" Click="HireBossInDep"/>
                         <MenuItem Header="Sack manager"/>
                         <Separator/>
-                        <MenuItem Header="  ctrl + H | Hire new worker" Name="hireWorker" Click="hireWorker_Click"/>
-                        <MenuItem Header="shift + H | Hire new intern" Name="hireIntern" Click="HireIntern_Click"/>
+                        <MenuItem Header="Hire new worker     ctrl + H" Name="hireWorker" Click="hireWorker_Click"/>
+                        <MenuItem Header="Hire new intern     shift + H" Name="hireIntern" Click="HireIntern_Click"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
