@@ -7,7 +7,6 @@ using Homework_11_ConsUI.structBin;
 using Homework_11_wpfUI.messagesBin;
 using static System.Windows.SystemParameters;
 using static Homework_11_ConsUI.functions.ExportToXml;
-
 namespace Homework_11_wpfUI
 {
     /// <summary>
@@ -15,19 +14,14 @@ namespace Homework_11_wpfUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static ObservableCollection<WorkPlace> allWorkPlaces = new();
+        #region ОКНА
 
-        WorkPlace currentWorkPlace;
-
-        bool isCompanyCreated = false;
-
-        Company company;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private  void OnKeyDown(object sender, KeyEventArgs e)
+        private void OnKeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyboardDevice.Modifiers)
             {
@@ -97,33 +91,13 @@ namespace Homework_11_wpfUI
             Close();
         }
 
-        bool flag = false;
-
-        private void HireBossInDep(object sender, RoutedEventArgs e)
-        {
-            if (structContent.SelectedItem != null)
-            {
-                WorkPlace a = structContent.SelectedItem as WorkPlace;
-                if (a is Department)
-                {
-                    a.HireBoss(new DepartmentBoss(a));
-                    foreach (var i in company.WorkPlaces) Debug.WriteLine(i.Boss);
-                }
-                else if(a is Office)
-                {
-                    a.HireBoss(new OfficeManager(a));
-                    foreach (var i in company.WorkPlaces) Debug.WriteLine(i.Boss);
-                }
-            }
-            Refresh();
-        }
-
+        bool maximixedWindowFlag = false;
 
         private void maximizeBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (flag == false)
+            if (maximixedWindowFlag == false)
             {
-                flag = true;
+                maximixedWindowFlag = true;
                 Top = 0;
                 Left = 0;
                 Width = PrimaryScreenWidth;
@@ -131,7 +105,7 @@ namespace Homework_11_wpfUI
             }
             else
             {
-                flag = false;
+                maximixedWindowFlag = false;
                 Width = 800;
                 Height = 450;
             }
@@ -147,16 +121,45 @@ namespace Homework_11_wpfUI
             Show();
         }
 
+        private void structContent_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            var content = structContent.SelectedItem;
+            if (content != null)
+            {
+                currentWorkPlace = content as WorkPlace;
+                if (currentWorkPlace.Workers != null)
+                {
+                    workersContent.ItemsSource = currentWorkPlace.Workers;
+                }
+                structContent.ItemsSource = currentWorkPlace.WorkPlaces;
+            }
+        }
+
+        private void GoCompanyRootBtn(object sender, RoutedEventArgs e)
+        {
+            currentWorkPlace = company;
+            structContent.ItemsSource = currentWorkPlace.WorkPlaces;
+            workersContent.ItemsSource = currentWorkPlace.Workers;
+        }
+
+        #endregion
+
+        #region РАБОТА С КОНТЕНТОМ
+
+        #region Работа с компанией
+
+        Company company;
+
+        bool isCompanyCreated = false;
+
+        WorkPlace currentWorkPlace;
+
         void CreateCompany()
         {
             company = new();
             isCompanyCreated = true;
         }
 
-        void HireCompanyBoss()
-        {
-            company.HireBoss(new Director(company));
-        }
         private void CreateCompanyBtn(object sender, RoutedEventArgs e)
         {
             if (!isCompanyCreated)
@@ -170,6 +173,10 @@ namespace Homework_11_wpfUI
             }
         }
 
+        void HireCompanyBoss()
+        {
+            company.HireBoss(new Director(company));
+        }
 
         private void CompanyDepartmentOpen(object sender, RoutedEventArgs e)
         {
@@ -177,45 +184,8 @@ namespace Homework_11_wpfUI
             {
                 company.OpenDep();
                 structContent.ItemsSource = company.WorkPlaces;
-                Debug.WriteLine(allWorkPlaces.Count);
                 foreach (WorkPlace wop in company.WorkPlaces)
                 { Debug.WriteLine(wop.Name); }
-            }
-        }
-
-        private void openSubStructDep_Click(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine(isCompanyCreated);
-            if (isCompanyCreated)
-            {
-                if (structContent.SelectedItem != null)
-                {
-                    (structContent.SelectedItem as WorkPlace).OpenDep();
-                }
-            }
-        }
-
-        private void hireWorker_Click(object sender, RoutedEventArgs e)
-        {
-            if (structContent.SelectedItem != null)
-            {
-                (structContent.SelectedItem as WorkPlace).Hire(new Worker());
-            }
-            else
-            {
-                currentWorkPlace.Hire(new Worker());
-            }
-        }
-
-        private void HireIntern_Click(object sender, RoutedEventArgs e)
-        {
-            if (structContent.SelectedItem != null)
-            {
-                (structContent.SelectedItem as WorkPlace).Hire(new Intern());
-            }
-            else
-            {
-                currentWorkPlace.Hire(new Intern());
             }
         }
 
@@ -225,37 +195,11 @@ namespace Homework_11_wpfUI
             {
                 company.Open();
                 structContent.ItemsSource = company.WorkPlaces;
-                Debug.WriteLine(allWorkPlaces.Count);
                 foreach (WorkPlace wop in company.WorkPlaces)
                     Debug.WriteLine(wop.Name);
             }
         }
-        private void openOffice_Click(object sender, RoutedEventArgs e)
-        {
-            Debug.WriteLine(isCompanyCreated);
-            if (isCompanyCreated)
-            {
-                if (structContent.SelectedItem != null)
-                {
-                    WorkPlace wp = structContent.SelectedItem as WorkPlace;
-                    wp.AutoOpen();
-                }
-            }
-        }
 
-        private void SaveCompanyToXmlBtn(object sender, RoutedEventArgs e)
-        {
-            if (isCompanyCreated)
-            {
-                var xmlSaved = new xmlSaved();
-                CompanyToXml(company);
-                xmlSaved.ShowDialog();
-            }
-        }
-        private void Refresh()
-        {
-            structContent.ItemsSource = currentWorkPlace.WorkPlaces;
-        }
         private void AutoFillingCompanyStructBtn(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("started");
@@ -283,7 +227,7 @@ namespace Homework_11_wpfUI
                     for (int i = 0; i < 10; i++) { wp.Hire(new Worker()); }
                     wp.HireBoss(new DepartmentBoss(wp));
                 }
-                else if(wp.GetType() == typeof(Office))
+                else if (wp.GetType() == typeof(Office))
                 {
                     wp.Open();
                     wp.Open();
@@ -294,25 +238,75 @@ namespace Homework_11_wpfUI
             Refresh();
         }
 
-        private void structContent_MouseDown(object sender, MouseButtonEventArgs e)
+        #endregion
+
+        #region Работа с подструктурами
+
+        private void openSubStructDep_Click(object sender, RoutedEventArgs e)
         {
-            var content = structContent.SelectedItem;
-            if (content != null)
+            Debug.WriteLine(isCompanyCreated);
+            if (isCompanyCreated)
             {
-                currentWorkPlace = content as WorkPlace;
-                if (currentWorkPlace.Workers != null)
+                if (structContent.SelectedItem != null)
                 {
-                    workersContent.ItemsSource = currentWorkPlace.Workers;
+                    (structContent.SelectedItem as WorkPlace).OpenDep();
                 }
-                structContent.ItemsSource = currentWorkPlace.WorkPlaces;
+            }
+        }
+        private void openOffice_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(isCompanyCreated);
+            if (isCompanyCreated)
+            {
+                if (structContent.SelectedItem != null)
+                {
+                    WorkPlace wp = structContent.SelectedItem as WorkPlace;
+                    wp.AutoOpen();
+                }
             }
         }
 
-        private void GoCompanyRootBtn(object sender, RoutedEventArgs e)
+        private void HireBossInDep(object sender, RoutedEventArgs e)
         {
-            currentWorkPlace = company;
-            structContent.ItemsSource = currentWorkPlace.WorkPlaces;
-            workersContent.ItemsSource = currentWorkPlace.Workers;
+            if (structContent.SelectedItem != null)
+            {
+                WorkPlace a = structContent.SelectedItem as WorkPlace;
+                if (a is Department)
+                {
+                    a.HireBoss(new DepartmentBoss(a));
+                    foreach (var i in company.WorkPlaces) Debug.WriteLine(i.Boss);
+                }
+                else if (a is Office)
+                {
+                    a.HireBoss(new OfficeManager(a));
+                    foreach (var i in company.WorkPlaces) Debug.WriteLine(i.Boss);
+                }
+            }
+            Refresh();
+        }
+
+        private void hireWorker_Click(object sender, RoutedEventArgs e)
+        {
+            if (structContent.SelectedItem != null)
+            {
+                (structContent.SelectedItem as WorkPlace).Hire(new Worker());
+            }
+            else
+            {
+                currentWorkPlace.Hire(new Worker());
+            }
+        }
+
+        private void HireIntern_Click(object sender, RoutedEventArgs e)
+        {
+            if (structContent.SelectedItem != null)
+            {
+                (structContent.SelectedItem as WorkPlace).Hire(new Intern());
+            }
+            else
+            {
+                currentWorkPlace.Hire(new Intern());
+            }
         }
 
         private void CloseSubstructBtn(object sender, RoutedEventArgs e)
@@ -323,5 +317,40 @@ namespace Homework_11_wpfUI
                 currentWorkPlace.Close(content as WorkPlace);
             }
         }
+
+        private void SackEmployeBtn(object sender, RoutedEventArgs e)
+        {
+            var content = workersContent.SelectedItem;
+            if (content != null)
+            {
+                currentWorkPlace.Sack(content as Employe);
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region Вспомогательные методы
+
+        private void SaveCompanyToXmlBtn(object sender, RoutedEventArgs e)
+        {
+            if (isCompanyCreated)
+            {
+                var xmlSaved = new xmlSaved();
+                CompanyToXml(company);
+                xmlSaved.ShowDialog();
+            }
+        }
+        private void Refresh()
+        {
+            structContent.ItemsSource = currentWorkPlace.WorkPlaces;
+        }
+
+        #endregion
+
+        #region
+        #endregion
+
     }
 }

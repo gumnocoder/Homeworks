@@ -70,8 +70,8 @@
                 <Separator/>
                 <MenuItem Header="Automatic filling         shift + A" Click="AutoFillingCompanyStructBtn"/>
             </MenuItem>
-            <Separator Width="10"/>
-            <MenuItem Header="Go Company-tree root..." Click="GoCompanyRootBtn"/>
+            <Separator Width="50" Background="#334666" />
+            <MenuItem Header="Go Company-tree root..." Click="GoCompanyRootBtn" FontSize="10"/>
         </Menu>
         <Grid Grid.Row="1" Margin="5,5,5,5" 
               Background="#5c6c85" 
@@ -101,7 +101,7 @@
                 </ListView.View>
                 <ListView.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Hire"/>
+                        <MenuItem Header="Sack" Click="SackEmployeBtn"/>
                         <MenuItem Header="Rename"/>
                         <MenuItem Header="Set salary"/>
                     </ContextMenu>
@@ -158,16 +158,30 @@
 
             </GridSplitter>
 
-
-            <Border Grid.Column="2" 
+            <Grid Grid.Column="2" Margin="0,22,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" 
                     BorderBrush="#334666" 
-                    BorderThickness="5,0,0,0">
-                <TextBlock Grid.Column="2" 
+                    BorderThickness="5,0,0,5">
+                    <TextBlock Grid.Column="2" 
                            Background="#8590a6" 
                            Padding="5" 
-                           Margin="0,22,0,0" 
+
                            Text="{Binding ElementName=structContent, Path=SelectedItem}"/>
-            </Border>
+                </Border>
+                <Border Grid.Row="1" 
+                    BorderBrush="#334666" 
+                    BorderThickness="5,5,0,0">
+                    <TextBlock Grid.Column="2" 
+                           Background="#8590a6" 
+                           Padding="5" 
+                           Text="{Binding ElementName=workersContent, Path=SelectedItem}"/>
+                </Border>
+            </Grid>
+
             <TextBlock 
                 Name="pathStructOrEmploye" 
                 Grid.Column="2"

@@ -36,9 +36,12 @@
         }
         public override string ToString()
         {
-            return $"Worker {Name}, " +
-                $"{Age} y.o., salary: " +
-                $"{Salary} per hour";
+            return $"{Name}\n\n" +
+                $"----------------------\n\n" +
+                $"Type {Type}\n" +
+                $"{Age} y.o., salary:\n" +
+                $"{Salary} per hour\n" +
+                $"{MonthlySalary()} per month\n";
         }
 
         /// <summary>
