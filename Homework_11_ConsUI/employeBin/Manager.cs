@@ -3,8 +3,9 @@ using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
 
 namespace Homework_11_ConsUI.employeBin
 {
-    public abstract class Manager : Person
+    public abstract class Manager : NamedObject
     {
+        byte age;
         string type;
         WorkPlace workPlace;
 
@@ -24,6 +25,14 @@ namespace Homework_11_ConsUI.employeBin
             set { workPlace = value; } 
         }
 
+        /// <summary>
+        /// возраст
+        /// </summary>
+        public byte Age
+        {
+            get { return age; }
+            set { age = value; }
+        }
 
         /// <summary>
         /// конструктор
@@ -32,7 +41,7 @@ namespace Homework_11_ConsUI.employeBin
         {
             workPlace = WorkPlace;
             base.Name = Name;
-            base.Age = Age;
+            age = Age;
         }
     }
 }

@@ -11,14 +11,13 @@
         /// <param name="Name"></param>
         /// <param name="Age"></param>
         public Worker(
-            int Salary, 
-            string Name, 
+            int Salary,
+            string Name,
             byte Age
             )
         {
             ++workersCount;
-            this.Type = "Worker";
-            this.Salary = Salary * 20 * 8;
+            Type = "Worker";
             this.Name = Name;
             this.Age = Age;
         }
@@ -27,11 +26,11 @@
         /// автоконструктор
         /// </summary>
         public Worker() : this(
-            1, 
+            1,
             $"worker_{workersCount}", 
             18
-            ) 
-        { 
+            )
+        {
             ++workersCount; 
         }
         public override string ToString()

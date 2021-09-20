@@ -332,6 +332,7 @@ namespace Homework_11_wpfUI
         #region Работа с подструктурами
 
         public static WorkPlace temporaryWorkPlace;
+        public static Employe temporaryEmploye;
 
         /// <summary>
         /// открывает под отделом департамент 
@@ -563,10 +564,34 @@ namespace Homework_11_wpfUI
         {
             if (structContent.SelectedItem != null)
             {
-                var wpr = new WorkPlaceRename();
+                var wpr = new SubstructureRename();
                 wpr.ShowDialog();
                 structContent.SelectedItem = temporaryWorkPlace;
                 Refresh();
+            }
+        }
+
+        private void workersContent_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (workersContent.SelectedItem != null)
+            {
+                temporaryEmploye = workersContent.SelectedItem as Employe;
+            }
+        }
+
+        private void renameEmploye_Click(object sender, RoutedEventArgs e)
+        {
+            var emplRen = new EmployeRename();
+            emplRen.ShowDialog();
+            workersContent.SelectedItem = temporaryEmploye;
+            Refresh();
+        }
+
+        private void workersContent_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (workersContent.SelectedItem != null)
+            {
+                temporaryEmploye = workersContent.SelectedItem as Employe;
             }
         }
     }

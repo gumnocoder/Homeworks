@@ -7,8 +7,12 @@ namespace Homework_11_ConsUI.employeBin
     [XmlInclude(typeof(DepartmentBoss))]
     [XmlInclude(typeof(OfficeManager))]
     [XmlInclude(typeof(Worker))]
-    public abstract class Employe : Person
+    public abstract class Employe : NamedObject
     {
+        /// <summary>
+        /// возраст
+        /// </summary>
+        byte age;
         /// <summary>
         /// тип 
         /// </summary>
@@ -34,6 +38,16 @@ namespace Homework_11_ConsUI.employeBin
             set { salary = value; } 
         }
 
+
+        /// <summary>
+        /// возраст
+        /// </summary>
+        public byte Age
+        {
+            get { return age; }
+            set { age = value; }
+        }
+
         /// <summary>
         /// конструктор
         /// </summary>
@@ -41,7 +55,7 @@ namespace Homework_11_ConsUI.employeBin
         {
             salary = Salary;
             base.Name = Name;
-            base.Age = Age;
+            age = Age;
         }
 
         /// <summary>

@@ -86,7 +86,8 @@
                 Grid.Column="1" 
                 Background="#5c6c85" 
                 Name="workersContent" 
-                VerticalContentAlignment="Stretch">
+                VerticalContentAlignment="Stretch"
+                SelectionChanged="workersContent_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="name" Width="70" 
@@ -102,7 +103,7 @@
                 <ListView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Sack" Click="SackEmployeBtn"/>
-                        <MenuItem Header="Rename"/>
+                        <MenuItem Name="renameEmploye" Header="Rename" Click="renameEmploye_Click" />
                         <MenuItem Header="Set salary"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
@@ -123,7 +124,10 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="name" Width="100"
-                                        DisplayMemberBinding="{Binding Name}"/>
+                                        DisplayMemberBinding="{
+                            Binding Name, 
+                            UpdateSourceTrigger=PropertyChanged, 
+                            Mode=TwoWay}"/>
                         <GridViewColumn Header="boss" Width="70"
                                         DisplayMemberBinding="{Binding Boss}"/>
                         <GridViewColumn Header="boss salary" Width="80"
@@ -149,11 +153,14 @@
                         <MenuItem Header="Close substruct" 
                                   Click="CloseSubstructBtn"/>
                         <Separator/>
-                        <MenuItem Name="hireSubBoss" Header="Hire manager" Click="HireBossInDep"/>
+                        <MenuItem Name="hireSubBoss" 
+                                  Header="Hire manager" Click="HireBossInDep"/>
                         <MenuItem Header="Sack manager"/>
                         <Separator/>
-                        <MenuItem Header="Hire new worker     ctrl + H" Name="hireWorker" Click="hireWorker_Click"/>
-                        <MenuItem Header="Hire new intern     shift + H" Name="hireIntern" Click="HireIntern_Click"/>
+                        <MenuItem Header="Hire new worker     ctrl + H" 
+                                  Name="hireWorker" Click="hireWorker_Click"/>
+                        <MenuItem Header="Hire new intern     shift + H" 
+                                  Name="hireIntern" Click="HireIntern_Click"/>
                         <Separator/>
                         <MenuItem Header="Rename substructure" Click="MenuItem_Click"/>
                     </ContextMenu>

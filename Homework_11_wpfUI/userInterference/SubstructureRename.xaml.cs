@@ -19,14 +19,13 @@ using static Homework_11_wpfUI.MainWindow;
 namespace Homework_11_wpfUI.userInterference
 {
     /// <summary>
-    /// Логика взаимодействия для WorkPlaceRename.xaml
+    /// Логика взаимодействия для SubstructureRename.xaml
     /// </summary>
-    public partial class WorkPlaceRename : Window
+    public partial class SubstructureRename : Window
     {
-        public WorkPlaceRename()
+        public SubstructureRename()
         {
             InitializeComponent();
-            Debug.WriteLine(temporaryWorkPlace);
         }
 
         private void CancelBtn(object sender, RoutedEventArgs e)
@@ -40,7 +39,6 @@ namespace Homework_11_wpfUI.userInterference
             {
                 temporaryWorkPlace.Rename(newSubstructureName.Text);
             }
-            Debug.WriteLine(temporaryWorkPlace);
             Close();
         }
     }

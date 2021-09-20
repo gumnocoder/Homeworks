@@ -10,7 +10,7 @@ namespace Homework_11_ConsUI.structBin
     [XmlInclude(typeof(Department))]
     [XmlInclude(typeof(Office))]
     [XmlInclude(typeof(Company))]
-    public abstract class WorkPlace
+    public abstract class WorkPlace : NamedObject
     {
         ObservableCollection<Employe> workers;
         /// <summary>
@@ -29,16 +29,6 @@ namespace Homework_11_ConsUI.structBin
         public ObservableCollection<WorkPlace> WorkPlaces {
             get { return workPlaces; }
             set { workPlaces = value; }
-        }
-
-        string name;
-        /// <summary>
-        /// Название отдела
-        /// </summary>
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
         }
 
         string boss;
@@ -139,14 +129,6 @@ namespace Homework_11_ConsUI.structBin
         /// <param name="workPlace"></param>
         public virtual void Close(WorkPlace workPlace) { 
             this.workPlaces.Remove(workPlace); 
-        }
-
-        /// <summary>
-        /// переименование отдела или компании
-        /// </summary>
-        /// <param name="newName"></param>
-        public virtual void Rename(string newName) { 
-            this.Name = newName; 
         }
     }
 }
