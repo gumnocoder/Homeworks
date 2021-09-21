@@ -274,10 +274,19 @@ namespace Homework_11_wpfUI
 
         #region Работа с компанией
 
+        /// <summary>
+        /// компания
+        /// </summary>
         Company company;
 
+        /// <summary>
+        /// создана ли компания
+        /// </summary>
         bool isCompanyCreated = false;
 
+        /// <summary>
+        /// текущее рабочее место
+        /// </summary>
         WorkPlace currentWorkPlace;
 
 
@@ -763,6 +772,12 @@ namespace Homework_11_wpfUI
         #endregion
 
         #region СОРТИРОВКА
+
+        /// <summary>
+        /// проверка условий для сортировки
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         private bool checkForSorting(int code = 1)
         {
 
@@ -783,7 +798,15 @@ namespace Homework_11_wpfUI
             return false;
         }
 
+        /// <summary>
+        /// коллекция которую будем сортировать
+        /// </summary>
         private CollectionView view;
+
+        /// <summary>
+        /// меняем источник для сортировки
+        /// </summary>
+        /// <param name="code"></param>
         private void SetList(int code = 1)
         {
             if (code == 0)
@@ -792,23 +815,57 @@ namespace Homework_11_wpfUI
                 view = (CollectionView)CollectionViewSource.GetDefaultView(structContent.ItemsSource);
         }
 
+        /// <summary>
+        /// сортировка отделов по количеству подотделов
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void structsSubstructs_MouseDown(object sender, MouseButtonEventArgs e)
         { if (checkForSorting()) { SetList(); SortListView(sender, e, "WorkPlaces.Count"); } }
 
+        /// <summary>
+        /// сортировка по количеству работников
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void structsWorkers_MouseDown(object sender, MouseButtonEventArgs e)
         { if (checkForSorting()) { SetList(); SortListView(sender, e, "Workers.Count"); } }
 
+        /// <summary>
+        /// сортировка по зп босса
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void structsBossSalary_MouseDown(object sender, MouseButtonEventArgs e)
         { if (checkForSorting()) { SetList(); SortListView(sender, e, "BossSalary"); } }
 
+        /// <summary>
+        /// сортировка по названию
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void structsName_MouseDown(object sender, MouseButtonEventArgs e)
         { if (checkForSorting()) { SetList(); SortListView(sender, e, "Name"); } }
 
+        /// <summary>
+        /// сортировка по имени босса
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void stuctsBoss_MouseDown(object sender, MouseButtonEventArgs e)
         { if (checkForSorting()) { SetList(); SortListView(sender, e, "Boss"); } }
 
-
+        /// <summary>
+        /// задаёт направление сортировки
+        /// </summary>
         private bool directionChanged = false;
+
+        /// <summary>
+        /// непосредственно сортировка listView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <param name="field"></param>
         private void SortListView(object sender, MouseButtonEventArgs e, string field)
         {
             if (!directionChanged)
@@ -825,15 +882,35 @@ namespace Homework_11_wpfUI
             }
         }
 
+        /// <summary>
+        /// сортировка рабочих по имени
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void workersName_MouseDown(object sender, MouseButtonEventArgs e)
         { if (checkForSorting(0)) { SetList(0); SortListView(sender, e, "Name"); } }
 
+        /// <summary>
+        /// сортировка по зп
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void workersSalary_MouseDown(object sender, MouseButtonEventArgs e)
         { if (checkForSorting(0)) { SetList(0); SortListView(sender, e, "Salary"); } }
 
+        /// <summary>
+        /// сортировка по типу
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void workersType_MouseDown(object sender, MouseButtonEventArgs e)
         { if (checkForSorting(0)) { SetList(0); SortListView(sender, e, "Type"); } }
 
+        /// <summary>
+        /// сортировка по возрасту
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void workersAge_MouseDown(object sender, MouseButtonEventArgs e)
         { if (checkForSorting(0)) { SetList(0); SortListView(sender, e, "Age"); } }
 
