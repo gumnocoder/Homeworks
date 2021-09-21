@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="ManagerRename" Height="150" Width="250"
         WindowStyle="None" ResizeMode="NoResize"
-        Background="#8590a6"  Foreground="#334666">
+        Background="#8590a6"  Foreground="#334666"        
+        KeyDown="OnKeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>

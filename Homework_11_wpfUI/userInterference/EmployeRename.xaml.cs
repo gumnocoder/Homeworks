@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,10 @@ namespace Homework_11_wpfUI.userInterference
     /// </summary>
     public partial class EmployeRename : Window
     {
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) AplyBtn_Click(sender, e);
+        }
         public EmployeRename()
         {
             InitializeComponent();

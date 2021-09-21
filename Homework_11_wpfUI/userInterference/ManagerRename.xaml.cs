@@ -20,6 +20,10 @@ namespace Homework_11_wpfUI.userInterference
     /// </summary>
     public partial class ManagerRename : Window
     {
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) AplyBtn_Click(sender, e);
+        }
         public ManagerRename()
         {
             InitializeComponent();

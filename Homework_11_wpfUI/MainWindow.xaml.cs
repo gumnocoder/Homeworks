@@ -270,9 +270,9 @@ namespace Homework_11_wpfUI
             if (isCompanyCreated)
             {
                 currentWorkPlace.OpenDep();
+                RefreshStructInfo();
+                Refresh();
             }
-            RefreshStructInfo();
-            Refresh();
         }
 
         /// <summary>
@@ -287,9 +287,9 @@ namespace Homework_11_wpfUI
             if (isCompanyCreated)
             {
                 currentWorkPlace.Open();
+                RefreshStructInfo();
+                Refresh();
             }
-            RefreshStructInfo();
-            Refresh();
         }
 
         /// <summary>
@@ -409,9 +409,9 @@ namespace Homework_11_wpfUI
                     /// или офис менеджера если офис
                     a.HireBoss(new OfficeManager(a));
                 }
+                RefreshBossesSalary();
+                Refresh();
             }
-            RefreshBossesSalary();
-            Refresh();
         }
 
         /// <summary>
@@ -427,12 +427,13 @@ namespace Homework_11_wpfUI
             {
                 (structContent.SelectedItem as WorkPlace).Hire(
                     new Worker());
+                RefreshStructInfo();
             }
             else
             {
                 currentWorkPlace.Hire(new Worker());
+                RefreshStructInfo();
             }
-            RefreshStructInfo();
         }
 
         /// <summary>
@@ -448,12 +449,13 @@ namespace Homework_11_wpfUI
             {
                 (structContent.SelectedItem as WorkPlace).Hire(
                     new Intern());
+                RefreshStructInfo();
             }
             else
             {
                 currentWorkPlace.Hire(new Intern());
+                RefreshStructInfo();
             }
-            RefreshStructInfo();
         }
 
         /// <summary>
@@ -600,6 +602,7 @@ namespace Homework_11_wpfUI
                 //structContent.SelectedItem = temporaryWorkPlace;
                 RefreshStructInfo();
                 Refresh();
+                pathStructOrEmploye.Text = temporaryStructName;
             }
         }
 
@@ -661,6 +664,7 @@ namespace Homework_11_wpfUI
                 var w = new ManagerRename();
                 w.ShowDialog();
                 temporaryWorkPlace.RenameBoss(temporaryBossName);
+                pathStructOrEmploye.Text = temporaryWorkPlace.Boss;
                 RefreshStructInfo();
             }
         }
@@ -713,8 +717,8 @@ namespace Homework_11_wpfUI
             {
                 temporaryWorkPlace = company;
                 RenameStruct(sender, e);
+                pathStructOrEmploye.Text = company.Name;
             }
-            pathStructOrEmploye.Text = company.Name;
         }
     }
 }

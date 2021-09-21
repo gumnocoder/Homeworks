@@ -23,6 +23,10 @@ namespace Homework_11_wpfUI.userInterference
     /// </summary>
     public partial class SubstructureRename : Window
     {
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) ApplyBtn(sender, e);
+        }
         public SubstructureRename()
         {
             InitializeComponent();
