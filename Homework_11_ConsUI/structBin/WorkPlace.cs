@@ -192,8 +192,7 @@ namespace Homework_11_ConsUI.structBin
 
         public override string ToString()
         {
-            return $"{Name}\n\n" +
-                $"count of departments: {CountDeps() }\n" +
+            return $"count of departments: {CountDeps() }\n" +
                 $"count of offices: {CountOffices() }\n\n" +
                 $"Workers count: { CountWorkers() }\n" +
                 $"Workers count: { CountInterns() }\n\n" +

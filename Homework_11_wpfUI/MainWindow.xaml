@@ -163,7 +163,7 @@
                         <Separator/>
                         <MenuItem Name="hireSubBoss" 
                                   Header="Hire manager" Click="HireBossInDep"/>
-                        <MenuItem Header="Sack manager" Name="sackBoss" Click="sackBoss_Click"/>
+                        <MenuItem Header="Sack manager" Name="sackBoss" Click="SackBoss_Click"/>
                         <Separator/>
                         <MenuItem Header="Hire new worker     ctrl + H" 
                                   Name="hireWorker" Click="hireWorker_Click"/>
@@ -194,8 +194,7 @@
                     <TextBlock Grid.Column="2" 
                             Background="#8590a6" 
                             Padding="5" 
-                            Name="structInfo"
-/>
+                            Name="structInfo"/>
                 </Border>
                 <Border Grid.Row="1" 
                     BorderBrush="#334666" 
@@ -203,7 +202,7 @@
                     <TextBlock Grid.Column="2" 
                            Background="#8590a6" 
                            Padding="5" 
-                           Text="{Binding ElementName=workersContent, Path=SelectedItem}"/>
+                               Name="workersInfo"/>
                 </Border>
             </Grid>
 
@@ -214,10 +213,7 @@
                 Background="#334666" 
                 Foreground="#8590a6"
                 VerticalAlignment="Top"
-                Padding="5"
-                
-                Text="{Binding ElementName=structContent, 
-                Path=SelectedItem.Name}"/>
+                Padding="4"/>
             
             <DockPanel HorizontalAlignment="Left" 
                        Height="0" 

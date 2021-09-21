@@ -185,6 +185,7 @@ namespace Homework_11_wpfUI
                 structContent.ItemsSource = currentWorkPlace.WorkPlaces;
             }
             structInfo.Text = currentWorkPlace.ToString();
+            pathStructOrEmploye.Text = currentWorkPlace.Name;
         }
 
         /// <summary>
@@ -200,6 +201,8 @@ namespace Homework_11_wpfUI
             structContent.ItemsSource = currentWorkPlace.WorkPlaces;
             workersContent.ItemsSource = currentWorkPlace.Workers;
             structInfo.Text = currentWorkPlace.ToString();
+            temporaryWorkPlace = company;
+            pathStructOrEmploye.Text = temporaryWorkPlace.Name;
         }
 
         #endregion
@@ -222,8 +225,10 @@ namespace Homework_11_wpfUI
         {
             company = new();
             currentWorkPlace = company;
+            temporaryWorkPlace = company;
             isCompanyCreated = true;
             structInfo.Text = currentWorkPlace.ToString();
+            pathStructOrEmploye.Text = temporaryWorkPlace.Name;
         }
 
 
@@ -266,6 +271,7 @@ namespace Homework_11_wpfUI
             {
                 currentWorkPlace.OpenDep();
             }
+            RefreshStructInfo();
             Refresh();
         }
 
@@ -282,6 +288,7 @@ namespace Homework_11_wpfUI
             {
                 currentWorkPlace.Open();
             }
+            RefreshStructInfo();
             Refresh();
         }
 
@@ -294,7 +301,9 @@ namespace Homework_11_wpfUI
         {
             CreateCompany();
             HireCompanyBoss();
+            temporaryWorkPlace = company;
             currentWorkPlace = company;
+            pathStructOrEmploye.Text = temporaryWorkPlace.Name;
             for (int i = 0; i < 5; i++) { currentWorkPlace.Hire(new Worker()); }
             for (int i = 0; i < 10; i++) { currentWorkPlace.OpenDep(); }
             for (int i = 0; i < 5; i++) { currentWorkPlace.Open(); }
@@ -421,6 +430,7 @@ namespace Homework_11_wpfUI
             {
                 currentWorkPlace.Hire(new Worker());
             }
+            RefreshStructInfo();
         }
 
         /// <summary>
@@ -441,6 +451,7 @@ namespace Homework_11_wpfUI
             {
                 currentWorkPlace.Hire(new Intern());
             }
+            RefreshStructInfo();
         }
 
         /// <summary>
@@ -540,6 +551,7 @@ namespace Homework_11_wpfUI
             if (CheckS(sender, e))
             {
                 temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
+                RefreshStructInfo();
             }
         }
 
@@ -555,7 +567,18 @@ namespace Homework_11_wpfUI
             if (CheckS(sender, e))
             {
                 temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
+                RefreshStructInfo();
             }
+        }
+
+        void RefreshStructInfo()
+        {
+            structInfo.Text = temporaryWorkPlace.ToString();
+        }
+
+        void RefreshWorkersInfo()
+        {
+            workersInfo.Text = temporaryEmploye.ToString();
         }
 
         /// <summary>
@@ -572,6 +595,7 @@ namespace Homework_11_wpfUI
                 var wpr = new SubstructureRename();
                 wpr.ShowDialog();
                 structContent.SelectedItem = temporaryWorkPlace;
+                RefreshStructInfo();
                 Refresh();
             }
         }
@@ -581,6 +605,7 @@ namespace Homework_11_wpfUI
             if (CheckW(sender, e))
             {
                 temporaryEmploye = workersContent.SelectedItem as Employe;
+                RefreshWorkersInfo();
             }
         }
 
@@ -591,6 +616,7 @@ namespace Homework_11_wpfUI
                 var emplRen = new EmployeRename();
                 emplRen.ShowDialog();
                 workersContent.SelectedItem = temporaryEmploye;
+                RefreshWorkersInfo();
                 Refresh();
             }
         }
@@ -600,6 +626,7 @@ namespace Homework_11_wpfUI
             if (CheckW(sender, e))
             {
                 temporaryEmploye = workersContent.SelectedItem as Employe;
+                RefreshWorkersInfo();
             }
         }
 
@@ -610,34 +637,43 @@ namespace Homework_11_wpfUI
                 var emplSet = new EmployeSetSalary();
                 emplSet.ShowDialog();
                 (workersContent.SelectedItem as Employe).Salary = thisEmployeSalary;
+                RefreshWorkersInfo();
                 Refresh();
             }
         }
 
-        private void sackBoss_Click(object sender, RoutedEventArgs e)
+        private void SackBoss_Click(object sender, RoutedEventArgs e)
         {
             if (CheckS(sender, e))
             {
                 (structContent.SelectedItem as WorkPlace).SackBoss();
+                RefreshStructInfo();
             }
         }
 
         private void RenameBoss_Click(object sender, RoutedEventArgs e)
         {
-            var w = new ManagerRename();
-            w.ShowDialog();
-            (structContent.SelectedItem as WorkPlace).RenameBoss(temporaryBossName);
+            if (temporaryWorkPlace.Boss != null)
+            {
+                var w = new ManagerRename();
+                w.ShowDialog();
+                (structContent.SelectedItem as WorkPlace).RenameBoss(temporaryBossName);
+                RefreshStructInfo();
+            }
         }
 
         private bool CheckS(object sender, RoutedEventArgs e)
         {
-            if (structContent.SelectedItem != null) return true;
+            if (structContent.SelectedItem != null)
+            { pathStructOrEmploye.Text = (structContent.SelectedItem as WorkPlace).Name; 
+                return true; }
             else return false;
         }
 
         private bool CheckW(object sender, RoutedEventArgs e)
         {
-            if (structContent.SelectedItem != null) return true;
+            if (workersContent.SelectedItem != null)
+            { return true; }
             else return false;
         }
     }
