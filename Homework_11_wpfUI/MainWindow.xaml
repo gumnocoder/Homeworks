@@ -54,7 +54,7 @@
             <MenuItem Header="File" FontSize="12" >
                 <MenuItem Header="Save as...">
                     <MenuItem Header="XML" Click="SaveCompanyToXmlBtn"/>
-                    <MenuItem Header="JSON"/>
+                    <MenuItem Header="JSON" Click="SaveCompanyToJsonBtn"/>
                 </MenuItem>
                 <MenuItem Header="Exit          ctrl + x" Click="exitBtn_Click"/>
             </MenuItem>

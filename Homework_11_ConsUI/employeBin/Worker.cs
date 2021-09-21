@@ -36,6 +36,11 @@ namespace Homework_11_ConsUI.employeBin
         {
             ++workersCount; 
         }
+
+        /// <summary>
+        /// вывод информации
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{Name}\n\n" +

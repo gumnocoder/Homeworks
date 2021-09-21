@@ -1,5 +1,8 @@
 ﻿namespace Homework_11_ConsUI.employeBin
 {
+    /// <summary>
+    /// интерн
+    /// </summary>
     public class Intern : Employe
     {
         static int internsCount = 0;

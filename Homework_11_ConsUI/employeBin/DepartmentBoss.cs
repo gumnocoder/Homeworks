@@ -2,6 +2,9 @@
 
 namespace Homework_11_ConsUI.employeBin
 {
+    /// <summary>
+    /// управляющий департаментом
+    /// </summary>
     public class DepartmentBoss : Manager
     {
 
@@ -17,8 +20,8 @@ namespace Homework_11_ConsUI.employeBin
             byte Age = 50
             )
         {
-            this.Type = "Department Boss";
-            this.WorkPlace = ThisWorkPlace;
+            Type = "Department Boss";
+            WorkPlace = ThisWorkPlace;
             this.Name = Name;
             this.Age = Age;
         }

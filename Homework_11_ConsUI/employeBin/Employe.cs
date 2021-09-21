@@ -4,6 +4,9 @@ using static Homework_11_ConsUI.structBin.OrgStructure;
 
 namespace Homework_11_ConsUI.employeBin
 {
+    /// <summary>
+    /// шаблон для работницов
+    /// </summary>
     [XmlInclude(typeof(Intern))]
     [XmlInclude(typeof(Director))]
     [XmlInclude(typeof(DepartmentBoss))]

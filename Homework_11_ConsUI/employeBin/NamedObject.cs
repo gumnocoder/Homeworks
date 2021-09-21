@@ -2,6 +2,9 @@
 
 namespace Homework_11_ConsUI.employeBin
 {
+    /// <summary>
+    /// шаблон для обьектов имеющих имя
+    /// </summary>
     [XmlInclude(typeof(Intern)), 
         XmlInclude(typeof(Director)), 
         XmlInclude(typeof(DepartmentBoss)), 
@@ -23,6 +26,10 @@ namespace Homework_11_ConsUI.employeBin
             set { name = value; onPropertyChanged(); }
         }
 
+        /// <summary>
+        /// переименование обьекта
+        /// </summary>
+        /// <param name="newName"></param>
         public void Rename(string newName) { 
             this.Name = newName; 
         }

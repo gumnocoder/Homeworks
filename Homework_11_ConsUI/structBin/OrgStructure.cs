@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using Homework_11_ConsUI.employeBin;
-using static Homework_11_ConsUI.employeBin.BaseViewModel;
 
 namespace Homework_11_ConsUI.structBin
 {
     public class OrgStructure : BaseViewModel
     {
+        /// <summary>
+        /// список всех воркплейсов для пересчёта зп
+        /// </summary>
         public static readonly List<WorkPlace> workPlacesGlobal = new();
 
         /// <summary>

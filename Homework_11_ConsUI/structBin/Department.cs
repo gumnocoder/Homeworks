@@ -20,10 +20,13 @@ namespace Homework_11_ConsUI.structBin
             workPlacesGlobal.Add(this);
         }
 
+        /// <summary>
+        /// автоконструктор
+        /// </summary>
         public Department() { }
 
         /// <summary>
-        /// открыть подотдел
+        /// открыть офис
         /// </summary>
         /// <param name="office"></param>
         public override void Open(Office office)
@@ -32,6 +35,9 @@ namespace Homework_11_ConsUI.structBin
             this.WorkPlaces.Add(office);
         }
 
+        /// <summary>
+        /// открыть департамент
+        /// </summary>
         public override void OpenDep()
         {
             ++Company.depsCount;

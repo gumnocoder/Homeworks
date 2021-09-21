@@ -20,12 +20,6 @@ namespace Homework_11_ConsUI.structBin
             workPlacesGlobal.Add(this);
         }
 
-        //public override void Hire(Employe employe)
-        //{
-        //    this.Workers.Add(employe);
-        //    RefreshBossesSalary();
-        //}
-
         /// <summary>
         /// найм директора
         /// </summary>
@@ -36,6 +30,9 @@ namespace Homework_11_ConsUI.structBin
             this.BossSalary = SetBossSalary(this);
         }
 
+        /// <summary>
+        /// автоматическое открытие офиса
+        /// </summary>
         public override void Open()
         {
             ++companyOffices;

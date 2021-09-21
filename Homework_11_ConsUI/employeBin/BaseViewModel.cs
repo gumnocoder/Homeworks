@@ -2,6 +2,9 @@
 
 namespace Homework_11_ConsUI.employeBin
 {
+    /// <summary>
+    /// содержит событие которое будет информировать об изменении свойств
+    /// </summary>
     public class BaseViewModel : INotifyPropertyChanged
     {
 

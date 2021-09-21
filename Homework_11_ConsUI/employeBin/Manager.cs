@@ -3,6 +3,9 @@ using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
 
 namespace Homework_11_ConsUI.employeBin
 {
+    /// <summary>
+    /// шаблон для управляющего
+    /// </summary>
     public abstract class Manager : NamedObject
     {
         byte age;

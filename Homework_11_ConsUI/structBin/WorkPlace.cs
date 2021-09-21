@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 using Homework_11_ConsUI.employeBin;
 using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
@@ -13,7 +11,9 @@ namespace Homework_11_ConsUI.structBin
     [XmlInclude(typeof(Company))]
     public abstract class WorkPlace : NamedObject
     {
+
         ObservableCollection<Employe> workers;
+
         /// <summary>
         /// список сотрудников
         /// </summary>
@@ -24,12 +24,17 @@ namespace Homework_11_ConsUI.structBin
         }
 
         ObservableCollection<WorkPlace> workPlaces;
+
         /// <summary>
         /// список отделов
         /// </summary>
         public ObservableCollection<WorkPlace> WorkPlaces {
             get { return workPlaces; }
-            set { workPlaces = value; onPropertyChanged(); }
+            set 
+            { 
+                workPlaces = value; 
+                onPropertyChanged(); 
+            }
         }
 
         string boss;
@@ -41,11 +46,6 @@ namespace Homework_11_ConsUI.structBin
             get { return boss; }
             set { boss = value; onPropertyChanged(); }
         }
-
-        string info;
-
-        public string Info
-        { get { return info; } set { ToString(); onPropertyChanged(); } }
 
         int bossSalary;
         /// <summary>
@@ -60,6 +60,10 @@ namespace Homework_11_ConsUI.structBin
             }
         }
 
+        /// <summary>
+        /// считает офисы
+        /// </summary>
+        /// <returns></returns>
         public int CountOffices()
         {
             int tmp = 0;
@@ -70,6 +74,10 @@ namespace Homework_11_ConsUI.structBin
             return tmp;
         }
 
+        /// <summary>
+        /// считает департаменты
+        /// </summary>
+        /// <returns></returns>
         public int CountDeps()
         {
             int tmp = 0;
@@ -80,6 +88,10 @@ namespace Homework_11_ConsUI.structBin
             return tmp;
         }
 
+        /// <summary>
+        /// Подсчитывает количество рабочих
+        /// </summary>
+        /// <returns></returns>
         public int CountWorkers()
         {
             int tmp = 0;
@@ -90,6 +102,10 @@ namespace Homework_11_ConsUI.structBin
             return tmp;
         }
 
+        /// <summary>
+        /// ПОдсчитывает количество интернов
+        /// </summary>
+        /// <returns></returns>
         public int CountInterns()
         {
             int tmp = 0;
@@ -114,11 +130,13 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         /// <param name="depBoss">нанимаемый начальник</param>
         public virtual void HireBoss(DepartmentBoss depBoss) { }
+
         /// <summary>
         /// найм управляющего
         /// </summary>
         /// <param name="director"></param>
         public virtual void HireBoss(Director director) { }
+
         /// <summary>
         /// найм директора
         /// </summary>
@@ -159,6 +177,7 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         /// <param name="dep">отдел</param>
         public virtual void Open(Department dep) { }
+
         /// <summary>
         /// для автоматического создания отдела
         /// </summary>
@@ -184,6 +203,10 @@ namespace Homework_11_ConsUI.structBin
             this.workPlaces.Remove(workPlace); 
         }
 
+        /// <summary>
+        /// Переименовывает управляющего
+        /// </summary>
+        /// <param name="name"></param>
         public virtual void RenameBoss(string name)
         {
             this.Boss = name;
