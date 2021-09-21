@@ -224,6 +224,7 @@ namespace Homework_11_wpfUI
         void CreateCompany()
         {
             company = new();
+            HireCompanyBoss();
             currentWorkPlace = company;
             temporaryWorkPlace = company;
             isCompanyCreated = true;
@@ -244,7 +245,6 @@ namespace Homework_11_wpfUI
             if (!isCompanyCreated)
             {
                 CreateCompany();
-                HireCompanyBoss();
                 var m = new companyCreated();
                 m.ShowDialog();
             }
@@ -300,7 +300,6 @@ namespace Homework_11_wpfUI
         private void AutoFillingCompanyStructBtn(object sender, RoutedEventArgs e)
         {
             CreateCompany();
-            HireCompanyBoss();
             temporaryWorkPlace = company;
             currentWorkPlace = company;
             pathStructOrEmploye.Text = temporaryWorkPlace.Name;
@@ -410,6 +409,7 @@ namespace Homework_11_wpfUI
                     a.HireBoss(new OfficeManager(a));
                 }
                 RefreshBossesSalary();
+                RefreshStructInfo();
                 Refresh();
             }
         }
