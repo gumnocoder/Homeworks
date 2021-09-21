@@ -37,7 +37,7 @@ namespace Homework_11_wpfUI.userInterference
         {
             if (newSubstructureName.Text != null)
             {
-                temporaryWorkPlace.Rename(newSubstructureName.Text);
+                temporaryStructName = newSubstructureName.Text;
             }
             Close();
         }

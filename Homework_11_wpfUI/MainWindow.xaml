@@ -24,7 +24,9 @@
             IconSource="\icon.ico"
             TrayLeftMouseDown="TaskbarIcon_TrayLeftMouseDown" 
             Margin="0,0,8,0" Grid.RowSpan="2"/>
-        <Image Grid.Row="0" Source="\icon.png" HorizontalAlignment="Left" Margin="7,3,0,0"/>
+        <Image Grid.Row="0" Source="\icon.png"
+               HorizontalAlignment="Left" 
+               Margin="7,3,0,0"/>
         <Image Name="closeBtn" 
                Grid.Row="0" 
                Source="\close.png" 
@@ -46,7 +48,9 @@
                Margin="0,5,45,3" 
                MouseDown="minimizeBtn_MouseDown"
                ToolTip="свернуть"/>
-        <Menu Margin="35,5,5,0" Height="20" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Menu Margin="35,5,5,0" Height="20" 
+              VerticalAlignment="Top" 
+              HorizontalAlignment="Left">
             <MenuItem Header="File" FontSize="12" >
                 <MenuItem Header="Save as...">
                     <MenuItem Header="XML" Click="SaveCompanyToXmlBtn"/>
@@ -68,10 +72,26 @@
                           ctrl + E" 
                           Click="CompanyOfficeOpen"/>
                 <Separator/>
-                <MenuItem Header="Automatic filling         shift + A" Click="AutoFillingCompanyStructBtn"/>
+                <MenuItem Header="Hire company worker" 
+                          Name="hireCompanyWorker" 
+                          Click="hireCompanyWorker_Click"/>
+                <MenuItem Header="Hire company intern" 
+                          Name="hireCompanyIntern" 
+                          Click="hireCompanyIntern_Click"/>
+                <Separator/>
+                <MenuItem Header="Rename Director"
+                          Name="directorRename"
+                          Click="directorRename_Click"/>
+                <MenuItem Header="Rename Company"
+                          Name="renameCompany"
+                          Click="renameCompany_Click"/>
+                <Separator/>
+                <MenuItem Header="Automatic filling         shift + A" 
+                          Click="AutoFillingCompanyStructBtn"/>
             </MenuItem>
             <Separator Width="50" Background="#334666" />
-            <MenuItem Header="Go Company-tree root..." Click="GoCompanyRootBtn" FontSize="10"/>
+            <MenuItem Header="Go Company-tree root..." 
+                      Click="GoCompanyRootBtn" FontSize="10"/>
         </Menu>
         <Grid Grid.Row="1" Margin="5,5,5,5" 
               Background="#5c6c85" 
@@ -96,21 +116,32 @@
                             UpdateSourceTrigger=PropertyChanged, 
                             Mode=TwoWay}"/>
                         <GridViewColumn Header="salary" Width="70" 
-                                        DisplayMemberBinding="{Binding Salary, UpdateSourceTrigger=PropertyChanged, 
+                                        DisplayMemberBinding="{
+                            Binding Salary, 
+                            UpdateSourceTrigger=PropertyChanged, 
                             Mode=TwoWay}"/>
                         <GridViewColumn Header="type" Width="70" 
-                                        DisplayMemberBinding="{Binding Type, UpdateSourceTrigger=PropertyChanged, 
+                                        DisplayMemberBinding="{
+                            Binding Type, 
+                            UpdateSourceTrigger=PropertyChanged, 
                             Mode=TwoWay}"/>
                         <GridViewColumn Header="age" Width="70" 
-                                        DisplayMemberBinding="{Binding Age, UpdateSourceTrigger=PropertyChanged, 
+                                        DisplayMemberBinding="{
+                            Binding Age, 
+                            UpdateSourceTrigger=PropertyChanged, 
                             Mode=TwoWay}"/>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Sack" Click="SackEmployeBtn"/>
-                        <MenuItem Name="renameEmploye" Header="Rename" Click="renameEmploye_Click" />
-                        <MenuItem Header="Set salary" Name="SetSalary" Click="SetSalary_Click"/>
+                        <MenuItem Header="Sack" 
+                                  Click="SackEmployeBtn"/>
+                        <MenuItem Name="renameEmploye" 
+                                  Header="Rename" 
+                                  Click="renameEmploye_Click" />
+                        <MenuItem Header="Set salary" 
+                                  Name="SetSalary" 
+                                  Click="SetSalary_Click"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
@@ -135,15 +166,23 @@
                             UpdateSourceTrigger=PropertyChanged, 
                             Mode=TwoWay}"/>
                         <GridViewColumn Header="boss" Width="70"
-                                        DisplayMemberBinding="{Binding Boss, UpdateSourceTrigger=PropertyChanged, 
+                                        DisplayMemberBinding="{
+                            Binding Boss, 
+                            UpdateSourceTrigger=PropertyChanged, 
                             Mode=TwoWay}"/>
                         <GridViewColumn Header="boss salary" Width="80"
-                                        DisplayMemberBinding="{Binding BossSalary, UpdateSourceTrigger=PropertyChanged, 
+                                        DisplayMemberBinding="{
+                            Binding BossSalary, 
+                            UpdateSourceTrigger=PropertyChanged, 
                             Mode=TwoWay}"/>
                         <GridViewColumn Header="substructs" Width="70" 
-                                        DisplayMemberBinding="{Binding WorkPlaces.Count, UpdateSourceTrigger=PropertyChanged}"/>
+                                        DisplayMemberBinding="{
+                            Binding WorkPlaces.Count, 
+                            UpdateSourceTrigger=PropertyChanged}"/>
                         <GridViewColumn Header="workers" Width="60" 
-                                        DisplayMemberBinding="{Binding Workers.Count, UpdateSourceTrigger=PropertyChanged}"/>
+                                        DisplayMemberBinding="{
+                            Binding Workers.Count, 
+                            UpdateSourceTrigger=PropertyChanged}"/>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu>
@@ -162,16 +201,24 @@
                                   Click="CloseSubstructBtn"/>
                         <Separator/>
                         <MenuItem Name="hireSubBoss" 
-                                  Header="Hire manager" Click="HireBossInDep"/>
-                        <MenuItem Header="Sack manager" Name="sackBoss" Click="SackBoss_Click"/>
+                                  Header="Hire manager" 
+                                  Click="HireBossInDep"/>
+                        <MenuItem Header="Sack manager" 
+                                  Name="sackBoss" 
+                                  Click="SackBoss_Click"/>
                         <Separator/>
                         <MenuItem Header="Hire new worker     ctrl + H" 
-                                  Name="hireWorker" Click="hireWorker_Click"/>
+                                  Name="hireWorker" 
+                                  Click="hireWorker_Click"/>
                         <MenuItem Header="Hire new intern     shift + H" 
-                                  Name="hireIntern" Click="HireIntern_Click"/>
+                                  Name="hireIntern" 
+                                  Click="HireIntern_Click"/>
                         <Separator/>
-                        <MenuItem Header="Rename substructure" Click="MenuItem_Click"/>
-                        <MenuItem Header="Rename boss" Name="RenameBoss" Click="RenameBoss_Click"/>
+                        <MenuItem Header="Rename substructure"
+                                  Click="RenameStruct"/>
+                        <MenuItem Header="Rename boss"
+                                  Name="RenameBoss" 
+                                  Click="RenameBoss_Click"/>
                     </ContextMenu>
                 </ListView.ContextMenu>
             </ListView>
