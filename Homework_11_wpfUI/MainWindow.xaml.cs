@@ -205,6 +205,65 @@ namespace Homework_11_wpfUI
             pathStructOrEmploye.Text = temporaryWorkPlace.Name;
         }
 
+        /// <summary>
+        /// назначает выбранного работника при клике в листь вью 2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void workersContent_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (CheckW(sender, e))
+            {
+                temporaryEmploye = workersContent.SelectedItem as Employe;
+                RefreshWorkersInfo();
+            }
+        }
+
+        /// <summary>
+        /// назначает выбранную структуру при клике по ней в лист вью 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void structContent_SelectionChanged(
+            object sender,
+            SelectionChangedEventArgs e)
+        {
+            if (CheckS(sender, e))
+            {
+                temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
+                RefreshStructInfo();
+            }
+        }
+
+        /// <summary>
+        /// проверяет выбрана ли структура в лист вью 1
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        private bool CheckS(object sender, RoutedEventArgs e)
+        {
+            if (structContent.SelectedItem != null)
+            {
+                pathStructOrEmploye.Text = (structContent.SelectedItem as WorkPlace).Name;
+                return true;
+            }
+            else return false;
+        }
+
+        /// <summary>
+        /// проверяет выбран ли работник в лист вью 2
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        private bool CheckW(object sender, RoutedEventArgs e)
+        {
+            if (workersContent.SelectedItem != null)
+            { return true; }
+            else return false;
+        }
+
         #endregion
 
         #region РАБОТА С КОНТЕНТОМ
@@ -289,6 +348,63 @@ namespace Homework_11_wpfUI
                 currentWorkPlace.Open();
                 RefreshStructInfo();
                 Refresh();
+            }
+        }
+
+        /// <summary>
+        /// нанимает работника непосредственно в компанию
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void hireCompanyWorker_Click(object sender, RoutedEventArgs e)
+        {
+            if (isCompanyCreated)
+            {
+                company.Hire(new Worker());
+                RefreshStructInfo();
+            }
+        }
+
+        /// <summary>
+        /// нанимает интерна непосредственно в компанию
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void hireCompanyIntern_Click(object sender, RoutedEventArgs e)
+        {
+            if (isCompanyCreated)
+            {
+                company.Hire(new Intern());
+                RefreshStructInfo();
+            }
+        }
+
+        /// <summary>
+        /// Переименовывает директора
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void directorRename_Click(object sender, RoutedEventArgs e)
+        {
+            if (isCompanyCreated)
+            {
+                temporaryWorkPlace = company;
+                RenameBoss_Click(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// переименовывает компанию
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void renameCompany_Click(object sender, RoutedEventArgs e)
+        {
+            if (isCompanyCreated)
+            {
+                temporaryWorkPlace = company;
+                RenameStruct(sender, e);
+                pathStructOrEmploye.Text = company.Name;
             }
         }
 
@@ -489,6 +605,92 @@ namespace Homework_11_wpfUI
             }
         }
 
+
+        /// <summary>
+        /// Переименовывает структуру
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RenameStruct(
+            object sender,
+            RoutedEventArgs e)
+        {
+            if (temporaryWorkPlace != null)
+            {
+                var wpr = new SubstructureRename();
+                wpr.ShowDialog();
+                temporaryWorkPlace.Name = temporaryStructName;
+                RefreshStructInfo();
+                Refresh();
+                pathStructOrEmploye.Text = temporaryStructName;
+            }
+        }
+
+        /// <summary>
+        /// переименовывает работника
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void renameEmploye_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckW(sender, e))
+            {
+                var emplRen = new EmployeRename();
+                emplRen.ShowDialog();
+                workersContent.SelectedItem = temporaryEmploye;
+                RefreshWorkersInfo();
+                Refresh();
+            }
+        }
+
+        /// <summary>
+        /// назначает зп работнику
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetSalary_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckW(sender, e))
+            {
+                var emplSet = new EmployeSetSalary();
+                emplSet.ShowDialog();
+                (workersContent.SelectedItem as Employe).Salary = thisEmployeSalary;
+                RefreshWorkersInfo();
+                Refresh();
+            }
+        }
+
+        /// <summary>
+        /// увольняет управляющего
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SackBoss_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckS(sender, e))
+            {
+                (structContent.SelectedItem as WorkPlace).SackBoss();
+                RefreshStructInfo();
+            }
+        }
+
+        /// <summary>
+        /// переименовывает управляющего
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RenameBoss_Click(object sender, RoutedEventArgs e)
+        {
+            if (temporaryWorkPlace.Boss != null)
+            {
+                var w = new ManagerRename();
+                w.ShowDialog();
+                temporaryWorkPlace.RenameBoss(temporaryBossName);
+                pathStructOrEmploye.Text = temporaryWorkPlace.Boss;
+                RefreshStructInfo();
+            }
+        }
+
         #endregion
 
         #endregion
@@ -538,187 +740,22 @@ namespace Homework_11_wpfUI
             workersContent.ItemsSource = currentWorkPlace.Workers;
         }
 
-        #endregion
-
-        #region
-        #endregion
-
         /// <summary>
-        /// помечает выбранный департамент для дальнейших операция
+        /// обновляет инфо о структуре в текст блоке 1
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void structContent_MouseDown_1(
-            object sender, 
-            MouseButtonEventArgs e)
-        {
-            if (CheckS(sender, e))
-            {
-                temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
-                RefreshStructInfo();
-            }
-        }
-
-        /// <summary>
-        /// присваивает изменения
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void structContent_SelectionChanged(
-            object sender, 
-            SelectionChangedEventArgs e)
-        {
-            if (CheckS(sender, e))
-            {
-                temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
-                RefreshStructInfo();
-            }
-        }
-
         void RefreshStructInfo()
         {
             structInfo.Text = temporaryWorkPlace.ToString();
         }
 
+        /// <summary>
+        /// обновляет информацию о работнике в текст блоке 2
+        /// </summary>
         void RefreshWorkersInfo()
         {
             workersInfo.Text = temporaryEmploye.ToString();
         }
 
-        /// <summary>
-        /// показывает форму для изменения названия
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void RenameStruct(
-            object sender, 
-            RoutedEventArgs e)
-        {
-            if (temporaryWorkPlace != null)
-            {
-                var wpr = new SubstructureRename();
-                wpr.ShowDialog();
-                temporaryWorkPlace.Name = temporaryStructName;
-                //structContent.SelectedItem = temporaryWorkPlace;
-                RefreshStructInfo();
-                Refresh();
-                pathStructOrEmploye.Text = temporaryStructName;
-            }
-        }
-
-        private void workersContent_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (CheckW(sender, e))
-            {
-                temporaryEmploye = workersContent.SelectedItem as Employe;
-                RefreshWorkersInfo();
-            }
-        }
-
-        private void renameEmploye_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckW(sender, e))
-            {
-                var emplRen = new EmployeRename();
-                emplRen.ShowDialog();
-                workersContent.SelectedItem = temporaryEmploye;
-                RefreshWorkersInfo();
-                Refresh();
-            }
-        }
-
-        private void workersContent_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (CheckW(sender, e))
-            {
-                temporaryEmploye = workersContent.SelectedItem as Employe;
-                RefreshWorkersInfo();
-            }
-        }
-
-        private void SetSalary_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckW(sender, e))
-            {
-                var emplSet = new EmployeSetSalary();
-                emplSet.ShowDialog();
-                (workersContent.SelectedItem as Employe).Salary = thisEmployeSalary;
-                RefreshWorkersInfo();
-                Refresh();
-            }
-        }
-
-        private void SackBoss_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckS(sender, e))
-            {
-                (structContent.SelectedItem as WorkPlace).SackBoss();
-                RefreshStructInfo();
-            }
-        }
-
-        private void RenameBoss_Click(object sender, RoutedEventArgs e)
-        {
-            if (temporaryWorkPlace.Boss != null)
-            {
-                var w = new ManagerRename();
-                w.ShowDialog();
-                temporaryWorkPlace.RenameBoss(temporaryBossName);
-                pathStructOrEmploye.Text = temporaryWorkPlace.Boss;
-                RefreshStructInfo();
-            }
-        }
-
-        private bool CheckS(object sender, RoutedEventArgs e)
-        {
-            if (structContent.SelectedItem != null)
-            { pathStructOrEmploye.Text = (structContent.SelectedItem as WorkPlace).Name; 
-                return true; }
-            else return false;
-        }
-
-        private bool CheckW(object sender, RoutedEventArgs e)
-        {
-            if (workersContent.SelectedItem != null)
-            { return true; }
-            else return false;
-        }
-
-        private void hireCompanyWorker_Click(object sender, RoutedEventArgs e)
-        {
-            if (isCompanyCreated)
-            {
-                company.Hire(new Worker());
-                RefreshStructInfo();
-            }
-        }
-
-        private void hireCompanyIntern_Click(object sender, RoutedEventArgs e)
-        {
-            if (isCompanyCreated)
-            {
-                company.Hire(new Intern());
-                RefreshStructInfo();
-            }
-        }
-
-        private void directorRename_Click(object sender, RoutedEventArgs e)
-        {
-            if (isCompanyCreated)
-            {
-                temporaryWorkPlace = company;
-                RenameBoss_Click(sender, e);
-            }
-        }
-
-        private void renameCompany_Click(object sender, RoutedEventArgs e)
-        {
-            if (isCompanyCreated)
-            {
-                temporaryWorkPlace = company;
-                RenameStruct(sender, e);
-                pathStructOrEmploye.Text = company.Name;
-            }
-        }
+        #endregion
     }
 }
