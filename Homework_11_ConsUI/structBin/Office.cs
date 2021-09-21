@@ -57,15 +57,5 @@ namespace Homework_11_ConsUI.structBin
         {
             this.Boss = officeManager.Name;
         }
-
-        public override string ToString()
-        {
-            return $"{Name} \n\n" +
-                $"---------------------\n\n" +
-                $"Substructs count: {WorkPlaces.Count}\n" +
-                $"Workers count: {Workers.Count}\n\n" +
-                $"Boss: {Boss}\n" +
-                $"Boss monthly salary: {BossSalary}";
-        }
     }
 }

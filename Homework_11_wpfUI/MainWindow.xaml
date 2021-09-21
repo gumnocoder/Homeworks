@@ -192,10 +192,10 @@
                     BorderBrush="#334666" 
                     BorderThickness="5,0,0,5">
                     <TextBlock Grid.Column="2" 
-                           Background="#8590a6" 
-                           Padding="5" 
-
-                           Text="{Binding ElementName=structContent, Path=SelectedItem}"/>
+                            Background="#8590a6" 
+                            Padding="5" 
+                            Name="structInfo"
+/>
                 </Border>
                 <Border Grid.Row="1" 
                     BorderBrush="#334666" 

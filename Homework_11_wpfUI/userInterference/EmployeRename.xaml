@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Homework_11_wpfUI.userInterference"
         mc:Ignorable="d"
         Title="EmployeRename" Height="150" Width="250"
-        WindowStyle="None" ResizeMode="NoResize">
+        WindowStyle="None" ResizeMode="NoResize"
+        Background="#8590a6"  Foreground="#334666">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
@@ -18,7 +19,7 @@
                      Name="newEmployeName"/>
         </Border>
         <TextBlock Grid.Row="0" Margin="10" 
-                   Foreground="#8590a6" HorizontalAlignment="Center" 
+                   Foreground="#334666" HorizontalAlignment="Center" 
                    VerticalAlignment="Center" TextAlignment="Center" 
                    FontWeight="Bold" FontSize="13">
             Enter new name for employe
@@ -26,19 +27,20 @@
         </TextBlock>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
-            <Button Name="AplyBtn" Grid.Column="0" 
-                    Margin="5" Content="Apply" 
-                    Background="#8590a6"  
-                    Foreground="#334666" 
-                    FontWeight="Black" Click="AplyBtn_Click"/>
-            <Button Name="CancelBtn" Grid.Column="1" 
-                    Margin="5" Content="Cancel" 
-                    Background="#8590a6"  
-                    Foreground="#334666" 
-                    FontWeight="Black" Click="CancelBtn_Click"/>
+            <Button Name="AplyBtn" Grid.Column="1" 
+                    Margin="7" Content="Apply" 
+                    Background="#5c6c85" Foreground="#334666" 
+                    FontSize="12" FontWeight="Bold"
+                    Click="AplyBtn_Click"/>
+            <Button Name="CancelBtn" Grid.Column="2" 
+                    Margin="7" Content="Cancel" 
+                    Background="#5c6c85" Foreground="#334666" 
+                    FontSize="12" FontWeight="Bold"
+                    Click="CancelBtn_Click"/>
         </Grid>
     </Grid>
 </Window>

@@ -51,12 +51,5 @@ namespace Homework_11_ConsUI.structBin
                 new Department($"DepartmentName {depsCount}"
                 ));
         }
-
-        public override string ToString()
-        {
-            return $"Company {Name}, " +
-                $"count of departments " +
-                $"{WorkPlaces.Count} {Boss}{BossSalary}";
-        }
     }
 }

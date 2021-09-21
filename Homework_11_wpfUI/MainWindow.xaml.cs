@@ -184,6 +184,7 @@ namespace Homework_11_wpfUI
                 /// открывает список подотделов
                 structContent.ItemsSource = currentWorkPlace.WorkPlaces;
             }
+            structInfo.Text = currentWorkPlace.ToString();
         }
 
         /// <summary>
@@ -198,6 +199,7 @@ namespace Homework_11_wpfUI
             currentWorkPlace = company;
             structContent.ItemsSource = currentWorkPlace.WorkPlaces;
             workersContent.ItemsSource = currentWorkPlace.Workers;
+            structInfo.Text = currentWorkPlace.ToString();
         }
 
         #endregion
@@ -221,6 +223,7 @@ namespace Homework_11_wpfUI
             company = new();
             currentWorkPlace = company;
             isCompanyCreated = true;
+            structInfo.Text = currentWorkPlace.ToString();
         }
 
 

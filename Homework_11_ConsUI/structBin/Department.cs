@@ -5,8 +5,6 @@ namespace Homework_11_ConsUI.structBin
 {
     public class Department : WorkPlace
     {
-        //string boss;
-        //new public string Boss { get { return boss; } set { boss = value; } }
 
         static int officeCount = 0;
 
@@ -51,17 +49,6 @@ namespace Homework_11_ConsUI.structBin
             this.WorkPlaces.Add(new Office($"Office #{officeCount}"));
         }
 
-        public override string ToString()
-        {
-            return $"{Name} \n\n" +
-                $"---------------------\n\n" +
-                $"Substructs count: {WorkPlaces.Count}\n" +
-                $"Workers count: {Workers.Count}\n\n" +
-                $"Boss: {Boss}\n" +
-                $"Boss monthly salary: {BossSalary}";
-        }
-
-
 
         /// <summary>
         /// найм управляющего
@@ -70,7 +57,6 @@ namespace Homework_11_ConsUI.structBin
         public override void HireBoss(DepartmentBoss depBoss)
         {
             Boss = depBoss.Name;
-            //BossSalary = SetBossSalary(this);
         }
     }
 }

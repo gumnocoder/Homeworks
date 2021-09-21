@@ -26,7 +26,8 @@
                     Content="Apply" FontSize="12" FontWeight="Bold" Click="ApplyBtn"/>
             <Button Grid.Column="3" Margin="5" 
                     Background="#5c6c85" Foreground="#334666" 
-                    Content="Cancel" FontSize="12" FontWeight="Bold" Click="CancelBtn"/>
+                    FontSize="12" FontWeight="Bold"
+                    Content="Cancel" Click="CancelBtn"/>
         </Grid>
         <TextBlock Grid.Row="0"
                    VerticalAlignment="Center"

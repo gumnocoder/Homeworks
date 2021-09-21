@@ -42,6 +42,11 @@ namespace Homework_11_ConsUI.structBin
             set { boss = value; onPropertyChanged(); }
         }
 
+        string info;
+
+        public string Info
+        { get { return info; } set { ToString(); onPropertyChanged(); } }
+
         int bossSalary;
         /// <summary>
         /// Зарплата управляющего
@@ -53,6 +58,46 @@ namespace Homework_11_ConsUI.structBin
                 bossSalary = value;
                 onPropertyChanged();
             }
+        }
+
+        public int CountOffices()
+        {
+            int tmp = 0;
+            foreach (var e in this.WorkPlaces)
+            {
+                if (e.GetType() == typeof(Office)) tmp++;
+            }
+            return tmp;
+        }
+
+        public int CountDeps()
+        {
+            int tmp = 0;
+            foreach (var e in this.WorkPlaces)
+            {
+                if (e.GetType() == typeof(Department)) tmp++;
+            }
+            return tmp;
+        }
+
+        public int CountWorkers()
+        {
+            int tmp = 0;
+            foreach (var e in this.Workers)
+            {
+                if (e.GetType() == typeof(Worker)) tmp++;
+            }
+            return tmp;
+        }
+
+        public int CountInterns()
+        {
+            int tmp = 0;
+            foreach (var e in this.Workers)
+            {
+                if (e.GetType() == typeof(Intern)) tmp++;
+            }
+            return tmp;
         }
 
         /// <summary>
@@ -143,6 +188,17 @@ namespace Homework_11_ConsUI.structBin
         {
             this.Boss = name;
             onPropertyChanged();
+        }
+
+        public override string ToString()
+        {
+            return $"{Name}\n\n" +
+                $"count of departments: {CountDeps() }\n" +
+                $"count of offices: {CountOffices() }\n\n" +
+                $"Workers count: { CountWorkers() }\n" +
+                $"Workers count: { CountInterns() }\n\n" +
+                $"Boss: {Boss}\n" +
+                $"Boss`s salary: {BossSalary}";
         }
     }
 }
