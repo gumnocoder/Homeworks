@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Xml.Serialization;
 using Homework_11_ConsUI.employeBin;
 using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
@@ -221,6 +223,16 @@ namespace Homework_11_ConsUI.structBin
                 $"Workers count: { CountInterns() }\n\n" +
                 $"Boss: {Boss}\n" +
                 $"Boss`s salary: {BossSalary}";
+        }
+
+        public class SortWorkPlaceByName : IComparer<WorkPlace>
+        {
+            public int Compare(WorkPlace x, WorkPlace y)
+            {
+                if (x.Name == y.Name) return 0;
+                else if (x.Name[0] > y.Name[0]) return 0;
+                else return -1;
+            }
         }
     }
 }

@@ -1,5 +1,9 @@
-﻿using System.Windows;
+﻿using System.Collections;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using Homework_11_ConsUI.employeBin;
 using Homework_11_ConsUI.structBin;
@@ -755,6 +759,83 @@ namespace Homework_11_wpfUI
         {
             workersInfo.Text = temporaryEmploye.ToString();
         }
+
+        #endregion
+
+        #region СОРТИРОВКА
+        private bool checkForSorting(int code = 1)
+        {
+
+            if (isCompanyCreated)
+            {
+                switch (code)
+                {
+                    case 1:
+                        if (structContent.ItemsSource != null) 
+                            return true;
+                        break;
+                    case 0:
+                        if (workersContent.ItemsSource != null) 
+                            return true;
+                        break;
+                }
+            }
+            return false;
+        }
+
+        private CollectionView view;
+        private void SetList(int code = 1)
+        {
+            if (code == 0)
+                view = (CollectionView)CollectionViewSource.GetDefaultView(workersContent.ItemsSource);
+            else
+                view = (CollectionView)CollectionViewSource.GetDefaultView(structContent.ItemsSource);
+        }
+
+        private void structsSubstructs_MouseDown(object sender, MouseButtonEventArgs e)
+        { if (checkForSorting()) { SetList(); SortListView(sender, e, "WorkPlaces.Count"); } }
+
+        private void structsWorkers_MouseDown(object sender, MouseButtonEventArgs e)
+        { if (checkForSorting()) { SetList(); SortListView(sender, e, "Workers.Count"); } }
+
+        private void structsBossSalary_MouseDown(object sender, MouseButtonEventArgs e)
+        { if (checkForSorting()) { SetList(); SortListView(sender, e, "BossSalary"); } }
+
+        private void structsName_MouseDown(object sender, MouseButtonEventArgs e)
+        { if (checkForSorting()) { SetList(); SortListView(sender, e, "Name"); } }
+
+        private void stuctsBoss_MouseDown(object sender, MouseButtonEventArgs e)
+        { if (checkForSorting()) { SetList(); SortListView(sender, e, "Boss"); } }
+
+
+        private bool directionChanged = false;
+        private void SortListView(object sender, MouseButtonEventArgs e, string field)
+        {
+            if (!directionChanged)
+            {
+                view.SortDescriptions.Clear();
+                view.SortDescriptions.Add(new SortDescription(field, ListSortDirection.Ascending));
+                directionChanged = true;
+            }
+            else
+            {
+                view.SortDescriptions.Clear();
+                view.SortDescriptions.Add(new SortDescription(field, ListSortDirection.Descending));
+                directionChanged = false;
+            }
+        }
+
+        private void workersName_MouseDown(object sender, MouseButtonEventArgs e)
+        { if (checkForSorting(0)) { SetList(0); SortListView(sender, e, "Name"); } }
+
+        private void workersSalary_MouseDown(object sender, MouseButtonEventArgs e)
+        { if (checkForSorting(0)) { SetList(0); SortListView(sender, e, "Salary"); } }
+
+        private void workersType_MouseDown(object sender, MouseButtonEventArgs e)
+        { if (checkForSorting(0)) { SetList(0); SortListView(sender, e, "Type"); } }
+
+        private void workersAge_MouseDown(object sender, MouseButtonEventArgs e)
+        { if (checkForSorting(0)) { SetList(0); SortListView(sender, e, "Age"); } }
 
         #endregion
     }

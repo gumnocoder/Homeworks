@@ -110,26 +110,50 @@
                 SelectionChanged="workersContent_SelectionChanged">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="name" Width="70" 
-                                        DisplayMemberBinding="{
+                        <GridViewColumn 
+                            Width="70"     
+                            DisplayMemberBinding="{
                             Binding Name, 
                             UpdateSourceTrigger=PropertyChanged, 
-                            Mode=TwoWay}"/>
-                        <GridViewColumn Header="salary" Width="70" 
-                                        DisplayMemberBinding="{
+                            Mode=TwoWay}">
+                            <TextBlock 
+                                Name="workersName"
+                                Text="name"
+                                Mouse.MouseDown="workersName_MouseDown"/>
+                        </GridViewColumn>
+                        <GridViewColumn 
+                            Width="70"   
+                            DisplayMemberBinding="{
                             Binding Salary, 
                             UpdateSourceTrigger=PropertyChanged, 
-                            Mode=TwoWay}"/>
-                        <GridViewColumn Header="type" Width="70" 
-                                        DisplayMemberBinding="{
+                            Mode=TwoWay}">
+                            <TextBlock 
+                                Name="workersSalary" 
+                                Text="salary" 
+                                Mouse.MouseDown="workersSalary_MouseDown"/>
+                        </GridViewColumn>
+                        <GridViewColumn 
+                            Width="70" 
+                            DisplayMemberBinding="{
                             Binding Type, 
                             UpdateSourceTrigger=PropertyChanged, 
-                            Mode=TwoWay}"/>
-                        <GridViewColumn Header="age" Width="70" 
-                                        DisplayMemberBinding="{
+                            Mode=TwoWay}">
+                            <TextBlock 
+                                Name="workersType"
+                                Text="type"
+                                Mouse.MouseDown="workersType_MouseDown"/>
+                        </GridViewColumn>
+                        <GridViewColumn 
+                            Width="70" 
+                            DisplayMemberBinding="{
                             Binding Age, 
                             UpdateSourceTrigger=PropertyChanged, 
-                            Mode=TwoWay}"/>
+                            Mode=TwoWay}">
+                            <TextBlock
+                                Name="workersAge"
+                                Text="age"
+                                Mouse.MouseDown="workersAge_MouseDown"/>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu>
@@ -160,29 +184,59 @@
                 >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="name" Width="100"
-                                        DisplayMemberBinding="{
+                        <GridViewColumn 
+                            Width="100"
+                            DisplayMemberBinding="{
                             Binding Name, 
                             UpdateSourceTrigger=PropertyChanged, 
-                            Mode=TwoWay}"/>
-                        <GridViewColumn Header="boss" Width="70"
-                                        DisplayMemberBinding="{
+                            Mode=TwoWay}">
+                            <TextBlock 
+                                Name="structsName"
+                                Text="name" 
+                                Mouse.MouseDown="structsName_MouseDown"/>
+                        </GridViewColumn>
+                        <GridViewColumn 
+                            Width="70"    
+                            DisplayMemberBinding="{
                             Binding Boss, 
                             UpdateSourceTrigger=PropertyChanged, 
-                            Mode=TwoWay}"/>
-                        <GridViewColumn Header="boss salary" Width="80"
-                                        DisplayMemberBinding="{
+                            Mode=TwoWay}">
+                            <TextBlock 
+                                Name="stuctsBoss" 
+                                Text="boss" 
+                                Mouse.MouseDown="stuctsBoss_MouseDown"/>
+                        </GridViewColumn>
+                        <GridViewColumn 
+                            Width="80"
+                            DisplayMemberBinding="{
                             Binding BossSalary, 
                             UpdateSourceTrigger=PropertyChanged, 
-                            Mode=TwoWay}"/>
-                        <GridViewColumn Header="substructs" Width="70" 
-                                        DisplayMemberBinding="{
+                            Mode=TwoWay}">
+                            <TextBlock 
+                                Name="structsBossSalary" 
+                                Text="boss salary" 
+                                Mouse.MouseDown="structsBossSalary_MouseDown"/>
+                        </GridViewColumn>
+                        <GridViewColumn 
+                            Width="70"      
+                            DisplayMemberBinding="{
                             Binding WorkPlaces.Count, 
-                            UpdateSourceTrigger=PropertyChanged}"/>
-                        <GridViewColumn Header="workers" Width="60" 
-                                        DisplayMemberBinding="{
+                            UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock
+                                Name="structsSubstructs"
+                                Text="substructs"
+                                Mouse.MouseDown="structsSubstructs_MouseDown"/>
+                        </GridViewColumn>
+                        <GridViewColumn
+                            Width="60"     
+                            DisplayMemberBinding="{
                             Binding Workers.Count, 
-                            UpdateSourceTrigger=PropertyChanged}"/>
+                            UpdateSourceTrigger=PropertyChanged}">
+                            <TextBlock 
+                                Name="structsWorkers"
+                                Text="workers"
+                                Mouse.MouseDown="structsWorkers_MouseDown"/>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
                 <ListView.ContextMenu>

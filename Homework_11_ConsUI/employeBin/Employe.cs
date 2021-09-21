@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Xml.Serialization;
 using static Homework_11_ConsUI.structBin.OrgStructure;
 
@@ -73,6 +75,16 @@ namespace Homework_11_ConsUI.employeBin
         /// <returns></returns>
         public virtual int MonthlySalary() { 
             return this.Salary; 
+        }
+
+        class SortByName : IComparer<Employe>
+        {
+            public int Compare(Employe x, Employe y)
+            {
+                if (x.Name == y.Name) return 0;
+                else if (x.Name[0] > y.Name[0]) return 0;
+                else return -1;
+            }
         }
     }
 }
