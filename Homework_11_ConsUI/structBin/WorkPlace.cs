@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Xml.Serialization;
 using Homework_11_ConsUI.employeBin;
 using static Homework_11_ConsUI.employeBin.CountingAdminSalary;
+using static Homework_11_ConsUI.structBin.OrgStructure;
 
 namespace Homework_11_ConsUI.structBin
 {
@@ -19,7 +20,7 @@ namespace Homework_11_ConsUI.structBin
         public ObservableCollection<Employe> Workers
         {
             get { return workers; }
-            set { workers = value; }
+            set { workers = value; onPropertyChanged(); }
         }
 
         ObservableCollection<WorkPlace> workPlaces;
@@ -28,7 +29,7 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         public ObservableCollection<WorkPlace> WorkPlaces {
             get { return workPlaces; }
-            set { workPlaces = value; }
+            set { workPlaces = value; onPropertyChanged(); }
         }
 
         string boss;
@@ -38,7 +39,7 @@ namespace Homework_11_ConsUI.structBin
         public string Boss
         {
             get { return boss; }
-            set { boss = value; }
+            set { boss = value; onPropertyChanged(); }
         }
 
         int bossSalary;
@@ -48,20 +49,26 @@ namespace Homework_11_ConsUI.structBin
         public int BossSalary
         {
             get { return bossSalary; }
-            set { bossSalary = value; }
+            set {
+                bossSalary = value;
+                onPropertyChanged();
+            }
         }
 
         /// <summary>
         /// найм работников
         /// </summary>
         /// <param name="intern">работник</param>
-        public virtual void Hire(Employe employe) { }
+        public virtual void Hire(Employe employe) {
+            Workers.Add(employe);
+            RefreshBossesSalary();
+        }
 
         /// <summary>
         /// найм начальника
         /// </summary>
         /// <param name="depBoss">нанимаемый начальник</param>
-        public virtual void HireBoss(DepartmentBoss depBoss) { Debug.WriteLine(depBoss.Name); }
+        public virtual void HireBoss(DepartmentBoss depBoss) { }
         /// <summary>
         /// найм управляющего
         /// </summary>
@@ -99,6 +106,7 @@ namespace Homework_11_ConsUI.structBin
         public virtual void SackBoss() {
             this.Boss = null;
             this.bossSalary = 0;
+            onPropertyChanged();
         }
 
         /// <summary>
@@ -129,6 +137,12 @@ namespace Homework_11_ConsUI.structBin
         /// <param name="workPlace"></param>
         public virtual void Close(WorkPlace workPlace) { 
             this.workPlaces.Remove(workPlace); 
+        }
+
+        public virtual void RenameBoss(string name)
+        {
+            this.Boss = name;
+            onPropertyChanged();
         }
     }
 }

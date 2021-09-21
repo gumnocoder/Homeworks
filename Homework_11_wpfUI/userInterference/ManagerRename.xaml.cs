@@ -16,32 +16,26 @@ using static Homework_11_wpfUI.MainWindow;
 namespace Homework_11_wpfUI.userInterference
 {
     /// <summary>
-    /// Логика взаимодействия для EmployeSetSalary.xaml
+    /// Логика взаимодействия для ManagerRename.xaml
     /// </summary>
-    public partial class EmployeSetSalary : Window
+    public partial class ManagerRename : Window
     {
-        public EmployeSetSalary()
+        public ManagerRename()
         {
             InitializeComponent();
         }
 
-        private void AplyBtn_Click(object sender, RoutedEventArgs e)
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (newEmployeSalary.Text != null)
-            {
-                if (int.TryParse(newEmployeSalary.Text, out int tmp))
-                {
-                    if (tmp > 0 & tmp <  1_000_000)
-                    {
-                        thisEmployeSalary = tmp;
-                    }
-                }
-            }
             Close();
         }
 
-        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        private void AplyBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (newManagerName.Text != null)
+            {
+                temporaryBossName = newManagerName.Text;
+            }
             Close();
         }
     }

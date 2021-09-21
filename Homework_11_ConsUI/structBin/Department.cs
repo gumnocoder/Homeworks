@@ -25,17 +25,6 @@ namespace Homework_11_ConsUI.structBin
         public Department() { }
 
         /// <summary>
-        /// найм работника
-        /// </summary>
-        /// <param name="employe"></param>
-        public override void Hire(Employe employe)
-        {
-            Workers.Add(employe);
-            //BossSalary = SetBossSalary(this);
-            RefreshBossesSalary();
-        }
-
-        /// <summary>
         /// открыть подотдел
         /// </summary>
         /// <param name="office"></param>

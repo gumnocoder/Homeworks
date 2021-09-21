@@ -1,4 +1,6 @@
-﻿using System.Xml.Serialization;
+﻿using System.ComponentModel;
+using System.Xml.Serialization;
+using static Homework_11_ConsUI.structBin.OrgStructure;
 
 namespace Homework_11_ConsUI.employeBin
 {
@@ -7,7 +9,7 @@ namespace Homework_11_ConsUI.employeBin
     [XmlInclude(typeof(DepartmentBoss))]
     [XmlInclude(typeof(OfficeManager))]
     [XmlInclude(typeof(Worker))]
-    public abstract class Employe : NamedObject
+    public abstract class Employe : NamedObject, INotifyPropertyChanged
     {
         /// <summary>
         /// возраст
@@ -27,7 +29,7 @@ namespace Homework_11_ConsUI.employeBin
         /// </summary>
         public string Type { 
             get { return type; } 
-            set { type = value; } 
+            set { type = value; }
         }
 
         /// <summary>
@@ -35,7 +37,11 @@ namespace Homework_11_ConsUI.employeBin
         /// </summary>
         public int Salary { 
             get { return salary; } 
-            set { salary = value; } 
+            set {
+                salary = value;
+                RefreshBossesSalary();
+                onPropertyChanged();
+            }
         }
 
 

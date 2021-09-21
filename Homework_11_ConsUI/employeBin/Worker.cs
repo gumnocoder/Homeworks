@@ -1,4 +1,6 @@
-﻿namespace Homework_11_ConsUI.employeBin
+﻿using System.ComponentModel;
+
+namespace Homework_11_ConsUI.employeBin
 {
     public class Worker : Employe
     {
@@ -20,6 +22,7 @@
             Type = "Worker";
             this.Name = Name;
             this.Age = Age;
+            this.Salary = Salary;
         }
 
         /// <summary>

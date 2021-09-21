@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using Homework_11_ConsUI.employeBin;
+using static Homework_11_ConsUI.employeBin.BaseViewModel;
 
 namespace Homework_11_ConsUI.structBin
 {
-    public static class OrgStructure
+    public class OrgStructure : BaseViewModel
     {
         public static readonly List<WorkPlace> workPlacesGlobal = new();
 

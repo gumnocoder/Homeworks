@@ -1,11 +1,11 @@
-﻿<Window x:Class="Homework_11_wpfUI.userInterference.EmployeSetSalary"
+﻿<Window x:Class="Homework_11_wpfUI.userInterference.ManagerRename"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_11_wpfUI.userInterference"
         mc:Ignorable="d"
-        Title="EmployeSetSalary"  Height="150" Width="250"
+        Title="ManagerRename" Height="150" Width="250"
         WindowStyle="None" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,16 +15,14 @@
         </Grid.RowDefinitions>
         <Border Grid.Row="1" Margin="7" Background="#5c6c85" >
             <TextBox Margin="2" Background="#8590a6" Foreground="#334666"
-                     Name="newEmployeSalary"/>
+                     Name="newManagerName"/>
         </Border>
-        <TextBlock Grid.Row="0" Margin="7" 
+        <TextBlock Grid.Row="0" Margin="10" 
                    Foreground="#8590a6" HorizontalAlignment="Center" 
                    VerticalAlignment="Center" TextAlignment="Center" 
-                   FontWeight="Bold" FontSize="12">
-            Enter new salary for choosen employe
-            <LineBreak/>and press "apply" button.
-            <LineBreak/>Attencion,  salary for interns 
-            <LineBreak/>the hourly rate is set
+                   FontWeight="Bold" FontSize="13">
+            Enter new name for manager
+            <LineBreak/>and press "apply" button
         </TextBlock>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

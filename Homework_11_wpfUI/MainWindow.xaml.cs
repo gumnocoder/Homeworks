@@ -8,6 +8,7 @@ using Homework_11_wpfUI.userInterference;
 using static System.Windows.SystemParameters;
 using static Homework_11_ConsUI.functions.ExportToJson;
 using static Homework_11_ConsUI.functions.ExportToXml;
+using static Homework_11_ConsUI.structBin.OrgStructure;
 
 namespace Homework_11_wpfUI
 {
@@ -171,11 +172,10 @@ namespace Homework_11_wpfUI
             object sender, 
             MouseButtonEventArgs e)
         {
-            var content = structContent.SelectedItem;
-            if (content != null)
+            if (CheckS(sender, e))
             {
                 /// отмечает отдел выбранным
-                currentWorkPlace = content as WorkPlace;
+                currentWorkPlace = structContent.SelectedItem as WorkPlace;
                 /// выводит список сотрудников если они есть
                 if (currentWorkPlace.Workers != null)
                 {
@@ -333,6 +333,8 @@ namespace Homework_11_wpfUI
 
         public static WorkPlace temporaryWorkPlace;
         public static Employe temporaryEmploye;
+        public static int thisEmployeSalary;
+        public static string temporaryBossName;
 
         /// <summary>
         /// открывает под отделом департамент 
@@ -345,7 +347,7 @@ namespace Homework_11_wpfUI
         {
             if (isCompanyCreated)
             {
-                if (structContent.SelectedItem != null)
+                if (CheckS(sender, e))
                 {
                     (structContent.SelectedItem as WorkPlace).OpenDep();
                 }
@@ -380,7 +382,7 @@ namespace Homework_11_wpfUI
             object sender, 
             RoutedEventArgs e)
         {
-            if (structContent.SelectedItem != null)
+            if (CheckS(sender, e))
             {
                 WorkPlace a = structContent.SelectedItem as WorkPlace;
                 if (a is Department)
@@ -394,6 +396,7 @@ namespace Homework_11_wpfUI
                     a.HireBoss(new OfficeManager(a));
                 }
             }
+            RefreshBossesSalary();
             Refresh();
         }
 
@@ -406,7 +409,7 @@ namespace Homework_11_wpfUI
             object sender, 
             RoutedEventArgs e)
         {
-            if (structContent.SelectedItem != null)
+            if (CheckS(sender, e))
             {
                 (structContent.SelectedItem as WorkPlace).Hire(
                     new Worker());
@@ -426,7 +429,7 @@ namespace Homework_11_wpfUI
             object sender, 
             RoutedEventArgs e)
         {
-            if (structContent.SelectedItem != null)
+            if (CheckS(sender, e))
             {
                 (structContent.SelectedItem as WorkPlace).Hire(
                     new Intern());
@@ -446,10 +449,9 @@ namespace Homework_11_wpfUI
             object sender, 
             RoutedEventArgs e)
         {
-            var content = structContent.SelectedItem;
-            if (content != null)
+            if (CheckS(sender, e))
             {
-                currentWorkPlace.Close(content as WorkPlace);
+                currentWorkPlace.Close(structContent.SelectedItem as WorkPlace);
             }
         }
 
@@ -532,7 +534,7 @@ namespace Homework_11_wpfUI
             object sender, 
             MouseButtonEventArgs e)
         {
-            if (structContent.SelectedItem != null)
+            if (CheckS(sender, e))
             {
                 temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
             }
@@ -547,7 +549,7 @@ namespace Homework_11_wpfUI
             object sender, 
             SelectionChangedEventArgs e)
         {
-            if (structContent.SelectedItem != null)
+            if (CheckS(sender, e))
             {
                 temporaryWorkPlace = structContent.SelectedItem as WorkPlace;
             }
@@ -562,7 +564,7 @@ namespace Homework_11_wpfUI
             object sender, 
             RoutedEventArgs e)
         {
-            if (structContent.SelectedItem != null)
+            if (CheckS(sender, e))
             {
                 var wpr = new SubstructureRename();
                 wpr.ShowDialog();
@@ -573,7 +575,7 @@ namespace Homework_11_wpfUI
 
         private void workersContent_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (workersContent.SelectedItem != null)
+            if (CheckW(sender, e))
             {
                 temporaryEmploye = workersContent.SelectedItem as Employe;
             }
@@ -581,18 +583,59 @@ namespace Homework_11_wpfUI
 
         private void renameEmploye_Click(object sender, RoutedEventArgs e)
         {
-            var emplRen = new EmployeRename();
-            emplRen.ShowDialog();
-            workersContent.SelectedItem = temporaryEmploye;
-            Refresh();
+            if (CheckW(sender, e))
+            {
+                var emplRen = new EmployeRename();
+                emplRen.ShowDialog();
+                workersContent.SelectedItem = temporaryEmploye;
+                Refresh();
+            }
         }
 
         private void workersContent_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (workersContent.SelectedItem != null)
+            if (CheckW(sender, e))
             {
                 temporaryEmploye = workersContent.SelectedItem as Employe;
             }
+        }
+
+        private void SetSalary_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckW(sender, e))
+            {
+                var emplSet = new EmployeSetSalary();
+                emplSet.ShowDialog();
+                (workersContent.SelectedItem as Employe).Salary = thisEmployeSalary;
+                Refresh();
+            }
+        }
+
+        private void sackBoss_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckS(sender, e))
+            {
+                (structContent.SelectedItem as WorkPlace).SackBoss();
+            }
+        }
+
+        private void RenameBoss_Click(object sender, RoutedEventArgs e)
+        {
+            var w = new ManagerRename();
+            w.ShowDialog();
+            (structContent.SelectedItem as WorkPlace).RenameBoss(temporaryBossName);
+        }
+
+        private bool CheckS(object sender, RoutedEventArgs e)
+        {
+            if (structContent.SelectedItem != null) return true;
+            else return false;
+        }
+
+        private bool CheckW(object sender, RoutedEventArgs e)
+        {
+            if (structContent.SelectedItem != null) return true;
+            else return false;
         }
     }
 }

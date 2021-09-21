@@ -20,11 +20,11 @@ namespace Homework_11_ConsUI.structBin
             workPlacesGlobal.Add(this);
         }
 
-        public override void Hire(Employe employe)
-        {
-            this.Workers.Add(employe);
-            RefreshBossesSalary();
-        }
+        //public override void Hire(Employe employe)
+        //{
+        //    this.Workers.Add(employe);
+        //    RefreshBossesSalary();
+        //}
 
         /// <summary>
         /// найм директора
@@ -51,14 +51,6 @@ namespace Homework_11_ConsUI.structBin
                 new Department($"DepartmentName {depsCount}"
                 ));
         }
-
-        //public override void AutoOpen()
-        //{
-        //    ++depsCount;
-        //    this.WorkPlaces.Add(
-        //        new Department($"DepartmentName {depsCount}")
-        //        );
-        //}
 
         public override string ToString()
         {
