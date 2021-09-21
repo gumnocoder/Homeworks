@@ -183,9 +183,9 @@ namespace Homework_11_wpfUI
                 }
                 /// открывает список подотделов
                 structContent.ItemsSource = currentWorkPlace.WorkPlaces;
+                structInfo.Text = currentWorkPlace.ToString();
+                pathStructOrEmploye.Text = currentWorkPlace.Name;
             }
-            structInfo.Text = currentWorkPlace.ToString();
-            pathStructOrEmploye.Text = currentWorkPlace.Name;
         }
 
         /// <summary>
