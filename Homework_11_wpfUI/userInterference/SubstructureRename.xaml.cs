@@ -30,6 +30,7 @@ namespace Homework_11_wpfUI.userInterference
         public SubstructureRename()
         {
             InitializeComponent();
+            temporaryStructName = "";
         }
 
         private void CancelBtn(object sender, RoutedEventArgs e)
@@ -39,7 +40,7 @@ namespace Homework_11_wpfUI.userInterference
 
         private void ApplyBtn(object sender, RoutedEventArgs e)
         {
-            if (newSubstructureName.Text != null)
+            if (newSubstructureName.Text != "")
             {
                 temporaryStructName = newSubstructureName.Text;
             }

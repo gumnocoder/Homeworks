@@ -16,31 +16,37 @@ using static Homework_11_wpfUI.MainWindow;
 namespace Homework_11_wpfUI.userInterference
 {
     /// <summary>
-    /// Логика взаимодействия для ManagerRename.xaml
+    /// Логика взаимодействия для EmployeReAge.xaml
     /// </summary>
-    public partial class ManagerRename : Window
+    public partial class EmployeReAge : Window
     {
+        public EmployeReAge()
+        {
+            InitializeComponent();
+        }
+
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter) AplyBtn_Click(sender, e);
         }
-        public ManagerRename()
+
+        private void AplyBtn_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            temporaryBossName = "";
+            if (newEmployeAge.Text != "")
+            {
+                if (byte.TryParse(newEmployeAge.Text, out byte tmp))
+                {
+                    if (tmp > 17 & tmp < 100)
+                    { thisEmployeAge = tmp; }
+                    else Close();
+                }
+            }
+
+            Close();
         }
 
         private void CancelBtn_Click(object sender, RoutedEventArgs e)
         {
-            Close();
-        }
-
-        private void AplyBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (newManagerName.Text != "")
-            {
-                temporaryBossName = newManagerName.Text;
-            }
             Close();
         }
     }

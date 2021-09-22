@@ -475,6 +475,7 @@ namespace Homework_11_wpfUI
         public static WorkPlace temporaryWorkPlace;
         public static Employe temporaryEmploye;
         public static int thisEmployeSalary;
+        public static byte thisEmployeAge;
         public static string temporaryBossName;
         public static string temporaryStructName;
 
@@ -632,10 +633,13 @@ namespace Homework_11_wpfUI
             {
                 var wpr = new SubstructureRename();
                 wpr.ShowDialog();
-                temporaryWorkPlace.Name = temporaryStructName;
-                RefreshStructInfo();
-                Refresh();
-                pathStructOrEmploye.Text = temporaryStructName;
+                if(temporaryStructName != "")
+                {
+                    temporaryWorkPlace.Name = temporaryStructName;
+                    RefreshStructInfo();
+                    Refresh();
+                    pathStructOrEmploye.Text = temporaryStructName;
+                }
             }
         }
 
@@ -665,6 +669,7 @@ namespace Homework_11_wpfUI
         {
             if (CheckW(sender, e))
             {
+                thisEmployeSalary = (workersContent.SelectedItem as Employe).Salary;
                 var emplSet = new EmployeSetSalary();
                 emplSet.ShowDialog();
                 (workersContent.SelectedItem as Employe).Salary = thisEmployeSalary;
@@ -698,9 +703,13 @@ namespace Homework_11_wpfUI
             {
                 var w = new ManagerRename();
                 w.ShowDialog();
-                temporaryWorkPlace.RenameBoss(temporaryBossName);
-                pathStructOrEmploye.Text = temporaryWorkPlace.Boss;
-                RefreshStructInfo();
+
+                if (temporaryBossName != "")
+                {
+                    temporaryWorkPlace.RenameBoss(temporaryBossName);
+                    pathStructOrEmploye.Text = temporaryWorkPlace.Boss;
+                    RefreshStructInfo();
+                }
             }
         }
 
@@ -915,5 +924,18 @@ namespace Homework_11_wpfUI
         { if (checkForSorting(0)) { SetList(0); SortListView(sender, e, "Age"); } }
 
         #endregion
+
+        private void SetAge_Click(object sender, RoutedEventArgs e)
+        {
+            if (CheckW(sender, e))
+            {
+                thisEmployeAge = (workersContent.SelectedItem as Employe).Age;
+                var emplSet = new EmployeReAge();
+                emplSet.ShowDialog();
+                (workersContent.SelectedItem as Employe).Age = thisEmployeAge;
+                RefreshWorkersInfo();
+                Refresh();
+            }
+        }
     }
 }

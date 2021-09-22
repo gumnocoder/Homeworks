@@ -56,7 +56,12 @@ namespace Homework_11_ConsUI.employeBin
         public byte Age
         {
             get { return age; }
-            set { age = value; }
+            set
+            {
+                age = value;
+                RefreshBossesSalary();
+                onPropertyChanged();
+            }
         }
 
         /// <summary>

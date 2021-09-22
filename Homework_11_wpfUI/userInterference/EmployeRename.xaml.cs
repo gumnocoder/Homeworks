@@ -28,11 +28,12 @@ namespace Homework_11_wpfUI.userInterference
         public EmployeRename()
         {
             InitializeComponent();
+
         }
 
         private void AplyBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (newEmployeName.Text != null)
+            if (newEmployeName.Text != "")
             {
                 temporaryEmploye.Rename(newEmployeName.Text);
             }
