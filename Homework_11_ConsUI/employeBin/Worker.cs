@@ -4,7 +4,7 @@ namespace Homework_11_ConsUI.employeBin
 {
     public class Worker : Employe
     {
-        static int workersCount = 0;
+        public static int workersCount = 0;
 
         /// <summary>
         /// конструктор

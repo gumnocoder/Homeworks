@@ -13,16 +13,28 @@ using static System.Windows.SystemParameters;
 using static Homework_11_ConsUI.functions.ExportToJson;
 using static Homework_11_ConsUI.functions.ExportToXml;
 using static Homework_11_ConsUI.structBin.OrgStructure;
+using Homework_11_wpfUI.masterForms;
+using System;
 
 namespace Homework_11_wpfUI
 {
+    public class Subscriber
+    {
+        public void ret()
+        {
+            MessageBox.Show("");
+        }
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         #region ОКНА
-
+        public void ret(object sender, EventArgs e)
+        {
+            MessageBox.Show("");
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -935,6 +947,19 @@ namespace Homework_11_wpfUI
                 (workersContent.SelectedItem as Employe).Age = thisEmployeAge;
                 RefreshWorkersInfo();
                 Refresh();
+            }
+        }
+
+        private void openCreationWizard(object sender, RoutedEventArgs e)
+        {
+            if (isCompanyCreated)
+            {
+                //var f = new MasterOfManagerCreation();
+                (new MasterOfManagerCreation()).Show();
+            }
+            else
+            {
+                (new temporaryWorkPlaceIsEmpty()).ShowDialog();
             }
         }
     }

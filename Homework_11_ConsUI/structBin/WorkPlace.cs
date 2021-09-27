@@ -16,6 +16,7 @@ namespace Homework_11_ConsUI.structBin
 
         ObservableCollection<Employe> workers;
 
+
         /// <summary>
         /// список сотрудников
         /// </summary>
@@ -23,6 +24,17 @@ namespace Homework_11_ConsUI.structBin
         {
             get { return workers; }
             set { workers = value; onPropertyChanged(); }
+        }
+
+        /// <summary>
+        /// индексатор для вывода списка работников
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public Employe this[int index]
+        {
+            get { return Workers[index]; }
+            set { Workers[index] = value; }
         }
 
         ObservableCollection<WorkPlace> workPlaces;
@@ -38,6 +50,18 @@ namespace Homework_11_ConsUI.structBin
                 onPropertyChanged(); 
             }
         }
+
+        /// <summary>
+        /// индексатор для вывода списка подструктур
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public WorkPlace this[double index]
+        {
+            get { return workPlaces[(int)index]; }
+            set { workPlaces[(int)index] = value; }
+        }
+
 
         string boss;
         /// <summary>
