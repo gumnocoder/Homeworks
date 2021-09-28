@@ -6,7 +6,8 @@ using static Homework_11_wpfUI.MainWindow;
 using Homework_11_wpfUI;
 using System.Windows.Controls;
 using static Homework_11_ConsUI.employeBin.Worker;
-
+using static Homework_11_ConsUI.employeBin.Intern;
+using Homework_11_ConsUI.structBin;
 namespace Homework_11_wpfUI.masterForms
 {
     /// <summary>
@@ -15,22 +16,13 @@ namespace Homework_11_wpfUI.masterForms
     public partial class MasterOfManagerCreation : Window
     {
         public Window w;
-        //MasterOfManagerCreation master = new();
         public MasterOfManagerCreation()
         {
             InitializeComponent();
-            
-            //frame.Navigate(home);
-        }
-
-        private void tittle_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            //Window w = Window.GetWindow(this);
-            //if (null != w)
-            //{
-            //    ((UserControl)w.FindName("a")).Visibility = Visibility.Hidden;
-            //    ((UserControl)w.FindName("b")).Visibility = Visibility.Visible;
-            //}
+            if (temporaryWorkPlace.GetType() == typeof(Office))
+            {
+                createDepartmentBtn.Visibility = Visibility.Hidden;
+            }
         }
 
         private bool workerCreation = false;
@@ -40,7 +32,12 @@ namespace Homework_11_wpfUI.masterForms
 
         private void CreateWorkerCycle()
         {
-            string name = $"worker_{workersCount}";
+            string name = "";
+            if (workerCreation)
+            { name = $"worker_{workersCount}"; }
+            else if (internCreation)
+            { name = $"intern_{internsCount}"; }
+           
             if (workerNameBox.Text != "")
             { name = workerNameBox.Text; }
 
@@ -61,16 +58,45 @@ namespace Homework_11_wpfUI.masterForms
                 { salary = tmp; }
             }
 
-            temporaryWorkPlace.Hire(new Worker(salary, name, age));
+            if (workerCreation)
+            { temporaryWorkPlace.Hire(new Worker(salary, name, age)); }
+            else if (internCreation)
+            { temporaryWorkPlace.Hire(new Intern(salary, name, age)); }
+        }
+
+        private void gridVisible(string name, byte switcher = 1)
+        {
+            switch (switcher)
+            {
+                case 1:
+                    ((Grid)w.FindName(name)).Visibility = Visibility.Visible;
+                    break;
+                case 0:
+                    ((Grid)w.FindName(name)).Visibility = Visibility.Hidden;
+                    break;
+            }
+        }
+
+        private void borderVisible(string name, byte switcher = 1)
+        {
+            switch (switcher)
+            {
+                case 1:
+                    ((Border)w.FindName(name)).Visibility = Visibility.Visible;
+                    break;
+                case 0:
+                    ((Border)w.FindName(name)).Visibility = Visibility.Hidden;
+                    break;
+            }
         }
         private void createWorkerBtn_Click(object sender, RoutedEventArgs e)
         {
             w = GetWindow(this);
             workerCreation = true;
 
-            ((Grid)w.FindName("gridWithButtons")).Visibility = Visibility.Hidden;
-            ((Border)w.FindName("wizardBody")).Visibility = Visibility.Visible;
-            ((Border)w.FindName("instuctionsFrame")).Visibility = Visibility.Visible;
+            gridVisible("gridWithButtons", 0);
+            borderVisible("wizardBody", 1);
+            borderVisible("instuctionsFrame", 1);
 
             thisEmployeWorkPlace.Text = temporaryWorkPlace.Name;
             workerNameHeader.Text = "Worker`s name:";
@@ -82,9 +108,9 @@ namespace Homework_11_wpfUI.masterForms
             w = GetWindow(this);
             internCreation = true;
 
-            ((Grid)w.FindName("gridWithButtons")).Visibility = Visibility.Hidden;
-            ((Border)w.FindName("wizardBody")).Visibility = Visibility.Visible;
-            ((Border)w.FindName("instuctionsFrame")).Visibility = Visibility.Visible;
+            gridVisible("gridWithButtons", 0);
+            borderVisible("wizardBody", 1);
+            borderVisible("instuctionsFrame", 1);
 
             workerNameHeader.Text = "Intern`s name:";
             workerSalaryHeader.Text = "Salary (for one month):";
@@ -112,24 +138,20 @@ namespace Homework_11_wpfUI.masterForms
 
         private void createBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (workerCreation)
+            if (workerCreation | internCreation)
             {
                 CreateWorkerCycle();
                 workerCreation = false;
-                Close();
-            }
-            else if (internCreation)
-            {
                 internCreation = false;
             }
-            else if (officeCreation)
+
+            else if (officeCreation | departmentCreation)
             {
                 officeCreation = false;
-            }
-            else if (departmentCreation)
-            {
                 departmentCreation = false;
             }
+
+            Close();
         }
     }
 }

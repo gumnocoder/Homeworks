@@ -5,7 +5,7 @@
     /// </summary>
     public class Intern : Employe
     {
-        static int internsCount = 0;
+        public static int internsCount = 0;
 
         /// <summary>
         /// конструктор

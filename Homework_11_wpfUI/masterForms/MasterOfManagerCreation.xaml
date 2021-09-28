@@ -91,7 +91,8 @@
                             Grid.Row="3" 
                             Content="Department"
                             Margin="6,3,6,3"
-                            x:Name="createDepartmentBtn" 
+                            x:Name="createDepartmentBtn"
+                            Visibility="Visible"
                             Click="createDepartmentBtn_Click"/>
                     </Grid>
                 </Grid>
@@ -122,7 +123,7 @@
         </Border>
         <Border 
             x:Name="wizardBody"
-            Visibility="Visible"
+            Visibility="Hidden"
             Grid.Column="1" 
             Background="#aeb5c5"
             Margin="3,5,3,5"
