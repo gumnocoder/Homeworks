@@ -1,12 +1,11 @@
 ﻿using Homework_11_ConsUI.employeBin;
 using static Homework_11_ConsUI.structBin.OrgStructure;
+using static Homework_11_ConsUI.structBin.Company;
 
 namespace Homework_11_ConsUI.structBin
 {
     public class Department : WorkPlace
     {
-
-        static int officeCount = 0;
 
         /// <summary>
         /// конструктор
@@ -31,8 +30,14 @@ namespace Homework_11_ConsUI.structBin
         /// <param name="office"></param>
         public override void Open(Office office)
         {
-            ++officeCount;
+            ++companyOffices;
             this.WorkPlaces.Add(office);
+        }
+
+        public override void Open(Department department)
+        {
+            ++depsCount;
+            this.WorkPlaces.Add(department);
         }
 
         /// <summary>
@@ -51,8 +56,8 @@ namespace Homework_11_ConsUI.structBin
         /// </summary>
         public override void Open()
         {
-            ++officeCount;
-            this.WorkPlaces.Add(new Office($"Office #{officeCount}"));
+            ++companyOffices;
+            this.WorkPlaces.Add(new Office($"Office #{companyOffices}"));
         }
 
 

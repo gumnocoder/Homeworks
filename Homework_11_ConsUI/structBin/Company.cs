@@ -5,9 +5,9 @@ namespace Homework_11_ConsUI.structBin
 {
     public sealed class Company : WorkPlace
     {
-        internal static int depsCount = 0;
+        public static int depsCount = 0;
 
-        static int companyOffices = 0;
+        public static int companyOffices = 0;
 
         /// <summary>
         /// конструктор
@@ -39,6 +39,17 @@ namespace Homework_11_ConsUI.structBin
             this.WorkPlaces.Add(
                 new Office($"OfficeName {companyOffices}"
                 ));
+        }
+        public override void Open(Office office)
+        {
+            ++companyOffices;
+            this.WorkPlaces.Add(office);
+        }
+
+        public override void Open(Department department)
+        {
+            ++depsCount;
+            this.WorkPlaces.Add(department);
         }
 
         public override void OpenDep()

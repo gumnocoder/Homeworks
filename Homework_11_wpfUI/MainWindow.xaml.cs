@@ -289,7 +289,7 @@ namespace Homework_11_wpfUI
         /// <summary>
         /// компания
         /// </summary>
-        Company company;
+        public static Company company;
 
         /// <summary>
         /// создана ли компания
@@ -299,7 +299,7 @@ namespace Homework_11_wpfUI
         /// <summary>
         /// текущее рабочее место
         /// </summary>
-        WorkPlace currentWorkPlace;
+        public WorkPlace currentWorkPlace;
 
 
         /// <summary>

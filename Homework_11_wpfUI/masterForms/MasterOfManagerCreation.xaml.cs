@@ -5,6 +5,8 @@ using Homework_11_ConsUI.structBin;
 using static Homework_11_ConsUI.employeBin.Intern;
 using static Homework_11_ConsUI.employeBin.Worker;
 using static Homework_11_wpfUI.MainWindow;
+using static Homework_11_ConsUI.structBin.Company;
+using static Homework_11_ConsUI.structBin.Department;
 namespace Homework_11_wpfUI.masterForms
 {
     /// <summary>
@@ -25,6 +27,7 @@ namespace Homework_11_wpfUI.masterForms
             if (temporaryWorkPlace.GetType() == typeof(Office))
             {
                 createDepartmentBtn.Visibility = Visibility.Hidden;
+                gridForCreatingDepartments.Visibility = Visibility.Hidden;
             }
         }
 
@@ -161,6 +164,25 @@ namespace Homework_11_wpfUI.masterForms
             workerSalaryHeader.Text = "Salary (for one month):";
         }
 
+        private void CreateStructCycle()
+        {
+            string name = "";
+
+            if (departmentCreation)
+                name = $"department_{depsCount}";
+            else if (officeCreation)
+                name = $"office_{companyOffices}";
+
+            if (newStructsName.Text != "")
+            { name = newStructsName.Text; }
+
+
+            if (departmentCreation)
+                temporaryWorkPlace.Open(new Department(name));
+            else if (officeCreation)
+                temporaryWorkPlace.Open(new Office(name));
+        }
+
         /// <summary>
         /// запускает преобразование под оффис
         /// </summary>
@@ -169,9 +191,11 @@ namespace Homework_11_wpfUI.masterForms
         private void createOfficeBtn_Click(
             object sender, RoutedEventArgs e)
         {
+            officeCreation = true;
 
         }
 
+        WorkPlace SecondTemporallyWorkPlace = new Department();
         /// <summary>
         /// запускает преобразование под департамент
         /// </summary>
@@ -180,6 +204,7 @@ namespace Homework_11_wpfUI.masterForms
         private void createDepartmentBtn_Click(
             object sender, RoutedEventArgs e)
         {
+            departmentCreation = true;
 
         }
 
@@ -211,6 +236,7 @@ namespace Homework_11_wpfUI.masterForms
 
             else if (officeCreation | departmentCreation)
             {
+                CreateStructCycle();
                 officeCreation = false;
                 departmentCreation = false;
             }
