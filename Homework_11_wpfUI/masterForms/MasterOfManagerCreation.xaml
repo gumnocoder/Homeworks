@@ -123,7 +123,7 @@
         </Border>
         <Border 
             x:Name="wizardBody"
-            Visibility="Visible"
+            Visibility="Hidden"
             Grid.Column="1" 
             Background="#aeb5c5"
             Margin="3,5,3,5"
@@ -276,7 +276,7 @@
         </Border>
         <Border 
             x:Name="wizardForSubstructBody"
-            Visibility="Visible"
+            Visibility="Hidden"
             Grid.Column="1" 
             Background="#aeb5c5"
             Margin="3,5,3,5"

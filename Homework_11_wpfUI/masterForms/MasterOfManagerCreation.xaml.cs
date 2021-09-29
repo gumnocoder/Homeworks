@@ -6,7 +6,6 @@ using static Homework_11_ConsUI.employeBin.Intern;
 using static Homework_11_ConsUI.employeBin.Worker;
 using static Homework_11_wpfUI.MainWindow;
 using static Homework_11_ConsUI.structBin.Company;
-using static Homework_11_ConsUI.structBin.Department;
 namespace Homework_11_wpfUI.masterForms
 {
     /// <summary>
@@ -14,6 +13,9 @@ namespace Homework_11_wpfUI.masterForms
     /// </summary>
     public partial class MasterOfManagerCreation : Window
     {
+        /// <summary>
+        /// окно мастера
+        /// </summary>
         public Window w;
 
         /// <summary>
@@ -31,6 +33,10 @@ namespace Homework_11_wpfUI.masterForms
             }
         }
 
+
+        /// флаг переключающийся кнопкой
+        // указывает на то что создаётся
+        // рабочий / интерн / офис или департамент
         private bool workerCreation = false;
         private bool internCreation = false;
         private bool officeCreation = false;
@@ -128,6 +134,17 @@ namespace Homework_11_wpfUI.masterForms
             workerNameHeader.Text = workerNameText;
             workerSalaryHeader.Text = workerSalaryText;
         }
+
+        /// <summary>
+        /// Преобразует форму под создание структуры
+        /// </summary>
+        private void StructCreationFormSettings()
+        {
+            borderVisible("wizardHeader", 0);
+            borderVisible("wizardForSubstructBody", 1);
+            if (officeCreation)
+            { gridVisible("gridForCreatingDepartments", 0); }
+        }
         
         /// <summary>
         /// запускает преобразование для worker
@@ -155,15 +172,42 @@ namespace Homework_11_wpfUI.masterForms
         {
             w = GetWindow(this);
             internCreation = true;
-
-            gridVisible("gridWithButtons", 0);
-            borderVisible("wizardBody", 1);
-            borderVisible("instuctionsFrame", 1);
-
-            workerNameHeader.Text = "Intern`s name:";
-            workerSalaryHeader.Text = "Salary (for one month):";
+            EMployeCreationFormSettings(
+                "Intern`s name:",
+                "Salary (for one month):"
+                );
         }
 
+        /// <summary>
+        /// запускает преобразование под офис
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void createOfficeBtn_Click(
+            object sender, RoutedEventArgs e)
+        {
+            w = GetWindow(this);
+            officeCreation = true;
+            StructCreationFormSettings();
+        }
+
+        /// <summary>
+        /// запускает преобразование под департамент
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void createDepartmentBtn_Click(
+            object sender, RoutedEventArgs e)
+        {
+            w = GetWindow(this);
+            departmentCreation = true;
+            StructCreationFormSettings();
+        }
+
+        /// <summary>
+        /// Запускает создание отдела по 
+        /// параметрам или по умолчанию
+        /// </summary>
         private void CreateStructCycle()
         {
             string name = "";
@@ -197,6 +241,11 @@ namespace Homework_11_wpfUI.masterForms
             { OpenDepsByCount(departmentsCountInput.Text, tmpwp); }
         }
 
+        /// <summary>
+        /// нанимает заданное количество работников в создаваемый отдел
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="wp"></param>
         private void HireWorkersByCount(string count, WorkPlace wp)
         {
             if (int.TryParse(count, out int tmp))
@@ -206,6 +255,11 @@ namespace Homework_11_wpfUI.masterForms
             }
         }
 
+        /// <summary>
+        /// нанимает заданное количество интернов в создаваемый отдел
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="wp"></param>
         private void HireInternsByCount(string count, WorkPlace wp)
         {
             if (int.TryParse(count, out int tmp))
@@ -215,6 +269,12 @@ namespace Homework_11_wpfUI.masterForms
             }
         }
 
+        /// <summary>
+        /// создаёт заданное количество департаментов в 
+        /// создаваемой структуре (только в департаменте)
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="wp"></param>
         private void OpenDepsByCount(string count, WorkPlace wp)
         {
             if (int.TryParse(count, out int tmp))
@@ -224,6 +284,12 @@ namespace Homework_11_wpfUI.masterForms
             }
         }
 
+        /// <summary>
+        /// создаёт заданное количество офисов в создаваемой 
+        /// структуре (в департаменте или офисе)
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="wp"></param>
         private void OpenOfficesByCount(string count, WorkPlace wp)
         {
             if (int.TryParse(count, out int tmp))
@@ -231,31 +297,6 @@ namespace Homework_11_wpfUI.masterForms
                 for (int i = 0; i < tmp; i++)
                 { wp.Open(new Office($"temp_office_{i}")); }
             }
-        }
-
-        /// <summary>
-        /// запускает преобразование под оффис
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void createOfficeBtn_Click(
-            object sender, RoutedEventArgs e)
-        {
-            officeCreation = true;
-
-        }
-
-        WorkPlace SecondTemporallyWorkPlace = new Department();
-        /// <summary>
-        /// запускает преобразование под департамент
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void createDepartmentBtn_Click(
-            object sender, RoutedEventArgs e)
-        {
-            departmentCreation = true;
-
         }
 
         /// <summary>
@@ -270,7 +311,8 @@ namespace Homework_11_wpfUI.masterForms
         }
 
         /// <summary>
-        /// создать по параметрам или со значениями по умолчанию
+        /// Кнопка завершающая работу мастера и 
+        /// применяющая указанные настройки
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

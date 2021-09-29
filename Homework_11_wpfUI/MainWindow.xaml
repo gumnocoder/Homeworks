@@ -58,7 +58,7 @@
                 </MenuItem>
                 <MenuItem Header="Exit          ctrl + x" Click="exitBtn_Click"/>
             </MenuItem>
-            <Separator Width="10"/>
+
             <MenuItem Header="Edit" FontSize="12">
                 <MenuItem Header="Create Company 
                                  ctrl + Q" Click="CreateCompanyBtn">
@@ -89,9 +89,9 @@
                 <MenuItem Header="Automatic filling         shift + A" 
                           Click="AutoFillingCompanyStructBtn"/>
             </MenuItem>
-            <Separator Width="50" Background="Beige"/>
+            <Separator Width="20" Background="#334666" />
             <MenuItem Header="Create with Wizard" Click="openCreationWizard"/>
-            <Separator Width="50" Background="#334666" />
+            <Separator Width="20" Background="#334666" />
             <MenuItem Header="Go Company-tree root..." 
                       Click="GoCompanyRootBtn" FontSize="10"/>
         </Menu>
