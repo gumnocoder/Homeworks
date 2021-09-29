@@ -181,6 +181,56 @@ namespace Homework_11_wpfUI.masterForms
                 temporaryWorkPlace.Open(new Department(name));
             else if (officeCreation)
                 temporaryWorkPlace.Open(new Office(name));
+
+            var tmpwp = temporaryWorkPlace.WorkPlaces[^1];
+
+            if (workersCountInput.Text != "")
+            { HireWorkersByCount(workersCountInput.Text, tmpwp); }
+
+            if (internsCountInput.Text != "")
+            { HireInternsByCount(internsCountInput.Text, tmpwp); }
+
+            if (officesCountInput.Text != "")
+            { OpenOfficesByCount(officesCountInput.Text, tmpwp); }
+
+            if (departmentsCountInput.Text != "")
+            { OpenDepsByCount(departmentsCountInput.Text, tmpwp); }
+        }
+
+        private void HireWorkersByCount(string count, WorkPlace wp)
+        {
+            if (int.TryParse(count, out int tmp))
+            {
+                for (int i = 0; i < tmp; i++)
+                { wp.Hire(new Worker()); }
+            }
+        }
+
+        private void HireInternsByCount(string count, WorkPlace wp)
+        {
+            if (int.TryParse(count, out int tmp))
+            {
+                for (int i = 0; i < tmp; i++)
+                { wp.Hire(new Intern()); }
+            }
+        }
+
+        private void OpenDepsByCount(string count, WorkPlace wp)
+        {
+            if (int.TryParse(count, out int tmp))
+            {
+                for (int i = 0; i < tmp; i++)
+                { wp.Open(new Department($"temp_department_{i}")); }
+            }
+        }
+
+        private void OpenOfficesByCount(string count, WorkPlace wp)
+        {
+            if (int.TryParse(count, out int tmp))
+            {
+                for (int i = 0; i < tmp; i++)
+                { wp.Open(new Office($"temp_office_{i}")); }
+            }
         }
 
         /// <summary>
