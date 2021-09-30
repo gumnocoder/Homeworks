@@ -565,16 +565,19 @@ namespace Homework_11_wpfUI
             object sender, 
             RoutedEventArgs e)
         {
-            if (CheckS(sender, e))
+            if (isCompanyCreated)
             {
-                (structContent.SelectedItem as WorkPlace).Hire(
-                    new Worker());
-                RefreshStructInfo();
-            }
-            else
-            {
-                currentWorkPlace.Hire(new Worker());
-                RefreshStructInfo();
+                if (CheckS(sender, e))
+                {
+                    (structContent.SelectedItem as WorkPlace).Hire(
+                        new Worker());
+                    RefreshStructInfo();
+                }
+                else
+                {
+                    temporaryWorkPlace.Hire(new Worker());
+                    RefreshStructInfo();
+                }
             }
         }
 
@@ -587,16 +590,19 @@ namespace Homework_11_wpfUI
             object sender, 
             RoutedEventArgs e)
         {
-            if (CheckS(sender, e))
+            if (isCompanyCreated)
             {
-                (structContent.SelectedItem as WorkPlace).Hire(
-                    new Intern());
-                RefreshStructInfo();
-            }
-            else
-            {
-                currentWorkPlace.Hire(new Intern());
-                RefreshStructInfo();
+                if (CheckS(sender, e))
+                {
+                    (structContent.SelectedItem as WorkPlace).Hire(
+                        new Intern());
+                    RefreshStructInfo();
+                }
+                else
+                {
+                    temporaryWorkPlace.Hire(new Intern());
+                    RefreshStructInfo();
+                }
             }
         }
 
@@ -711,16 +717,19 @@ namespace Homework_11_wpfUI
         /// <param name="e"></param>
         private void RenameBoss_Click(object sender, RoutedEventArgs e)
         {
-            if (temporaryWorkPlace.Boss != null)
+            if (isCompanyCreated)
             {
-                var w = new ManagerRename();
-                w.ShowDialog();
-
-                if (temporaryBossName != "")
+                if (temporaryWorkPlace.Boss != null)
                 {
-                    temporaryWorkPlace.RenameBoss(temporaryBossName);
-                    pathStructOrEmploye.Text = temporaryWorkPlace.Boss;
-                    RefreshStructInfo();
+                    var w = new ManagerRename();
+                    w.ShowDialog();
+
+                    if (temporaryBossName != "")
+                    {
+                        temporaryWorkPlace.RenameBoss(temporaryBossName);
+                        pathStructOrEmploye.Text = temporaryWorkPlace.Boss;
+                        RefreshStructInfo();
+                    }
                 }
             }
         }
