@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,23 @@ namespace Homework_13_bank_system
         {
             InitializeComponent();
             mainWindowBorder.MouseLeftButtonDown += new MouseButtonEventHandler(DragAnywhere);
+            this.Closed += MainWindow_Closed;
+            Closing += MainWindow_Closing;
+        }
+
+        private void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(
+                "Желаете сохранить изменения перед выходом?", 
+                "Завершение работы приложения", 
+                MessageBoxButton.YesNoCancel, 
+                MessageBoxImage.Warning);
+            if (result == MessageBoxResult.Cancel) e.Cancel = true;
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            Close();
         }
 
         private void closeBtn_Click(object sender, RoutedEventArgs e)

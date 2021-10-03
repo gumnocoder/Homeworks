@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Homework_13_bank_system"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="Transparent" WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True">
-    <Border Background="LightGray" CornerRadius="10" x:Name="mainWindowBorder">
+    <Border Background="GhostWhite" CornerRadius="10" x:Name="mainWindowBorder">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10"/>
@@ -26,7 +26,7 @@
                         Name="minBtn" 
                         Click="minBtn_Click" 
                         ToolTip="Minimize" 
-                        Margin="2" 
+                        Margin="5" 
                         Background="Transparent" 
                         BorderThickness="0">
                     <Image Source="\minBtn.png"/>
@@ -35,7 +35,7 @@
                         Name="maxBtn" 
                         Click="maxBtn_Click" 
                         ToolTip="Maximize" 
-                        Margin="2"
+                        Margin="5"
                         Background="Transparent" 
                         BorderThickness="0">
                     <Image Source="\maxBtn.png"/>
@@ -43,7 +43,8 @@
                 <Button Grid.Column="4" 
                         Name="closeBtn" 
                         Click="closeBtn_Click" 
-                        ToolTip="Exit" Margin="2" 
+                        ToolTip="Exit" 
+                        Margin="5" 
                         Background="Transparent"
                         BorderThickness="0">
                     <Image Source="\closeBtn.png"/>
