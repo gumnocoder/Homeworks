@@ -6,4 +6,16 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="closeBtn.png" />
+    <None Remove="maxBtn.png" />
+    <None Remove="minBtn.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="closeBtn.png" />
+    <Resource Include="maxBtn.png" />
+    <Resource Include="minBtn.png" />
+  </ItemGroup>
+
 </Project>
