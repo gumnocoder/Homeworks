@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Homework_13
+namespace Homework_13_bank_system
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Homework_13
+namespace Homework_13_bank_system
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
