@@ -8,12 +8,19 @@
 
   <ItemGroup>
     <None Remove="closeBtn.png" />
+    <None Remove="icon.ico" />
     <None Remove="maxBtn.png" />
     <None Remove="minBtn.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="closeBtn.png" />
+    <Resource Include="icon.ico" />
     <Resource Include="maxBtn.png" />
     <Resource Include="minBtn.png" />
   </ItemGroup>

@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:Homework_13_bank_system"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Style x:Name="Headers" TargetType="Canvas">
+            <Setter Property="Background" Value="WhiteSmoke"/>
+        </Style>
     </Application.Resources>
 </Application>

@@ -4,15 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_13_bank_system"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="Transparent" WindowStyle="None" ResizeMode="CanResizeWithGrip" AllowsTransparency="True">
-    <Border Background="GhostWhite" CornerRadius="10" x:Name="mainWindowBorder">
+        Title="MainWindow" Height="450" Width="800" 
+        Background="Transparent" WindowStyle="None" 
+        ResizeMode="CanResizeWithGrip" AllowsTransparency="True">
+    <Border Background="GhostWhite" 
+            CornerRadius="10" 
+            x:Name="mainWindowBorder">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+            <Canvas Grid.Row="1"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
@@ -50,6 +56,12 @@
                     <Image Source="\closeBtn.png"/>
                 </Button>
             </Grid>
+            <tb:TaskbarIcon 
+                Visibility="Visible"
+                ToolTipText="banking"
+                IconSource="\icon.ico"
+                TrayMouseDoubleClick="TaskbarIcon_TrayLeftMouseDown"
+                Margin="0,0,8,0"/>
         </Grid>
     </Border>
 </Window>
