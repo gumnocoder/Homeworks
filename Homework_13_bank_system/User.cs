@@ -29,10 +29,27 @@ namespace Homework_13_bank_system
             }
         }
 
-        public static void JsonSeralize(object e, string path)
+        public static void JsonSeralize(object serializibleObject, string path)
         {
-            string json = JsonConvert.SerializeObject(e);
+            string json = JsonConvert.SerializeObject(serializibleObject);
             File.WriteAllText(path, json);
+        }
+    }
+    class NumberListSaver
+    {
+        public static void CheckDirectory(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+        public static void CheckFile(string path)
+        {
+            if (!File.Exists(path))
+            {
+                using FileStream fs = File.Create(path);
+            }
         }
     }
     class IdSetter

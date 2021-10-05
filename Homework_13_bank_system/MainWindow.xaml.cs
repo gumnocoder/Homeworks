@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using static System.Windows.SystemParameters;
 using static Homework_13_bank_system.UsersLists;
+using static Homework_13_bank_system.Models.structsBin.Bank;
 using Newtonsoft.Json;
 using System.IO;
 using System.Diagnostics;
@@ -37,8 +38,7 @@ namespace Homework_13_bank_system
             mainWindowBorder.MouseLeftButtonDown += new MouseButtonEventHandler(DragAnywhere);
             this.Closed += MainWindow_Closed;
             Closing += MainWindow_Closing;
-            UsersLists bd = new();
-            usersList = UsersFromJson();
+            LoadingChain();
             //usersList.Add(new User("admin", "admin"));
             //= UsersFromJson();
             //User list = new User("admin", "admin");
@@ -49,11 +49,21 @@ namespace Homework_13_bank_system
             //Debug.WriteLine(bd[10000]);
             foreach (var e in usersList)
             { Debug.WriteLine(e); }
+            string path = @$"{Environment.CurrentDirectory}\lists\";
+            string file = @$"{Environment.CurrentDirectory}\lists\files.txt";
+            NumberListSaver.CheckDirectory(path);
+            NumberListSaver.CheckFile(file);
         }
 
         private void SavingChain()
         {
-            JsonSeralize(usersList, "users1.json");
+            JsonSeralize(usersList, "users.json");
+        }
+
+        private void LoadingChain()
+        {
+            UsersLists bd = new();
+            usersList = UsersFromJson();
         }
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
@@ -103,6 +113,11 @@ namespace Homework_13_bank_system
             if (hidden)
             { Show(); hidden = false; }
             else { Hide(); hidden = true; }
+        }
+
+        private void savingBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SavingChain();
         }
     }
 }

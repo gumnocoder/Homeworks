@@ -7,5 +7,14 @@
         <Style x:Name="Headers" TargetType="Canvas">
             <Setter Property="Background" Value="WhiteSmoke"/>
         </Style>
+        <Style TargetType="Menu">
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="#aeb5c5"/>
+        </Style>
+        <Style TargetType="MenuItem">
+            <Setter Property="Background" Value="Gray"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Foreground" Value="#aeb5c5"/>
+        </Style>
     </Application.Resources>
 </Application>
