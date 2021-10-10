@@ -9,11 +9,11 @@ namespace Homework_13_bank_system.Models.structsBin
 {
     class Bank
     {
-        static ObservableCollection<int> usedCreditIdentificators;
+        static ObservableCollection<long> usedCreditIdentificators;
 
         static ObservableCollection<long> usedDebitIdentificators;
 
-        public static ObservableCollection<int> UsedCreditIdentificators
+        public static ObservableCollection<long> UsedCreditIdentificators
         {
             get => usedCreditIdentificators;
             set => usedCreditIdentificators = value;

@@ -1,12 +1,106 @@
 ﻿<Window x:Class="Homework_13_bank_system.LoginForm"
+
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_13_bank_system"
         mc:Ignorable="d"
-        Title="LoginForm" Height="450" Width="800">
-    <Grid>
+        Title="LoginForm" Height="300" Width="450"
+        WindowStyle="None" ResizeMode="NoResize"
+        >
+    <Window.Resources>
+        <Style x:Key="txtBlock" TargetType="TextBlock">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#aeb5c5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="Foreground" Value="#9EC333"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Padding" Value="10,3,3,3"/>
+            <Setter Property="FontStyle" Value="Italic"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+
+        </Style>
+    </Window.Resources>
+    <Window.Background>
+        <RadialGradientBrush RadiusX="1" RadiusY="1">
+            <GradientStop Color="#aeb5c5" Offset="0"/>
+            <GradientStop Color="#9EC333" Offset="1"/>
+        </RadialGradientBrush>
+
+    </Window.Background>
+    <Border>
         
-    </Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="90*"/>
+                <RowDefinition Height="75*"/>
+                <RowDefinition Height="75*"/>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="60*"/>
+                <RowDefinition Height="25*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="enterBtn" Click="enterBtn_Click" Grid.Column="1" Margin="12,6,3,6" Content="Вход"/>
+                <Button x:Name="exitBtn" Click="closeBtn_Click" Grid.Column="2" Margin="3,6,12,6" Content="Выход"/>
+            </Grid>
+            <StackPanel Name="sp" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
+                <Button Width="19" Margin="3"/>
+                <Button x:Name="closeBtn" 
+                        Width="19" 
+                        Margin="3" 
+                        Click="closeBtn_Click"
+                        Background="Transparent"
+                        BorderThickness="0">
+                    <Image Source="/closeBtn.png"/>
+                </Button>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <TextBlock Name="loginText" 
+                           Text="Введите логин" 
+                           HorizontalAlignment="Center"
+                           Foreground="White"
+                           FontWeight="Medium"
+                           FontSize="16"/>
+                <TextBox Height="30" Margin="50,10,50,5"
+                         BorderThickness="0"
+                         Padding="10,3,3,3"
+                         x:Name="loginFieldValue"
+                         Foreground="#9EC333"
+                         FontSize="15"
+                         FontWeight="Medium"
+                         FontStyle="Italic"
+                         Text="логин">
+                </TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="3">
+                <TextBlock Name="passText" 
+                           Text="Введите пароль" 
+                           HorizontalAlignment="Center"
+                           Foreground="White"
+                           FontWeight="Medium"
+                           FontSize="16"/>
+                <PasswordBox Height="30" 
+
+                             Margin="50,10,50,5"
+                         BorderThickness="0"
+                         Padding="10,3,3,3"
+                         x:Name="passFieldValue"
+                         Foreground="#9EC333"
+                         FontSize="15"
+                         FontWeight="Medium"
+                         FontStyle="Italic">
+                </PasswordBox>
+            </StackPanel>
+        </Grid>
+        
+    </Border>
+
 </Window>

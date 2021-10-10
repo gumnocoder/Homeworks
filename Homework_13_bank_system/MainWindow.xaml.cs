@@ -20,6 +20,8 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Diagnostics;
 using static Homework_13_bank_system.JsonDataLoadSave;
+using static Homework_13_bank_system.User;
+using System.Collections.ObjectModel;
 
 namespace Homework_13_bank_system
 {
@@ -35,11 +37,19 @@ namespace Homework_13_bank_system
         public MainWindow()
         {
             InitializeComponent();
+            Debug.WriteLine(currentUser);
             mainWindowBorder.MouseLeftButtonDown += new MouseButtonEventHandler(DragAnywhere);
             this.Closed += MainWindow_Closed;
             Closing += MainWindow_Closing;
-            LoadingChain();
-            //usersList.Add(new User("admin", "admin"));
+            //LoadingChain();
+            if (usersList.Count != 0)
+            {
+                Debug.WriteLine("usersList if full");
+            }
+            else Debug.WriteLine("userlist is empty");
+            //new User("admin", "admin");
+            //new User("moderator", "moderator");
+            //foreach (var e in usersList) Debug.WriteLine(e.Name);
             //= UsersFromJson();
             //User list = new User("admin", "admin");
             //string file = "users.json";
@@ -47,12 +57,17 @@ namespace Homework_13_bank_system
             //File.WriteAllText(file, json);
             //Debug.WriteLine(bd["admin"]);
             //Debug.WriteLine(bd[10000]);
-            foreach (var e in usersList)
-            { Debug.WriteLine(e); }
-            string path = @$"{Environment.CurrentDirectory}\lists\";
-            string file = @$"{Environment.CurrentDirectory}\lists\files.txt";
-            NumberListSaver.CheckDirectory(path);
-            NumberListSaver.CheckFile(file);
+            //foreach (var e in usersList)
+            //{ Debug.WriteLine(e); }
+            //string path = @$"{Environment.CurrentDirectory}\lists\";
+            //string file = @$"{Environment.CurrentDirectory}\lists\files.txt";
+            //var a = ThisBank; 
+            //UsedCreditIdentificators.Add(123235567);
+            //UsedCreditIdentificators.Add(12323267);
+            //UsedCreditIdentificators.Add(12378875567);
+            //NumberListSaver.WriteNumbers<ObservableCollection<long>>(path, file, UsedCreditIdentificators);
+            //NumberListSaver.ReadNumbers<ObservableCollection<long>>(path, file, UsedCreditIdentificators);
+            //foreach (var e in UsedCreditIdentificators) Debug.WriteLine(e);
         }
 
         private void SavingChain()

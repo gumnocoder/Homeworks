@@ -8,6 +8,8 @@ using static Homework_13_bank_system.UsersLists;
 using static Homework_13_bank_system.IdSetter;
 using Newtonsoft.Json;
 using static Homework_13_bank_system.JsonDataLoadSave;
+using System.Collections.ObjectModel;
+
 namespace Homework_13_bank_system
 {
     class JsonDataLoadSave
@@ -50,6 +52,21 @@ namespace Homework_13_bank_system
             {
                 using FileStream fs = File.Create(path);
             }
+        }
+
+        public static void WriteNumbers<T>(string path, string filePath, T list)
+        {
+            CheckDirectory(path);
+            CheckFile(filePath);
+            using (StreamWriter sw = new StreamWriter(filePath)) { 
+                foreach (long e in list as ObservableCollection<long>) 
+                { sw.WriteLine(e); } }
+        }
+
+        public static void ReadNumbers<T>(string path, string filePath, T list)
+        {
+            using (StreamReader sr = new StreamReader(filePath))
+            { foreach (var line in filePath) (list as ObservableCollection<long>).Add(Convert.ToInt64(line)); }
         }
     }
     class IdSetter
@@ -150,7 +167,7 @@ namespace Homework_13_bank_system
     class User
     {
         //static List<User> usersList;
-
+        public static User currentUser = null;
 
         int userId;
         public int UserId { get => userId; set => userId = value; }

@@ -20,47 +20,57 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
+            <Grid Grid.RowSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Background="#D9F096" Margin="10,0,0,0">
+                    <RadioButton Height="50" Margin="0,37,0,0" Style="{StaticResource MenuBtn}"></RadioButton>
+                </StackPanel>
+            </Grid>
             <Canvas Grid.Row="1"/>
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="260"/>
+                    <ColumnDefinition Width="245.714"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
-                <Menu Grid.Column="1">
-                    <MenuItem Header="Файл" Height="24" Margin="3">
+                <Menu  Grid.ColumnSpan="2">
+                    <MenuItem Header="Файл" Height="24" Margin="10,0,0,0" FontSize="15" VerticalContentAlignment="Center">
                         <MenuItem Name="savingBtn" Header="Сохранить данные" HorizontalAlignment="Left" Click="savingBtn_Click"/>
                         <Separator/>
                         <MenuItem Header="Выход из приложения" HorizontalAlignment="Left" Click="closeBtn_Click"/>
                     </MenuItem>
                 </Menu>
-                <Button Grid.Column="3" 
+                <Button Grid.Column="4" 
                         Name="minBtn" 
                         Click="minBtn_Click" 
                         ToolTip="Minimize" 
-                        Margin="5" 
+                        Margin="5,5,5,5" 
                         Background="Transparent" 
                         BorderThickness="0">
                     <Image Source="\minBtn.png"/>
                 </Button>
-                <Button Grid.Column="4" 
+                <Button Grid.Column="5" 
                         Name="maxBtn" 
                         Click="maxBtn_Click" 
                         ToolTip="Maximize" 
-                        Margin="5"
+                        Margin="5,5,5,5"
                         Background="Transparent" 
                         BorderThickness="0">
                     <Image Source="\maxBtn.png"/>
                 </Button>
-                <Button Grid.Column="5" 
+                <Button Grid.Column="6" 
                         Name="closeBtn" 
                         Click="closeBtn_Click" 
                         ToolTip="Exit" 
-                        Margin="5" 
+                        Margin="5,5,5,5" 
                         Background="Transparent"
                         BorderThickness="0">
                     <Image Source="\closeBtn.png"/>
