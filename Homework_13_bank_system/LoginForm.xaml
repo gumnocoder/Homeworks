@@ -5,10 +5,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_13_bank_system"
+        xmlns:viewModels="clr-namespace:Homework_13_bank_system.ViewModels"
+        xmlns:views="clr-namespace:Homework_13_bank_system"
         mc:Ignorable="d"
         Title="LoginForm" Height="300" Width="450"
         WindowStyle="None" ResizeMode="NoResize"
         >
+    <Window.DataContext>
+        <viewModels:LoginFormVM/>
+    </Window.DataContext>
+    <Window.InputBindings>
+        <KeyBinding Key="U"
+                    Modifiers="Ctrl"
+                        Command="{Binding closeBtn_Click}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <Style x:Key="txtBlock" TargetType="TextBlock">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
@@ -20,7 +30,6 @@
             <Setter Property="Padding" Value="10,3,3,3"/>
             <Setter Property="FontStyle" Value="Italic"/>
             <Setter Property="FontWeight" Value="Medium"/>
-
         </Style>
     </Window.Resources>
     <Window.Background>
@@ -28,11 +37,11 @@
             <GradientStop Color="#aeb5c5" Offset="0"/>
             <GradientStop Color="#9EC333" Offset="1"/>
         </RadialGradientBrush>
-
     </Window.Background>
     <Border>
-        
+
         <Grid>
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="25*"/>
                 <RowDefinition Height="90*"/>
@@ -42,13 +51,20 @@
                 <RowDefinition Height="60*"/>
                 <RowDefinition Height="25*"/>
             </Grid.RowDefinitions>
+            <TextBlock x:Name="uuu" Text="{Binding Pass, Mode=OneWayToSource}"/>
             <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="enterBtn" Click="enterBtn_Click" Grid.Column="1" Margin="12,6,3,6" Content="Вход"/>
+                <Button x:Name="enterBtn"
+                        Command="{Binding EnterBtn_Click}"
+                        Grid.Column="1" 
+                        Margin="12,6,3,6"
+                        Content="Вход" 
+                        >
+                </Button>
                 <Button x:Name="exitBtn" Click="closeBtn_Click" Grid.Column="2" Margin="3,6,12,6" Content="Выход"/>
             </Grid>
             <StackPanel Name="sp" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
@@ -77,7 +93,8 @@
                          FontSize="15"
                          FontWeight="Medium"
                          FontStyle="Italic"
-                         Text="логин">
+                         Text="{Binding Login,
+                    Mode=TwoWay}">
                 </TextBox>
             </StackPanel>
             <StackPanel Grid.Row="3">
@@ -88,8 +105,11 @@
                            FontWeight="Medium"
                            FontSize="16"/>
                 <PasswordBox Height="30" 
-
-                             Margin="50,10,50,5"
+                         views:PasswordHelper.Attach ="true"
+                         views:PasswordHelper.Password="{Binding Text, 
+                    ElementName=uuu, 
+                    Mode=TwoWay}"
+                         Margin="50,10,50,5"
                          BorderThickness="0"
                          Padding="10,3,3,3"
                          x:Name="passFieldValue"
@@ -100,7 +120,5 @@
                 </PasswordBox>
             </StackPanel>
         </Grid>
-        
     </Border>
-
 </Window>

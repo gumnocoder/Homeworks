@@ -1,36 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Forms.Design.Behavior;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Homework_13_bank_system.binaries;
-using static Homework_13_bank_system.UsersLists;
+using Homework_13_bank_system.ViewModels;
 using static Homework_13_bank_system.JsonDataLoadSave;
 using static Homework_13_bank_system.User;
+using static Homework_13_bank_system.UsersLists;
+using static Homework_13_bank_system.ViewModels.LoginFormVM;
 
 namespace Homework_13_bank_system
 {
+    public interface IPasswordGetter
+    {
+        string GetPassword();
+    }
+
     /// <summary>
     /// Логика взаимодействия для LoginForm.xaml
     /// </summary>
-    public partial class LoginForm : Window
+    public partial class LoginForm : Window, IPasswordGetter
     {
+
         public LoginForm()
         {
             InitializeComponent();
+            //LoginFormVM vm = new();
+            //DataContext = vm;
         }
 
         private void closeBtn_Click(object sender, RoutedEventArgs e)
@@ -38,7 +32,7 @@ namespace Homework_13_bank_system
             Close();
         }
 
-        private void enterBtn_Click(object sender, RoutedEventArgs e)
+/*        private void enterBtn_Click(object sender, RoutedEventArgs e)
         {
             string login = loginFieldValue.Text;
             string pass = passFieldValue.Password;
@@ -59,12 +53,28 @@ namespace Homework_13_bank_system
                     window.Show();
                 }
             }
-        }
+        }*/
 
         private void LoadingChain()
         {
             UsersLists bd = new();
             usersList = UsersFromJson();
+        }
+
+        private void enterBtn_Click(object sender, RoutedEventArgs e)
+        {
+            //LoginFormVM.login = loginFieldValue.Text;
+            //LoginFormVM.EnterBtn_Click(sender, e);
+        }
+
+        public string GetPassword()
+        {
+            return uuu.Text;
+        }
+
+        private void uuu_SourceUpdated(object sender, System.Windows.Data.DataTransferEventArgs e)
+        {
+            Debug.WriteLine(uuu.Text);
         }
     }
 }

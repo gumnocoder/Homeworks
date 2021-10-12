@@ -19,7 +19,7 @@
         </Style>-->
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="MVVM/MenuBtn.xaml"/>
+                <ResourceDictionary Source="View/MenuBtn.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -13,6 +13,5 @@ namespace Homework_13_bank_system
     /// </summary>
     public partial class App : Application
     {
-
     }
 }

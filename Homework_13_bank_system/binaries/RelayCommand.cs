@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Homework_13_bank_system.binaries
@@ -10,8 +6,8 @@ namespace Homework_13_bank_system.binaries
     public class RelayCommand : ICommand
     {
 
-        private Action<object> execute;
-        private Func<object, bool> canExecute;
+        private readonly Action<object> execute;
+        private readonly Func<object, bool> canExecute;
 
         public event EventHandler CanExecuteChanged
         {
@@ -35,7 +31,6 @@ namespace Homework_13_bank_system.binaries
                 execute = Execute;
                 canExecute = CanExecute;
             }
-
         }
     }
 }

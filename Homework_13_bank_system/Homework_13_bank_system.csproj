@@ -25,4 +25,8 @@
     <Resource Include="minBtn.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="MVVM\" />
+  </ItemGroup>
+
 </Project>

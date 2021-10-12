@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Homework_13_bank_system.binaries
 {
-    class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
