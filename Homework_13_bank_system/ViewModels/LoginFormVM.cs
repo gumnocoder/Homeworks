@@ -1,20 +1,22 @@
 ﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
 using static System.Windows.SystemParameters;
 using static Homework_13_bank_system.JsonDataLoadSave;
 using static Homework_13_bank_system.User;
 using static Homework_13_bank_system.UsersLists;
+using static Homework_13_bank_system.Models.appliedFunctional.DataLoader;
+using System;
 
 namespace Homework_13_bank_system.ViewModels
 {
 
     public class LoginFormVM : BaseViewModel
     {
-        public double top = (PrimaryScreenHeight / 2) - 150;
-        public double left = (PrimaryScreenWidth / 2) - 225;
+
         public LoginFormVM()
         {
-             
+
         }
 
         private bool authIsVisible = true;
@@ -57,9 +59,6 @@ namespace Homework_13_bank_system.ViewModels
                 return new RelayCommand((obj) =>
                 {
                     Debug.WriteLine(Login);
-                    //LoginForm lf = new();
-                    //string a = lf.GetPassword();
-                    //Debug.WriteLine(a);
                     Debug.WriteLine(Pass);
                     LoadingChain();
                     foreach (User u in usersList)
@@ -67,37 +66,23 @@ namespace Homework_13_bank_system.ViewModels
                         if (u.Name == Login & u.Pass == Pass)
                         {
                             AuthIsVisible = false;
-                            //MainWindow w = new();
                             currentUser = u;
                             Debug.WriteLine(u);
-                            //w.Show();
-
                         }
                     }
                 });
             }
-            
-/*            LoadingChain();
-
-            foreach (User u in usersList)
-            {
-                if (login == u.Name && pass == u.Pass)
-                {
-                    currentUser = u;
-                    if (currentUser.Name != "admin")
-                    {
-                        usersList = new();
-                    }
-                    var window = new MainWindow();
-                    Close();
-                    window.Show();
-                }
-            }*/
         }
-        private void LoadingChain()
+        private RelayCommand applicationForcedExit;
+
+        public RelayCommand ApplicationForcedExit
         {
-            UsersLists bd = new();
-            usersList = UsersFromJson();
+            get => applicationForcedExit ??= new(
+                closeBtn_Click);
+        }
+        public void closeBtn_Click(object sender)
+        {
+            Environment.Exit(0);
         }
     }
 }

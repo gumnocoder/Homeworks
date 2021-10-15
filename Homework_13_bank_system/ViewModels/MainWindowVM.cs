@@ -13,31 +13,35 @@ namespace Homework_13_bank_system.ViewModels
         private RelayCommand appExit;
         private RelayCommand minimize;
         private RelayCommand maximize;
+        private RelayCommand saveData;
         private bool hidden = false;
         private bool maximized = false;
+        private Window mainWindow = Application.Current.MainWindow;
 
         #endregion
 
-        #region Свойства
+        #region Команды
 
+        public RelayCommand SaveData
+        {
+            get => saveData ??= new(
+                DataSaving);
+        }
         public RelayCommand AppExit
         {
             get => appExit ??= new(
-                ExitFromApplication, 
-                CanMyExecute);
+                ExitFromApplication);
         }
         public RelayCommand Minimize
         {
             get => minimize ??= new(
-                TaskbarIcon_TrayLeftMouseDown, 
-                CanMyExecute);
+                TaskbarIcon_TrayLeftMouseDown);
         }
 
         public RelayCommand Maximize
         {
             get => maximize ??= new(
-                maxBtn_Click, 
-                CanMyExecute);
+                maxBtn_Click);
         }
 
         #endregion
@@ -60,30 +64,25 @@ namespace Homework_13_bank_system.ViewModels
             { SavingChain(); }
         }
 
-        private bool CanMyExecute(object obj)
-        {
-            return true;
-        }
-
         private void ExitFromApplication(object sender)
         {
-            Application.Current.MainWindow.Close();
+            mainWindow.Close();
         }
 
         private void maxBtn_Click(object sender)
         {
             if (!maximized)
             {
-                Application.Current.MainWindow.Top = 0;
-                Application.Current.MainWindow.Left = 0;
-                Application.Current.MainWindow.Width = PrimaryScreenWidth;
-                Application.Current.MainWindow.Height = PrimaryScreenHeight;
+                mainWindow.Top = 0;
+                mainWindow.Left = 0;
+                mainWindow.Width = PrimaryScreenWidth;
+                mainWindow.Height = PrimaryScreenHeight;
                 maximized = true;
             }
             else
             {
-                Application.Current.MainWindow.Width = 800;
-                Application.Current.MainWindow.Height = 450;
+                mainWindow.Width = 800;
+                mainWindow.Height = 450;
                 maximized = false;
             }
         }
@@ -92,36 +91,65 @@ namespace Homework_13_bank_system.ViewModels
         {
             if (hidden)
             {
-                Application.Current.MainWindow.Show();
+                mainWindow.Show();
                 hidden = false;
             }
             else
             {
-                Application.Current.MainWindow.Hide();
+                mainWindow.Hide();
                 hidden = true;
             }
         }
         void DragAnywhere(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.DragMove();
+            mainWindow.DragMove();
         }
 
         #endregion
 
+        #region Взаимодействие с моделью
+
+            #region Прикладные методы
+
+        private void DataSaving(object sender)
+        {
+
+        }
+
+            #endregion
+
+        #endregion
+
+        /// <summary>
+        /// конструктор
+        /// </summary>
         public MainWindowVM()
         {
-            Application.Current.MainWindow.Closing += 
+            /// в конутрукторе реализована подписка 
+            /// на закрытие программы с выводом 
+            /// проверки на актуальность действий
+            /// и подписка на перемещение окна мышкой за любой участок окна
+            mainWindow.Closing += 
                 MainWindow_Closing;
+
+            mainWindow.MouseLeftButtonDown +=
+                new MouseButtonEventHandler(DragAnywhere);
+
+            /// при старте главное окно скрывается
+            /// и запускается форма авторизации
+            /// если пользователь авторизуется авторизация закрывается
+            /// а главное окно активируется.
+            /// если пользователь закрыл окно авторизации
+            /// программа завершается
             LoginForm lf = new();
-            Application.Current.MainWindow.Visibility = Visibility.Hidden;
+            mainWindow.Visibility = Visibility.Hidden;
             lf.ShowDialog();
+
             if (User.currentUser != null)
             {
-                Application.Current.MainWindow.Visibility = Visibility.Visible;
+                mainWindow.Visibility = Visibility.Visible;
                 lf.Close();
             }
-            Application.Current.MainWindow.MouseLeftButtonDown +=
-                new MouseButtonEventHandler(DragAnywhere);
         }
     }
 }

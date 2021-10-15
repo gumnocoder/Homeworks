@@ -69,7 +69,7 @@
                 </Button>
                 <Button 
                     x:Name="exitBtn" 
-                    Click="closeBtn_Click" 
+                    Command="{Binding ApplicationForcedExit}"
                     Grid.Column="2" 
                     Margin="3,6,12,6"
                     Content="Выход"/>
@@ -83,7 +83,7 @@
                 <Button x:Name="closeBtn" 
                         Width="19" 
                         Margin="3" 
-                        Click="closeBtn_Click"
+                        Command="{Binding ApplicationForcedExit}"
                         Background="Transparent"
                         BorderThickness="0">
                     <Image Source="/closeBtn.png"/>

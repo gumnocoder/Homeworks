@@ -5,7 +5,7 @@ namespace Homework_13_bank_system.Models.appliedFunctional
 {
     public static class DataLoader
     {
-        private static void LoadingChain()
+        public static void LoadingChain()
         {
             UsersLists bd = new();
             usersList = UsersFromJson();
