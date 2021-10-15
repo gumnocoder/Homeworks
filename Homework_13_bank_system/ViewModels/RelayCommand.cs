@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Homework_13_bank_system.binaries
+namespace Homework_13_bank_system.ViewModels
 {
     public class RelayCommand : ICommand
     {

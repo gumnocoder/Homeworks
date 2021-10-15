@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Homework_13_bank_system.binaries
+namespace Homework_13_bank_system.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
@@ -14,7 +14,7 @@ namespace Homework_13_bank_system.binaries
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));  
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

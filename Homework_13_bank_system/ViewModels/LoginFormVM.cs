@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
-using Homework_13_bank_system.binaries;
 using static Homework_13_bank_system.JsonDataLoadSave;
 using static Homework_13_bank_system.User;
 using static Homework_13_bank_system.UsersLists;
@@ -15,8 +14,22 @@ namespace Homework_13_bank_system.ViewModels
 
     public class LoginFormVM : BaseViewModel
     {
-        string login = "логин"/* = loginFieldValue.Text*/;
-        string pass/* = passFieldValue.Password*/;
+        private bool authIsVisible = true;
+
+        public bool AuthIsVisible
+        {
+            get => authIsVisible;
+            set
+            { if (authIsVisible != value)
+                {
+                    authIsVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        string login = "логин";
+        string pass = "*****";
 
         public string Login
         {
@@ -34,7 +47,6 @@ namespace Homework_13_bank_system.ViewModels
             set => pass = value;
         }
 
-        
         public ICommand EnterBtn_Click
         {
             get
@@ -51,8 +63,12 @@ namespace Homework_13_bank_system.ViewModels
                     {
                         if (u.Name == Login & u.Pass == Pass)
                         {
+                            AuthIsVisible = false;
+                            //MainWindow w = new();
                             currentUser = u;
                             Debug.WriteLine(u);
+                            //w.Show();
+
                         }
                     }
                 });
@@ -80,6 +96,5 @@ namespace Homework_13_bank_system.ViewModels
             UsersLists bd = new();
             usersList = UsersFromJson();
         }
-
     }
 }

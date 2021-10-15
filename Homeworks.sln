@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApplication1", "..\WPFSa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizGame", "..\Windows-appsample-networkhelper\DemoApps\QuizGame\QuizGame.csproj", "{E6EEB9AE-9164-4C96-AEAE-BF87E30C1F3F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW13_Bank_System_Prototype", "HW13_Bank_System_Prototype\HW13_Bank_System_Prototype.csproj", "{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -275,6 +277,26 @@ Global
 		{E6EEB9AE-9164-4C96-AEAE-BF87E30C1F3F}.Release|x86.ActiveCfg = Release|x86
 		{E6EEB9AE-9164-4C96-AEAE-BF87E30C1F3F}.Release|x86.Build.0 = Release|x86
 		{E6EEB9AE-9164-4C96-AEAE-BF87E30C1F3F}.Release|x86.Deploy.0 = Release|x86
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Debug|ARM.Build.0 = Debug|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Debug|x64.Build.0 = Debug|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Debug|x86.Build.0 = Debug|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Release|ARM.ActiveCfg = Release|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Release|ARM.Build.0 = Release|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Release|ARM64.Build.0 = Release|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Release|x64.ActiveCfg = Release|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Release|x64.Build.0 = Release|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Release|x86.ActiveCfg = Release|Any CPU
+		{57DD5FCD-9E3A-426C-A34D-0AFCB6AD0417}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

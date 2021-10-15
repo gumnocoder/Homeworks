@@ -16,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,10 +24,6 @@
     <Resource Include="icon.ico" />
     <Resource Include="maxBtn.png" />
     <Resource Include="minBtn.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MVVM\" />
   </ItemGroup>
 
 </Project>

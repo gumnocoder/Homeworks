@@ -1,27 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Homework_13_bank_system.ViewModels;
 using static System.Windows.SystemParameters;
-using static Homework_13_bank_system.UsersLists;
-using static Homework_13_bank_system.Models.structsBin.Bank;
-using Newtonsoft.Json;
-using System.IO;
-using System.Diagnostics;
 using static Homework_13_bank_system.JsonDataLoadSave;
-using static Homework_13_bank_system.User;
-using System.Collections.ObjectModel;
+using static Homework_13_bank_system.UsersLists;
 
 namespace Homework_13_bank_system
 {
@@ -37,37 +21,15 @@ namespace Homework_13_bank_system
         public MainWindow()
         {
             InitializeComponent();
-            Debug.WriteLine(currentUser);
-            mainWindowBorder.MouseLeftButtonDown += new MouseButtonEventHandler(DragAnywhere);
-            this.Closed += MainWindow_Closed;
+            Visibility = Visibility.Hidden;
+            LoginForm lf = new();
+            lf.ShowDialog();
+            if (User.currentUser != null)
+                Visibility = Visibility.Visible;
+            mainWindowBorder.MouseLeftButtonDown +=
+                new MouseButtonEventHandler(DragAnywhere);
+            Closed += MainWindow_Closed;
             Closing += MainWindow_Closing;
-            //LoadingChain();
-            if (usersList.Count != 0)
-            {
-                Debug.WriteLine("usersList if full");
-            }
-            else Debug.WriteLine("userlist is empty");
-            //new User("admin", "admin");
-            //new User("moderator", "moderator");
-            //foreach (var e in usersList) Debug.WriteLine(e.Name);
-            //= UsersFromJson();
-            //User list = new User("admin", "admin");
-            //string file = "users.json";
-            //string json = JsonConvert.SerializeObject(usersList);
-            //File.WriteAllText(file, json);
-            //Debug.WriteLine(bd["admin"]);
-            //Debug.WriteLine(bd[10000]);
-            //foreach (var e in usersList)
-            //{ Debug.WriteLine(e); }
-            //string path = @$"{Environment.CurrentDirectory}\lists\";
-            //string file = @$"{Environment.CurrentDirectory}\lists\files.txt";
-            //var a = ThisBank; 
-            //UsedCreditIdentificators.Add(123235567);
-            //UsedCreditIdentificators.Add(12323267);
-            //UsedCreditIdentificators.Add(12378875567);
-            //NumberListSaver.WriteNumbers<ObservableCollection<long>>(path, file, UsedCreditIdentificators);
-            //NumberListSaver.ReadNumbers<ObservableCollection<long>>(path, file, UsedCreditIdentificators);
-            //foreach (var e in UsedCreditIdentificators) Debug.WriteLine(e);
         }
 
         private void SavingChain()
@@ -101,7 +63,7 @@ namespace Homework_13_bank_system
 
         private void closeBtn_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Application.Current.Shutdown();
         }
 
         private void minBtn_Click(object sender, RoutedEventArgs e)

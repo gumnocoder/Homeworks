@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_13_bank_system"
+        xmlns:viewModels="clr-namespace:Homework_13_bank_system.ViewModels"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         x:Name="mainWindow"
@@ -11,6 +12,9 @@
         Title="MainWindow" Height="450" Width="800" 
         Background="Transparent" WindowStyle="None" 
         ResizeMode="CanResizeWithGrip" AllowsTransparency="True">
+    <Window.DataContext>
+        <viewModels:MainWindowVM/>
+    </Window.DataContext>
     <Border Background="GhostWhite" 
             CornerRadius="10" 
             x:Name="mainWindowBorder">
@@ -41,6 +45,9 @@
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="10"/>
                 </Grid.ColumnDefinitions>
+                <TextBlock 
+                    Grid.Column="3" 
+                    Text="{Binding cUser, Mode=TwoWay}"/>
                 <Menu  Grid.ColumnSpan="2">
                     <MenuItem Header="Файл" Height="24" Margin="10,0,0,0" FontSize="15" VerticalContentAlignment="Center">
                         <MenuItem Name="savingBtn" Header="Сохранить данные" HorizontalAlignment="Left" Click="savingBtn_Click"/>

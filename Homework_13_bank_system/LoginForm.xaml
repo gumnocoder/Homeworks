@@ -10,16 +10,17 @@
         mc:Ignorable="d"
         Title="LoginForm" Height="300" Width="450"
         WindowStyle="None" ResizeMode="NoResize"
-        >
+        x:Name="loginFormView">
     <Window.DataContext>
         <viewModels:LoginFormVM/>
     </Window.DataContext>
-    <Window.InputBindings>
-        <KeyBinding Key="U"
-                    Modifiers="Ctrl"
-                        Command="{Binding closeBtn_Click}"/>
-    </Window.InputBindings>
+    <Window.Visibility>
+        <Binding 
+            Path="AuthIsVisible" 
+            Mode="TwoWay"/>
+    </Window.Visibility>
     <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="boolToVisiblity"/>
         <Style x:Key="txtBlock" TargetType="TextBlock">
             <Setter Property="OverridesDefaultStyle" Value="True"/>
             <Setter Property="Background" Value="#aeb5c5"/>
@@ -39,9 +40,7 @@
         </RadialGradientBrush>
     </Window.Background>
     <Border>
-
         <Grid>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="25*"/>
                 <RowDefinition Height="90*"/>
@@ -51,7 +50,10 @@
                 <RowDefinition Height="60*"/>
                 <RowDefinition Height="25*"/>
             </Grid.RowDefinitions>
-            <TextBlock x:Name="uuu" Text="{Binding Pass, Mode=OneWayToSource}"/>
+            <TextBlock 
+                x:Name="uuu" 
+                Text="{Binding Pass, Mode=TwoWay}"
+                Visibility="Hidden"/>
             <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
@@ -65,10 +67,19 @@
                         Content="Вход" 
                         >
                 </Button>
-                <Button x:Name="exitBtn" Click="closeBtn_Click" Grid.Column="2" Margin="3,6,12,6" Content="Выход"/>
+                <Button 
+                    x:Name="exitBtn" 
+                    Click="closeBtn_Click" 
+                    Grid.Column="2" 
+                    Margin="3,6,12,6"
+                    Content="Выход"/>
             </Grid>
-            <StackPanel Name="sp" HorizontalAlignment="Right" Grid.Row="0" Orientation="Horizontal">
-                <Button Width="19" Margin="3"/>
+            <StackPanel Name="sp" 
+                        HorizontalAlignment="Right" 
+                        Grid.Row="0" 
+                        Orientation="Horizontal">
+                <Button Width="19" 
+                        Margin="3"/>
                 <Button x:Name="closeBtn" 
                         Width="19" 
                         Margin="3" 
