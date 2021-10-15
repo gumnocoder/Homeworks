@@ -1,19 +1,22 @@
-﻿using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows.Input;
+using static System.Windows.SystemParameters;
 using static Homework_13_bank_system.JsonDataLoadSave;
 using static Homework_13_bank_system.User;
 using static Homework_13_bank_system.UsersLists;
-using static Homework_13_bank_system.LoginForm;
-using System.Windows.Input;
-using System.Security;
-using System.Windows.Controls;
 
 namespace Homework_13_bank_system.ViewModels
 {
 
     public class LoginFormVM : BaseViewModel
     {
+        public double top = (PrimaryScreenHeight / 2) - 150;
+        public double left = (PrimaryScreenWidth / 2) - 225;
+        public LoginFormVM()
+        {
+             
+        }
+
         private bool authIsVisible = true;
 
         public bool AuthIsVisible

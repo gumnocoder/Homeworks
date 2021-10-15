@@ -1,12 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Input;
-using Homework_13_bank_system.ViewModels;
-using static Homework_13_bank_system.JsonDataLoadSave;
-using static Homework_13_bank_system.User;
-using static Homework_13_bank_system.UsersLists;
-using static Homework_13_bank_system.ViewModels.LoginFormVM;
+﻿using System.Windows;
+using static System.Windows.SystemParameters;
 
 namespace Homework_13_bank_system
 {
@@ -20,6 +13,8 @@ namespace Homework_13_bank_system
         public LoginForm()
         {
             InitializeComponent();
+            Left = (PrimaryScreenWidth / 2) - 225;
+            Top = (PrimaryScreenHeight / 2) - 150;
         }
 
         private void closeBtn_Click(object sender, RoutedEventArgs e)

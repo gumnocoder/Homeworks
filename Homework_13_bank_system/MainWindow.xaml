@@ -29,8 +29,15 @@
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Background="#D9F096" Margin="10,0,0,0">
-                    <RadioButton Height="50" Margin="0,37,0,0" Style="{StaticResource MenuBtn}"></RadioButton>
+                <StackPanel 
+                    Grid.Column="0" 
+                    Background="#D9F096"
+                    Margin="10,0,0,0">
+                    <RadioButton 
+                        Height="50"
+                        Margin="0,37,0,0" 
+                        Style="{StaticResource MenuBtn}">
+                    </RadioButton>
                 </StackPanel>
             </Grid>
             <Canvas Grid.Row="1"/>
@@ -49,15 +56,26 @@
                     Grid.Column="3" 
                     Text="{Binding cUser, Mode=TwoWay}"/>
                 <Menu  Grid.ColumnSpan="2">
-                    <MenuItem Header="Файл" Height="24" Margin="10,0,0,0" FontSize="15" VerticalContentAlignment="Center">
-                        <MenuItem Name="savingBtn" Header="Сохранить данные" HorizontalAlignment="Left" Click="savingBtn_Click"/>
+                    <MenuItem 
+                        Header="Файл"
+                        Height="24"
+                        Margin="10,0,0,0" 
+                        FontSize="15" 
+                        VerticalContentAlignment="Center">
+                        <MenuItem 
+                            Name="savingBtn" 
+                            Header="Сохранить данные" 
+                            HorizontalAlignment="Left"/>
                         <Separator/>
-                        <MenuItem Header="Выход из приложения" HorizontalAlignment="Left" Click="closeBtn_Click"/>
+                        <MenuItem 
+                            Header="Выход из приложения"
+                            HorizontalAlignment="Left"
+                            Command="{Binding AppExit}"/>
                     </MenuItem>
                 </Menu>
                 <Button Grid.Column="4" 
                         Name="minBtn" 
-                        Click="minBtn_Click" 
+                        Command="{Binding Minimize}" 
                         ToolTip="Minimize" 
                         Margin="5,5,5,5" 
                         Background="Transparent" 
@@ -66,7 +84,7 @@
                 </Button>
                 <Button Grid.Column="5" 
                         Name="maxBtn" 
-                        Click="maxBtn_Click" 
+                        Command="{Binding Maximize}"
                         ToolTip="Maximize" 
                         Margin="5,5,5,5"
                         Background="Transparent" 
@@ -75,7 +93,7 @@
                 </Button>
                 <Button Grid.Column="6" 
                         Name="closeBtn" 
-                        Click="closeBtn_Click" 
+                        Command="{Binding AppExit}" 
                         ToolTip="Exit" 
                         Margin="5,5,5,5" 
                         Background="Transparent"
@@ -87,7 +105,7 @@
                 Visibility="Visible"
                 ToolTipText="banking"
                 IconSource="\icon.ico"
-                TrayMouseDoubleClick="TaskbarIcon_TrayLeftMouseDown"
+                DoubleClickCommand="{Binding Minimize}"
                 Margin="0,0,8,0"/>
         </Grid>
     </Border>
