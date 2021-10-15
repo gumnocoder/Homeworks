@@ -26,8 +26,4 @@
     <Resource Include="minBtn.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\personsBin\" />
-  </ItemGroup>
-
 </Project>

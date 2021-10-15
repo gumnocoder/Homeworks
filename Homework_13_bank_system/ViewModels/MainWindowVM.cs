@@ -113,9 +113,12 @@ namespace Homework_13_bank_system.ViewModels
 
         private void DataSaving(object sender)
         {
-
+            SavingChain();
         }
 
+            #endregion
+
+            #region
             #endregion
 
         #endregion
