@@ -1,15 +1,74 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
 using Homework_13_bank_system.ViewModels;
 using static Homework_13_bank_system.IdSetter;
 using static Homework_13_bank_system.UsersLists;
 
 namespace Homework_13_bank_system
 {
-    public class User : BaseViewModel
+    public class UsersPermissions : BaseViewModel
     {
-        public static User currentUser = null;
+        bool canCreateUsers;
+        bool canCreateClients;
+        bool canRemoveUsers;
+        bool canRemoveClients;
 
+        public bool CanCreateUsers
+        {
+            get => canCreateUsers;
+            set => canCreateUsers = value;
+        }
 
+        public bool CanCreateClients
+        {
+            get => canCreateClients;
+            set => canCreateClients = value;
+        }
+
+        public bool CanRemoveUsers
+        {
+            get => canRemoveUsers;
+            set => canRemoveUsers = value;
+        }
+
+        public bool CanRemoveClients
+        {
+            get => canRemoveClients;
+            set => canRemoveClients = value;
+        }
+        public void Turn(bool property)
+        {
+            if (property == false) property = true;
+            else property = false;
+        }
+        public void CreateUsersPermission(User user)
+        {
+            if (user.canCreateUsers == false) user.canCreateUsers = true;
+            else user.canCreateUsers = false;
+        }
+
+        public void RemoveUsersPermission(User user)
+        {
+            if (user.canRemoveUsers == false) user.canRemoveUsers = true;
+            else user.canRemoveUsers = false;
+        }
+        public void CreateClientsPermission(User user)
+        {
+            if (user.canCreateClients == false) user.canCreateClients = true;
+            else user.canCreateClients = false;
+        }
+
+        public void RemoveClientsPermission(User user)
+        {
+            if (user.canRemoveClients == false) user.canRemoveClients = true;
+            else user.canRemoveClients = false;
+        }
+
+    }
+
+    public class User : UsersPermissions
+    {
+        public static User CurrentUser;
 
         string login;
         public string Login

@@ -1,0 +1,49 @@
+﻿<Window x:Class="Homework_13_bank_system.View.UsersPermissionsPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Homework_13_bank_system.View"
+        xmlns:viewModel="clr-namespace:Homework_13_bank_system.ViewModels"
+        mc:Ignorable="d"
+        Title="UsersPermissionsPanel" 
+        Height="600" 
+        Width="400"
+        Background="Khaki">
+    <Window.DataContext>
+        <viewModel:UsersPermissionsPanelVM/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ComboBox 
+            Grid.Column="1" 
+            Margin="4" 
+            ItemsSource="{Binding Users}"/>
+        <Button 
+            x:Name="closeBtn"
+            Content="Закрыть панель" 
+            Background="WhiteSmoke" 
+            Grid.Row="7" Grid.Column="1"
+            Command="{x:Static 
+                viewModel:UsersPermissionsPanelVM.CloseCommand}"
+            CommandParameter="{
+                Binding RelativeSource={
+                RelativeSource FindAncestor, 
+                AncestorType={x:Type Window}}}"
+            Margin="30,15,30,15" />
+    </Grid>
+</Window>

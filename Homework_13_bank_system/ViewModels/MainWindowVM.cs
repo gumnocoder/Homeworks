@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using Homework_13_bank_system.View;
 using static System.Windows.SystemParameters;
 using static Homework_13_bank_system.Models.appliedFunctional.DataSaver;
 using static Homework_13_bank_system.UsersLists;
@@ -158,12 +159,14 @@ namespace Homework_13_bank_system.ViewModels
             mainWindow.Visibility = Visibility.Hidden;
             lf.ShowDialog();
 
-            if (User.currentUser != null)
+            if (User.CurrentUser != null)
             {
-                CUser = User.currentUser.ToString();
+                CUser = User.CurrentUser.ToString();
                 mainWindow.Visibility = Visibility.Visible;
                 lf.Close();
             }
+            UsersPermissionsPanel panel = new();
+            panel.Show();
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Homework_13_bank_system.ViewModels
                         if (u.Login == Login & u.Pass.ToString() == Pass)
                         {
                             AuthIsVisible = false;
-                            currentUser = u;
+                            CurrentUser = u;
                             finded = true;
                         }
                     }

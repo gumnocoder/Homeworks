@@ -11,8 +11,6 @@ namespace Homework_13_bank_system.View
         public CreateUserForm()
         {
             InitializeComponent();
-            CreateUserFormVM cufvm = new();
-            DataContext = cufvm;
         }
     }
 }

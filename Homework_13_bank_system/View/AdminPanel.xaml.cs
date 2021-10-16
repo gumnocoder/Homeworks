@@ -11,8 +11,6 @@ namespace Homework_13_bank_system.View
         public AdminPanel()
         {
             InitializeComponent();
-            AdminPanelVM apvm = new();
-            DataContext = apvm;
         }
     }
 }

@@ -8,26 +8,18 @@ namespace Homework_13_bank_system.ViewModels
         public RelayCommand CreateUser => 
             createUser ??= new(CreateUserClick);
 
-        private bool createUserBtnActivity;
-
         public bool CreateUserBtnActivity
         {
-            get => createUserBtnActivity;
-            set
-            {
-                if (currentUser.Name == "Администратор")
-                    createUserBtnActivity = true;
-                else createUserBtnActivity = false;
-            }
+            get => true;
+            //get => CurrentUser.CanCreateUsers;
         }
+
+        public static CreateUserForm createUserForm;
+
         private void CreateUserClick(object sender)
         {
-            (new CreateUserForm()).ShowDialog();
-        }
-
-        public AdminPanelVM()
-        {
-
+            createUserForm = new();
+            createUserForm.ShowDialog();
         }
     }
 }

@@ -1,5 +1,8 @@
 ﻿using System.Diagnostics;
+using System.Windows;
 using static Homework_13_bank_system.UsersLists;
+using static Homework_13_bank_system.ViewModels.AdminPanelVM;
+
 namespace Homework_13_bank_system.ViewModels
 {
     class CreateUserFormVM
@@ -41,7 +44,21 @@ namespace Homework_13_bank_system.ViewModels
                 Pass = "";
             }
                 
-            else { System.Windows.MessageBox.Show("Заполните все поля!"); }
+            else { MessageBox.Show("Заполните все поля!"); }
         }
+
+        private RelayCommand cancelBtn;
+        public RelayCommand CancelBtn
+        {
+            get => cancelBtn ??= new(CancelBtnClick);
+        }
+
+        private void CancelBtnClick(object sender)
+        {
+            AdminPanelVM.createUserForm.Close();
+        }
+
+        public static readonly RelayCommand CloseCommand =
+            new(o => ((Window)o).Close());
     }
 }

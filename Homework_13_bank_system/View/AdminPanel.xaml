@@ -4,16 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Homework_13_bank_system.View"
+             xmlns:viewModel="clr-namespace:Homework_13_bank_system.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
              >
+    <UserControl.DataContext>
+        <viewModel:AdminPanelVM/>
+    </UserControl.DataContext>
     <StackPanel>
         <Button 
+            Background="WhiteSmoke"
             Command="{Binding CreateUser}"
             IsEnabled="{Binding CreateUserBtnActivity}"
                 x:Name="createUserBtn"
                 Content="Создать пользователя"
-                Width="200"
+                Width="160"
+                Height="30"/>
+        <Button 
+            Background="WhiteSmoke"
+            Command="{Binding CreateUser}"
+            IsEnabled="{Binding CreateUserBtnActivity}"
+                x:Name="changeUsersPermissions"
+                Content="Управление правами"
+                Margin="0,10,0,0"
+                Width="160"
                 Height="30"/>
     </StackPanel>
 </UserControl>

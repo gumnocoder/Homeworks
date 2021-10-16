@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_13_bank_system.View"
+        xmlns:viewModels="clr-namespace:Homework_13_bank_system.ViewModels"
         mc:Ignorable="d"
         Title="CreateUserForm" 
         Height="500" 
@@ -11,8 +12,10 @@
         Background="Transparent"
         WindowStyle="None"
         ResizeMode="NoResize">
-    <Border 
-        CornerRadius="10"
+    <Window.DataContext>
+        <viewModels:CreateUserFormVM/>
+    </Window.DataContext>
+    <Border
         Background="#D9F096"
         x:Name="createUFMainBorder">
         <Grid>
@@ -29,15 +32,24 @@
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Button
+                    Background="WhiteSmoke"
                     Command="{Binding CreateUser}"
                     x:Name="createBtn"
                     Content="Создать"
                     Margin="10"></Button>
-                <Button Grid.Column="1"
+                <Button
+                    Command="{
+                        x:Static viewModels:CreateUserFormVM.CloseCommand}"
+                    CommandParameter="{Binding RelativeSource={
+                        RelativeSource FindAncestor, 
+                        AncestorType={x:Type Window}}}"
+                    Background="WhiteSmoke"
+                    Grid.Column="1"
                     x:Name="cancelBtn"
                     Content="Отмена"
                     Margin="10"></Button>
             </Grid>
+            <Canvas Grid.Row="0" Background="WhiteSmoke"/>
             <TextBlock 
                 Grid.Row="0"
                 Foreground="Olive"
