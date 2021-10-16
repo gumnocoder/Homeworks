@@ -1,16 +1,22 @@
-﻿using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Homework_13_bank_system.UsersLists;
-using static Homework_13_bank_system.IdSetter;
-using static Homework_13_bank_system.JsonDataLoadSave;
+﻿using System.Diagnostics;
 using Homework_13_bank_system.ViewModels;
+using static Homework_13_bank_system.IdSetter;
+using static Homework_13_bank_system.UsersLists;
 
 namespace Homework_13_bank_system
 {
     public class User : BaseViewModel
     {
         public static User currentUser = null;
+
+
+
+        string login;
+        public string Login
+        {
+            get => login;
+            set => login = value;
+        }
 
         int userId;
         public int UserId 
@@ -19,25 +25,40 @@ namespace Homework_13_bank_system
             set => userId = value; 
         }
 
-        public string Name 
+        string name;
+        public string Name
         {
-            get ;
-            set;
+            get => name;
+            set => name = value;
         }
 
         string pass;
-        public string Pass 
-        { 
+        public string Pass
+        {
             get => pass;
-            set => pass = value; 
+            set => pass = value;
         }
 
-        public User(string Name, string Pass)
+        //public User(string Name, string Pass)
+        //{
+        //    this.Name = Name;
+        //    this.Pass = Pass;
+        //    UserId = ReturnCurrentId();
+        //    AddToList(this);
+        //    writeOrderToFile();
+        //}
+
+        public User(string Name, string Login, string Pass)
         {
             this.Name = Name;
+            this.Login = Login;
             this.Pass = Pass;
             UserId = ReturnCurrentId();
             AddToList(this);
+            foreach (var e in usersList)
+            {
+                Debug.WriteLine(e);
+            }
             writeOrderToFile();
         }
 
@@ -52,7 +73,8 @@ namespace Homework_13_bank_system
         }
         public override string ToString()
         {
-            return $"{Name} {Pass} {UserId}";
+            //string tmpName = Name ?? Login;
+            return $"[{UserId}] {Name}";
         }
     }
 }

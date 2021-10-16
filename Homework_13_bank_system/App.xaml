@@ -17,13 +17,11 @@
             <Setter Property="Foreground" Value="AntiqueWhite"/>
             <Setter Property="FontWeight" Value="Black"/>
         </Style>-->
-        
+
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="View/MenuBtn.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-        
     </Application.Resources>
-
 </Application>

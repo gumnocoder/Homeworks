@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using static System.Windows.SystemParameters;
 
 namespace Homework_13_bank_system

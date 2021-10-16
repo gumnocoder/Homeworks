@@ -21,7 +21,7 @@ namespace Homework_13_bank_system
                 return u;
             }
         }
-        public User this[string Name]
+        public User this[string NameOrLogin]
         {
             get
             {
@@ -30,7 +30,12 @@ namespace Homework_13_bank_system
                 if (usersList.Count > 0)
                 {
                     foreach (User t in usersList)
-                    { if (t.Name.ToLower() == Name.ToLower()) { u = t; } }
+                    { 
+                        if (
+                            t.Name.ToLower() == NameOrLogin.ToLower() ||
+                            t.Login.ToLower() == NameOrLogin.ToLower())
+                        { u = t; }
+                    }
                 }
 
                 return u;
@@ -46,7 +51,5 @@ namespace Homework_13_bank_system
         {
             usersList.Add(user);
         }
-
-        
     }
 }

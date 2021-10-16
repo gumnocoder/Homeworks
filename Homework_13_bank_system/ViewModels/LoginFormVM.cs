@@ -1,23 +1,15 @@
-﻿using System.Diagnostics;
-using System.Windows;
+﻿using System;
+using System.Diagnostics;
 using System.Windows.Input;
-using static System.Windows.SystemParameters;
-using static Homework_13_bank_system.JsonDataLoadSave;
+using static Homework_13_bank_system.Models.appliedFunctional.DataLoader;
 using static Homework_13_bank_system.User;
 using static Homework_13_bank_system.UsersLists;
-using static Homework_13_bank_system.Models.appliedFunctional.DataLoader;
-using System;
 
 namespace Homework_13_bank_system.ViewModels
 {
 
     public class LoginFormVM : BaseViewModel
     {
-
-        public LoginFormVM()
-        {
-
-        }
 
         private bool authIsVisible = true;
 
@@ -58,18 +50,18 @@ namespace Homework_13_bank_system.ViewModels
             {
                 return new RelayCommand((obj) =>
                 {
-                    Debug.WriteLine(Login);
-                    Debug.WriteLine(Pass);
                     LoadingChain();
+                    bool finded = false;
                     foreach (User u in usersList)
                     {
-                        if (u.Name == Login & u.Pass == Pass)
+                        if (u.Login == Login & u.Pass.ToString() == Pass)
                         {
                             AuthIsVisible = false;
                             currentUser = u;
-                            Debug.WriteLine(u);
+                            finded = true;
                         }
                     }
+                    if (!finded) System.Windows.MessageBox.Show("Введены неправильные данные!");
                 });
             }
         }

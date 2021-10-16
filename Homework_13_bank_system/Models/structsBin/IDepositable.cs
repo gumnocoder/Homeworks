@@ -1,4 +1,6 @@
-﻿namespace Homework_13_bank_system.Models.structsBin
+﻿using Homework_13_bank_system.Models.personsBin;
+
+namespace Homework_13_bank_system.Models.structsBin
 {
     interface IDepositable : IAccount
     {

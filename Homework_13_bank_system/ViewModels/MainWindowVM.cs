@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using static System.Windows.SystemParameters;
 using static Homework_13_bank_system.Models.appliedFunctional.DataSaver;
+using static Homework_13_bank_system.UsersLists;
 
 namespace Homework_13_bank_system.ViewModels
 {
@@ -14,9 +15,16 @@ namespace Homework_13_bank_system.ViewModels
         private RelayCommand minimize;
         private RelayCommand maximize;
         private RelayCommand saveData;
+        private string cUser;
         private bool hidden = false;
         private bool maximized = false;
         private Window mainWindow = Application.Current.MainWindow;
+
+        public string CUser 
+        { 
+            get => cUser; 
+            set { if (cUser != value) cUser = value; } 
+        }
 
         #endregion
 
@@ -128,6 +136,8 @@ namespace Homework_13_bank_system.ViewModels
         /// </summary>
         public MainWindowVM()
         {
+            usersList = new();
+            //usersList = LoadingChain();
             /// в конутрукторе реализована подписка 
             /// на закрытие программы с выводом 
             /// проверки на актуальность действий
@@ -150,6 +160,7 @@ namespace Homework_13_bank_system.ViewModels
 
             if (User.currentUser != null)
             {
+                CUser = User.currentUser.ToString();
                 mainWindow.Visibility = Visibility.Visible;
                 lf.Close();
             }

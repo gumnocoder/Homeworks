@@ -4,7 +4,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Homework_13_bank_system"
         xmlns:viewModels="clr-namespace:Homework_13_bank_system.ViewModels"
         xmlns:views="clr-namespace:Homework_13_bank_system"
         mc:Ignorable="d"
@@ -19,24 +18,44 @@
             Path="AuthIsVisible" 
             Mode="TwoWay"/>
     </Window.Visibility>
+    <Window.InputBindings>
+        <KeyBinding 
+            Key="Return" 
+            Command="{Binding EnterBtn_Click}"/>
+    </Window.InputBindings>
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="boolToVisiblity"/>
-        <Style x:Key="txtBlock" TargetType="TextBlock">
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Background" Value="#aeb5c5"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="Foreground" Value="#9EC333"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="Padding" Value="10,3,3,3"/>
-            <Setter Property="FontStyle" Value="Italic"/>
-            <Setter Property="FontWeight" Value="Medium"/>
+        <BooleanToVisibilityConverter
+            x:Key="boolToVisiblity"/>
+        <Style x:Key="txtBlock" 
+               TargetType="TextBlock">
+            <Setter Property="OverridesDefaultStyle" 
+                    Value="True"/>
+            <Setter Property="Background"
+                    Value="#aeb5c5"/>
+            <Setter Property="VerticalAlignment"
+                    Value="Center"/>
+            <Setter Property="Height" 
+                    Value="35"/>
+            <Setter Property="Foreground" 
+                    Value="#9EC333"/>
+            <Setter Property="FontSize"
+                    Value="15"/>
+            <Setter Property="Padding" 
+                    Value="10,3,3,3"/>
+            <Setter Property="FontStyle"
+                    Value="Italic"/>
+            <Setter Property="FontWeight" 
+                    Value="Medium"/>
         </Style>
     </Window.Resources>
     <Window.Background>
         <RadialGradientBrush RadiusX="1" RadiusY="1">
-            <GradientStop Color="#aeb5c5" Offset="0"/>
-            <GradientStop Color="#9EC333" Offset="1"/>
+            <GradientStop 
+                Color="#aeb5c5"
+                Offset="0"/>
+            <GradientStop 
+                Color="#9EC333" 
+                Offset="1"/>
         </RadialGradientBrush>
     </Window.Background>
     <Border>
@@ -52,7 +71,9 @@
             </Grid.RowDefinitions>
             <TextBlock 
                 x:Name="uuu" 
-                Text="{Binding Pass, Mode=TwoWay}"
+                Text="{
+                Binding Pass, 
+                Mode=TwoWay}"
                 Visibility="Hidden"/>
             <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>
@@ -61,7 +82,8 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
                 <Button x:Name="enterBtn"
-                        Command="{Binding EnterBtn_Click}"
+                        Command="{
+                    Binding EnterBtn_Click}"
                         Grid.Column="1" 
                         Margin="12,6,3,6"
                         Content="Вход" 
@@ -69,7 +91,8 @@
                 </Button>
                 <Button 
                     x:Name="exitBtn" 
-                    Command="{Binding ApplicationForcedExit}"
+                    Command="{
+                    Binding ApplicationForcedExit}"
                     Grid.Column="2" 
                     Margin="3,6,12,6"
                     Content="Выход"/>
@@ -83,7 +106,8 @@
                 <Button x:Name="closeBtn" 
                         Width="19" 
                         Margin="3" 
-                        Command="{Binding ApplicationForcedExit}"
+                        Command="{
+                    Binding ApplicationForcedExit}"
                         Background="Transparent"
                         BorderThickness="0">
                     <Image Source="/closeBtn.png"/>
@@ -117,7 +141,8 @@
                            FontSize="16"/>
                 <PasswordBox Height="30" 
                          views:PasswordHelper.Attach ="true"
-                         views:PasswordHelper.Password="{Binding Text, 
+                         views:PasswordHelper.Password="{
+                    Binding Text, 
                     ElementName=uuu, 
                     Mode=TwoWay}"
                          Margin="50,10,50,5"
