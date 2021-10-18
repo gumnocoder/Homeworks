@@ -9,21 +9,27 @@
         Title="CreateUserForm" 
         Height="500" 
         Width="320"
-        Background="Transparent"
         WindowStyle="None"
         ResizeMode="NoResize">
     <Window.DataContext>
         <viewModels:CreateUserFormVM/>
     </Window.DataContext>
+    <Window.Background>
+        <RadialGradientBrush RadiusX="1" RadiusY="1">
+            <GradientStop 
+                Color="Khaki"
+                Offset="0"/>
+            <GradientStop 
+                Color="#9EC333" 
+                Offset="0.7"/>
+        </RadialGradientBrush>
+    </Window.Background>
     <Border
-        Background="#D9F096"
         x:Name="createUFMainBorder">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="6*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="4">
@@ -33,10 +39,13 @@
                 </Grid.ColumnDefinitions>
                 <Button
                     Background="WhiteSmoke"
+                    Foreground="Olive"
                     Command="{Binding CreateUser}"
                     x:Name="createBtn"
                     Content="Создать"
-                    Margin="10"></Button>
+                    Margin="10"
+                    FontSize="15"
+                    FontWeight="Bold"></Button>
                 <Button
                     Command="{
                         x:Static viewModels:CreateUserFormVM.CloseCommand}"
@@ -44,12 +53,17 @@
                         RelativeSource FindAncestor, 
                         AncestorType={x:Type Window}}}"
                     Background="WhiteSmoke"
+                    Foreground="Olive"
                     Grid.Column="1"
                     x:Name="cancelBtn"
                     Content="Отмена"
-                    Margin="10"></Button>
+                    Margin="10"
+                    FontSize="15"
+                    FontWeight="Bold"></Button>
             </Grid>
-            <Canvas Grid.Row="0" Background="WhiteSmoke"/>
+            <Canvas 
+                Grid.Row="0" 
+                Background="WhiteSmoke"/>
             <TextBlock 
                 Grid.Row="0"
                 Foreground="Olive"
@@ -67,7 +81,7 @@
                     FontWeight="Bold"
                     Text="Логин нового пользователя"
                     Height="20"
-                    Margin="20"
+                    Margin="10,20,10,10"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     TextAlignment="Center"
@@ -76,16 +90,16 @@
                 <TextBox 
                     Text="{Binding Login, Mode=TwoWay}"
                     x:Name="loginField"
-                    Height="40" 
-                    Margin="25,0,25,0"/>
-            </StackPanel>
-            <StackPanel Grid.Row="2">
+                    Height="30" 
+                    Margin="25,0,25,0"
+                    FontSize="15"
+                    Padding="5"/>
                 <TextBlock 
                     Foreground="Olive"
                     FontWeight="Bold"
                     Text="Имя нового пользователя"
                     Height="20"
-                    Margin="20"
+                    Margin="10"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     TextAlignment="Center"
@@ -94,16 +108,16 @@
                 <TextBox 
                     Text="{Binding Name, Mode=TwoWay}"
                     x:Name="nameField"
-                    Height="40" 
-                    Margin="25,0,25,0"/>
-            </StackPanel>
-            <StackPanel Grid.Row="3">
+                    Height="30" 
+                    Margin="25,0,25,0"
+                    FontSize="15"
+                    Padding="5"/>
                 <TextBlock 
                     Foreground="Olive"
                     FontWeight="Bold"
                     Text="пароль"
                     Height="20"
-                    Margin="20"
+                    Margin="10"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     TextAlignment="Center"
@@ -112,8 +126,29 @@
                 <TextBox 
                     Text="{Binding Pass, Mode=TwoWay}"
                     x:Name="passField"
-                    Height="40" 
-                    Margin="25,0,25,0"/>
+                    Height="30" 
+                    Margin="25,0,25,0"
+                    FontSize="15"
+                    Padding="5"/>
+                <TextBlock 
+                    Foreground="Olive"
+                    FontWeight="Bold"
+                    Text="Тип учетной записи"
+                    Height="20"
+                    Margin="25,10,10,10"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    TextAlignment="Center"
+                    FontSize="15"
+                    />
+                <ComboBox 
+                    ItemsSource="{Binding Types}"
+                    SelectedItem="{Binding Type, Mode=TwoWay}"
+                    x:Name="userType"
+                    Height="30" 
+                    Margin="25,0,25,0"
+                    FontSize="15"
+                    Padding="5"/>
             </StackPanel>
         </Grid>
     </Border>

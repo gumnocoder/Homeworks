@@ -2,39 +2,34 @@
 using System.Diagnostics;
 using System.IO;
 using Newtonsoft.Json;
-using static Homework_13_bank_system.UsersLists;
 
 namespace Homework_13_bank_system.Models.appliedFunctional
 {
-    public static class DataLoader
+    public static class DataLoader<T> where T : ISerializible
     {
-        public static void LoadingChain()
+        public static void LoadingChain(string outputFile)
         {
             //usersList = new();
-            usersList = UsersFromJson();
+            UsersLists<T>.usersList = LoadFromJson(outputFile);
         }
 
-        public static List<User> UsersFromJson()
+        public static List<T> LoadFromJson(string outputFile)
         {
-            string data = "users.json";
-
-            if (File.Exists(data))
+            if (File.Exists(outputFile))
             {
-                Debug.WriteLine(File.Exists(data));
-                List<User> tmp = new();
-                using (FileStream fs = new FileStream(data, FileMode.Open, FileAccess.Read))
+                List<T> tmp = new();
+                using (FileStream fs = new FileStream(outputFile, FileMode.Open, FileAccess.Read))
                 {
-                    string json = File.ReadAllText(data);
-                    tmp = JsonConvert.DeserializeObject<List<User>>(json);
-                    Debug.WriteLine(tmp.Count);
+                    string json = File.ReadAllText(outputFile);
+                    tmp = JsonConvert.DeserializeObject<List<T>>(json);
                 }
-                
+
                 return tmp;
             }
             else
             {
-                Debug.WriteLine(File.Exists(data));
-                return new List<User>();
+                Debug.WriteLine(File.Exists(outputFile));
+                return new List<T>();
             }
         }
 

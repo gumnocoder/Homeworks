@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using Homework_13_bank_system.Models.structsBin;
 using Homework_13_bank_system.View;
 using static System.Windows.SystemParameters;
-using static Homework_13_bank_system.Models.appliedFunctional.DataSaver;
-using static Homework_13_bank_system.UsersLists;
+using static Homework_13_bank_system.Models.structsBin.Bank;
+using System.Diagnostics;
+using Homework_13_bank_system.Models.appliedFunctional;
 
 namespace Homework_13_bank_system.ViewModels
 {
@@ -21,10 +23,10 @@ namespace Homework_13_bank_system.ViewModels
         private bool maximized = false;
         private Window mainWindow = Application.Current.MainWindow;
 
-        public string CUser 
-        { 
-            get => cUser; 
-            set { if (cUser != value) cUser = value; } 
+        public string CUser
+        {
+            get => cUser;
+            set { if (cUser != value) cUser = value; }
         }
 
         #endregion
@@ -70,7 +72,7 @@ namespace Homework_13_bank_system.ViewModels
             { e.Cancel = true; }
 
             else if (result == MessageBoxResult.Yes)
-            { SavingChain(); }
+            { DataSaver<User>.SavingChain("users.json"); }
         }
 
         private void ExitFromApplication(object sender)
@@ -118,17 +120,17 @@ namespace Homework_13_bank_system.ViewModels
 
         #region Взаимодействие с моделью
 
-            #region Прикладные методы
+        #region Прикладные методы
 
         private void DataSaving(object sender)
         {
-            SavingChain();
+            DataSaver<User>.SavingChain("users.json");
         }
 
-            #endregion
+        #endregion
 
-            #region
-            #endregion
+        #region
+        #endregion
 
         #endregion
 
@@ -137,13 +139,13 @@ namespace Homework_13_bank_system.ViewModels
         /// </summary>
         public MainWindowVM()
         {
-            usersList = new();
+            UsersLists<User>.usersList = new();
             //usersList = LoadingChain();
             /// в конутрукторе реализована подписка 
             /// на закрытие программы с выводом 
             /// проверки на актуальность действий
             /// и подписка на перемещение окна мышкой за любой участок окна
-            mainWindow.Closing += 
+            mainWindow.Closing +=
                 MainWindow_Closing;
 
             mainWindow.MouseLeftButtonDown +=
@@ -165,8 +167,9 @@ namespace Homework_13_bank_system.ViewModels
                 mainWindow.Visibility = Visibility.Visible;
                 lf.Close();
             }
-            UsersPermissionsPanel panel = new();
-            panel.Show();
+            BankSettingsLoader bs = new(ThisBank);
+            Debug.WriteLine("id " + ThisBank.CurrentDebitID.ToString());
+            DataSaver<Bank>.JsonSeralize(ThisBank, "banksettings.json");
         }
     }
 }

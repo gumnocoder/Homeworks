@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Homework_13_bank_system"
-        xmlns:viewModels="clr-namespace:Homework_13_bank_system.ViewModels"
+        xmlns:viewModel="clr-namespace:Homework_13_bank_system.ViewModels"
         xmlns:view="clr-namespace:Homework_13_bank_system.View"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
@@ -12,9 +12,10 @@
         Visibility="Visible"
         Title="MainWindow" Height="450" Width="800" 
         Background="Transparent" WindowStyle="None" 
-        ResizeMode="CanResizeWithGrip" AllowsTransparency="True">
+        ResizeMode="CanResizeWithGrip" 
+        AllowsTransparency="True">
     <Window.DataContext>
-        <viewModels:MainWindowVM/>
+        <viewModel:MainWindowVM/>
     </Window.DataContext>
     <Border Background="GhostWhite" 
             CornerRadius="10" 

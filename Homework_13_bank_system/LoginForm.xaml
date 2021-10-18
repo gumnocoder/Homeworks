@@ -7,7 +7,7 @@
         xmlns:viewModels="clr-namespace:Homework_13_bank_system.ViewModels"
         xmlns:views="clr-namespace:Homework_13_bank_system"
         mc:Ignorable="d"
-        Title="LoginForm" Height="300" Width="450"
+        Title="LoginForm" Height="210" Width="350"
         WindowStyle="None" ResizeMode="NoResize"
         x:Name="loginFormView">
     <Window.DataContext>
@@ -51,23 +51,27 @@
     <Window.Background>
         <RadialGradientBrush RadiusX="1" RadiusY="1">
             <GradientStop 
-                Color="#aeb5c5"
+                Color="Khaki"
                 Offset="0"/>
             <GradientStop 
                 Color="#9EC333" 
                 Offset="1"/>
         </RadialGradientBrush>
     </Window.Background>
-    <Border>
+    <Border
+        CornerRadius="10" 
+        BorderThickness="0.1" 
+        BorderBrush="Olive"
+        Margin="5">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="25*"/>
-                <RowDefinition Height="90*"/>
-                <RowDefinition Height="75*"/>
-                <RowDefinition Height="75*"/>
-                <RowDefinition Height="25*"/>
-                <RowDefinition Height="60*"/>
-                <RowDefinition Height="25*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="50*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
             <TextBlock 
                 x:Name="uuu" 
@@ -77,82 +81,102 @@
                 Visibility="Hidden"/>
             <Grid Grid.Row="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="enterBtn"
+                <Button 
+                    Background="WhiteSmoke"
+                    Foreground="Olive"
+                    FontWeight="Bold"
+                    x:Name="enterBtn"
                         Command="{
                     Binding EnterBtn_Click}"
                         Grid.Column="1" 
-                        Margin="12,6,3,6"
+                        Margin="0,6,3,6"
                         Content="Вход" 
                         >
                 </Button>
                 <Button 
+                    Background="WhiteSmoke"
+                    Foreground="Olive"
+                    FontWeight="Bold"
                     x:Name="exitBtn" 
                     Command="{
                     Binding ApplicationForcedExit}"
                     Grid.Column="2" 
-                    Margin="3,6,12,6"
+                    Margin="3,6,0,6"
                     Content="Выход"/>
             </Grid>
-            <StackPanel Name="sp" 
-                        HorizontalAlignment="Right" 
-                        Grid.Row="0" 
-                        Orientation="Horizontal">
-                <Button Width="19" 
-                        Margin="3"/>
-                <Button x:Name="closeBtn" 
-                        Width="19" 
-                        Margin="3" 
-                        Command="{
-                    Binding ApplicationForcedExit}"
-                        Background="Transparent"
-                        BorderThickness="0">
-                    <Image Source="/closeBtn.png"/>
-                </Button>
-            </StackPanel>
             <StackPanel Grid.Row="2">
                 <TextBlock Name="loginText" 
                            Text="Введите логин" 
                            HorizontalAlignment="Center"
-                           Foreground="White"
+                           Foreground="Olive"
                            FontWeight="Medium"
                            FontSize="16"/>
-                <TextBox Height="30" Margin="50,10,50,5"
-                         BorderThickness="0"
-                         Padding="10,3,3,3"
+                <TextBox Height="30"
+                         BorderBrush="Olive"
+                         Margin="50,10,50,5"
+                         BorderThickness="1"
+                         Padding="10,1,10,1"
                          x:Name="loginFieldValue"
-                         Foreground="#9EC333"
-                         FontSize="15"
+                         Foreground="White"
+                         FontSize="17"
                          FontWeight="Medium"
                          FontStyle="Italic"
                          Text="{Binding Login,
-                    Mode=TwoWay}">
+                         Mode=TwoWay}">
+                    <TextBox.Background>
+                        <RadialGradientBrush 
+                            RadiusX="1" 
+                            RadiusY="50">
+                            <GradientStop 
+                                Color="Khaki"
+                                Offset="0.2"/>
+                            <GradientStop 
+                                Color="#9EC333" 
+                                Offset="1"/>
+                        </RadialGradientBrush>
+                    </TextBox.Background>
                 </TextBox>
             </StackPanel>
             <StackPanel Grid.Row="3">
                 <TextBlock Name="passText" 
                            Text="Введите пароль" 
                            HorizontalAlignment="Center"
-                           Foreground="White"
+                           Foreground="Olive"
                            FontWeight="Medium"
-                           FontSize="16"/>
+                           FontSize="16"
+                           Margin="5"/>
                 <PasswordBox Height="30" 
                          views:PasswordHelper.Attach ="true"
                          views:PasswordHelper.Password="{
                     Binding Text, 
                     ElementName=uuu, 
                     Mode=TwoWay}"
-                         Margin="50,10,50,5"
-                         BorderThickness="0"
+                         Margin="50,0,50,5"
+                             BorderBrush="Olive"
+                         BorderThickness="1"
                          Padding="10,3,3,3"
                          x:Name="passFieldValue"
-                         Foreground="#9EC333"
+                         Foreground="White"
                          FontSize="15"
                          FontWeight="Medium"
                          FontStyle="Italic">
+                    <PasswordBox.Background>
+                        <RadialGradientBrush 
+                            RadiusX="1" 
+                            RadiusY="10">
+                            <GradientStop 
+                                Color="Khaki"
+                                Offset="0.1"/>
+                            <GradientStop 
+                                Color="#9EC333" 
+                                Offset="1"/>
+                        </RadialGradientBrush>
+                    </PasswordBox.Background>
                 </PasswordBox>
             </StackPanel>
         </Grid>

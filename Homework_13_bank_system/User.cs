@@ -1,22 +1,71 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using Homework_13_bank_system.Models.appliedFunctional;
 using Homework_13_bank_system.ViewModels;
 using static Homework_13_bank_system.IdSetter;
-using static Homework_13_bank_system.UsersLists;
+//using static Homework_13_bank_system.UsersLists;
 
 namespace Homework_13_bank_system
 {
-    public class UsersPermissions : BaseViewModel
+    public interface IManager
+    {
+
+    }
+
+    public interface IRegular : IManager
+    {
+
+    }
+
+    public interface IVip : IManager
+    {
+
+    }
+
+    public interface ILegalEntity : IManager
+    {
+
+    }
+
+    public abstract class UsersPermissions : BaseViewModel
     {
         bool canCreateUsers;
         bool canCreateClients;
         bool canRemoveUsers;
         bool canRemoveClients;
+        bool haveUserEditRights;
+        bool canCloseAccounts;
+        bool canOpenDebitAccounts;
+        bool canOpenCreditAccounts;
+        public bool CanOpenCreditAccounts
+        {
+            get => canOpenCreditAccounts;
+            set => canOpenCreditAccounts = value;
+        }
+        public bool CanOpenDebitAccounts
+        {
+            get => canOpenDebitAccounts;
+            set => canOpenDebitAccounts = value;
+        }
+        public bool CanCloseAccounts
+        {
+            get => canCloseAccounts;
+            set => canCloseAccounts = value;
+        }
+        public bool HaveUserEditRights
+        {
+            get => haveUserEditRights;
+            set => haveUserEditRights = value;
+        }
 
         public bool CanCreateUsers
         {
             get => canCreateUsers;
-            set => canCreateUsers = value;
+            set
+            {
+                canCreateUsers = value;
+                OnPropertyChanged();
+            }
         }
 
         public bool CanCreateClients
@@ -38,35 +87,11 @@ namespace Homework_13_bank_system
         }
         public void Turn(bool property)
         {
-            if (property == false) property = true;
-            else property = false;
+            property = !property;
         }
-        public void CreateUsersPermission(User user)
-        {
-            if (user.canCreateUsers == false) user.canCreateUsers = true;
-            else user.canCreateUsers = false;
-        }
-
-        public void RemoveUsersPermission(User user)
-        {
-            if (user.canRemoveUsers == false) user.canRemoveUsers = true;
-            else user.canRemoveUsers = false;
-        }
-        public void CreateClientsPermission(User user)
-        {
-            if (user.canCreateClients == false) user.canCreateClients = true;
-            else user.canCreateClients = false;
-        }
-
-        public void RemoveClientsPermission(User user)
-        {
-            if (user.canRemoveClients == false) user.canRemoveClients = true;
-            else user.canRemoveClients = false;
-        }
-
     }
 
-    public class User : UsersPermissions
+    public class User : UsersPermissions, ISerializible
     {
         public static User CurrentUser;
 
@@ -78,10 +103,10 @@ namespace Homework_13_bank_system
         }
 
         int userId;
-        public int UserId 
-        { 
-            get => userId; 
-            set => userId = value; 
+        public int UserId
+        {
+            get => userId;
+            set => userId = value;
         }
 
         string name;
@@ -98,6 +123,14 @@ namespace Homework_13_bank_system
             set => pass = value;
         }
 
+        string type;
+
+        public string Type
+        {
+            get => type;
+            set => type = value;
+        }
+
         //public User(string Name, string Pass)
         //{
         //    this.Name = Name;
@@ -107,14 +140,15 @@ namespace Homework_13_bank_system
         //    writeOrderToFile();
         //}
 
-        public User(string Name, string Login, string Pass)
+        public User(string Name, string Login, string Pass, string Type)
         {
             this.Name = Name;
             this.Login = Login;
             this.Pass = Pass;
+            this.Type = Type;
             UserId = ReturnCurrentId();
-            AddToList(this);
-            foreach (var e in usersList)
+            UsersLists<User>.AddToList(this as User);
+            foreach (var e in UsersLists<User>.usersList)
             {
                 Debug.WriteLine(e);
             }
@@ -137,3 +171,10 @@ namespace Homework_13_bank_system
         }
     }
 }
+
+
+
+
+
+
+

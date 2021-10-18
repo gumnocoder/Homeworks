@@ -3,30 +3,27 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using Newtonsoft.Json;
-using static Homework_13_bank_system.UsersLists;
 
 namespace Homework_13_bank_system.Models.appliedFunctional
 {
-    public static class DataSaver
+    public static class DataSaver<T> where T : ISerializible
     {
         private static void savingBtn_Click(object sender, RoutedEventArgs e)
         {
-            SavingChain();
+            SavingChain("users.json");
         }
 
-        public static void SavingChain()
+        public static void SavingChain(string outputFile)
         {
-            JsonSeralize(usersList, "users.json");
+            JsonSeralize(UsersLists<T>.usersList, outputFile);
         }
 
-        private static void DeleteIfExists(string path)
+        private static void DeleteIfExists(string outputFile)
         {
-            string pathToFile = Path.Combine(Environment.CurrentDirectory + @"\" + path);
-            if (File.Exists(path))
+            string pathToFile = Path.Combine(Environment.CurrentDirectory + @"\" + outputFile);
+            if (File.Exists(outputFile))
             {
-                Debug.WriteLine(File.Exists(path));
-                File.Delete(path);
-                Debug.WriteLine(File.Exists(path));
+                File.Delete(outputFile);
             }
         }
         public static void JsonSeralize(object serializibleObject, string path)

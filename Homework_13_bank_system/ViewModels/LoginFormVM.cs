@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Input;
-using static Homework_13_bank_system.Models.appliedFunctional.DataLoader;
+using Homework_13_bank_system.Models.appliedFunctional;
 using static Homework_13_bank_system.User;
-using static Homework_13_bank_system.UsersLists;
 
 namespace Homework_13_bank_system.ViewModels
 {
@@ -17,7 +16,8 @@ namespace Homework_13_bank_system.ViewModels
         {
             get => authIsVisible;
             set
-            { if (authIsVisible != value)
+            {
+                if (authIsVisible != value)
                 {
                     authIsVisible = value;
                     OnPropertyChanged();
@@ -44,15 +44,31 @@ namespace Homework_13_bank_system.ViewModels
             set => pass = value;
         }
 
+        private RelayCommand clearLogin;
+
+        public RelayCommand ClearLogin
+        {
+            get => clearLogin ??= new(clearLoginField);
+        }
+
+        public void clearLoginField(object sender)
+        {
+            Login = string.Empty;
+        }
+        public void clearPassField()
+        {
+            Pass = string.Empty;
+        }
+
         public ICommand EnterBtn_Click
         {
             get
             {
                 return new RelayCommand((obj) =>
                 {
-                    LoadingChain();
+                    DataLoader<User>.LoadingChain("users.json");
                     bool finded = false;
-                    foreach (User u in usersList)
+                    foreach (User u in UsersLists<User>.usersList)
                     {
                         if (u.Login == Login & u.Pass.ToString() == Pass)
                         {

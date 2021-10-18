@@ -9,41 +9,248 @@
         Title="UsersPermissionsPanel" 
         Height="600" 
         Width="400"
-        Background="Khaki">
+        ResizeMode="NoResize"
+        WindowStyle="None">
+    <Window.Background>
+        <RadialGradientBrush RadiusX="1" RadiusY="1">
+            <GradientStop 
+                Color="Khaki"
+                Offset="0"/>
+            <GradientStop 
+                Color="#9EC333" 
+                Offset="1"/>
+        </RadialGradientBrush>
+    </Window.Background>
     <Window.DataContext>
         <viewModel:UsersPermissionsPanelVM/>
     </Window.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="1*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <ComboBox 
-            Grid.Column="1" 
-            Margin="4" 
-            ItemsSource="{Binding Users}"/>
-        <Button 
-            x:Name="closeBtn"
-            Content="Закрыть панель" 
-            Background="WhiteSmoke" 
-            Grid.Row="7" Grid.Column="1"
-            Command="{x:Static 
-                viewModel:UsersPermissionsPanelVM.CloseCommand}"
-            CommandParameter="{
-                Binding RelativeSource={
-                RelativeSource FindAncestor, 
-                AncestorType={x:Type Window}}}"
-            Margin="30,15,30,15" />
-    </Grid>
+    <Window.Resources>
+        <Style x:Key="{x:Type TextBlock}" 
+               TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="DarkGreen"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+    </Window.Resources>
+    <Border 
+        CornerRadius="5" 
+        BorderThickness="1" 
+        BorderBrush="Olive"
+        Margin="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="8*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <TextBlock
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Text="Создание учетных записей пользователей"/>
+                <TextBlock
+                Grid.Row="2" 
+                Grid.Column="1" 
+                Text="Доступ к панели разрешений пользователей"/>
+                <TextBlock
+                Grid.Row="3" 
+                Grid.Column="1" 
+                Text="Удаление учетных записей пользователей"/>
+                <TextBlock
+                Grid.Row="4" 
+                Grid.Column="1" 
+                Text="Создание клиентов любого типа"/>
+                <TextBlock
+                Grid.Row="5" 
+                Grid.Column="1" 
+                Text="Удаление клиентов"/>
+                <TextBlock
+                    Height="40"
+                Grid.Row="6" 
+                Grid.Column="1">
+                    Открытие депозитного счета, 
+                    привязанного<LineBreak/> 
+                    к клиенту</TextBlock>
+                <TextBlock
+                Grid.Row="6" 
+                Grid.Column="1" 
+                Text="Закрытие счета"/>
+                <TextBlock
+                Grid.Column="1" 
+                Text="Выдача кредита"/>
+                <Grid Height="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="210*"/>
+                        <ColumnDefinition Width="157*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock>Сменить имя пользователя
+                    </TextBlock>
+                    <TextBox 
+                        x:Name="userNameField"
+                        Text="{
+                        Binding SelectedUser.Name,
+                        Mode=TwoWay}"
+                        Grid.Column="1" 
+                        Height="20"/>
+                </Grid>
+                <Grid Height="30">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"/>
+                        <ColumnDefinition Width="8*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0" 
+                        Text="Сменить тип пользователя"/>
+                    <ComboBox 
+                        Grid.Column="1"
+                        Height="20"
+                        ItemsSource="{Binding Types}"
+                        SelectedItem="{
+                            Binding SelectedUser.Type, 
+                            UpdateSourceTrigger=PropertyChanged}" 
+                        Grid.ColumnSpan="2" 
+                        Margin="5,5,0,5"/>
+                </Grid>
+                <Border CornerRadius="10"
+                        BorderBrush="Wheat"
+                        BorderThickness="3"
+                        Background="WhiteSmoke"
+                        Height="32"
+                        Width="152"
+                        Margin="0,50,0,0">
+                    <Button 
+                        Command="{Binding DeleteUserCommand}"
+                        BorderThickness="0"
+                        Background="Transparent"
+                        Foreground="Olive"
+                        Height="30"
+                        Width="150"
+                        Content="Удалить пользователя"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        ToolTip="Создание пользователей">
+                    </Button>
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <CheckBox Grid.Row="1" 
+                          Margin="0,0,0,5"
+                      Grid.Column="2" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      x:Name="CanCreateUsersCheckBox"
+                      IsChecked="{
+                Binding SelectedUser.CanCreateUsers, 
+                UpdateSourceTrigger=PropertyChanged}"/>
+                <CheckBox 
+                    Margin="5"
+                    Grid.Row="2" 
+                      Grid.Column="2" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      x:Name="HaveUserEditRights"
+                      IsChecked="{
+                Binding SelectedUser.HaveUserEditRights, 
+                UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="доступ к панели разрешений"/>
+                <CheckBox 
+                    Margin="5"
+                    Grid.Row="2" 
+                      Grid.Column="2" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      x:Name="RemoveUsers"
+                      IsChecked="{
+                Binding SelectedUser.CanRemoveUsers, 
+                UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="Удаление пользователей"/>
+                <CheckBox 
+                    Margin="5"
+                    Grid.Row="2" 
+                      Grid.Column="2" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      x:Name="CanCreateClients"
+                      IsChecked="{
+                Binding SelectedUser.CanCreateClients, 
+                UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="Создание клиентов"/>
+                <CheckBox 
+                    Margin="5"
+                    Grid.Row="2" 
+                      Grid.Column="2" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      x:Name="CanRemoveClients"
+                      IsChecked="{
+                Binding SelectedUser.CanRemoveClients, 
+                UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="Удаление клиентов"/>
+                <CheckBox 
+                    Margin="5"
+                    Grid.Row="2" 
+                      Grid.Column="2" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      x:Name="CanOpenDebitAccounts"
+                      IsChecked="{
+                Binding SelectedUser.CanOpenDebitAccounts, 
+                UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="открытие депозита"/>
+                <CheckBox 
+                    Margin="0,20,0,0"
+                    Grid.Row="2" 
+                      Grid.Column="2" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      x:Name="CamCloseAccounts"
+                      IsChecked="{
+                Binding SelectedUser.CanCloseAccounts, 
+                UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="Закрытие счёта"/>
+                <CheckBox 
+                    Margin="0,10,0,0"
+                    Grid.Row="2" 
+                      Grid.Column="2" 
+                      HorizontalAlignment="Center" 
+                      VerticalAlignment="Center" 
+                      x:Name="GiveCredit"
+                      IsChecked="{
+                Binding SelectedUser.CanOpenCreditAccounts, 
+                UpdateSourceTrigger=PropertyChanged}"
+                    ToolTip="Выдача кредита"/>
+            </StackPanel>
+            <ComboBox 
+                Height="20"
+                x:Name="usersListComboBox"
+                Grid.Column="1" 
+                Margin="20,0,20,0" 
+                ItemsSource="{Binding Users}"
+                SelectedItem="{
+                Binding SelectedUser, 
+                Mode=TwoWay}"/>
+
+            <Button 
+                x:Name="closeBtn"
+                Content="Закрыть панель" 
+                Background="WhiteSmoke" 
+                Grid.Row="3" Grid.Column="1"
+                Command="{x:Static 
+                    viewModel:UsersPermissionsPanelVM.CloseCommand}"
+                CommandParameter="{
+                    Binding RelativeSource={
+                    RelativeSource FindAncestor, 
+                    AncestorType={x:Type Window}}}"
+                Margin="30,15,30,15" />
+
+
+        </Grid>
+    </Border>
 </Window>

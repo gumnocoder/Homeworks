@@ -1,39 +1,40 @@
 ﻿using System.Collections.Generic;
+using Homework_13_bank_system.Models.appliedFunctional;
 
 namespace Homework_13_bank_system
 {
-    class UsersLists
+    class UsersLists<T> where T : ISerializible
     {
-        public static List<User> usersList;
+        public static List<T> usersList;
 
-        public User this[int Id]
+        public T this[int Id]
         {
-            get 
+            get
             {
-                User u = null;
+                T u = default;
 
                 if (usersList.Count > 0)
                 {
-                    foreach (User t in usersList)
-                    {  if (t.UserId == Id) { u = t; } }
+                    foreach (T t in usersList)
+                    { if ((t as User).UserId == Id) { u = t; } }
                 }
 
                 return u;
             }
         }
-        public User this[string NameOrLogin]
+        public T this[string NameOrLogin]
         {
             get
             {
-                User u = null;
+                T u = default;
 
                 if (usersList.Count > 0)
                 {
-                    foreach (User t in usersList)
-                    { 
+                    foreach (T t in usersList)
+                    {
                         if (
-                            t.Name.ToLower() == NameOrLogin.ToLower() ||
-                            t.Login.ToLower() == NameOrLogin.ToLower())
+                            (t as User).Name.ToLower() == NameOrLogin.ToLower() ||
+                            (t as User).Login.ToLower() == NameOrLogin.ToLower())
                         { u = t; }
                     }
                 }
@@ -47,9 +48,14 @@ namespace Homework_13_bank_system
             usersList = new();
         }
 
-        public static void AddToList(User user)
+        public static void AddToList(T user)
         {
             usersList.Add(user);
+        }
+
+        public static void RemoveFromList(T user)
+        {
+            usersList.Remove(user);
         }
     }
 }
