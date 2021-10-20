@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows;
 using Homework_13_bank_system.View;
+using Homework_13_bank_system.Models.personsBin;
 
 namespace Homework_13_bank_system.ViewModels
 {

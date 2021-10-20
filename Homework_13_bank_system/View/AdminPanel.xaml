@@ -10,28 +10,48 @@
     <UserControl.DataContext>
         <viewModel:AdminPanelVM/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="WhiteSmoke"/>
+            <Setter Property="Foreground" Value="Olive"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="40"/>
+        </Style>
+    </UserControl.Resources>
     <StackPanel>
         <Button 
-            Background="WhiteSmoke"
             Command="{Binding CreateUser}"
             IsEnabled="{
             Binding CreateUserBtnActivity, 
             UpdateSourceTrigger=PropertyChanged, 
             Mode=OneWay}"
                 x:Name="createUserBtn"
-                Content="Создать пользователя"
-                Width="160"
-                Height="30"/>
+                Content="Создать пользователя"/>
         <Button 
-            Background="WhiteSmoke"
+            Command="{Binding CreateUser}"
+            IsEnabled="{
+            Binding CreateUsersBtnActivity, 
+            UpdateSourceTrigger=PropertyChanged, 
+            Mode=OneWay}"
+                x:Name="createClientBtn"
+                Content="Создать клиента"
+            Margin="0,10,0,0"/>
+        <Button 
             Command="{Binding EditPermissions}"
             IsEnabled="{Binding HaveEditRights, 
             UpdateSourceTrigger=PropertyChanged,
             Mode=OneWay}"
                 x:Name="changeUsersPermissions"
                 Content="Управление правами"
-                Margin="0,10,0,0"
-                Width="160"
-                Height="30"/>
+                Margin="0,10,0,0"/>
+        <Button 
+            Command="{Binding CreateUser}"
+            IsEnabled="{
+            Binding LoginedAsAdministrator, 
+            UpdateSourceTrigger=PropertyChanged, 
+            Mode=OneWay}"
+                x:Name="settingsBtn"
+                Content="Настройки приложения"
+            Margin="0,10,0,0"/>
     </StackPanel>
 </UserControl>

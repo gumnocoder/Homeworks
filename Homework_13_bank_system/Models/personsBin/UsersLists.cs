@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Homework_13_bank_system.Models.appliedFunctional;
+using Homework_13_bank_system.Models.personsBin;
 
 namespace Homework_13_bank_system
 {

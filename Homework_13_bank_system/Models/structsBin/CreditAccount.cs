@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using Homework_13_bank_system.Models.appliedFunctional;
 using Homework_13_bank_system.Models.personsBin;
 using static Homework_13_bank_system.Models.structsBin.Bank;
 
 
 namespace Homework_13_bank_system.Models.structsBin
 {
-    class CreditAccount : BankAccount, ICredited, IAccountActions
+    class CreditAccount : BankAccount, ICredited
     {
 
         Random rnd = new Random();
@@ -39,19 +40,17 @@ namespace Homework_13_bank_system.Models.structsBin
         public long Id
         {
             get => id;
-            set
-            { if (id != 0) { id = SetId(); } }
+            set => id = value;
         }
 
-        public bool Executed => throw new NotImplementedException();
-
+        
         public CreditAccount(long CreditAmount, Client client)
         {
             if (CreditCheck.CheckForCredit(client))
             {
                 AccountAmount = -CreditAmount;
                 isActive = true;
-                id = SetId();
+                IdSetter<CreditAccount>.SetId(this);
                 client.Accounts.Add(this);
             }
             else Debug.WriteLine("credit not avaible for that person");
@@ -70,10 +69,6 @@ namespace Homework_13_bank_system.Models.structsBin
             return AccountAmount;
         }
 
-        public void Execute()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
 

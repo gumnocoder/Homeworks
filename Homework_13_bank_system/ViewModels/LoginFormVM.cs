@@ -2,7 +2,8 @@
 using System.Diagnostics;
 using System.Windows.Input;
 using Homework_13_bank_system.Models.appliedFunctional;
-using static Homework_13_bank_system.User;
+using static Homework_13_bank_system.Models.personsBin.User;
+using Homework_13_bank_system.Models.personsBin;
 
 namespace Homework_13_bank_system.ViewModels
 {

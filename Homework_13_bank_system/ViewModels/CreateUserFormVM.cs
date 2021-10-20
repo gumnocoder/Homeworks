@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using static Homework_13_bank_system.ViewModels.AdminPanelVM;
+using Homework_13_bank_system.Models.personsBin;
 
 namespace Homework_13_bank_system.ViewModels
 {

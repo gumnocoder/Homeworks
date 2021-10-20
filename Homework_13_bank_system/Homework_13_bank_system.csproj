@@ -11,6 +11,13 @@
     <None Remove="icon.ico" />
     <None Remove="maxBtn.png" />
     <None Remove="minBtn.png" />
+    <None Remove="users.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="users.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

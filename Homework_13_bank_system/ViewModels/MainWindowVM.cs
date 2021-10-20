@@ -7,6 +7,7 @@ using static System.Windows.SystemParameters;
 using static Homework_13_bank_system.Models.structsBin.Bank;
 using System.Diagnostics;
 using Homework_13_bank_system.Models.appliedFunctional;
+using Homework_13_bank_system.Models.personsBin;
 
 namespace Homework_13_bank_system.ViewModels
 {
@@ -170,6 +171,8 @@ namespace Homework_13_bank_system.ViewModels
             BankSettingsLoader bs = new(ThisBank);
             Debug.WriteLine("id " + ThisBank.CurrentDebitID.ToString());
             DataSaver<Bank>.JsonSeralize(ThisBank, "banksettings.json");
+
+            //ObjectRenamer<User> or = new(User.CurrentUser, "Текущий пользователь");
         }
     }
 }

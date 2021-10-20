@@ -61,8 +61,6 @@ namespace Homework_13_bank_system.Models.structsBin
         private readonly string debitIdFile = "debid.ini";
         private readonly string userIdFile = "usid.ini";
         private readonly string clientIdFile = "clid.ini";
-
-
     }
 
     public sealed class Bank : ISerializible

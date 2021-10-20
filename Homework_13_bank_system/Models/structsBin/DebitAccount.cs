@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace Homework_13_bank_system.Models.structsBin
 {
-    interface IClientActions
+    class DebitAccount
     {
-        void Execute();
-        public bool Executed { get; }
+        long id;
+        public long Id
+        {
+            get => id;
+            set => id = value;
+        }
     }
 }

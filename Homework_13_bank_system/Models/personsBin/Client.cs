@@ -3,65 +3,47 @@ using Homework_13_bank_system.Models.structsBin;
 
 namespace Homework_13_bank_system.Models.personsBin
 {
-    public class ReputationIncreaser : IClientActions
-    {
-        private readonly Client client;
-        private readonly int value;
-        private bool executed;
-        public bool Executed => executed;
-
-        public ReputationIncreaser(Client client, int value = 1)
-        {
-            this.client = client;
-            this.value = value;
-            executed = false;
-        }
-        public void Execute()
-        {
-            if (client.Reputation >= 10)
-            { client.Reputation = 10; }
-
-            else
-            { client.Reputation += value; }
-
-            executed = true;
-        }
-    }
-    public class ReputationDecreaser : IClientActions
-    {
-        private readonly Client client;
-        private readonly int value;
-        private bool executed;
-        public bool Executed => executed;
-
-        public ReputationDecreaser(Client client, int value = 1)
-        {
-            this.client = client;
-            this.value = value;
-            executed = false;
-        }
-
-        public void Execute()
-        {
-            if (client.Reputation <= 0) { client.Reputation = 0; }
-            else { client.Reputation -= value; }
-
-            executed = true;
-        }
-    }
-
-    public class Client : IClient
+    public class Client : IClient, IRenamableObject
     {
         string name;
-        ObservableCollection<IAccountActions> accounts;
+        ObservableCollection<BankAccount> accounts;
         int reputation;
 
+        /// <summary>
+        /// Имя
+        /// </summary>
         public string Name
         { get => name; set => name = value; }
-        public ObservableCollection<IAccountActions> Accounts
+        /// <summary>
+        /// Счета
+        /// </summary>
+        public ObservableCollection<BankAccount> Accounts
         { get => accounts; set => accounts = value; }
-
+        /// <summary>
+        /// Репутация
+        /// </summary>
         public int Reputation
         { get => reputation; set => reputation = value; }
+
+        public void ReName(string newName)
+        { this.Name = newName; }
+
+        private long clientId;
+        public long ClientId
+        {
+            get => clientId;
+            set => clientId = value;
+        }
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="Name">Имя</param>
+        /// <param name="Reputation">Репутация</param>
+        public Client(string Name, int Reputation = 5)
+        {
+            this.Name = Name;
+            this.Reputation = Reputation;
+            this.Accounts = new();
+        }
     }
 }
