@@ -1,37 +1,31 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using Homework_13_bank_system.Models.personsBin;
 using Newtonsoft.Json;
 
 namespace Homework_13_bank_system.Models.appliedFunctional
 {
     public static class DataLoader<T> where T : ISerializible
     {
-        public static void LoadingChain(string outputFile)
+        public static void LoadFromJson(List<T> targetList, string inputFile)
         {
-            //usersList = new();
-            UsersLists<T>.usersList = LoadFromJson(outputFile);
-        }
-
-        public static List<T> LoadFromJson(string outputFile)
-        {
-            if (File.Exists(outputFile))
+            if (File.Exists(inputFile))
             {
                 List<T> tmp = new();
-                using (FileStream fs = new FileStream(outputFile, FileMode.Open, FileAccess.Read))
+                using (FileStream fs = new FileStream(inputFile, FileMode.Open, FileAccess.Read))
                 {
-                    string json = File.ReadAllText(outputFile);
+                    string json = File.ReadAllText(inputFile);
                     tmp = JsonConvert.DeserializeObject<List<T>>(json);
                 }
 
-                return tmp;
+                targetList = tmp;
             }
             else
             {
-                Debug.WriteLine(File.Exists(outputFile));
-                return new List<T>();
+                Debug.WriteLine(File.Exists(inputFile));
+                targetList = new List<T>();
             }
         }
-
     }
 }

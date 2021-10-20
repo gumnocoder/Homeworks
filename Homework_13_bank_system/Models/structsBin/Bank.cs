@@ -1,88 +1,54 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
+using System.Text.Json.Serialization;
 using Homework_13_bank_system.Models.appliedFunctional;
 
 namespace Homework_13_bank_system.Models.structsBin
 {
-
-    public class BankSettingsLoader
+    public sealed class Bank
     {
-        private readonly string creditIdFile = "credid.ini";
-        private readonly string debitIdFile = "debid.ini";
-        private readonly string userIdFile = "usid.ini";
-        private readonly string clientIdFile = "clid.ini";
-
-        public string GetIniContent(string path)
-        {
-            string a = string.Empty;
-            if (File.Exists(path))
-            {
-                using (StreamReader sw = new(path))
-                {
-                    a = sw.ReadToEnd();
-                }
-            }
-            else File.Create(path);
-            return a;
-        }
-
-        public void SetId(ref long idGetter, string path, long defaultValue)
-        {
-            if (long.TryParse(GetIniContent(path), out long tmp))
-            {
-                Debug.WriteLine("path parsed");
-                idGetter = tmp;
-                Debug.WriteLine(tmp);
-                Debug.WriteLine(idGetter);
-            }
-
-            else
-            {
-                Debug.WriteLine("path don`t parsed");
-                idGetter = defaultValue;
-            }
-
-            // idGetter =  long.TryParse(GetIniContent(path), out long tmp) ? tmp : defaultValue;
-        }
-
-        public BankSettingsLoader(Bank bank)
-        {
-            SetId(ref bank.currentCreditID, creditIdFile, (long)10000);
-            SetId(ref bank.currentDebitID, debitIdFile, (long)10000000);
-            SetId(ref bank.currentClientID, clientIdFile, (long)100000);
-            SetId(ref bank.currentUserID, userIdFile, (long)0);
-        }
-    }
-
-    public class BankSettingsSaver
-    {
-        private readonly string creditIdFile = "credid.ini";
-        private readonly string debitIdFile = "debid.ini";
-        private readonly string userIdFile = "usid.ini";
-        private readonly string clientIdFile = "clid.ini";
-    }
-
-    public sealed class Bank : ISerializible
-    {
+        #region Поля
         public long currentCreditID;
-        public long currentDebitID;
-        public long currentClientID;
-        public long currentUserID;
-        public long CurrentCreditID
-        { get; set; }
-        public long CurrentDebitID
-        { get; set; }
-        public long CurrentClientID
-        { get; set; }
-        public long CurrentUserID
-        { get; set; }
 
+        public long currentDebitID;
+
+        public long currentClientID;
+
+        public long currentUserID;
+        #endregion
+
+        #region Свойства
+        public long CurrentCreditID
+        { get => currentCreditID; set => currentCreditID = value; }
+
+
+        public long CurrentDebitID
+        { get => currentDebitID; set => currentDebitID = value; }
+
+
+        public long CurrentClientID
+        { get => currentClientID; set => currentClientID = value; }
+
+        public long CurrentUserID
+        { get => currentUserID; set => currentUserID = value; }
+        #endregion
+
+        #region Синглтон Bank
         public string Name { get; set; }
-        public static Bank instance = null;
+
+        /// <summary>
+        /// конструктор по умолчанию
+        /// </summary>
         private Bank() { Name = "ЗАО 'Банк России'"; }
 
+        /// <summary>
+        /// указатель наличия одного экземпляра
+        /// </summary>
         static Bank thisBank = null;
+
+        /// <summary>
+        /// свойство возращающее экземпляр или 
+        /// создающее его при отсутствии
+        /// </summary>
         public static Bank ThisBank
         {
             get
@@ -91,5 +57,6 @@ namespace Homework_13_bank_system.Models.structsBin
                 return thisBank;
             }
         }
+        #endregion
     }
 }

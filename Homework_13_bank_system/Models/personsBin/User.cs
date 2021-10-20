@@ -20,7 +20,7 @@ namespace Homework_13_bank_system.Models.personsBin
         public long UserId
         {
             get => userId;
-            set => userId = value;
+            set => userId = value; 
         }
 
         string name;

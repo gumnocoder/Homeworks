@@ -73,7 +73,7 @@ namespace Homework_13_bank_system.ViewModels
             { e.Cancel = true; }
 
             else if (result == MessageBoxResult.Yes)
-            { DataSaver<User>.SavingChain("users.json"); }
+            { DataSaving(sender); DataSaver<User>.JsonSeralize(UsersLists<User>.usersList, "users.json"); }
         }
 
         private void ExitFromApplication(object sender)
@@ -123,9 +123,10 @@ namespace Homework_13_bank_system.ViewModels
 
         #region Прикладные методы
 
-        private void DataSaving(object sender)
+        private static void DataSaving(object sender)
         {
-            DataSaver<User>.SavingChain("users.json");
+            new BankSettingsSaver(ThisBank);
+            DataSaver<User>.JsonSeralize(UsersLists<User>.usersList, "users.json");
         }
 
         #endregion
@@ -140,6 +141,7 @@ namespace Homework_13_bank_system.ViewModels
         /// </summary>
         public MainWindowVM()
         {
+            BankSettingsSaver bs;
             UsersLists<User>.usersList = new();
             //usersList = LoadingChain();
             /// в конутрукторе реализована подписка 
@@ -168,10 +170,19 @@ namespace Homework_13_bank_system.ViewModels
                 mainWindow.Visibility = Visibility.Visible;
                 lf.Close();
             }
-            BankSettingsLoader bs = new(ThisBank);
+            BankSettingsLoader bl = new(ThisBank);
+            foreach (User u in UsersLists<User>.usersList)
+            {
+                Debug.WriteLine(u.GetType().ToString());
+            }
             Debug.WriteLine("id " + ThisBank.CurrentDebitID.ToString());
-            DataSaver<Bank>.JsonSeralize(ThisBank, "banksettings.json");
-
+            ThisBank.CurrentDebitID += 3;
+            Debug.WriteLine("id " + ThisBank.CurrentDebitID.ToString());
+            //BankSettingsSaver bs = new(ThisBank);
+            //DataSaver<Bank>.JsonSeralize(ThisBank, "banksettings.json");
+            //Debug.WriteLine(ThisBank.currentClientID);
+            //Debug.WriteLine(ThisBank.currentCreditID);
+            //Debug.WriteLine(ThisBank.currentUserID);
             //ObjectRenamer<User> or = new(User.CurrentUser, "Текущий пользователь");
         }
     }

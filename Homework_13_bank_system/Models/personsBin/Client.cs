@@ -3,11 +3,12 @@ using Homework_13_bank_system.Models.structsBin;
 
 namespace Homework_13_bank_system.Models.personsBin
 {
-    public class Client : IClient, IRenamableObject
+    public class Client : IRenamableObject
     {
-        string name;
-        ObservableCollection<BankAccount> accounts;
-        int reputation;
+        private string name;
+        private ObservableCollection<BankAccount> accounts;
+        private int reputation;
+        private long clientId;
 
         /// <summary>
         /// Имя
@@ -24,16 +25,23 @@ namespace Homework_13_bank_system.Models.personsBin
         /// </summary>
         public int Reputation
         { get => reputation; set => reputation = value; }
-
-        public void ReName(string newName)
-        { this.Name = newName; }
-
-        private long clientId;
+        /// <summary>
+        /// ID
+        /// </summary>
         public long ClientId
         {
             get => clientId;
             set => clientId = value;
         }
+
+        /// <summary>
+        /// Метод переименовывающий обьект
+        /// </summary>
+        /// <param name="newName"></param>
+        public void ReName(string newName)
+        { this.Name = newName; }
+
+
         /// <summary>
         /// Конструктор
         /// </summary>

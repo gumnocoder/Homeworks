@@ -11,20 +11,10 @@ namespace Homework_13_bank_system.ViewModels
     public class LoginFormVM : BaseViewModel
     {
 
-        private bool authIsVisible = true;
+        //private bool authIsVisible = true;
 
         public bool AuthIsVisible
-        {
-            get => authIsVisible;
-            set
-            {
-                if (authIsVisible != value)
-                {
-                    authIsVisible = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        { get; set; } = true;
 
         string login = "логин";
         string pass = "*****";
@@ -67,7 +57,7 @@ namespace Homework_13_bank_system.ViewModels
             {
                 return new RelayCommand((obj) =>
                 {
-                    DataLoader<User>.LoadingChain("users.json");
+                    DataLoader<User>.LoadFromJson(UsersLists<User>.usersList, "users.json");
                     bool finded = false;
                     foreach (User u in UsersLists<User>.usersList)
                     {
