@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using Homework_13_bank_system.Models.appliedFunctional;
 using Homework_13_bank_system.Models.personsBin;
+using static Homework_13_bank_system.Models.structsBin.Bank;
 
 namespace Homework_13_bank_system.Models.personsBin
 {
@@ -51,8 +53,13 @@ namespace Homework_13_bank_system.Models.personsBin
             this.Login = Login;
             this.Pass = Pass;
             this.Type = Type;
-            IdSetter<User>.SetId(this);
+            SetId();
             UsersLists<User>.AddToList(this);
+        }
+
+        private void SetId()
+        {
+            UserId = ++ThisBank.currentUserID;
         }
 
         public void ReName(string newName)

@@ -36,7 +36,7 @@ namespace Homework_13_bank_system.Models.structsBin
                 AccountAmount = +DebitStartAmount;
                 client.DebitIsActive = true;
                 new ReputationIncreaser(client);
-                IdSetter<DebitAccount>.SetId(this);
+                SetId();
                 client.ClientsDebitAccount = this;
             }
             else Debug.WriteLine("Дебетовый счёт уже открыт!");
