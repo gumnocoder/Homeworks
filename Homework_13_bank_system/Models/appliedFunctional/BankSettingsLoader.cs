@@ -12,6 +12,7 @@ namespace Homework_13_bank_system.Models.appliedFunctional
         private readonly string debitIdFile = "debid.ini";
         private readonly string userIdFile = "usid.ini";
         private readonly string clientIdFile = "clid.ini";
+        private readonly string depositIdFile = "depid.ini";
 
         /// <summary>
         /// парсит файл и конвертирует значение в параметр типа long
@@ -44,6 +45,7 @@ namespace Homework_13_bank_system.Models.appliedFunctional
             SetId(ref bank.currentDebitID, debitIdFile, (long)10000000);
             SetId(ref bank.currentClientID, clientIdFile, (long)100000);
             SetId(ref bank.currentUserID, userIdFile, (long)0);
+            SetId(ref bank.currentDepositID, depositIdFile, (long)1);
         }
     }
 }

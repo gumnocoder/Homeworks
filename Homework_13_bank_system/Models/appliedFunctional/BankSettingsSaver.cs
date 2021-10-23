@@ -9,6 +9,7 @@ namespace Homework_13_bank_system.Models.appliedFunctional
         private readonly string debitIdFile = "debid.ini";
         private readonly string userIdFile = "usid.ini";
         private readonly string clientIdFile = "clid.ini";
+        private readonly string depositIdFile = "depid.ini";
 
         /// <summary>
         /// Записывает в файл порядковый номер параметра банка
@@ -36,6 +37,7 @@ namespace Homework_13_bank_system.Models.appliedFunctional
             WriteBankSettingsToFile(debitIdFile, bank.currentDebitID);
             WriteBankSettingsToFile(userIdFile, bank.currentUserID);
             WriteBankSettingsToFile(clientIdFile, bank.currentClientID);
+            WriteBankSettingsToFile(depositIdFile, bank.currentDepositID);
         }
     }
 }

@@ -1,18 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
+using Homework_13_bank_system.Models.appliedFunctional;
+using Homework_13_bank_system.Models.personsBin;
+using static Homework_13_bank_system.Models.structsBin.Bank;
 
 namespace Homework_13_bank_system.Models.structsBin
 {
-    class DebitAccount
+    /// <summary>
+    /// Дебетовый счет
+    /// </summary>
+    public class DebitAccount : BankAccount
     {
-        long id;
-        public long Id
+        /// <summary>
+        /// Метод присваивающий номер счета
+        /// </summary>
+        public override void SetId()
         {
-            get => id;
-            set => id = value;
+            ID = ++ThisBank.CurrentDebitID;
+        }
+        /// <summary>
+        /// конструктор без параметров
+        /// </summary>
+        public DebitAccount()
+        {
+            SetId();
+        }
+        /// <summary>
+        /// конструктор
+        /// </summary>
+        /// <param name="DebitStartAmount">Первоначальная сумма на счету</param>
+        /// <param name="client">Клиент-владелец данного счета</param>
+        public DebitAccount(long DebitStartAmount, Client client)
+        {
+            if (!client.DebitIsActive)
+            {
+                AccountAmount = +DebitStartAmount;
+                client.DebitIsActive = true;
+                new ReputationIncreaser(client);
+                IdSetter<DebitAccount>.SetId(this);
+                client.ClientsDebitAccount = this;
+            }
+            else Debug.WriteLine("Дебетовый счёт уже открыт!");
         }
     }
 }

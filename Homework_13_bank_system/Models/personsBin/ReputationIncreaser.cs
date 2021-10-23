@@ -2,6 +2,9 @@
 
 namespace Homework_13_bank_system.Models.personsBin
 {
+    /// <summary>
+    /// повышает репутацию клиента
+    /// </summary>
     public class ReputationIncreaser : ICommandAction
     {
         private readonly Client client;
@@ -9,6 +12,11 @@ namespace Homework_13_bank_system.Models.personsBin
         private bool executed;
         public bool Executed => executed;
 
+        /// <summary>
+        /// конструктор коасса повышающего репутацию клиента
+        /// </summary>
+        /// <param name="client">клиент</param>
+        /// <param name="value">значение на которое будет повышена репутация (1 по умолчанию)</param>
         public ReputationIncreaser(Client client, int value = 1)
         {
             this.client = client;

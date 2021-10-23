@@ -2,6 +2,9 @@
 
 namespace Homework_13_bank_system.Models.personsBin
 {
+    /// <summary>
+    /// Понижает уровень репутации клиента
+    /// </summary>
     public class ReputationDecreaser : ICommandAction
     {
         private readonly Client client;

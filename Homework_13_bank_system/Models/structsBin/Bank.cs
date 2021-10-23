@@ -11,6 +11,8 @@ namespace Homework_13_bank_system.Models.structsBin
 
         public long currentDebitID;
 
+        public long currentDepositID;
+
         public long currentClientID;
 
         public long currentUserID;
@@ -24,6 +26,8 @@ namespace Homework_13_bank_system.Models.structsBin
         public long CurrentDebitID
         { get => currentDebitID; set => currentDebitID = value; }
 
+        public long CurrentDepositID
+        { get => currentDepositID; set => currentDepositID = value; }
 
         public long CurrentClientID
         { get => currentClientID; set => currentClientID = value; }

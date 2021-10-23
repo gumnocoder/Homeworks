@@ -8,6 +8,7 @@ using static Homework_13_bank_system.Models.structsBin.Bank;
 using System.Diagnostics;
 using Homework_13_bank_system.Models.appliedFunctional;
 using Homework_13_bank_system.Models.personsBin;
+using static Homework_13_bank_system.Models.structsBin.Timelapse;
 
 namespace Homework_13_bank_system.ViewModels
 {
@@ -171,13 +172,37 @@ namespace Homework_13_bank_system.ViewModels
                 lf.Close();
             }
             BankSettingsLoader bl = new(ThisBank);
-            foreach (User u in UsersLists<User>.usersList)
-            {
-                Debug.WriteLine(u.GetType().ToString());
-            }
-            Debug.WriteLine("id " + ThisBank.CurrentDebitID.ToString());
-            ThisBank.CurrentDebitID += 3;
-            Debug.WriteLine("id " + ThisBank.CurrentDebitID.ToString());
+            IMoneySender<BankAccount> moneySender = new MoneySender<BankAccount>();
+            Client oldBankClient = new("Арсений Петров");
+            Client newBankClient = new("Иванов Иван");
+            //newBankClient.ClientsCreditAccount = new(10000, newBankClient);
+            oldBankClient.ClientsDebitAccount = new(10004, oldBankClient);
+            newBankClient.ClientsDepositAccount = new(5000, newBankClient, 13, 3);
+            Debug.WriteLine($"Срок вклада {newBankClient.ClientsDepositAccount} {newBankClient.ClientsDepositAccount.Expiration}");
+            Debug.WriteLine(MonthCount);
+            NextMonthTurn();
+            NextMonthTurn();
+            NextMonthTurn();
+            Debug.WriteLine(MonthCount);
+            Debug.WriteLine($"Срок вклада {newBankClient.ClientsDepositAccount} {newBankClient.ClientsDepositAccount.Expiration}");
+            //BankAccount acc1 = oldBankClient.ClientsDebitAccount;
+            //acc1.AddMoneyToAccount(50000);
+            //BankAccount acc = newBankClient.ClientsCreditAccount;
+            //acc.AddMoneyToAccount(5000);
+            ////new CreditHandler<CreditAccount>(newBankClient).PayOff();
+
+            //IRecendable<BankAccount> testSend = new MoneyResender<BankAccount>();
+            //testSend.SendMoney(oldBankClient.ClientsDebitAccount, newBankClient.ClientsCreditAccount, 10000);
+            //    //new(oldBankClient.ClientsDebitAccount, newBankClient.ClientsCreditAccount, 10000);
+
+            //Debug.WriteLine(newBankClient);
+            //foreach (User u in UsersLists<User>.usersList)
+            //{
+            //    Debug.WriteLine(u.GetType().ToString());
+            //}
+            //Debug.WriteLine("id " + ThisBank.CurrentDebitID.ToString());
+            //ThisBank.CurrentDebitID += 3;
+            //Debug.WriteLine("id " + ThisBank.CurrentDebitID.ToString());
             //BankSettingsSaver bs = new(ThisBank);
             //DataSaver<Bank>.JsonSeralize(ThisBank, "banksettings.json");
             //Debug.WriteLine(ThisBank.currentClientID);

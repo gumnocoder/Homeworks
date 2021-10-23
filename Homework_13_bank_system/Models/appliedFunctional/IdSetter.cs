@@ -17,16 +17,19 @@ namespace Homework_13_bank_system.Models.appliedFunctional
                     break;
                 case ("Homework_13_bank_system.Models.personsBin.Client"):
                     ++ThisBank.CurrentClientID;
-                    break;
                     (requester as Client).ClientId = ThisBank.CurrentClientID; 
                     break;
                 case ("Homework_13_bank_system.Models.structsBin.CreditAccount"):
                     ++ThisBank.CurrentCreditID;
-                    (requester as CreditAccount).Id = ThisBank.CurrentCreditID; 
+                    (requester as CreditAccount).ID = ThisBank.CurrentCreditID; 
                     break;
                 case ("Homework_13_bank_system.Models.structsBin.DebitAccount"):
                     ++ThisBank.CurrentDebitID;
-                    (requester as DebitAccount).Id = ThisBank.CurrentDebitID; 
+                    (requester as DebitAccount).ID = ThisBank.CurrentDebitID;
+                    break;
+                case ("Homework_13_bank_system.Models.structsBin.DepositAccount"):
+                    ++ThisBank.CurrentDepositID;
+                    (requester as DepositAccount).ID = ThisBank.CurrentDepositID;
                     break;
             }
         }

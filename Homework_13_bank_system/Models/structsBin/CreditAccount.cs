@@ -7,68 +7,47 @@ using static Homework_13_bank_system.Models.structsBin.Bank;
 
 namespace Homework_13_bank_system.Models.structsBin
 {
-    class CreditAccount : BankAccount, ICredited
+    public class CreditAccount : BankAccount, IPercentContainer
     {
-
-        Random rnd = new Random();
-
-        public long SetId()
-        {
-            return ++ThisBank.CurrentCreditID;
+        double percent;
+        int expiration;
+        public double Percent 
+        { 
+            get => percent; 
+            set 
+            { 
+                if (value > 12) percent = 12; 
+                else if (value < 2) percent = 2; 
+                else percent = value; 
+            } 
+        }
+        public int Expiration
+        { 
+            get => expiration;
+            set 
+            {
+                if (value > 36) expiration = 36;
+                else if (value < 6) expiration = 6;
+                else expiration = value;
+            } 
         }
 
-        public void Overdraft(long amount, Client client)
+        public override void SetId()
         {
-            AccountAmount -= amount;
-            //client.DecreaseRep(1);
+            ID = ++ThisBank.CurrentCreditID;
         }
 
-        public void PayOff(Client client)
-        {
-            AccountAmount -= AccountAmount;
-            isActive = false;
-            //client.IncreaseRep(2);
-        }
-
-        public void Pay(long amount)
-        {
-            AccountAmount += amount;
-            if (AccountAmount >= 0)
-            { isActive = false; }
-        }
-
-        public long Id
-        {
-            get => id;
-            set => id = value;
-        }
-
-        
         public CreditAccount(long CreditAmount, Client client)
         {
-            if (CreditCheck.CheckForCredit(client))
+            if (!client.CreditIsActive)
             {
                 AccountAmount = -CreditAmount;
-                isActive = true;
-                IdSetter<CreditAccount>.SetId(this);
-                client.Accounts.Add(this);
+                SetId();
+                client.CreditIsActive = true;
+                client.ClientsCreditAccount = this;
             }
             else Debug.WriteLine("credit not avaible for that person");
         }
-
-        public override string ToString()
-        {
-            return $"type: {GetType()}, " +
-                $"Activity - {isActive}," +
-                $" ID - {id}, " +
-                $"Amount - {AccountAmount}";
-        }
-
-        public long CheckAmount()
-        {
-            return AccountAmount;
-        }
-
     }
 }
 
